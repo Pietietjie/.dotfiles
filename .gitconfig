@@ -1,3 +1,9 @@
 [user]
 	email = pieter.vandermeijden@lavalamp.biz
 	name = Pieter
+[alias]
+	alias = "!git config --global alias.$1 \"$2\" #"
+	chekcout = checkout
+	ch = checkout
+	stash-checkout = "!git stash -q && ( git checkout \"$@\" && git pull; git stash pop -q  ) #"
+	stash-c = stash-chekcout
