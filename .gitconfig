@@ -7,3 +7,5 @@
 	ch = checkout
 	stash-checkout = "!git stash -q && ( git checkout \"$@\" && git pull; git stash pop -q  ) #"
 	stash-c = stash-chekcout
+	checout = checkout
+	amend = commit --amend
