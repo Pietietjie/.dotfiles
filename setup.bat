@@ -15,4 +15,14 @@ IF EXIST ["%USERPROFILE%\.gitconfig"] (
 )
 
 mklink /H "%USERPROFILE%\.gitconfig" "%cd%\.gitconfig"
+
+ECHO "Symlink for %cd%\.gitconfig to %USERPROFILE%\.gitconfig"
+
+IF EXIST ["C:\Aliases"] (
+    rmdir ["C:\Aliases"]
+)
+
+mklink /D "C:\Aliases" "%USERPROFILE%\.dotfiles\Aliases"
+
+
 PAUSE
