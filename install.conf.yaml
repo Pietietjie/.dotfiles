@@ -1,0 +1,13 @@
+- link:
+    ~/.bashrc:
+      relink: true
+      path: .bashrc
+- link:
+    ~/.gitconfig:
+      relink: true
+      path: .gitconfig
+- link:
+    /Aliases:
+      relink: true
+      if: [ $(uname -s) != 'Linux' ]
+      path: Aliases
