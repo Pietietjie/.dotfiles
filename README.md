@@ -10,6 +10,7 @@ My personal dotfile config
 
 ## TODO
 
+- look at nerd font installer [get nerd font](https://github.com/ronniedroid/getnf)
 - system preferences
 - Make a checklist of steps to decommission your computer before wiping your hard drive.
 - Integrate other cloud services into your Dotfiles process (Dropbox, Google Drive, etc.).
