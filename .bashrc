@@ -1,8 +1,7 @@
 # Pieter's custom Aliases
 alias nv='nvim'
 alias vim='nvim'
-alias setphp="~/.dotfiles/setphp.sh"
-alias php="$(setphp)"
+alias php="$(~/.dotfiles/setphp.sh)"
 alias artisan="php artisan"
 alias art="artisan"
 alias ls="ls -a"
