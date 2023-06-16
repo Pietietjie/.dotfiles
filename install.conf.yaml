@@ -1,11 +1,11 @@
 - link:
     ~/.bashrc:
       relink: true
-      path: .bashrc
+      path: bash/.bashrc
 - link:
     ~/.gitconfig:
       relink: true
-      path: .gitconfig
+      path: git/.gitconfig
 - link:
     /Aliases:
       relink: true
