@@ -9,3 +9,5 @@
 	stash-c = stash-checkout
 	checout = checkout
 	amend = commit --amend
+[core]
+	editor = nvim
