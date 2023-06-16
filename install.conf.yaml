@@ -15,3 +15,7 @@
     ~/.config/kitty:
       relink: true
       path: kitty
+- link:
+    ~/.tmux.conf:
+      relink: true
+      path: tmux/.tmux.conf
