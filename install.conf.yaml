@@ -11,3 +11,7 @@
       relink: true
       if: [ $(uname -s) != 'Linux' ]
       path: Aliases
+- link:
+    ~/.config/kitty:
+      relink: true
+      path: kitty
