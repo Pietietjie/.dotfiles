@@ -277,6 +277,15 @@ use({
   end,
 })
 
+use({
+  'voldikss/vim-floaterm',
+  config = function()
+    vim.keymap.set('n', '`', ':FloatermToggle scratch<CR>')
+    vim.keymap.set('t', '`', '<C-\\><C-n>:FloatermToggle scratch<CR>')
+    vim.g.floaterm_height = 0.4
+    vim.g.floaterm_wintype = 'split'
+  end,
+})
 -- ----------------------------------------------------
 -- Automatically install plugins on first run
 -- ----------------------------------------------------
