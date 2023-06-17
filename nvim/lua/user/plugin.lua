@@ -286,6 +286,45 @@ use({
     vim.g.floaterm_wintype = 'split'
   end,
 })
+
+use({
+  'nvim-treesitter/nvim-treesitter',
+  run = function()
+    require('nvim-treesitter.install').update({with_sync = true})
+  end,
+  requires = {
+    'nvim-treesitter/playground',
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    'JoosepAlviste/nvim-ts-context-commentstring',
+  },
+  config = function()
+    require('nvim-treesitter.configs').setup({
+        ensure_installed = 'all',
+        highlight = {
+          enable = true,
+          disable = { 'NvimTree' },
+          additional_vim_regex_highlighting = true,
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["if"] = "@function.inner",
+              ["af"] = "@function.outer",
+              ["ic"] = "@class.inner",
+              ["ac"] = "@class.outer",
+              ['ia'] = '@parameter.inner',
+              ['aa'] = '@parameter.outer',
+            },
+          },
+        },
+        context_commentstring = {
+          enable = true,
+        },
+      })
+  end,
+})
 -- ----------------------------------------------------
 -- Automatically install plugins on first run
 -- ----------------------------------------------------
