@@ -1,13 +1,25 @@
 - link:
     ~/.bashrc:
       relink: true
-      path: .bashrc
+      path: bash/.bashrc
 - link:
     ~/.gitconfig:
       relink: true
-      path: .gitconfig
+      path: git/.gitconfig
 - link:
     /Aliases:
       relink: true
       if: [ $(uname -s) != 'Linux' ]
       path: Aliases
+- link:
+    ~/.config/kitty:
+      relink: true
+      path: kitty
+- link:
+    ~/.tmux.conf:
+      relink: true
+      path: tmux/.tmux.conf
+- link:
+    ~/.config/nvim:
+      relink: true
+      path: nvim
