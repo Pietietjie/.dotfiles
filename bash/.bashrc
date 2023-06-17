@@ -6,6 +6,7 @@ alias artisan="php artisan"
 alias art="artisan"
 alias ls="ls -a"
 alias g="git"
+alias vimdiff='nvim -d'
 
 # Assuming that if it is not linux that we are using git bash on windows with XAMPP
 if [ $(uname -s) != 'Linux' ]; then
