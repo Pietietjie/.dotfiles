@@ -197,10 +197,41 @@ use({
     'nvim-lualine/lualine.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
-      require('lualine').setup()
+      require('lualine').setup({
+          options = {
+            globalstatus = true,
+          },
+        })
     end,
   })
 
+use({
+    'akinsho/bufferline.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('bufferline').setup({
+          options = {
+            tab_size = 0,
+            max_name_length = 25,
+            offsets = {
+              {
+                filetype = 'NvimTree',
+                text = ' Files',
+                textalign = 'left',
+              },
+            },
+            modified_icon = '󱠇',
+            custom_areas = {
+              left = function()
+                return {
+                  { text = '    ', fg = '#282c34' },
+                }
+              end,
+            },
+          },
+        })
+    end,
+  })
 -- ----------------------------------------------------
 -- Automatically install plugins on first run
 -- ----------------------------------------------------
