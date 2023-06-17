@@ -9,5 +9,6 @@
 	stash-c = stash-checkout
 	checout = checkout
 	amend = commit --amend
+	history = "!git log --pretty=format:\"[%h] %ae, %ar: %s\" --stat"
 [core]
 	editor = nvim
