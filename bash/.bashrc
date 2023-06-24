@@ -1,4 +1,5 @@
 # Pieter's custom Aliases
+alias tm='tmux'
 alias nv='nvim'
 alias vim='nvim'
 alias php="$(~/.dotfiles/setphp.sh)"
@@ -7,6 +8,9 @@ alias art="artisan"
 alias a="artisan"
 alias ls="ls -a"
 alias g="git"
+alias q="exit"
+alias :q="exit"
+alias ..="cd .."
 alias vimdiff='nvim -d'
 
 # Assuming that if it is not linux that we are using git bash on windows with XAMPP
