@@ -10,8 +10,9 @@
 	checout = checkout
 	amend = commit --amend
 	history = "!git log --pretty=format:\"[%h] %ae, %ar: %s\" --stat"
+	brach = branch
 [core]
-	editor = nvim
+	editor = vim
 [diff]
 	tool = vimdiff
 [merge]
