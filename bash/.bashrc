@@ -4,6 +4,7 @@ alias vim='nvim'
 alias php="$(~/.dotfiles/setphp.sh)"
 alias artisan="php artisan"
 alias art="artisan"
+alias a="artisan"
 alias ls="ls -a"
 alias g="git"
 alias vimdiff='nvim -d'
