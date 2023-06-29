@@ -11,6 +11,8 @@
 	amend = commit --amend
 	history = "!git log --pretty=format:\"[%h] %ae, %ar: %s\" --stat"
 	brach = branch
+	b = branch
+	m = merge
 [core]
 	editor = vim
 [diff]
