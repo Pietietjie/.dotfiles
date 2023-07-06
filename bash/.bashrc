@@ -2,10 +2,13 @@
 alias tm='tmux'
 alias nv='nvim'
 alias vim='nvim'
+alias setphp="~/.dotfiles/setphp.sh"
 alias php="$(~/.dotfiles/setphp.sh)"
 alias artisan="php artisan"
 alias art="artisan"
 alias a="artisan"
+alias tink="a tinker"
+alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
 alias ls="ls -a"
 alias g="git"
 alias q="exit"
