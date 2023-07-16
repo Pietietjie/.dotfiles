@@ -7,3 +7,6 @@
 # 	url = https://github.com/ryanoasis/nerd-fonts
 # 	ignore = dirty
 # 	shallow = true
+[submodule "getnf"]
+	path = getnf
+	url = https://github.com/ronniedroid/getnf.git

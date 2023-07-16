@@ -6,11 +6,10 @@ My personal dotfile config
 
 1. run `./install`
 
-   - If on windows use git bash with Admin rights and run `export MSYS=winsymlinks:nativestrict`
+2. run `./getnf/getnf` and select the Nerd Font that you wish to install
 
 ## TODO
 
-- look at nerd font installer [get nerd font](https://github.com/ronniedroid/getnf)
 - system preferences
 - Make a checklist of steps to decommission your computer before wiping your hard drive.
 - Integrate other cloud services into your Dotfiles process (Dropbox, Google Drive, etc.).
