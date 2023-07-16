@@ -3,10 +3,11 @@
 My personal dotfile config
 
 ## Steps
+1. clone the submodules with `git submodule init && git submodule update`
 
-1. run `./install`
+2. run `./install`
 
-2. run `./getnf/getnf` and select the Nerd Font that you wish to install
+3. run `./getnf/getnf` and select the Nerd Font that you wish to install
 
 ## TODO
 
