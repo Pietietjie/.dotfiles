@@ -5,7 +5,7 @@
 	alias = "!git config --global alias.$1 \"$2\" #"
 	chekcout = checkout
 	ch = checkout
-	stash-checkout = "!git stash -q && ( git checkout \"$@\" && git pull; git stash pop -q  ) #"
+	stash-checkout = "!git stash -q && ( git checkout $@ && git pull; git stash pop -q  ) #"
 	sch = stash-checkout
 	checout = checkout
 	amend = commit --amend
@@ -14,6 +14,10 @@
 	b = branch
 	m = merge
 	latest = "!git tag latest -f && git push --tag -f"
+	dotfiles = "!dotfilesRanFromWorkingDirectory=$(pwd) && cd ~/.dotfiles && (git $@; cd $dotfilesRanFromWorkingDirectory) #"
+	a = "!git add $@; git status #"
+	ph = push
+	pl = pull
 [core]
 	editor = vim
 [diff]
