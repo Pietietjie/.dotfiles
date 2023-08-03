@@ -13,6 +13,7 @@
 	brach = branch
 	b = branch
 	m = merge
+	latest = "!git tag latest -f && git push --tag -f"
 [core]
 	editor = vim
 [diff]
