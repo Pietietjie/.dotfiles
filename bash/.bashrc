@@ -89,6 +89,7 @@ alias q="exit"
 alias :q="exit"
 alias ..="cd .."
 alias vimdiff='nvim -d'
+alias so="source ~/.bashrc"
 
 artisan () { if [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
 
