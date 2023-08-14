@@ -79,7 +79,6 @@ alias nv='nvim'
 alias vim='nvim'
 alias setphp="~/.dotfiles/setphp.sh"
 alias php="$(~/.dotfiles/setphp.sh)"
-alias artisan="php artisan"
 alias art="artisan"
 alias a="artisan"
 alias tink="a tinker"
@@ -90,6 +89,8 @@ alias q="exit"
 alias :q="exit"
 alias ..="cd .."
 alias vimdiff='nvim -d'
+
+artisan () { if [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
 
 # Assuming that if it is not linux that we are using git bash on windows with XAMPP
 if [ $(uname -s) != 'Linux' ]; then
