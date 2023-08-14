@@ -351,6 +351,9 @@ vim.keymap.set('i', '<A-k>', '<Esc>:move .-2<CR>==gi')
 
 vim.keymap.set('i', '<C-v>', '<Esc>"+p')
 
+vim.keymap.set('n', '<leader>d', '"_d')
+vim.keymap.set('v', '<leader>d', '"_d')
+vim.keymap.set('v', '<leader>p', '"_dP')
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
