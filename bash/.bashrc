@@ -77,8 +77,8 @@ alias l='ls -CF'
 alias tm='tmux'
 alias nv='nvim'
 alias vim='nvim'
-alias setphp="~/.dotfiles/setphp.sh"
-alias php="$(~/.dotfiles/setphp.sh)"
+setphp() { ~/.dotfiles/setphp.sh $@ ; }
+php () { $(~/.dotfiles/setphp.sh) $@ ; }
 alias art="artisan"
 alias a="artisan"
 alias tink="a tinker"
@@ -95,9 +95,10 @@ artisan () { if [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; e
 
 # Assuming that if it is not linux that we are using git bash on windows with XAMPP
 if [ $(uname -s) != 'Linux' ]; then
-    alias php74='C:/xampp/php74/php.exe'
-    alias php7='C:/xampp/php74/php.exe'
-    alias php8='C:/xampp/php/php.exe'
-    alias php81='C:/xampp/php/php.exe'
+    composer() { previousdir=${pwd} ; cd "/c/Program Files/composer/" ; php ./composer.phar "$@" ; cd $previousdir ; }
+    php74() { /c/xampp/php74/php.exe $@; }
+    php7() { /c/xampp/php74/php.exe $@; }
+    php8() { /c/xampp/php/php.exe $@; }
+    php81() { /c/xampp/php/php.exe $@; }
     alias nvim='"C:/Program Files/Neovim/bin/nvim.exe"'
 fi
