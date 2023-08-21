@@ -20,7 +20,7 @@
 	pl = pull
 	rem = remote
 [core]
-	editor = vim
+	editor = nvim
 [diff]
 	tool = vimdiff
 [merge]
