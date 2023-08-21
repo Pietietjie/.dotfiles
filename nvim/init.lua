@@ -1,3 +1,9 @@
+local wrap = function(func, args)
+  return function()
+    func(args)
+  end
+end
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 -- this is for having a colorscheme that does not have the ugly pink dropdown before the onedark colorscheme is loaded
@@ -370,6 +376,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    file_ignore_patterns = {
+      "node_modules",
+      ".git",
+      ".vscode",
+    },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -394,7 +405,7 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sf', wrap( require('telescope.builtin').find_files , { hidden = true }), { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
