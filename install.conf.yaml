@@ -3,6 +3,10 @@
       relink: true
       path: bash/.bashrc
 - link:
+    ~/.zshrc:
+      relink: true
+      path: zsh/.zshrc
+- link:
     ~/.gitconfig:
       relink: true
       path: git/.gitconfig
