@@ -15,6 +15,7 @@ plugins=(
     vi-mode
     git
     zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 # plugin settings
