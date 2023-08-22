@@ -13,6 +13,7 @@ plugins=(
     artisan
     npm
     vi-mode
+    composer
     git
     zsh-autosuggestions
     zsh-syntax-highlighting
