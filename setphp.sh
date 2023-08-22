@@ -3,10 +3,9 @@
 versionAliasFile="/tmp/php_version.dat"
 
 if [ "$1" ]; then
-    isOnlyNumberRegex='^[0-9]{1,2}$'
     if [ "$1" == "php"* ]; then
         versionAlias="$1";
-    elif [[ "$1" =~ ^[0-9]{1,2}$ ]]; then
+    elif [[ "$1" =~ ^[0-9]\.?[0-9]?$ ]]; then
         versionAlias="php$1";
     fi
 fi
