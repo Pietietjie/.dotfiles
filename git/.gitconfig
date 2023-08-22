@@ -17,8 +17,16 @@
 	dotfiles = "!dotfilesRanFromWorkingDirectory=$(pwd) && cd ~/.dotfiles && (git $@; cd $dotfilesRanFromWorkingDirectory) #"
 	a = "!git add $@; git status #"
 	p = push
+	s = status
 	pl = pull
 	rem = remote
+	cmmt = commit
+	cmt = commit
+	c = commit
+	cl = clone
+	unstage = reset
+	remove = reset
+	f = fetch
 [core]
 	editor = nvim
 [diff]
