@@ -16,7 +16,7 @@
 	latest = "!git tag latest -f && git push --tag -f"
 	dotfiles = "!dotfilesRanFromWorkingDirectory=$(pwd) && cd ~/.dotfiles && (git $@; cd $dotfilesRanFromWorkingDirectory) #"
 	a = "!git add $@; git status #"
-	ph = push
+	p = push
 	pl = pull
 	rem = remote
 [core]
