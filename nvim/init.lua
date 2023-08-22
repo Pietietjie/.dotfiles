@@ -168,7 +168,7 @@ require('lazy').setup({
             custom_areas = {
               left = function()
                 return {
-                  { text = '    ', fg = '#282c34' },
+                  { text = '    ', fg = '#90b873' },
                 }
               end,
             },
