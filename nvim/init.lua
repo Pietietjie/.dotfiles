@@ -319,6 +319,13 @@ vim.opt.signcolumn = 'yes:1'
 -- ----------------------------------------------------
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
+vim.keymap.set('n', '<leader>o', 'moo<Esc>`o')
+vim.keymap.set('n', '<leader>O', 'moO<Esc>`o')
+vim.keymap.set({'n', 'v'}, 'x', '"_x')
+vim.keymap.set({'n', 'v'}, 's', '"_s')
+vim.keymap.set({'n', 'v'}, '<leader>c', '"_c')
+vim.keymap.set({'n', 'v'}, '<leader>d', '"_d')
+vim.keymap.set('v', '<leader>p', '"_dP')
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
@@ -357,9 +364,6 @@ vim.keymap.set('i', '<A-k>', '<Esc>:move .-2<CR>==gi')
 
 vim.keymap.set('i', '<C-v>', '<Esc>"+p')
 
-vim.keymap.set('n', '<leader>d', '"_d')
-vim.keymap.set('v', '<leader>d', '"_d')
-vim.keymap.set('v', '<leader>p', '"_dP')
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
