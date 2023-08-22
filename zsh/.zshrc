@@ -14,7 +14,12 @@ plugins=(
     npm
     vi-mode
     git
+    zsh-autosuggestions
 )
+
+# plugin settings
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6ec99,bold"
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 source $ZSH/oh-my-zsh.sh
 
