@@ -15,10 +15,10 @@
 	m = merge
 	latest = "!git tag latest -f && git push --tag -f"
 	dotfiles = "!dotfilesRanFromWorkingDirectory=$(pwd) && cd ~/.dotfiles && (git $@; cd $dotfilesRanFromWorkingDirectory) #"
-	a = "!git add $@; git status #"
+	a = "!if [ \"$#\" -eq 0 ]; then git add .; else git add $@; fi; git status #"
 	p = push
 	s = status
-	pl = pull
+	pl = "!git fetch && git pull"
 	rem = remote
 	cmmt = commit
 	cmt = commit
@@ -33,3 +33,5 @@
 	tool = vimdiff
 [merge]
 	tool = vimdiff
+[pull]
+	rebase = true
