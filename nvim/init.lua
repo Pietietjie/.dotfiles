@@ -378,6 +378,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+local telescopeActions = require("telescope.actions")
 require('telescope').setup {
   defaults = {
     file_ignore_patterns = {
@@ -386,6 +387,9 @@ require('telescope').setup {
       ".vscode",
     },
     mappings = {
+      n = {
+        q = telescopeActions.close
+      },
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
@@ -590,11 +594,11 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<C-l>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
