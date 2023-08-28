@@ -102,3 +102,5 @@ if [ $(uname -s) != 'Linux' ]; then
     php81() { /c/xampp/php/php.exe $@; }
     alias nvim='"C:/Program Files/Neovim/bin/nvim.exe"'
 fi
+
+g dotfiles pl
