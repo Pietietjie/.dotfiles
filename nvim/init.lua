@@ -242,6 +242,21 @@ require('lazy').setup({
   -- copy paste intent fix
   'sickill/vim-pasta',
 
+  -- https://github.com/kana/vim-textobj-user/wiki
+  {
+    'kana/vim-textobj-user',
+    dependencies = {
+      'kana/vim-textobj-entire', -- for 'ae' and 'ie' everything
+      'kana/vim-textobj-function', -- for 'af' and 'if' function
+      'glts/vim-textobj-comment', -- comments 'ac' and 'ic'
+      'kana/vim-textobj-indent', -- 'ii' indentation
+      'kana/vim-textobj-lastpat', -- 'i/' last searched pattern
+      'sgur/vim-textobj-parameter', -- 'i,' argument
+      'Julian/vim-textobj-variable-segment', -- 'iv' case segment
+      'adriaanzon/vim-textobj-blade-directive', -- 'ad' blade directive
+    }
+  },
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
