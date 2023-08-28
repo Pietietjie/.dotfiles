@@ -1,5 +1,8 @@
 export ZSH="$HOME/.oh-my-zsh"
+export dot="$HOME/.dotfiles"
 
+composer_path=$(which composer.phar)
+default_php=$(which php)
 ZSH_THEME="robbyrussell"
 HYPHEN_INSENSITIVE="true"
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
@@ -43,9 +46,12 @@ source $ZSH/oh-my-zsh.sh
 alias tm='tmux'
 alias nv='nvim'
 alias vim='nvim'
+alias cl='clear'
 setphp() { ~/.dotfiles/setphp.sh $@ ; }
 php () { $(~/.dotfiles/setphp.sh) $@ ; }
-alias a="php artisan"
+composer() { php $composer_path "$@" }
+artisan () { if [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
+alias a="artisan"
 alias cdump="composer dump-autoload -o"
 alias tink="a tinker"
 alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
@@ -61,16 +67,21 @@ alias -- -="cd -"
 alias home="cd ~"
 alias vimdiff='nvim -d'
 alias so="omz reload"
+alias doc="docker"
+alias dc="docker-compose"
 
-alias db:reset="php artisan migrate:reset && php artisan migrate --seed"
-alias dusk="php artisan dusk"
-alias fresh="php artisan migrate:fresh"
-alias migrate="php artisan migrate"
-alias refresh="php artisan migrate:refresh"
-alias rollback="php artisan migrate:rollback"
-alias seed="php artisan db:seed"
+alias db:reset="artisan migrate:reset && artisan migrate --seed"
+alias fresh="migrate:fresh"
+alias migrate="artisan migrate"
+alias refresh="artisan migrate:refresh"
+alias rollback="artisan migrate:rollback"
+alias seed="artisan db:seed"
 
 function mkd() {
     mkdir -p "$@" && cd "$@"
 }
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
