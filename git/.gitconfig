@@ -18,7 +18,7 @@
 	a = "!if [ \"$#\" -eq 0 ]; then git add .; else git add $@; fi; git status #"
 	p = push
 	s = status
-	pl = "!git fetch && git pull"
+	pl = "!git stash; (git fetch && git pull); git stash pop"
 	rem = remote
 	cmmt = commit
 	cmt = commit
