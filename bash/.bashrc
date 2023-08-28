@@ -103,4 +103,5 @@ if [ $(uname -s) != 'Linux' ]; then
     alias nvim='"C:/Program Files/Neovim/bin/nvim.exe"'
 fi
 
-g dotfiles pl
+update_dot="g dotfiles pl"
+"${update_dot}" &>/dev/null & disown;
