@@ -1,4 +1,8 @@
 - link:
+    ~/.wezterm.lua:
+      relink: true
+      path: wezterm/.wezterm.lua
+- link:
     ~/.bashrc:
       relink: true
       path: bash/.bashrc
