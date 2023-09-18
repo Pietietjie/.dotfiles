@@ -7,6 +7,7 @@
 	ch = checkout
 	stash-checkout = "!git stash -q && ( git checkout $@ && git pull; git stash pop -q  ) #"
 	sch = stash-checkout
+	fzf = "!git checkout $(git branch | fzf)"
 	checout = checkout
 	amend = commit --amend
 	history = "!git log --pretty=format:\"[%h] %ae, %ar: %s\" --stat"
