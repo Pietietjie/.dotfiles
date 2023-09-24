@@ -312,8 +312,6 @@ vim.opt.mouse = 'a'
 
 vim.opt.termguicolors = true
 
-vim.opt.spell = true
-
 -- Search settings
 vim.opt.ignorecase = true
 vim.opt.smartcase = true -- case sensitive searches when there is a capital in the search
