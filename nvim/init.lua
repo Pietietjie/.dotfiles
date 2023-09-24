@@ -6,8 +6,8 @@ end
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
--- this is for having a colorscheme that does not have the ugly pink dropdown before the onedark colorscheme is loaded
-vim.cmd 'colorscheme desert'
+-- add error handling
+-- vim.cmd 'colorscheme tokyonight'
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -133,8 +133,7 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'folke/tokyonight.nvim',
     priority = 1000,
   },
 
@@ -144,7 +143,7 @@ require('lazy').setup({
     dependencies = 'kyazdani42/nvim-web-devicons',
     opts = {
       options = {
-        theme = 'onedark',
+        theme = 'tokyonight',
         component_separators = '|',
       },
     },
@@ -274,7 +273,13 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
-vim.cmd 'colorscheme onedark'
+-- ----------------------------------------------------
+-- colorscheme
+-- ----------------------------------------------------
+
+vim.cmd 'colorscheme tokyonight'
+vim.cmd 'highlight FloatShadow guibg=#24283b blend=none'
+vim.cmd 'highlight FloatShadowThrough guibg=#24283b blend=none'
 
 -- ----------------------------------------------------
 -- Options
