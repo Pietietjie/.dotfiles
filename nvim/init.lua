@@ -342,6 +342,7 @@ vim.opt.signcolumn = 'yes:1'
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set('n', '<leader>o', 'moo<Esc>`o')
+vim.keymap.set('n', '<leader>o', 'moo<Esc>`o')
 vim.keymap.set('n', '<leader>O', 'moO<Esc>`o')
 vim.keymap.set({'n', 'v'}, 'x', '"_x')
 vim.keymap.set({'n', 'v'}, 's', '"_s')
