@@ -34,6 +34,7 @@ require('lazy').setup({
   'tpope/vim-eunuch',
   'tpope/vim-surround',
   'tpope/vim-unimpaired',
+  'tpope/vim-vinegar',
   -- use * to search visual mode selection
   'nelstrom/vim-visual-star-search',
   -- better language based highlighting TODO: fix this as it is giving issues with lazy package manager
