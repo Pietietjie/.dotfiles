@@ -7,7 +7,7 @@
 	ch = checkout
 	stash-checkout = "!git stash -q && ( git checkout $@ && git pull; git stash pop -q  ) #"
 	sch = stash-checkout
-	fzf = "!git checkout $(git branch | fzf)"
+	fzf = "!git checkout $(echo $(git branch -a | fzf) | sed \"s/^remotes\\/[a-zA-Z]\\+\\///\" | sed \"s/ -> .*//\")"
 	checout = checkout
 	amend = commit --amend
 	history = "!git log --pretty=format:\"[%h] %ae, %ar: %s\" --stat"
