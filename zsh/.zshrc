@@ -41,6 +41,16 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 source $ZSH/oh-my-zsh.sh
 
+# zsh history ignore
+function zshaddhistory() {
+  emulate -L zsh
+  if ! [[ "$1" =~ "(^ |^cd|^\.\.|password)" ]] ; then
+      print -sr -- "${1%%$'\n'}"
+      fc -p
+  else
+      return 1
+  fi
+}
 # Pieter's custom Aliases
 alias tm='tmux'
 alias nv='nvim'
@@ -84,5 +94,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-update_dot="g dotfiles pl"
-"${update_dot}" &>/dev/null & disown;
+# update_dot="g dotfiles pl"
+# "${update_dot}" &>/dev/null & disown;
