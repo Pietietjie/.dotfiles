@@ -2,7 +2,6 @@ export ZSH="$HOME/.oh-my-zsh"
 export dot="$HOME/.dotfiles"
 
 composer_path=$(which composer.phar)
-default_php=$(which php)
 ZSH_THEME="robbyrussell"
 HYPHEN_INSENSITIVE="true"
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
@@ -56,11 +55,10 @@ alias tm='tmux'
 alias nv='nvim'
 alias vim='nvim'
 alias cl='clear'
-setphp() { ~/.dotfiles/setphp.sh $@ ; }
-php () { $(~/.dotfiles/setphp.sh) $@ ; }
 composer() { php $composer_path "$@" }
 artisan () { if [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
 alias a="artisan"
+alias change="sudo update-alternatives --config"
 alias cdump="composer dump-autoload -o"
 alias tink="a tinker"
 alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
