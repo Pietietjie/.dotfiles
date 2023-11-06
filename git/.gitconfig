@@ -25,7 +25,7 @@
 	rem = remote
 	cmmt = commit
 	cmt = commit
-	c = commit
+	c = "commit --verbose"
 	cl = clone
 	unstage = reset
 	remove = reset
