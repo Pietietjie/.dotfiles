@@ -333,7 +333,7 @@ vim.opt.signcolumn = 'yes:1'
 -- Key Bindings
 -- ----------------------------------------------------
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-
+vim.keymap.set({ 'n', 'v' }, '<leader>vb', '<c-v>')
 vim.keymap.set('n', '<leader>o', 'moo<Esc>`o')
 vim.keymap.set('n', '<leader>o', 'moo<Esc>`o')
 vim.keymap.set('n', '<leader>O', 'moO<Esc>`o')
@@ -428,7 +428,7 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
+vim.keymap.set('n', '<leader>gh', require('telescope.builtin').git_commits, { desc = 'Search [G]it [H]istory' })
 vim.keymap.set('n', '<leader>sf', function ()
    require('telescope.builtin').find_files { hidden = true }
 end, { desc = '[S]earch [F]iles' })
