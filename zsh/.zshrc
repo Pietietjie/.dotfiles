@@ -56,7 +56,7 @@ alias nv='nvim'
 alias vim='nvim'
 alias cl='clear'
 composer() { php $composer_path "$@" }
-artisan () { if [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
+artisan () { if [ -f vendor/.dontsail ]; then php artisan "$@"; elif [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
 alias a="artisan"
 alias change="sudo update-alternatives --config"
 alias cdump="composer dump-autoload -o"
