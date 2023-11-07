@@ -243,7 +243,7 @@ require('lazy').setup({
       'kana/vim-textobj-entire', -- for 'ae' and 'ie' everything
       'kana/vim-textobj-function', -- for 'af' and 'if' function
       'glts/vim-textobj-comment', -- comments 'ac' and 'ic'
-      'kana/vim-textobj-indent', -- 'ii' indentation
+      'michaeljsmith/vim-indent-object', -- 'ii' indentation
       'kana/vim-textobj-lastpat', -- 'i/' last searched pattern
       'sgur/vim-textobj-parameter', -- 'i,' argument
       'Julian/vim-textobj-variable-segment', -- 'iv' case segment
