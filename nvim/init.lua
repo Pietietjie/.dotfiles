@@ -377,8 +377,10 @@ vim.keymap.set('i', '<A-k>', '<Esc>:move .-2<CR>==gi')
 -- vim.keymap.set('i', '<A-K>', ":move '<-2<CR>gv-gv")
 
 -- System paste command
-
 vim.keymap.set('i', '<C-v>', '<Esc>"+p')
+
+-- System paste command
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
