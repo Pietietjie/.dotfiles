@@ -15,5 +15,5 @@ My personal dotfile config
 - look at getting a [ debugger for nvim ](https://github.com/mfussenegger/nvim-dap)
 - system preferences
 - install dependencies
-- Find inspiration and examples in other Dotfiles repositories at [dotfiles.github.io](https://dotfiles.github.io/) or [nvim for Laravel lady](https://github.com/jessarcher/dotfiles).
+- Find inspiration and examples in other Dotfiles repositories at [dotfiles.github.io](https://dotfiles.github.io/) or [nvim for Laravel lady](https://github.com/jessarcher/dotfiles) or [riced linux example](https://github.com/Amitabha37377/Awful-DOTS/tree/master) or [some guy](https://github.com/yutkat/dotfiles/tree/main).
 - make that this install can just be done on a new pc via curl [see](https://github.com/nickjj/dotfiles)
