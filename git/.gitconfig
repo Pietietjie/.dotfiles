@@ -30,6 +30,8 @@
 	unstage = reset
 	remove = reset
 	f = fetch
+	cl-b = "!git branch | grep -v $(git rev-parse --abbrev-ref HEAD) | xargs git branch -D"
+	ups = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 [core]
 	editor = nvim
 [diff]
