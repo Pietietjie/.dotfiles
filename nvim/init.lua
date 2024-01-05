@@ -253,7 +253,14 @@ require('lazy').setup({
   },
   'xiyaowong/transparent.nvim',
   'pocco81/auto-save.nvim',
-
+  -- Syntax and indent files
+  -- loading this on ft because that seems to work better for some reason
+  -- otherwise indents for example only work after set ft=blade
+  -- blade
+  {
+    "jwalton512/vim-blade",
+    ft = "blade",
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
