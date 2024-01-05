@@ -213,6 +213,13 @@ require('lazy').setup({
   },
 
   {
+    'nvim-telescope/telescope-smart-history.nvim',
+    dependencies = {
+      'kkharji/sqlite.lua',
+    }
+  },
+
+  {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -407,6 +414,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local telescopeActions = require("telescope.actions")
 require('telescope').setup {
   defaults = {
+    history = {
+      path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
+      limit = 100,
+    },
     file_ignore_patterns = {
       "node_modules",
       ".git",
@@ -414,11 +425,15 @@ require('telescope').setup {
     },
     mappings = {
       n = {
-        q = telescopeActions.close
+        q = telescopeActions.close,
+        ["<C-Down>"] = telescopeActions.cycle_history_next,
+        ["<C-Up>"] = telescopeActions.cycle_history_prev,
       },
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ["<C-Down>"] = telescopeActions.cycle_history_next,
+        ["<C-Up>"] = telescopeActions.cycle_history_prev,
       },
     },
   },
@@ -426,6 +441,8 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+-- Enable telescope smart history, if installed
+pcall(require('telescope').load_extension, 'smart_history')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
