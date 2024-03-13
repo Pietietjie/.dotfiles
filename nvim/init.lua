@@ -344,6 +344,8 @@ vim.opt.backup = true -- automatically save a backup file
 vim.opt.backupdir:remove('.') -- keep backups out of the current directory
 
 vim.opt.signcolumn = 'yes:1'
+
+vim.cmd('autocmd FileType netrw setl bufhidden=delete')
 -- ----------------------------------------------------
 -- Key Bindings
 -- ----------------------------------------------------
