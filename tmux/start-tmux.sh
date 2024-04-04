@@ -39,12 +39,32 @@ directory=~/proj/monify-better-bond
 tmux new-session -d -s $session -c $directory
 tmux send-keys -t $session:1 'nv' C-m
 tmux split-window -c $directory -t $session:1 -v -p 15
+tmux new-window -t $session:4 -c $directory
+tmux send-keys -t $session:4 'npm run dev' C-m
+directory=~/proj/monify-loan-cards
+tmux new-window -t $session:2 -c $directory
+tmux send-keys -t $session:2 'nv' C-m
+tmux split-window -c $directory -t $session:2 -v -p 15
+directory=~/proj/monify-better-bond/vendor/lavalamplab/monifyloanapi
+tmux new-window -t $session:3 -c $directory
+tmux send-keys -t $session:3 'nv' C-m
+tmux split-window -c $directory -t $session:3 -v -p 15
 
 session="blu"
 directory=~/proj/monify-blue-deals
 tmux new-session -d -s $session -c $directory
 tmux send-keys -t $session:1 'nv' C-m
 tmux split-window -c $directory -t $session:1 -v -p 15
+tmux new-window -t $session:4 -c $directory
+tmux send-keys -t $session:4 'npm run dev' C-m
+directory=~/proj/monify-loan-cards
+tmux new-window -t $session:2 -c $directory
+tmux send-keys -t $session:2 'nv' C-m
+tmux split-window -c $directory -t $session:2 -v -p 15
+directory=~/proj/monify-blue-deals/vendor/lavalamplab/monifyloanapi
+tmux new-window -t $session:3 -c $directory
+tmux send-keys -t $session:3 'nv' C-m
+tmux split-window -c $directory -t $session:3 -v -p 15
 
 session="westfalia"
 directory=~/proj/westfalia-frontend
