@@ -282,6 +282,12 @@ require('lazy').setup({
       'adriaanzon/vim-textobj-blade-directive', -- 'ad' blade directive
     }
   },
+  {
+    'nishigori/increment-activator',
+    config = function ()
+      vim.cmd( "let g:increment_activator_filetype_candidates = { '_': [['true', 'false'],], }")
+    end
+  },
   'xiyaowong/transparent.nvim',
   'pocco81/auto-save.nvim',
   -- Syntax and indent files
