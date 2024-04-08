@@ -399,6 +399,7 @@ vim.keymap.set('i', '<C-v>', '<Esc>"+p')
 
 -- System paste command
 vim.keymap.set({'n', 'v'}, '<leader>y', '"+y')
+vim.keymap.set({'n', 'v'}, '<leader>Y', '"+y$')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
