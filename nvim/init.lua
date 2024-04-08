@@ -173,24 +173,25 @@ require('lazy').setup({
     end,
   },
   {
-    -- Add indentation guides even on blank lines
+    -- -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
+    main = "ibl",
     opts = {
-      filetype_exclude = {
-        'help',
-        'terminal',
-        'lspinfo',
-        'TelescopePrompt',
-        'TelescopeResults',
+      exclude = {
+        filetypes = {
+          'help',
+          'terminal',
+          'lspinfo',
+          'TelescopePrompt',
+          'TelescopeResults',
+        },
+        buftypes = {
+          'terminal'
+        },
       },
-      buftype_exclude = {
-        'terminal',
+      indent = {
+        char = '┊',
       },
-      show_first_indent_level = true,
-      char = '┊',
-      show_trailing_blankline_indent = false,
     },
   },
 
