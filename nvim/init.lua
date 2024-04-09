@@ -223,7 +223,10 @@ require('lazy').setup({
       'kkharji/sqlite.lua',
     }
   },
-
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  },
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -474,16 +477,33 @@ require('telescope').setup {
       },
     },
   },
+  extensions = {
+    file_browser = {
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = false,
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
+  },
 }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 -- Enable telescope smart history, if installed
 pcall(require('telescope').load_extension, 'smart_history')
+-- Enable telescope file browser, if installed
+require("telescope").load_extension "file_browser"
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', function () require('telescope.builtin').oldfiles({ initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader>:', require('telescope.builtin').commands, { desc = '[:] Finds & executes vim commands from command mode' })
+vim.keymap.set('n', '<leader>-', function () require('telescope').extensions.file_browser.file_browser({  initial_mode = "normal", layout_strategy = 'horizontal', layout_config = { preview_width = .65 } }) end, { desc = '[-] Opens file browser in telescope' })
 vim.keymap.set('n', '<leader><space>', function () require('telescope.builtin').buffers({ initial_mode = "normal" }) end, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function() require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { winblend = 10, previewer = false, }) end, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>sf', function () require('telescope.builtin').find_files { hidden = true } end, { desc = '[S]earch [F]iles' })
