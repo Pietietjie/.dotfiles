@@ -487,6 +487,7 @@ vim.keymap.set('n', '<leader>:', require('telescope.builtin').commands, { desc =
 vim.keymap.set('n', '<leader><space>', function () require('telescope.builtin').buffers({ initial_mode = "normal" }) end, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function() require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { winblend = 10, previewer = false, }) end, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>sf', function () require('telescope.builtin').find_files { hidden = true } end, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sb', require('telescope.builtin').keymaps, { desc = '[S]earch [B]inding/Keymaps' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>gs', function () require('telescope.builtin').git_status({ initial_mode = "normal" }) end, { desc = 'Search current [G]it [S]tatus' })
