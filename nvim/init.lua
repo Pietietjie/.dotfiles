@@ -482,27 +482,18 @@ pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'smart_history')
 
 -- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
-
-vim.keymap.set('n', '<leader>gh', require('telescope.builtin').git_commits, { desc = 'Search [G]it [H]istory' })
-vim.keymap.set('n', '<leader>sf', function ()
-   require('telescope.builtin').find_files { hidden = true }
-end, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>?', function () require('telescope.builtin').oldfiles({ initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader>:', require('telescope.builtin').commands, { desc = '[:] Finds & executes vim commands from command mode' })
+vim.keymap.set('n', '<leader><space>', function () require('telescope.builtin').buffers({ initial_mode = "normal" }) end, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>/', function() require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { winblend = 10, previewer = false, }) end, { desc = '[/] Fuzzily search in current buffer' })
+vim.keymap.set('n', '<leader>sf', function () require('telescope.builtin').find_files { hidden = true } end, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sts', require('telescope.builtin').git_status, { desc = '[S]earch by gi[T] [S]tatus' })
-vim.keymap.set('n', '<leader>stc', require('telescope.builtin').git_commits, { desc = '[S]earch by gi[T] [C]ommits' })
-vim.keymap.set('n', '<leader>sth', require('telescope.builtin').git_stash, { desc = '[S]earch by gi[T] stas[H]' })
-vim.keymap.set('n', '<leader>stb', require('telescope.builtin').git_branches, { desc = '[S]earch by gi[T] [B]ranch' })
+vim.keymap.set('n', '<leader>gs', function () require('telescope.builtin').git_status({ initial_mode = "normal" }) end, { desc = 'Search current [G]it [S]tatus' })
+vim.keymap.set('n', '<leader>gh', function () require('telescope.builtin').git_commits({ initial_mode = "normal" }) end, { desc = 'Search [G]it [H]istory' })
+vim.keymap.set('n', '<leader>gc', function () require('telescope.builtin').git_commits({ initial_mode = "normal" }) end, { desc = 'Search [G]it [C]ommits' })
+vim.keymap.set('n', '<leader>gt', function () require('telescope.builtin').git_stash({ initial_mode = "normal" }) end, { desc = 'Search the [G]it s[T]ash' })
+vim.keymap.set('n', '<leader>gb', function () require('telescope.builtin').git_branches({ initial_mode = "normal" }) end, { desc = 'Search [G]it [B]ranches' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- [[ Configure Treesitter ]]
@@ -598,11 +589,11 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gr', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>ds', function () require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" }) end, '[D]ocument [S]ymbols')
+  nmap('<leader>ws', function () require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" }) end, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
