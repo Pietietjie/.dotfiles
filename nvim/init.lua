@@ -448,6 +448,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 local telescopeActions = require("telescope.actions")
+local telescopeFileBrowserActions = require "telescope._extensions.file_browser.actions"
 require('telescope').setup {
   defaults = {
     history = {
@@ -481,12 +482,28 @@ require('telescope').setup {
     file_browser = {
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = false,
+      respect_gitignore = false,
+      hide_parent_dir = true,
+      hidden = { file_browser = true, folder_browser = true },
       mappings = {
         ["i"] = {
           -- your custom insert mode mappings
         },
         ["n"] = {
-          -- your custom normal mode mappings
+          ["-"] = telescopeFileBrowserActions.goto_parent_dir,
+          ["%"] = telescopeFileBrowserActions.create,
+          ["r"] = telescopeFileBrowserActions.rename,
+          ["m"] = telescopeFileBrowserActions.move,
+          ["y"] = telescopeFileBrowserActions.copy,
+          ["d"] = telescopeFileBrowserActions.remove,
+          ["o"] = telescopeFileBrowserActions.open,
+          ["g"] = telescopeFileBrowserActions.goto_parent_dir,
+          ["e"] = telescopeFileBrowserActions.goto_home_dir,
+          ["w"] = telescopeFileBrowserActions.goto_cwd,
+          ["t"] = telescopeFileBrowserActions.change_cwd,
+          ["f"] = telescopeFileBrowserActions.toggle_browser,
+          ["h"] = telescopeFileBrowserActions.toggle_hidden,
+          ["s"] = telescopeFileBrowserActions.toggle_all,
         },
       },
     },
@@ -503,7 +520,7 @@ require("telescope").load_extension "file_browser"
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', function () require('telescope.builtin').oldfiles({ initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader>:', require('telescope.builtin').commands, { desc = '[:] Finds & executes vim commands from command mode' })
-vim.keymap.set('n', '<leader>-', function () require('telescope').extensions.file_browser.file_browser({  initial_mode = "normal", layout_strategy = 'horizontal', layout_config = { preview_width = .65 } }) end, { desc = '[-] Opens file browser in telescope' })
+vim.keymap.set('n', '<leader>-', function () require('telescope').extensions.file_browser.file_browser({  initial_mode = "normal", layout_strategy = 'horizontal', layout_config = { prompt_position = 'top', preview_width = .65, height = 30, width = 0.999 } }) end, { desc = '[-] Opens file browser in telescope' })
 vim.keymap.set('n', '<leader><space>', function () require('telescope.builtin').buffers({ initial_mode = "normal" }) end, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function() require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { winblend = 10, previewer = false, }) end, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>sf', function () require('telescope.builtin').find_files { hidden = true } end, { desc = '[S]earch [F]iles' })
