@@ -301,6 +301,24 @@ require('lazy').setup({
     "jwalton512/vim-blade",
     ft = "blade",
   },
+  {
+    "anuvyklack/pretty-fold.nvim",
+    config = function()
+      require('pretty-fold').setup({
+        sections = {
+          left = {
+            '› ', 'content',
+          },
+          right = {
+            ' ', 'number_of_folded_lines', ': ', 'percentage', ' ',
+            function(config) return config.fill_char:rep(3) end
+          }
+        },
+        fill_char = ' ',
+      })
+    end
+
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -323,6 +341,7 @@ require('lazy').setup({
 vim.cmd 'colorscheme tokyonight'
 vim.cmd 'highlight FloatShadow guibg=#24283b blend=none'
 vim.cmd 'highlight FloatShadowThrough guibg=#24283b blend=none'
+vim.cmd 'highlight Folded guifg=#7aa2f7 guibg=none'
 
 -- ----------------------------------------------------
 -- Options
