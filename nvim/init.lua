@@ -393,15 +393,16 @@ vim.cmd('autocmd FileType netrw setl bufhidden=delete')
 -- Key Bindings
 -- ----------------------------------------------------
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>vb', '<c-v>')
-vim.keymap.set('n', '<leader>o', 'moo<Esc>`o')
-vim.keymap.set('n', '<leader>o', 'moo<Esc>`o')
-vim.keymap.set('n', '<leader>O', 'moO<Esc>`o')
+vim.keymap.set({ 'n', 'v' }, '<leader>vb', '<c-v>', { desc = 'Goes into [V]isual [B]lock mode'} )
+vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line'} )
+vim.keymap.set('n', '<leader>O', 'moO<Esc>`o', { desc = '[⬆] empty new line'} )
 vim.keymap.set({'n', 'v'}, 'x', '"_x')
 vim.keymap.set({'n', 'v'}, 's', '"_s')
-vim.keymap.set({'n', 'v'}, '<leader>c', '"_c')
-vim.keymap.set({'n', 'v'}, '<leader>d', '"_d')
-vim.keymap.set('v', '<leader>p', '"_dP')
+vim.keymap.set({'n', 'v'}, '<leader>c', '"_c', { desc = '[C]hanges without copying'} )
+vim.keymap.set({'n', 'v'}, '<leader>d', '"_d', { desc = '[D]eletes without copying'} )
+vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[P]astes over without copying'} )
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = '[Y]anks into system clipboard'} )
+vim.keymap.set({'n', 'v'}, '<leader>Y', '"+y$', { desc = '[Y]anks into system clipboard'} )
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
@@ -424,8 +425,6 @@ vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('i', ';;', '<Esc>A;<Esc>')
 vim.keymap.set('i', ',,', '<Esc>A,<Esc>')
 
-vim.keymap.set('n', '<leader>k', ':nohlsearch<CR>')
-
 -- Open the current file in the default program (on Mac this should just be just `open`)
 vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>')
 
@@ -438,10 +437,6 @@ vim.keymap.set('i', '<A-k>', '<Esc>:move .-2<CR>==gi')
 
 -- System paste command
 vim.keymap.set('i', '<C-v>', '<Esc>"+p')
-
--- System paste command
-vim.keymap.set({'n', 'v'}, '<leader>y', '"+y')
-vim.keymap.set({'n', 'v'}, '<leader>Y', '"+y$')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -599,7 +594,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[N]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
