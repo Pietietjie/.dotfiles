@@ -38,12 +38,6 @@ require('lazy').setup({
   'farmergreg/vim-lastplace',
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  -- adds xml based textobject:
-  {
-    'whatyouhide/vim-textobj-xmlattr',
-    dependencies = {'kana/vim-textobj-user'},
-  },
-  -- sets the root directory to the git project
   {
     'airblade/vim-rooter',
     init = function()
@@ -271,6 +265,7 @@ require('lazy').setup({
   {
     'kana/vim-textobj-user',
     dependencies = {
+      'whatyouhide/vim-textobj-xmlattr', -- for xml based text objects
       'kana/vim-textobj-entire', -- for 'ae' and 'ie' everything
       'kana/vim-textobj-function', -- for 'af' and 'if' function
       'glts/vim-textobj-comment', -- comments 'ac' and 'ic'
