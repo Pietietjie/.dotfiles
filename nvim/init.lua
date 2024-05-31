@@ -406,6 +406,8 @@ vim.keymap.set({'n', 'v'}, '<leader>Y', '"+y$', { desc = '[Y]anks into system cl
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+-- Fold related mappings
+vim.keymap.set('n', '<leader>z', 'zfai', { remap = true })
 
 -- Reselect visual selection after indenting
 vim.keymap.set('v', '<', '<gv')
