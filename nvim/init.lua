@@ -333,6 +333,7 @@ vim.cmd 'colorscheme tokyonight'
 vim.cmd 'highlight FloatShadow guibg=#24283b blend=none'
 vim.cmd 'highlight FloatShadowThrough guibg=#24283b blend=none'
 vim.cmd 'highlight Folded guifg=#7aa2f7 guibg=none'
+vim.cmd 'highlight Todo guifg=#ffa500'
 
 -- ----------------------------------------------------
 -- Options
