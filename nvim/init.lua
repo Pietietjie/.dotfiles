@@ -478,6 +478,7 @@ require('telescope').setup {
     },
     file_ignore_patterns = {
       "node_modules",
+      "dist",
       ".git",
       ".vscode",
     },
