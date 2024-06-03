@@ -456,6 +456,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 local telescopeActions = require("telescope.actions")
+local previousHistoryAndChangeToNormalMode = function (prompt_bufnr)
+  telescopeActions.cycle_history_prev(prompt_bufnr);
+  local keys = vim.api.nvim_replace_termcodes('<ESC>',true,false,true)
+  -- 'm' is the mode, you can find on the feedkeys docs, but your case is
+  -- 'm', I think
+  vim.api.nvim_feedkeys(keys,'m',false)
+end
+local nextHistoryAndChangeToNormalMode = function (prompt_bufnr)
+  telescopeActions.cycle_history_nextt(prompt_bufnr);
+  local keys = vim.api.nvim_replace_termcodes('<ESC>',true,false,true)
+  -- 'm' is the mode, you can find on the feedkeys docs, but your case is
+  -- 'm', I think
+  vim.api.nvim_feedkeys(keys,'m',false)
+end
 require('telescope').setup {
   defaults = {
     history = {
@@ -472,16 +486,18 @@ require('telescope').setup {
         q = telescopeActions.close,
         ["<C-Down>"] = telescopeActions.cycle_history_next,
         ["<C-Up>"] = telescopeActions.cycle_history_prev,
+        ["<C-p>"] = telescopeActions.cycle_history_prev,
         ["<C-j>"] = telescopeActions.cycle_history_next,
         ["<C-k>"] = telescopeActions.cycle_history_prev,
       },
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
-        ["<C-Down>"] = telescopeActions.cycle_history_next,
-        ["<C-Up>"] = telescopeActions.cycle_history_prev,
-        ["<C-j>"] = telescopeActions.cycle_history_next,
-        ["<C-k>"] = telescopeActions.cycle_history_prev,
+        ["<C-p>"] = previousHistoryAndChangeToNormalMode,
+        ["<C-Down>"] = nextHistoryAndChangeToNormalMode,
+        ["<C-Up>"] = previousHistoryAndChangeToNormalMode,
+        ["<C-j>"] = nextHistoryAndChangeToNormalMode,
+        ["<C-k>"] = previousHistoryAndChangeToNormalMode,
       },
     },
   },
