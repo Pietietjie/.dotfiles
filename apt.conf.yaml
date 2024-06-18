@@ -1,0 +1,24 @@
+# build requirements for nvim
+- aptget: [ git, ninja-build, gettext, cmake, unzip, curl, build-essential ]
+- shell:
+    -
+        command:
+            "if ! command -v nvim &> /dev/null;
+            then
+                git clone --depth 1 --single-branch --branch v0.9.1 https://github.com/neovim/neovim.git ~/build/neovim
+                && cd ~/build/neovim
+                && make CMAKE_BUILD_TYPE=RelWithDebInfo
+                && cd build
+                && cpack -G DEB
+                && sudo dpkg -i nvim-linux64.deb ;
+            fi"
+        stdout: true
+        description: "Build neovim from source if it is not allready installed."
+        stderr: true
+
+- aptget: [ tmux, fzf, grep, ripgrep, mysql-server, mysql-client, sqlite3 ]
+# PHP first add ppa then all the different versions and plugins
+- aptget: 
+    php8.2: ppa:ondrej/php
+- aptget: [ php8.2-zip, php8.2-curl, php8.2-gd, php8.2-xml, php8.2-sqlite3, php8.2-mysql, php8.2-mbstring ]
+- aptget: [ php7.4, php7.4-zip, php7.4-curl, php7.4-gd, php7.4-xml, php7.4-sqlite3, php7.4-mysql, php7.4-mbstring ]

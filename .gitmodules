@@ -10,3 +10,6 @@
 [submodule "getnf"]
 	path = getnf
 	url = https://github.com/ronniedroid/getnf.git
+[submodule "dotbot-aptget"]
+	path = dotbot-aptget
+	url = https://github.com/alegsan/dotbot-aptget.git
