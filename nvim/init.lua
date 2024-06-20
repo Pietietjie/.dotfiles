@@ -477,10 +477,10 @@ require('telescope').setup {
       limit = 100,
     },
     file_ignore_patterns = {
-      "node_modules",
-      "dist",
-      ".git",
-      ".vscode",
+      "node_modules/",
+      "dist/",
+      ".git/",
+      ".vscode/",
     },
     mappings = {
       n = {
