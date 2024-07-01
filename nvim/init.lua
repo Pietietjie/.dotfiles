@@ -390,6 +390,9 @@ vim.opt.backupdir:remove('.') -- keep backups out of the current directory
 vim.opt.signcolumn = 'yes:1'
 
 vim.cmd('autocmd FileType netrw setl bufhidden=delete')
+vim.cmd('let g:netrw_fastbrowse = 0')
+vim.cmd('let g:netrw_bufsettings = \'noma nomod nu nowrap ro nobl\'')
+vim.cmd('autocmd FileType netrw setlocal number')
 -- ----------------------------------------------------
 -- Key Bindings
 -- ----------------------------------------------------
