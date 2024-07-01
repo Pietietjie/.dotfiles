@@ -50,21 +50,18 @@ function zshaddhistory() {
       return 1
   fi
 }
-# Pieter's custom Aliases
-alias tm='tmux'
-alias nv='nvim'
-alias vim='nvim'
-alias cl='clear'
+# My custom Aliases
+# Functions
 composer() { php $composer_path "$@" }
 artisan () { if [ -f vendor/.dontsail ]; then php artisan "$@"; elif [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
+# 1 Character Aliases
+alias p="php"
 alias a="artisan"
-alias change="sudo update-alternatives --config"
-alias cdump="composer dump-autoload -o"
-alias tink="a tinker"
-alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
-alias ls="ls -1A --group-directories-first --color=always"
 alias g="git"
 alias q="exit"
+# Remaining Aliases
+alias ls="ls -1A --group-directories-first --color=always"
+alias tink="a tinker"
 alias :q="exit"
 alias ..="cd .."
 alias ...="cd ../.."
@@ -76,17 +73,19 @@ alias vimdiff='nvim -d'
 alias so="omz reload"
 alias doc="docker"
 alias dc="docker-compose"
-
+alias tm='tmux'
+alias nv='nvim'
+alias vim='nvim'
+alias cl='clear'
+alias change="sudo update-alternatives --config"
+alias cdump="composer dump-autoload -o"
+alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
 alias db:reset="artisan migrate:reset && artisan migrate --seed"
 alias fresh="migrate:fresh"
 alias migrate="artisan migrate"
 alias refresh="artisan migrate:refresh"
 alias rollback="artisan migrate:rollback"
 alias seed="artisan db:seed"
-
-function mkd() {
-    mkdir -p "$@" && cd "$@"
-}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
