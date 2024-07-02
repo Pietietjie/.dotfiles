@@ -101,6 +101,7 @@ alias migrate="artisan migrate"
 alias refresh="artisan migrate:refresh"
 alias rollback="artisan migrate:rollback"
 alias seed="artisan db:seed"
+alias dexe="docker exec -it \$(docker container ls | sed 1d | fzf | awk '{print \$1}') bash"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
