@@ -376,6 +376,10 @@ vim.opt.fillchars:append({ eob = ' ' })
 
 vim.opt.splitright = true
 
+vim.opt.spell = true
+vim.opt.spelllang = 'en_us'
+vim.opt.spelloptions = 'camel'
+
 vim.opt.scrolloff = 100
 vim.opt.sidescrolloff = 100
 
