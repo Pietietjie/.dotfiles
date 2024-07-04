@@ -32,7 +32,8 @@ require('lazy').setup({
   'tpope/vim-repeat',
   -- use * to search visual mode selection
   'nelstrom/vim-visual-star-search',
-  -- better language based highlighting TODO: fix this as it is giving issues with lazy package manager
+  -- better language based highlighting 
+  -- TODO fix this as it is giving issues with lazy package manager
   -- 'sheerun/vim-polyglot',
   -- continue editing file from last location
   'farmergreg/vim-lastplace',
@@ -94,7 +95,7 @@ require('lazy').setup({
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
   {
-    -- Adds git releated signs to the gutter, as well as utilities for managing changes
+    -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       sign_priority = 20,
@@ -312,14 +313,14 @@ require('lazy').setup({
   },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
+  --       Un-comment any of the lines below to enable them.
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
-  --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
+  --    Un-comment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
@@ -383,7 +384,7 @@ vim.opt.spelloptions = 'camel'
 vim.opt.scrolloff = 100
 vim.opt.sidescrolloff = 100
 
-vim.opt.confirm = true -- ask for confirmation instead of erroring
+vim.opt.confirm = true -- ask for confirmation instead of erring
 
 vim.opt.undofile = true -- persistent undo
 
@@ -417,7 +418,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { remap = true })
 
--- Reselect visual selection after indenting
+-- Re-select visual selection after indenting
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
@@ -538,7 +539,7 @@ require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
 
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+  -- auto-install languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
   highlight = { enable = true },
@@ -555,7 +556,7 @@ require('nvim-treesitter.configs').setup {
   textobjects = {
     select = {
       enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true, -- Automatically jump forward to text obj, similar to targets.vim
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
         ['aa'] = '@parameter.outer',
@@ -568,7 +569,7 @@ require('nvim-treesitter.configs').setup {
     },
     move = {
       enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
+      set_jumps = true, -- whether to set jumps in the jump-list
       goto_next_start = {
         [']m'] = '@function.outer',
         [']]'] = '@class.outer',
