@@ -17,8 +17,10 @@
 	b = branch
 	m = merge
 	latest = "!git tag latest -f && git push --tag -f"
+	tp = "!git push && git push --tags"
 	dotfiles = "!dotfilesRanFromWorkingDirectory=$(pwd) && cd ~/.dotfiles && (git $@; cd $dotfilesRanFromWorkingDirectory) #"
 	a = "!if [ \"$#\" -eq 0 ]; then git add .; else git add $@; fi; git status -s #"
+	ac = "!git add . && git commit --verbose"
 	p = push
 	s = "! git status -s"
 	pl = "! git fetch && git pull"
