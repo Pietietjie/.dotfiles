@@ -5,6 +5,7 @@ directory=~/.dotfiles
 tmux new-session -d -s $session -c $directory
 tmux send-keys -t $session:1 'nv' C-m
 tmux split-window -c $directory -t $session:1 -v -p 15
+tmux resize-pane -Z $session:1 
 
 session="82"
 directory=~/proj/laradock8.2
@@ -21,18 +22,21 @@ directory=~/proj/bfi-pay-platform
 tmux new-session -d -s $session -c $directory
 tmux send-keys -t $session:1 'nv' C-m
 tmux split-window -c $directory -t $session:1 -v -p 15
+tmux resize-pane -Z $session:1 
 
 session="foodshare"
 directory=~/proj/foodshare
 tmux new-session -d -s $session -c $directory
 tmux send-keys -t $session:1 'nv' C-m
 tmux split-window -c $directory -t $session:1 -v -p 15
+tmux resize-pane -Z $session:1 
 
 session="monify"
 directory=~/proj/monify
 tmux new-session -d -s $session -c $directory
 tmux send-keys -t $session:1 'nv' C-m
 tmux split-window -c $directory -t $session:1 -v -p 15
+tmux resize-pane -Z $session:1 
 
 session="better-bond"
 directory=~/proj/monify-better-bond
@@ -49,6 +53,9 @@ directory=~/proj/monify-better-bond/vendor/lavalamplab/monifyloanapi
 tmux new-window -t $session:3 -c $directory
 tmux send-keys -t $session:3 'nv' C-m
 tmux split-window -c $directory -t $session:3 -v -p 15
+tmux resize-pane -Z $session:1 
+tmux resize-pane -Z $session:2 
+tmux resize-pane -Z $session:3 
 
 session="ooba"
 directory=~/proj/monify-ooba
@@ -57,6 +64,7 @@ tmux send-keys -t $session:1 'nv' C-m
 tmux split-window -c $directory -t $session:1 -v -p 15
 tmux new-window -t $session:4 -c $directory
 tmux send-keys -t $session:4 'npm run dev' C-m
+tmux resize-pane -Z $session:1 
 directory=~/proj/monify-loan-cards
 tmux new-window -t $session:2 -c $directory
 tmux send-keys -t $session:2 'nv' C-m
@@ -65,6 +73,9 @@ directory=~/proj/monify-ooba/vendor/lavalamplab/monifyloanapi
 tmux new-window -t $session:3 -c $directory
 tmux send-keys -t $session:3 'nv' C-m
 tmux split-window -c $directory -t $session:3 -v -p 15
+tmux resize-pane -Z $session:1 
+tmux resize-pane -Z $session:2 
+tmux resize-pane -Z $session:3 
 
 session="blu"
 directory=~/proj/monify-blue-deals
@@ -81,6 +92,9 @@ directory=~/proj/monify-blue-deals/vendor/lavalamplab/monifyloanapi
 tmux new-window -t $session:3 -c $directory
 tmux send-keys -t $session:3 'nv' C-m
 tmux split-window -c $directory -t $session:3 -v -p 15
+tmux resize-pane -Z $session:1 
+tmux resize-pane -Z $session:2 
+tmux resize-pane -Z $session:3 
 
 session="westfalia"
 directory=~/proj/westfalia-frontend
@@ -93,6 +107,8 @@ directory=~/proj/westfalia-backend
 tmux new-window -t $session:2 -c $directory
 tmux send-keys -t $session:2 'nv' C-m
 tmux split-window -c $directory -t $session:2 -v -p 15
+tmux resize-pane -Z $session:1 
+tmux resize-pane -Z $session:2 
 
 tmux attach-session -t "dot"
 
