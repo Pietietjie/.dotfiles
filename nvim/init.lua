@@ -522,21 +522,40 @@ pcall(require('telescope').load_extension, 'fzf')
 -- Enable telescope smart history, if installed
 pcall(require('telescope').load_extension, 'smart_history')
 
+-- from https://neovim.discourse.group/t/function-that-return-visually-selected-text/1601 @credit to https://github.com/kristijanhusak
+local function get_visual_selection()
+  local s_start = vim.fn.getpos("v")
+  local s_end = vim.fn.getpos(".")
+  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+  lines[1] = string.sub(lines[1], s_start[3], -1)
+  if n_lines == 1 then
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+  else
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+  end
+  return table.concat(lines, '\n')
+end
+
+local function telescope_menu_bind_n_and_v_mode(bindingInputVim, bindingAction, opt)
+  vim.keymap.set('n', bindingInputVim, bindingAction, opt)
+  vim.keymap.set('v', bindingInputVim, function () bindingAction(get_visual_selection()) end, opt)
+end
 -- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', function () require('telescope.builtin').oldfiles({ initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader>:', require('telescope.builtin').commands, { desc = '[:] Finds & executes vim commands from command mode' })
-vim.keymap.set('n', '<leader>ss', function () require('telescope.builtin').buffers({ initial_mode = "normal" }) end, { desc = 'Find exi[S]ting buffers' })
-vim.keymap.set('n', '<leader>/', function() require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { winblend = 10, previewer = false, }) end, { desc = '[/] Fuzzily search in current buffer' })
-vim.keymap.set('n', '<leader>sf', function () require('telescope.builtin').find_files { hidden = true } end, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sb', require('telescope.builtin').keymaps, { desc = '[S]earch [B]inding/Keymaps' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>gs', function () require('telescope.builtin').git_status({ initial_mode = "normal" }) end, { desc = 'Search current [G]it [S]tatus' })
-vim.keymap.set('n', '<leader>gh', function () require('telescope.builtin').git_commits({ initial_mode = "normal" }) end, { desc = 'Search [G]it [H]istory' })
-vim.keymap.set('n', '<leader>gc', function () require('telescope.builtin').git_commits({ initial_mode = "normal" }) end, { desc = 'Search [G]it [C]ommits' })
-vim.keymap.set('n', '<leader>gt', function () require('telescope.builtin').git_stash({ initial_mode = "normal" }) end, { desc = 'Search the [G]it s[T]ash' })
-vim.keymap.set('n', '<leader>gb', function () require('telescope.builtin').git_branches({ initial_mode = "normal" }) end, { desc = 'Search [G]it [B]ranches' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+telescope_menu_bind_n_and_v_mode('<leader>?', function (defaultText) require('telescope.builtin').oldfiles({ default_text = defaultText, initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' })
+telescope_menu_bind_n_and_v_mode('<leader>:', function (defaultText) require('telescope.builtin').commands({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert"  }) end, { desc = '[:] Finds & executes vim commands from command mode' })
+telescope_menu_bind_n_and_v_mode('<leader>ss', function (defaultText) require('telescope.builtin').buffers({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Find exi[S]ting buffers' })
+telescope_menu_bind_n_and_v_mode('<leader>/', function(defaultText) require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert", winblend = 10, previewer = false, })) end, { desc = '[/] Fuzzily search in current buffer' })
+telescope_menu_bind_n_and_v_mode('<leader>sf', function (defaultText) require('telescope.builtin').find_files { default_text = defaultText, initial_mode = defaultText and "normal" or "insert", hidden = true } end, { desc = '[S]earch [F]iles' })
+telescope_menu_bind_n_and_v_mode('<leader>sb', function (defaultText) require('telescope.builtin').keymaps({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch [B]inding/Keymaps' })
+telescope_menu_bind_n_and_v_mode('<leader>sh', function (defaultText) require('telescope.builtin').help_tags({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch [H]elp' })
+telescope_menu_bind_n_and_v_mode('<leader>sg', function (defaultText) require('telescope.builtin').live_grep({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch by [G]rep' })
+telescope_menu_bind_n_and_v_mode('<leader>gs', function (defaultText) require('telescope.builtin').git_status({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search current [G]it [S]tatus' })
+telescope_menu_bind_n_and_v_mode('<leader>gh', function (defaultText) require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search [G]it [H]istory' })
+telescope_menu_bind_n_and_v_mode('<leader>gc', function (defaultText) require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search [G]it [C]ommits' })
+telescope_menu_bind_n_and_v_mode('<leader>gt', function (defaultText) require('telescope.builtin').git_stash({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search the [G]it s[T]ash' })
+telescope_menu_bind_n_and_v_mode('<leader>gb', function (defaultText) require('telescope.builtin').git_branches({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search [G]it [B]ranches' })
+telescope_menu_bind_n_and_v_mode('<leader>sd', function (defaultText) require('telescope.builtin').diagnostics({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch [D]iagnostics' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
