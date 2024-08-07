@@ -196,7 +196,7 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
-  -- Fuzzy Finder (files, lsp, etc)
+  -- Fuzzy Finder (files, LSP, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -266,7 +266,7 @@ require('lazy').setup({
   {
     'kana/vim-textobj-user',
     dependencies = {
-      'whatyouhide/vim-textobj-xmlattr', -- for xml based text objects
+      'whatyouhide/vim-textobj-xmlattr', -- for XML based text objects
       'kana/vim-textobj-entire', -- for 'ae' and 'ie' everything
       'kana/vim-textobj-function', -- for 'af' and 'if' function
       'glts/vim-textobj-comment', -- comments 'ac' and 'ic'
