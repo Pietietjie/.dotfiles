@@ -52,7 +52,7 @@ export FZF_DEFAULT_OPTS='
 # zsh history ignore
 function zshaddhistory() {
   emulate -L zsh
-  if ! [[ "$1" =~ "(^ |^cd|^\.\.|password)" ]] ; then
+  if ! [[ "$1" =~ "(^ |^cd|^\.\.|^password|^cherry-pick)" ]] ; then
       print -sr -- "${1%%$'\n'}"
       fc -p
   else
