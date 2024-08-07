@@ -523,6 +523,7 @@ pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'smart_history')
 
 -- from https://neovim.discourse.group/t/function-that-return-visually-selected-text/1601 @credit to https://github.com/kristijanhusak
+-- also fixed with https://www.reddit.com/r/neovim/comments/1b3uarv/trouble_getting_start_and_end_position_of_a/
 local function get_visual_selection()
   local s_start = vim.fn.getpos("v")
   local s_end = vim.fn.getpos(".")
