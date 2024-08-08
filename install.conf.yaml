@@ -1,33 +1,37 @@
 - link:
     ~/.wezterm.lua:
-      relink: true
-      path: wezterm/.wezterm.lua
+        relink: true
+        path: wezterm/.wezterm.lua
 - link:
     ~/.bashrc:
-      relink: true
-      path: bash/.bashrc
+        relink: true
+        path: bash/.bashrc
 - link:
     ~/.zshrc:
-      relink: true
-      path: zsh/.zshrc
+        relink: true
+        path: zsh/.zshrc
 - link:
     ~/.gitconfig:
-      relink: true
-      path: git/.gitconfig
+        relink: true
+        path: git/.gitconfig
 - link:
     /Aliases:
-      relink: true
-      if: [ $(uname -s) != 'Linux' ]
-      path: Aliases
+        relink: true
+        if: [ $(uname -s) != 'Linux' ]
+        path: Aliases
 - link:
     ~/.config/kitty:
-      relink: true
-      path: kitty
+        relink: true
+        path: kitty
 - link:
     ~/.tmux.conf:
-      relink: true
-      path: tmux/.tmux.conf
+        relink: true
+        path: tmux/.tmux.conf
 - link:
     ~/.config/nvim:
-      relink: true
-      path: nvim
+        relink: true
+        path: nvim
+- link:
+    ~/.oh-my-zsh/themes/pietietjie.zsh-theme:
+        relink: true
+        path: zsh/pietietjie.zsh-theme
