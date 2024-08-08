@@ -159,7 +159,7 @@ require('lazy').setup({
             custom_areas = {
               left = function()
                 return {
-                  { text = '    ', fg = '#bb9af7' },
+                  { text = '    ', fg = '#bb9af7', bg = '' },
                 }
               end,
             },
@@ -335,6 +335,10 @@ vim.cmd 'highlight FloatShadow guibg=#24283b blend=none'
 vim.cmd 'highlight FloatShadowThrough guibg=#24283b blend=none'
 vim.cmd 'highlight Folded guifg=#7aa2f7 guibg=none'
 vim.cmd 'highlight Todo guifg=#ffa500'
+vim.cmd 'highlight BufferLineDevIconDefaultSelected ctermfg=66 guifg=#6d8086'
+vim.cmd 'highlight BufferLineDevIconDefaultInactive ctermfg=66 guifg=#6d8086'
+vim.cmd 'highlight BufferLineDevIconLuaSelected ctermfg=66 guifg=#6d8086'
+vim.cmd 'highlight BufferLineDevIconLuaInactive ctermfg=66 guifg=#6d8086'
 
 -- ----------------------------------------------------
 -- Options
