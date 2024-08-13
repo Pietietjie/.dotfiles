@@ -19,7 +19,7 @@ config.colors = {
   -- Specifies the border color of the cursor when the cursor style is set to Block,
   -- or the color of the vertical or horizontal bar when the cursor style is set to
   -- Bar or Underline.
-  cursor_border = '#52ad70',
+  cursor_border = '#bb9af7',
 
   -- the foreground color of selected text
   selection_fg = '#1a1b26',
@@ -35,7 +35,7 @@ config.colors = {
     '#e0af68', -- maroon
     '#9ece6a', -- green
     '#29a4bd', -- olive
-    '#0db9d7', -- navy
+    '#87afff', -- navy
     '#bb9af7', -- purple
     '#29a4bd', -- teal
     'silver', -- silver
