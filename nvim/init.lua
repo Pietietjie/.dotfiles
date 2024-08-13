@@ -118,6 +118,8 @@ require('lazy').setup({
         vim.keymap.set('n', '<leader>hs', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[H]unk [S]tage' })
         vim.keymap.set('n', '<leader>hu', require('gitsigns').undo_stage_hunk, { buffer = bufnr, desc = '[H]unk [U]nstage' })
         vim.keymap.set('n', '<leader>hr', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[H]unk [R]eset' })
+        vim.keymap.set('n', '<leader>ga', function () vim.cmd("sil Git add %") end, { buffer = bufnr, desc = '[G]it [A]dd current buffer' })
+        vim.keymap.set('n', '<leader>gu', function () vim.cmd("sil Git restore % --staged") end, { buffer = bufnr, desc = '[G]it [U]nstage current buffer' })
         vim.keymap.set('n', '<leader>gb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[G]it [B]lame' })
       end,
     },
