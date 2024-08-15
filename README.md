@@ -15,6 +15,7 @@ My personal dotfile config
 ## TODO
 
 - Look into [nvim-treesitter-textobject](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
+- Look at a better way to add long paths when writing commands like `cp` and `mv`
 - Look at getting a [ debugger for nvim ](https://github.com/mfussenegger/nvim-dap)
 - Look creating functionality that allow Telescope buffer fuzzy finder to close buffers
 - System preferences/settings
