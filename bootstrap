@@ -10,9 +10,6 @@ os_type="$(uname -s)"
 apt_packages="curl git iproute2 python3-pip ripgrep tmux vim-gtk wl-clipboard zsh"
 apt_packages_optional="gnupg htop inotify-tools jq pass pwgen rsync shellcheck unzip"
 
-brew_packages="diffutils git python ripgrep tmux vim zsh"
-brew_packages_optional="gnupg htop jq pass pwgen rsync shellcheck"
-
 install_asdf_version="v0.11.0"
 install_node_version="18.17.0"
 
@@ -45,13 +42,6 @@ case "${os_type}" in
         fi
 
         ;;
-    Darwin*) os_type="macOS";;
-    *)
-        os_type="Other"
-
-        [ -z "${skip_system_packages}" ] && no_system_packages
-
-        ;;
 esac
 
 ###############################################################################
@@ -63,25 +53,9 @@ function apt_install_packages {
     sudo apt-get update && sudo apt-get install -y ${apt_packages} ${apt_packages_optional}
 }
 
-function brew_install_self {
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-}
-
-function brew_install_packages {
-    [ -x "$(command -v brew > /dev/null 2>&1)" ] && brew_install_self
-
-    # Ensure brew's paths are available for this script
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-
-    # shellcheck disable=SC2086
-    brew install ${brew_packages} ${brew_packages_optional}
-}
-
 function display_packages {
     if [ "${os_type}" == "Linux" ]; then
         echo "${apt_packages} ${apt_packages_optional}"
-    else
-        echo "${brew_packages} ${brew_packages_optional}"
     fi
 }
 
@@ -107,8 +81,6 @@ EOF
             [Yy]*)
                 if [ "${os_type}" == "Linux" ]; then
                     apt_install_packages
-                else
-                    brew_install_packages
                 fi
 
                 break;;
@@ -161,18 +133,6 @@ mkdir -p "${HOME}/.config/zsh" "${HOME}/.cache/zsh" \
 
 cp "${clone_path}/.gitconfig.user" "${HOME}/.gitconfig.user"
 
-###############################################################################
-# macOS: Persist zprofile paths for brew
-###############################################################################
-
-if [ "${os_type}" == "macOS" ]; then
-    zsh_profile="${HOME}/.config/zsh/.zprofile"
-
-    if ! grep -q "eval.*homebrew.*shellenv" "${zsh_profile}" 2> /dev/null; then
-      # shellcheck disable=SC2016
-      printf '\neval "$(/opt/homebrew/bin/brew shellenv)"\n' >> "${zsh_profile}"
-    fi
-fi
 
 ###############################################################################
 # Install zsh plugins
@@ -265,7 +225,7 @@ fi
 # Change default shell to zsh
 ###############################################################################
 
-[ "${os_type}" != "macOS" ] && chsh -s "$(command -v zsh)"
+chsh -s "$(command -v zsh)"
 
 # shellcheck disable=SC1091
 . "${HOME}/.config/zsh/.zprofile"
