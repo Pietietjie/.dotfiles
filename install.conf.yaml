@@ -15,7 +15,7 @@
         relink: true
         path: git/.gitconfig
 - link:
-    /shortcuts:
+    '~/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/shortcuts':
       relink: true
       if: [ $(uname -s) != 'Linux' ]
       path: shortcuts
