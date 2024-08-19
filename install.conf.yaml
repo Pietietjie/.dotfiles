@@ -15,6 +15,16 @@
         relink: true
         path: git/.gitconfig
 - link:
+    /shortcuts:
+      relink: true
+      if: [ $(uname -s) != 'Linux' ]
+      path: shortcuts
+- link:
+    ~/AppData/Local/nvim:
+      relink: true
+      if: [ $(uname -s) != 'Linux' ]
+      path: nvim
+- link:
     /Aliases:
         relink: true
         if: [ $(uname -s) != 'Linux' ]
