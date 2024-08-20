@@ -72,6 +72,7 @@ alias g="git"
 alias p="php"
 alias q="exit"
 # Remaining Aliases
+alias kys="exit"
 alias gs="git s"
 alias ga="git a"
 alias gch="git ch"
