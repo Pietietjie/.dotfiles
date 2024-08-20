@@ -79,3 +79,5 @@ gitconfig
 conf
 GeoJSON
 todo
+chocolatey
+sqlite
