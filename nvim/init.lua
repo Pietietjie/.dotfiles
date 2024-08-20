@@ -552,7 +552,7 @@ end
 -- See `:help telescope.builtin`
 telescope_menu_bind_n_and_v_mode('<leader>?', function (defaultText) require('telescope.builtin').oldfiles({ default_text = defaultText, initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' })
 telescope_menu_bind_n_and_v_mode('<leader>:', function (defaultText) require('telescope.builtin').commands({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert"  }) end, { desc = '[:] Finds & executes vim commands from command mode' })
-telescope_menu_bind_n_and_v_mode('<leader>ss', function (defaultText) require('telescope.builtin').buffers({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Find exi[S]ting buffers' })
+telescope_menu_bind_n_and_v_mode('<leader><cr>', function (defaultText) require('telescope.builtin').buffers({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Find existing buffers' })
 telescope_menu_bind_n_and_v_mode('<leader>/', function(defaultText) require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert", winblend = 10, previewer = false, })) end, { desc = '[/] Fuzzily search in current buffer' })
 telescope_menu_bind_n_and_v_mode('<leader>sf', function (defaultText) require('telescope.builtin').find_files { default_text = defaultText, initial_mode = defaultText and "normal" or "insert", hidden = true } end, { desc = '[S]earch [F]iles' })
 telescope_menu_bind_n_and_v_mode('<leader>sb', function (defaultText) require('telescope.builtin').keymaps({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch [B]inding/Keymaps' })
