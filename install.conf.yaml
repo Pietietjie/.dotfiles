@@ -15,6 +15,10 @@
         relink: true
         path: git/.gitconfig
 - link:
+    '~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1':
+      relink: true
+      path: powershell/powershell_profile.ps1
+- link:
     '~/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/shortcuts':
       relink: true
       if: [ $(uname -s) != 'Linux' ]
