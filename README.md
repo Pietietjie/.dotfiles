@@ -14,6 +14,8 @@ My personal dotfile config
 
 ## TODO
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
+- Nvim add file spesific git history
+- Nvim go to the diff of a git blame
 - Look at getting a [ debugger for nvim ](https://github.com/mfussenegger/nvim-dap)
 - Look creating functionality that allow Telescope buffer fuzzy finder to close buffers
 - System preferences/settings
