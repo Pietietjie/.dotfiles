@@ -1,5 +1,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+-- if windows use the chocolatey sqlite package
+if (string.find(vim.loop.os_uname().sysname, "indows")) then
+  vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
+end
 -- add error handling
 -- vim.cmd 'colorscheme tokyonight'
 
