@@ -287,7 +287,7 @@ require('lazy').setup({
   {
     'nishigori/increment-activator',
     config = function ()
-      vim.cmd( "let g:increment_activator_filetype_candidates = { '_': [['true', 'false'],], }")
+      vim.cmd( "let g:increment_activator_filetype_candidates = { '_': [['true', 'false'],['enable', 'disable'],['enabled','disabled'],], }")
     end
   },
   'xiyaowong/transparent.nvim',
