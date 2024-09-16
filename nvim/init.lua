@@ -415,7 +415,7 @@ vim.cmd('autocmd FileType netrw setlocal number')
 -- ----------------------------------------------------
 vim.api.nvim_create_user_command('E', 'e .env', {})
 -- ----------------------------------------------------
--- Key Bindings
+-- Key Bindings/Shortcuts
 -- ----------------------------------------------------
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>vb', '<c-v>', { desc = 'Goes into [V]isual [B]lock mode'} )
@@ -549,10 +549,39 @@ local function get_visual_selection()
   return table.concat(lines, '\n')
 end
 
+local previousTelescopeMenuAction = nil;
 local function telescope_menu_bind_n_and_v_mode(bindingInputVim, bindingAction, opt)
-  vim.keymap.set('n', bindingInputVim, bindingAction, opt)
-  vim.keymap.set('v', bindingInputVim, function () bindingAction(get_visual_selection()) end, opt)
+  vim.keymap.set(
+    'n',
+    bindingInputVim,
+    function ()
+      previousTelescopeMenuAction = bindingAction;
+      bindingAction();
+    end,
+    opt
+  );
+  vim.keymap.set(
+    'v',
+    bindingInputVim,
+    function ()
+      previousTelescopeMenuAction = bindingAction;
+      bindingAction(get_visual_selection());
+    end,
+    opt
+  );
 end
+vim.keymap.set(
+  'n',
+  '<C-p>',
+  function ()
+    if (previousTelescopeMenuAction == nil) then
+      print "noes";
+      return;
+    end
+    print "yues";
+    previousTelescopeMenuAction();
+  end
+)
 -- See `:help telescope.builtin`
 telescope_menu_bind_n_and_v_mode('<leader>?', function (defaultText) require('telescope.builtin').oldfiles({ default_text = defaultText, initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' })
 telescope_menu_bind_n_and_v_mode('<leader>:', function (defaultText) require('telescope.builtin').commands({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert"  }) end, { desc = '[:] Finds & executes vim commands from command mode' })
