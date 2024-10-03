@@ -575,11 +575,13 @@ vim.keymap.set(
   '<C-p>',
   function ()
     if (previousTelescopeMenuAction == nil) then
-      print "noes";
       return;
     end
-    print "yues";
     previousTelescopeMenuAction();
+    local keys = vim.api.nvim_replace_termcodes('<C-p>',true,false,true)
+    -- 'm' is the mode, you can find on the feedkeys docs, but your case is
+    -- 'm', I think
+    vim.api.nvim_feedkeys(keys,'m',false)
   end
 )
 -- See `:help telescope.builtin`
