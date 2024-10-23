@@ -510,6 +510,7 @@ require('telescope').setup {
     mappings = {
       n = {
         q = telescopeActions.close,
+        ["-"] = telescopeActions.close,
         ["<C-Down>"] = telescopeActions.cycle_history_next,
         ["<C-Up>"] = telescopeActions.cycle_history_prev,
         ["<C-p>"] = telescopeActions.cycle_history_prev,
