@@ -27,31 +27,43 @@ require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
   -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-  'tpope/vim-eunuch',
+  -- 'tpope/vim-fugitive',
+  --
+  -- github plugin
+  -- 'tpope/vim-rhubarb',
+
+  -- adds, replaces, removes surrounding pairs
   'tpope/vim-surround',
+
+  -- Adds some bindings useing the bracket pairing ] [
   'tpope/vim-unimpaired',
+
+  -- improves netrw
   'tpope/vim-vinegar',
+
+  -- adds compatibility for "." in other packages
   'tpope/vim-repeat',
+
   -- use * to search visual mode selection
   'nelstrom/vim-visual-star-search',
+
+  -- continue editing file from last location
+  'farmergreg/vim-lastplace',
+
   -- better language based highlighting 
   -- TODO fix this as it is giving issues with lazy package manager
   -- 'sheerun/vim-polyglot',
-  -- continue editing file from last location
-  'farmergreg/vim-lastplace',
+
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+
+  -- detects the root dir of the project
   {
     'airblade/vim-rooter',
-    init = function()
-      vim.g.rooter_manual_only = 1
-    end,
-    config = function()
-      vim.cmd('Rooter')
-    end,
+    init = function() vim.g.rooter_manual_only = 1 end,
+    config = function() vim.cmd('Rooter') end,
   },
+
   -- auto closing brackets
   {
     'windwp/nvim-autopairs',
@@ -69,28 +81,24 @@ require('lazy').setup({
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
-
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
   },
 
+  -- Autocompletion
   {
-    -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
-
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
@@ -130,6 +138,7 @@ require('lazy').setup({
     },
   },
 
+  -- theme
   {
     'folke/tokyonight.nvim',
     priority = 1000,
@@ -174,6 +183,7 @@ require('lazy').setup({
         })
     end,
   },
+  -- Makes that bracket pairs have different colors based on level {#color1 {#color2 {#color3 { #color1 } } } }
   {
     'HiPhish/rainbow-delimiters.nvim',
   },
@@ -200,7 +210,7 @@ require('lazy').setup({
     },
   },
 
-  -- "gc" to comment visual regions/lines
+  -- Add comment key binding on "gc"
   { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, LSP, etc)
@@ -218,21 +228,24 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end,
   },
-
+  -- adds history to telescope uses sqlite
   {
     'nvim-telescope/telescope-smart-history.nvim',
     dependencies = {
       'kkharji/sqlite.lua',
     }
   },
+
+  -- Highlight, edit, and navigate code
   {
-    -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
   },
+
+  -- show the current context of the cursor like which function, class, if statement, loop, etc. at the top of the buffer
   {
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
@@ -252,23 +265,11 @@ require('lazy').setup({
       })
     end
   },
-  -- smooth scrolling
-  {
-    'karb94/neoscroll.nvim',
-    config = function()
-      require('neoscroll').setup()
-      local neoscroll_avail, neoscroll_config = pcall(require, "neoscroll.config")
-         if neoscroll_avail then
-         neoscroll_config.set_mappings {
-              ["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "25" } },
-              ["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "25" } },
-          }
-      end
-    end,
-  },
+
   -- copy paste intent fix
   'sickill/vim-pasta',
 
+  -- allows easier custom text objects
   -- https://github.com/kana/vim-textobj-user/wiki
   {
     'kana/vim-textobj-user',
@@ -284,22 +285,29 @@ require('lazy').setup({
       'adriaanzon/vim-textobj-blade-directive', -- 'ad' blade directive
     }
   },
+
   {
     'nishigori/increment-activator',
     config = function ()
       vim.cmd( "let g:increment_activator_filetype_candidates = { '_': [['true', 'false'],['enable', 'disable'],['enabled','disabled'],], }")
     end
   },
+
+  -- makes the background transparent to blend in with the terminal
   'xiyaowong/transparent.nvim',
+
+  -- saves buffers automatically
   'pocco81/auto-save.nvim',
-  -- Syntax and indent files
+
+  -- Syntax and indent for Laravel blade files
   -- loading this on ft because that seems to work better for some reason
   -- otherwise indents for example only work after set ft=blade
-  -- blade
   {
     "jwalton512/vim-blade",
     ft = "blade",
   },
+
+  -- improves the styling of the folded lines
   {
     "anuvyklack/pretty-fold.nvim",
     config = function()
@@ -318,19 +326,12 @@ require('lazy').setup({
     end
 
   },
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Un-comment any of the lines below to enable them.
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
-
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --    Un-comment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
 }, {})
 
 -- ----------------------------------------------------
