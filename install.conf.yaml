@@ -15,29 +15,6 @@
         relink: true
         path: git/.gitconfig
 - link:
-    '~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1':
-      relink: true
-      path: powershell/powershell_profile.ps1
-- link:
-    '~/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/shortcuts':
-      relink: true
-      if: [ $(uname -s) != 'Linux' ]
-      path: shortcuts
-- link:
-    ~/AppData/Local/nvim:
-      relink: true
-      if: [ $(uname -s) != 'Linux' ]
-      path: nvim
-- link:
-    /Aliases:
-        relink: true
-        if: [ $(uname -s) != 'Linux' ]
-        path: Aliases
-- link:
-    ~/.config/kitty:
-        relink: true
-        path: kitty
-- link:
     ~/.tmux.conf:
         relink: true
         path: tmux/.tmux.conf

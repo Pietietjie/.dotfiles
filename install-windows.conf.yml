@@ -1,0 +1,21 @@
+- link:
+    ~/.wezterm.lua:
+        relink: true
+        path: wezterm/.wezterm.lua
+- link:
+    ~/.gitconfig:
+        relink: true
+        path: git/.gitconfig
+- link:
+    '~/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1':
+      relink: true
+      path: powershell/powershell_profile.ps1
+- link:
+    ~/AppData/Local/nvim:
+      relink: true
+      path: nvim
+- link:
+    /Aliases:
+        relink: true
+        path: Aliases
+
