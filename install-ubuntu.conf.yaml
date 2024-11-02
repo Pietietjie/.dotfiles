@@ -18,6 +18,12 @@
         stdout: true
         description: "Build neovim from source if it is not allready installed."
         stderr: true
+    -
+        command:
+            "mkdir ~/.local && mkdir ~/.local/share && mkdir ~/.local/share/nvim && mkdir ~/.local/share/nvim/databases && touch ~/.local/share/nvim/databases/telescope_history.sqlite3"
+        stdout: true
+        description: "Create sqlite db for nvim"
+        stderr: true
 
 - aptget: [ tmux, fzf, grep, ripgrep, mysql-server, mysql-client, sqlite3 ]
 # PHP first add ppa then all the different versions and plugins
