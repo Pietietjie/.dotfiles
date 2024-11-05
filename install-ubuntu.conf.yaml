@@ -24,6 +24,12 @@
         stdout: true
         description: "Create sqlite db for nvim"
         stderr: true
+    -
+        command:
+            'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
+        stdout: true
+        stderr: true
+        description: "Install node version manager and node"
 
 - aptget: [ tmux, fzf, grep, ripgrep, mysql-server, mysql-client, sqlite3, jq ]
 # PHP first add ppa then all the different versions and plugins
