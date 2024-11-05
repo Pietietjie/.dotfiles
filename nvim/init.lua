@@ -450,7 +450,7 @@ vim.keymap.set({'n', 'v'}, '<leader>Y', '"+y$', { desc = '[Y]anks into system cl
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
-vim.keymap.set('n', '<leader>az', ':%g/\\_sfunction\\_s(.\\n)*\\_s*{/normal j0f{zf%<cr>:%g/\\/\\*/normal zfac<cr>', { desc = 'Fold [A]ll', remap = true })
+vim.keymap.set('n', '<leader>az', 'mz:%g/\\_sfunction\\_s\\(.\\|\\n\\)\\{-\\}\\_s*{/normal! gn%zf<cr>:%g/\\/\\*/normal zfac<cr>:%g/\\(public\\|protected\\|private\\) [a-zA-Z?]* \\$.\\{-\\} = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>:%g/const \\_S* = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>`z', { desc = 'Fold [A]ll', remap = true })
 -- Open the current file in the default program (on Mac this should just be just `open`)
 vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>')
 
