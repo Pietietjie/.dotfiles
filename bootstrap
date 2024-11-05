@@ -7,8 +7,8 @@ set -e
 # Clone dotfiles
 ###############################################################################
 
-read -rep $'\nWhere do you want to clone these dotfiles to [~/dotfiles]? ' clone_path
-clone_path="${clone_path:-"${HOME}/dotfiles"}"
+read -rep $'\nWhere do you want to clone these dotfiles to [~/.dotfiles]? ' clone_path
+clone_path="${clone_path:-"${HOME}/.dotfiles"}"
 
 # Ensure path doesn't exist.
 while [ -e "${clone_path}" ]; do
