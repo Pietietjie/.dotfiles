@@ -435,6 +435,7 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { remap = true })
+vim.keymap.set('n', '<leader>az', ':%g/\\_sfunction\\_s(.\\n)*\\_s*{/normal j0f{zf%<cr>:%g/\\/\\*/normal zfac<cr>', { remap = true })
 
 -- Re-select visual selection after indenting
 vim.keymap.set('v', '<', '<gv')
