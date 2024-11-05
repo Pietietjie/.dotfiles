@@ -1,7 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 export dot="$HOME/.dotfiles"
 
-composer_path=$(which composer.phar)
+composer_path=$(which composer)
 ZSH_THEME="pietietjie"
 HYPHEN_INSENSITIVE="true"
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
