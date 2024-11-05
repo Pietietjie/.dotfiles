@@ -1,6 +1,6 @@
 # use with the following command `sudo ./install -c apt.conf.yaml -p dotbot-aptget/aptget.py` 
 # build requirements for nvim
-- aptget: [ git, ninja-build, gettext, cmake, unzip, curl, build-essential ]
+- aptget: [ git, ninja-build, gettext, cmake, unzip, curl, build-essential, zsh ]
 - shell:
     -
         command:
@@ -17,6 +17,12 @@
             fi"
         stdout: true
         description: "Build neovim from source if it is not allready installed."
+        stderr: true
+    -
+        command:
+            'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+        stdout: true
+        description: "Install oh my zsh"
         stderr: true
     -
         command:

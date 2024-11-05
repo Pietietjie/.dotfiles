@@ -3,14 +3,7 @@
 My personal dotfile config
 
 ## Steps
-1. Clone the submodules with `git submodule init && git submodule update`
-
-2. When installing apt packages run `sudo ./install -c install-ubuntu.conf.yaml -p dotbot-aptget/aptget.py`
-    - This requires Python version 3.5+
-
-3. Run `./install` to set up all the config files
-
-4. Run `./getnf/getnf` and select the Nerd Font that you wish to install
+1. run `bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/install)`
 
 ## TODO
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
