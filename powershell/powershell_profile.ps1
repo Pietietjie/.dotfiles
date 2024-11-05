@@ -54,7 +54,7 @@ function prompt {
     Write-Host " " -NoNewline -ForegroundColor Magenta
     if (git branch) {
         Write-Host "  $(git rev-parse --abbrev-ref HEAD) " -NoNewline -ForegroundColor Magenta
-        if (git status) {
+        if (git status -s) {
             Write-Host "  " -NoNewline -ForegroundColor Yellow
         }
     } else {
