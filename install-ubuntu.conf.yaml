@@ -25,7 +25,7 @@
         description: "Create sqlite db for nvim"
         stderr: true
 
-- aptget: [ tmux, fzf, grep, ripgrep, mysql-server, mysql-client, sqlite3 ]
+- aptget: [ tmux, fzf, grep, ripgrep, mysql-server, mysql-client, sqlite3, jq ]
 # PHP first add ppa then all the different versions and plugins
 - aptget: 
     php8.2: ppa:ondrej/php
