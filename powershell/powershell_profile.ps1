@@ -10,6 +10,18 @@ remove-item -Force Alias:nv
 set-alias -Name nv -Value nvim
 set-alias -Name cl -Value clear
 
+function .. {
+    Invoke-command -ScriptBlock {cd ..}
+}
+function ... {
+    Invoke-command -ScriptBlock {cd ../..}
+}
+function .... {
+    Invoke-command -ScriptBlock {cd ../../..}
+}
+function ..... {
+    Invoke-command -ScriptBlock {cd ../../../..}
+}
 function q {
     Invoke-command -ScriptBlock {exit}
 }
