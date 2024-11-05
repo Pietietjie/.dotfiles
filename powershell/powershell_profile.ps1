@@ -42,9 +42,10 @@ function prompt {
     }
     Write-Host "$($CmdPromptUser.Name.split("\")[1])@$($CmdPromptUser.Name.split("\")[0])" -ForegroundColor Blue -NoNewline
     Write-Host ":"  -ForegroundColor Yellow -NoNewline
-    Write-Host "$pwd "  -ForegroundColor Green -NoNewline
+    Write-Host "$pwd"  -ForegroundColor Green -NoNewline
 
-    Write-Host "$date" -ForegroundColor Red
+    Write-Host " ‹󰨊 $((Get-Host).Version.ToString())›" -ForegroundColor Magenta -NoNewline
+    Write-Host " $date" -ForegroundColor Red
     if (Get-Error) {
         Write-Host "╰─" -NoNewline -ForegroundColor Red
     } else {
@@ -62,3 +63,4 @@ function prompt {
     Write-Host ":" -NoNewline -ForegroundColor Magenta
     return " "
 } #end prompt function
+Clear-Host
