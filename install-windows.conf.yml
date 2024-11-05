@@ -11,6 +11,10 @@
       relink: true
       path: powershell/powershell_profile.ps1
 - link:
+    '~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1':
+      relink: true
+      path: powershell/powershell_profile.ps1
+- link:
     ~/AppData/Local/nvim:
       relink: true
       path: nvim
