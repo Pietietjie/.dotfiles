@@ -3,7 +3,7 @@
 My personal dotfile config
 
 ## Steps
-1. run `bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/install)`
+1. run `bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)`
 
 ## TODO
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
