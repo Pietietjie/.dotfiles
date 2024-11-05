@@ -43,6 +43,7 @@ case "${os_type}" in
         os_type="Linux"
 
         if [   -f "/etc/debian_version" ]; then
+            ./install
             sudo ./install -c ./install-ubuntu.conf.yaml -p dotbot-aptget/aptget.py
         fi
 
