@@ -20,7 +20,7 @@
         stderr: true
     -
         command:
-            "mkdir ~/.local && mkdir ~/.local/share && mkdir ~/.local/share/nvim && mkdir ~/.local/share/nvim/databases && touch ~/.local/share/nvim/databases/telescope_history.sqlite3"
+            "mkdir -p ~/.local/share/nvim/databases && touch ~/.local/share/nvim/databases/telescope_history.sqlite3"
         stdout: true
         description: "Create sqlite db for nvim"
         stderr: true
