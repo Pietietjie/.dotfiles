@@ -64,13 +64,13 @@ require('lazy').setup({
     config = function() vim.cmd('Rooter') end,
   },
 
-  -- auto closing brackets
-  {
-    'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup()
-    end,
-  },
+  -- -- auto closing brackets
+  -- {
+  --   'windwp/nvim-autopairs',
+  --   config = function()
+  --     require('nvim-autopairs').setup()
+  --   end,
+  -- },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
