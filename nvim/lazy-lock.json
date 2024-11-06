@@ -33,6 +33,7 @@
   "tokyonight.nvim": { "branch": "main", "commit": "2e1daa1d164ad8cc3e99b44ca68e990888a66038" },
   "transparent.nvim": { "branch": "main", "commit": "fd35a46f4b7c1b244249266bdcb2da3814f01724" },
   "vim-blade": { "branch": "master", "commit": "9534101808cc320eef003129a40cab04b026a20c" },
+  "vim-fugitive": { "branch": "master", "commit": "d4877e54cef67f5af4f950935b1ade19ed6b7370" },
   "vim-indent-object": { "branch": "master", "commit": "8ab36d5ec2a3a60468437a95e142ce994df598c6" },
   "vim-lastplace": { "branch": "master", "commit": "a715d602745cdb1c35cfe73c50d3dd266eb5a349" },
   "vim-pasta": { "branch": "master", "commit": "2b786703eef9f82ae7a56f3de4ee43e1e5efaaa5" },
