@@ -792,6 +792,9 @@ luasnip.add_snippets("all", {
   }),
 })
 luasnip.add_snippets("php", {
+  luasnip.snippet("$app =", {
+    luasnip.text_node("$app = Wow_Application::getInstance();"),
+  }),
   luasnip.snippet("echo_print_r", {
     luasnip.text_node("echo '<pre>';"),
     luasnip.text_node({ "", "print_r(" }),
