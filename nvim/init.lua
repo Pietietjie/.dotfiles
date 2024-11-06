@@ -766,6 +766,41 @@ local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
+local function copy(args)
+  return args[1]
+end
+
+luasnip.add_snippets("all", {
+  -- trigger is `fn`, second argument to snippet-constructor are the nodes to insert into the buffer on expansion.
+  luasnip.snippet("example", {
+    -- Simple static text.
+    luasnip.text_node("//Parameters: "),
+    -- function, first parameter is the function, second the Placeholders
+    -- whose text it gets as input.
+    luasnip.function_node(copy, 2),
+    luasnip.text_node({ "", "function " }),
+    -- Placeholder/Insert.
+    luasnip.insert_node(1),
+    luasnip.text_node("("),
+    -- Placeholder with initial text.
+    luasnip.insert_node(2, "int foo"),
+    -- Linebreak
+    luasnip.text_node({ ") {", "\t" }),
+    -- Last Placeholder, exit Point of the snippet.
+    luasnip.insert_node(0),
+    luasnip.text_node({ "", "}" }),
+  }),
+})
+luasnip.add_snippets("php", {
+  luasnip.snippet("echo_print_r", {
+    luasnip.text_node("echo '<pre>';"),
+    luasnip.text_node({ "", "print_r(" }),
+    luasnip.insert_node(0),
+    luasnip.text_node(");"),
+    luasnip.text_node({ "", "die;" }),
+  }),
+})
+
 cmp.setup {
   snippet = {
     expand = function(args)
