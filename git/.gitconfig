@@ -1,5 +1,5 @@
 [user]
-	email = pieter.vandermeijden@lavalamp.biz
+	email = 21083972+Pietietjie@users.noreply.github.com
 	name = Pieter
 [alias]
 	alias = "!git config --global alias.$1 \"$2\" #"
