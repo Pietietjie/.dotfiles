@@ -10,7 +10,7 @@ config.default_prog = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' }
 
 config.font_size = 10.0
 config.line_height = 1.25
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.8
 config.enable_tab_bar = false
 config.window_padding = {
   left = 10,
