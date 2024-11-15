@@ -43,11 +43,12 @@ case "${os_type}" in
     Linux*)
         os_type="Linux"
 
-        ./install || true
         if [   -f "/etc/debian_version" ]; then
             sudo ./install || true
             sudo ./install -c ./install-ubuntu.conf.yaml -p dotbot-aptget/aptget.py || true
         fi
+
+        ./install || true
 
         ;;
 esac

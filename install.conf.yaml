@@ -5,13 +5,9 @@
         create: true
 - link:
     ~/.bashrc:
+        force: true
         relink: true
         path: bash/.bashrc
-        create: true
-- link:
-    ~/.zshrc:
-        relink: true
-        path: zsh/.zshrc
         create: true
 - link:
     ~/.gitconfig:
@@ -31,9 +27,10 @@
 - shell:
     - 
         command:
-            "if $(command -v omz);
+            "if [ ! -d \"$HOME/.oh-my-zsh\" ] && $(which zsh);
             then
-                sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\";
+                sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"
+                && chsh -s $(which zsh);
             fi"
         stdout: true
         description: "Install oh my zsh: "
@@ -46,9 +43,12 @@
         stderr: true
     -
         command:
-            "if $(command -v nvm);
+            "if [ ! -d \"$HOME/.nvm\" ];
             then
                 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+                && export NVM_DIR=\"$HOME/.nvm\"
+                && [ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\"
+                && [ -s \"$NVM_DIR/bash_completion\" ] && \\. \"$NVM_DIR/bash_completion\"
                 && nvm install v20.18.0;
             fi"
         stdout: true
@@ -58,4 +58,10 @@
     ~/.oh-my-zsh/themes/pietietjie.zsh-theme:
         relink: true
         path: zsh/pietietjie.zsh-theme
+        create: true
+- link:
+    ~/.zshrc:
+        force: true
+        relink: true
+        path: zsh/.zshrc
         create: true
