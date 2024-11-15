@@ -2,11 +2,12 @@
 
 My personal dotfile config
 
-## Steps
-1. run `bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)`
+## Install
+- For Linux (only really Ubuntu atm) run `bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)`
+- For Windows run `Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap" -OutFile "$env:TEMP\bootstrap.ps1"
+& "$env:TEMP\bootstrap.ps1"`
 
 ## TODO
-- Look at making a windows bootstrap script
 - Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows) 
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
 - Nvim add file spesific git history
