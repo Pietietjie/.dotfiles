@@ -69,27 +69,51 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-# Pieter's custom Aliases
-alias tm='tmux'
-alias nv='nvim'
-alias vim='nvim'
-setphp() { ~/.dotfiles/setphp.sh $@ ; }
-php () { $(~/.dotfiles/setphp.sh) $@ ; }
-alias art="artisan"
+# My custom Aliases
+# Functions
+composer() { php $composer_path "$@" }
+artisan() { if [ -f vendor/.dontsail ]; then php artisan "$@"; elif [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
+composer-link() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/([^\/]+)$/\1/p'`; composer config "repositories.$package" '{"type": "path", "url": "'$1'"}'; }
+composer-github() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/(.*)\.git/\1/p'`; composer config "repositories.$package" vcs $1; }
+# 1 Character Aliases
 alias a="artisan"
-alias tink="a tinker"
-alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
-alias ls="ls -a"
+alias d="docker"
 alias g="git"
+alias p="php"
 alias q="exit"
+# Remaining Aliases
+alias kys="exit"
+alias gs="git s"
+alias ga="git a"
+alias gch="git ch"
+alias ls="ls -1A --group-directories-first --color=always"
+alias tink="a tinker"
 alias :q="exit"
 alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias -- -="cd -"
+alias home="cd ~"
 alias vimdiff='nvim -d'
-alias so="source ~/.bashrc"
+alias so="omz reload"
+alias doc="docker"
+alias dc="docker-compose"
+alias tm='tmux'
+alias nv='nvim'
+alias cl='clear'
+alias change="sudo update-alternatives --config"
+alias cdump="composer dump-autoload -o"
+alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
+alias db:reset="artisan migrate:reset && artisan migrate --seed"
+alias fresh="migrate:fresh"
+alias migrate="artisan migrate"
+alias refresh="artisan migrate:refresh"
+alias rollback="artisan migrate:rollback"
+alias seed="artisan db:seed"
+alias dexe="docker exec -it \$(docker container ls | sed 1d | fzf | awk '{print \$1}') bash"
+alias fzcp="cp \$(fzf)"
+alias fzmv="mv \$(fzf)"
 
 artisan () { if [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
 
@@ -105,3 +129,7 @@ fi
 
 update_dot="g dotfiles pl"
 "${update_dot}" &>/dev/null & disown;
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
