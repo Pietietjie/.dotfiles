@@ -3,9 +3,15 @@
 My personal dotfile config
 
 ## Install
-- For Linux (only really Ubuntu atm) run `bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)`
-- For Windows run `Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap" -OutFile "$env:TEMP\bootstrap.ps1"
-& "$env:TEMP\bootstrap.ps1"`
+- For Linux (only really Ubuntu atm) run
+```bash
+bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)
+```
+- For Windows run 
+```powershell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap" -OutFile "$env:TEMP\bootstrap.ps1"
+& "$env:TEMP\bootstrap.ps1"
+```
 
 ## TODO
 - Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows) 
