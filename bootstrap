@@ -54,8 +54,6 @@ cat << EOF
 Everything was installed successfully!
 
 You can safely close this terminal.
-
-The next time you open your terminal zsh will be ready to go!
 EOF
 
 exit 0
