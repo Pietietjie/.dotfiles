@@ -2,27 +2,34 @@
     ~/.wezterm.lua:
         relink: true
         path: wezterm/.wezterm.lua
+        create: true
 - link:
     ~/.bashrc:
         relink: true
         path: bash/.bashrc
+        create: true
 - link:
     ~/.zshrc:
         relink: true
         path: zsh/.zshrc
+        create: true
 - link:
     ~/.gitconfig:
         relink: true
         path: git/.gitconfig
+        create: true
 - link:
     ~/.tmux.conf:
         relink: true
         path: tmux/.tmux.conf
+        create: true
 - link:
     ~/.config/nvim:
         relink: true
         path: nvim
+        create: true
 - link:
     ~/.oh-my-zsh/themes/pietietjie.zsh-theme:
         relink: true
         path: zsh/pietietjie.zsh-theme
+        create: true

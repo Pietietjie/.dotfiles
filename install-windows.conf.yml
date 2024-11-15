@@ -2,26 +2,32 @@
     ~/.wezterm.lua:
         relink: true
         path: wezterm/.wezterm.lua
+        create: true
 - link:
     ~/.gitconfig:
         relink: true
         path: git/.gitconfig
+        create: true
 - link:
     '~/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1':
-      relink: true
-      path: powershell/powershell_profile.ps1
+        relink: true
+        path: powershell/powershell_profile.ps1
+        create: true
 - link:
     '~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1':
-      relink: true
-      path: powershell/powershell_profile.ps1
+        relink: true
+        path: powershell/powershell_profile.ps1
+        create: true
 - link:
     ~/AppData/Local/nvim:
-      relink: true
-      path: nvim
+        relink: true
+        path: nvim
+        create: true
 - link:
     /Aliases:
         relink: true
         path: Aliases
+        create: true
 - shell:
     -
         command:
