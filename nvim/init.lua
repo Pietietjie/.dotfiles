@@ -492,6 +492,7 @@ local nextHistoryAndChangeToNormalMode = function (prompt_bufnr)
 end
 require('telescope').setup {
   defaults = {
+    wrap_results = true,
     history = {
       path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
       limit = 100,
