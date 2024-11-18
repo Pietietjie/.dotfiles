@@ -420,7 +420,9 @@ vim.api.nvim_create_user_command('E', 'e .env', {})
 -- Key Bindings/Shortcuts
 -- ----------------------------------------------------
 vim.keymap.set({'n', 'v'}, 'x', '"_x')
-vim.keymap.set({'n', 'v'}, 's', '"_s')
+vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
+vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
+-- vim.keymap.'set'({'n', 'v'}, 's', '"_s')
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set('i', 'jj', '<Esc>')
