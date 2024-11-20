@@ -47,7 +47,7 @@ export FZF_DEFAULT_OPTS='
 --color=dark
 --color=fg:-1,bg:-1,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
 --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef,gutter:-1,border:#1f2335
---bind=j:down,q:abort,k:up,v:accept
+--bind=j:down,q:abort,k:up,v:toggle+down,ctrl-a:toggle-all
 '
 
 # zsh history ignore
