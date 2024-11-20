@@ -1,9 +1,4 @@
 - link:
-    ~/.wezterm.lua:
-        relink: true
-        path: wezterm/.wezterm.lua
-        create: true
-- link:
     ~/.bashrc:
         force: true
         relink: true
@@ -23,6 +18,11 @@
     ~/.config/nvim:
         relink: true
         path: nvim
+        create: true
+- link:
+    ~/scripts:
+        relink: true
+        path: scripts
         create: true
 - shell:
     - 

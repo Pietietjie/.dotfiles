@@ -93,6 +93,7 @@ alias dc="docker-compose"
 alias tm='tmux'
 alias nv='nvim'
 alias cl='clear'
+alias scrp='~/scripts/$(ls -a --color=never ~/scripts | sed "1d;2d" | fzf)'
 alias change="sudo update-alternatives --config"
 alias cdump="composer dump-autoload -o"
 alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
