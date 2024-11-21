@@ -39,3 +39,7 @@ if [ -f ~/tmux-sessions.json ]; then
         fi
     done
 fi
+if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+    tmux attach-session
+fi
+
