@@ -5,9 +5,11 @@
 	alias = "!git config --global alias.$1 \"$2\" #"
 	chekcout = checkout
 	ch = checkout
+	ch-pck = cherry-pick
 	stash-checkout = "!git stash -q && ( git checkout $@ && git pull; git stash pop -q  ) #"
 	sch = stash-checkout
 	fzf-b = "!echo $(git branch -a | fzf) | sed \"s/^remotes\\/[a-zA-Z]\\+\\///\" | sed \"s/ -> .*//\""
+	fzf-rb = "!git rebase -i $(git fzf-b)"
 	fzf = "!git checkout $(git fzf-b)"
 	fzf-m = "!git merge $(git branch -a | fzf)"
 	checout = checkout
