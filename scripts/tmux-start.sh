@@ -17,7 +17,7 @@ if [ -f ~/tmux-sessions.json ]; then
     jq -c '.[]' ~/tmux-sessions.json | while IFS= read -r sessionJson; do
         sessionName=$(echo "$sessionJson" | jq -r '.sessionName')
         if echo $selectedSessions | grep -q $sessionName; then
-            directory=$(echo "$sessionJson" | jq -r '.dir' | sed "s|^~|$HOME|")
+            directory=$(echo "$sessionJson" | jq -r '.dir' | sed "s|^~|$HOME|;s|^\.$|$(pwd)|")
             nvim=$(echo "$sessionJson" | jq -r '.nvim')
             extraCommands=$(echo "$sessionJson" | jq -r '.extraCommands')
             if ! (tmux ls 2>/dev/null | sed 's/:.*//' | grep -q "$sessionName"); then
