@@ -812,6 +812,15 @@ luasnip.add_snippets("php", {
     luasnip.text_node({ "", "die;" }),
   }),
 })
+luasnip.add_snippets("twig", {
+  luasnip.snippet("echo_all_vars", {
+    luasnip.text_node("<ol>"),
+    luasnip.text_node({"", "    {% for key, value in _context  %}"}),
+    luasnip.text_node({"", "      <li>{{ key }}: {{ value | json_encode }}</li>"}),
+    luasnip.text_node({"", "    {% endfor %}"}),
+    luasnip.text_node({"", "</ol>"}),
+  }),
+})
 
 cmp.setup {
   snippet = {
