@@ -15,6 +15,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 
 ## TODO
 - Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows) 
+- look into highlighting for twig files
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
 - Nvim add file spesific git history
 - Nvim go to the diff of a git blame
