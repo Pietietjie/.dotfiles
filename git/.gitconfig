@@ -36,8 +36,9 @@
 	f = fetch
 	cl-b = "!git branch | grep -v $(git rev-parse --abbrev-ref HEAD) | xargs git branch -D"
 	ups = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
-	rest = restore
-	srest = "!if [ \"$#\" -eq 0 ]; then git restore . --staged; else git restore $@ --staged; fi; git status -s #"
+	rst = reset
+	rstr = restore
+	srstr = "!if [ \"$#\" -eq 0 ]; then git restore . --staged; else git restore $@ --staged; fi; git status -s #"
 	tagls = "!git for-each-ref --sort=creatordate --format '%(refname) %(creatordate)' refs/tags | sed 's/^refs\\/tags\\///'"
 	rb = rebase
 [core]
