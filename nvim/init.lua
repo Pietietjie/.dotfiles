@@ -433,6 +433,7 @@ vim.keymap.set('i', '<C-v>', '<Esc>"+p', { desc = 'Paste from system clipboard' 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- keybinding/maps that use the leader key
+vim.keymap.set({ 'n', 'v' }, 'q:', ':', { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q'} )
 vim.keymap.set({ 'n', 'v' }, '<leader>vb', '<c-v>', { desc = 'Goes into [V]isual [B]lock mode'} )
 vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line'} )
 vim.keymap.set('n', '<leader>O', 'moO<Esc>`o', { desc = '[⬆] empty new line'} )
