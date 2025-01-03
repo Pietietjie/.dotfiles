@@ -50,7 +50,7 @@ require('lazy').setup({
   -- continue editing file from last location
   'farmergreg/vim-lastplace',
 
-  -- better language based highlighting 
+  -- better language based highlighting
   -- TODO fix this as it is giving issues with lazy package manager
   -- 'sheerun/vim-polyglot',
 
@@ -442,6 +442,16 @@ vim.keymap.set({'n', 'v'}, '<leader>d', '"_d', { desc = '[D]elete without copyin
 vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[P]astes over without copying'} )
 vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = '[Y]anks into system clipboard'} )
 vim.keymap.set({'n', 'v'}, '<leader>Y', '"+y$', { desc = '[Y]anks into system clipboard'} )
+vim.keymap.set({'n', 'v'}, '<leader>.', function()
+  pcall(function ()
+    local count = vim.v.count
+    if count == 0 then count = 1 end
+    for _ = 1, count do
+      vim.cmd('normal! n')
+      vim.cmd('normal! .')
+    end
+  end)
+end, { noremap = true, silent = true, desc = '[→] Finds next and does the repeats the previous action. (For using with counts.)' } )
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
