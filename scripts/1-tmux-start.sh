@@ -45,7 +45,7 @@ createWindow ()
 
     currentPane=1
     if [[ -n $windowNumber && "$windowNumber" != "null" && $windowNumber != 1 ]]; then
-        tmux new-window -t $sessionName:$windowNumber
+        tmux new-window -t $sessionName:$windowNumber -c "$windowDir"
     fi
 
     if [[ -n $windowNvim && "$windowNvim" != "null" ]]; then
@@ -73,7 +73,7 @@ if [ -f ~/tmux-sessions.json ]; then
 
         if ! (tmux ls 2>/dev/null | sed 's/:.*//' | grep -q "$sessionName"); then
             tmux new-session -d -s $sessionName -c "$directory";
-            createWindow --dir $directory --nvim $nvim --num $num --extraCommands $extraCommands
+            createWindow --dir "$directory" --nvim "$nvim" --num "$num" --extraCommands "$extraCommands"
 
             if [[ -n $extraWindows && "$extraWindows" != "null" ]]; then
                 echo "$extraWindows" | jq -c '.[]' | while read -r extraWindow; do
@@ -82,7 +82,7 @@ if [ -f ~/tmux-sessions.json ]; then
                 extraWindowExtraCommands=$(echo "$extraWindow" | jq -r '.extraCommands')
                 let "num++";
 
-                createWindow --dir $extraWindowDirectory --nvim $nvim --num $num --extraCommands $extraCommands
+                createWindow --dir "$extraWindowDirectory" --nvim "$nvim" --num "$num" --extraCommands "$extraCommands"
             done
             fi
         else
