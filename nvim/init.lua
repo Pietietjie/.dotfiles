@@ -449,13 +449,6 @@ vim.keymap.set('n', '<leader>az', 'mz:%g/\\_sfunction\\_s\\(.\\|\\n\\)\\{-\\}\\_
 -- Open the current file in the default program (on Mac this should just be just `open`)
 vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>')
 
-
--- -- Move text up and down
--- vim.keymap.set('i', '<A-j>', '<Esc>:move .+1<CR>==gi')
--- vim.keymap.set('i', '<A-k>', '<Esc>:move .-2<CR>==gi')
--- -- vim.keymap.set('i', '<A-J>', ":move '>+1<CR>gv-gv")
--- -- vim.keymap.set('i', '<A-K>', ":move '<-2<CR>gv-gv")
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
