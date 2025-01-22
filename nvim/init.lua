@@ -103,10 +103,6 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     opts = {
       sign_priority = 20,
-      current_line_blame = true,
-      current_line_blame_opts = {
-        delay = 0,
-      },
       -- See `:help gitsigns.txt`
       signs = {
         add = { text = '+' },
