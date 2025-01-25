@@ -6,7 +6,7 @@
         command:
             "if ! command -v nvim &> /dev/null;
             then
-                git clone --depth 1 --single-branch --branch v0.9.4 https://github.com/neovim/neovim.git ~/build/neovim
+                git clone --depth 1 --single-branch --branch v0.10.3 https://github.com/neovim/neovim.git ~/build/neovim
                 && cd ~/build/neovim
                 && make CMAKE_BUILD_TYPE=RelWithDebInfo
                 && cd build
