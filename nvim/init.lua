@@ -205,7 +205,17 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, LSP, etc)
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      {
+        "nvim-telescope/telescope-live-grep-args.nvim" ,
+        version = "^1.0.0",
+      },
+    }
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -487,6 +497,7 @@ local nextHistoryAndChangeToNormalMode = function (prompt_bufnr)
   -- 'm', I think
   vim.api.nvim_feedkeys(keys,'m',false)
 end
+local telescopeActionsLiveGrepArgs = require("telescope-live-grep-args.actions")
 require('telescope').setup {
   defaults = {
     wrap_results = true,
@@ -523,12 +534,32 @@ require('telescope').setup {
       },
     },
   },
+  extensions = {
+    live_grep_args = {
+      auto_quoting = true, -- enable/disable auto-quoting
+      -- define mappings, e.g.
+      mappings = { -- extend mappings
+        i = {
+          ["<C-k>"] = telescopeActionsLiveGrepArgs.quote_prompt(),
+          ["<C-i>"] = telescopeActionsLiveGrepArgs.quote_prompt({ postfix = " --iglob " }),
+          -- freeze the current list and start a fuzzy search in the frozen list
+          ["<C-space>"] = telescopeActions.to_fuzzy_refine,
+        },
+      },
+      -- ... also accepts theme settings, for example:
+      -- theme = "dropdown", -- use dropdown theme
+      -- theme = { }, -- use own theme spec
+      -- layout_config = { mirror=true }, -- mirror preview pane
+    }
+  }
 }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 -- Enable telescope smart history, if installed
 pcall(require('telescope').load_extension, 'smart_history')
+-- Enable telescope live grep args, if installed
+pcall(require('telescope').load_extension, 'live_grep_args')
 
 -- from https://neovim.discourse.group/t/function-that-return-visually-selected-text/1601 @credit to https://github.com/kristijanhusak
 -- also fixed with https://www.reddit.com/r/neovim/comments/1b3uarv/trouble_getting_start_and_end_position_of_a/
@@ -589,7 +620,7 @@ telescope_menu_bind_n_and_v_mode('<leader>/', function(defaultText) require('tel
 telescope_menu_bind_n_and_v_mode('<leader>sf', function (defaultText) require('telescope.builtin').find_files { default_text = defaultText, initial_mode = defaultText and "normal" or "insert", hidden = true } end, { desc = '[S]earch [F]iles' })
 telescope_menu_bind_n_and_v_mode('<leader>sb', function (defaultText) require('telescope.builtin').keymaps({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch [B]inding/Keymaps' })
 telescope_menu_bind_n_and_v_mode('<leader>sh', function (defaultText) require('telescope.builtin').help_tags({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch [H]elp' })
-telescope_menu_bind_n_and_v_mode('<leader>sg', function (defaultText) require('telescope.builtin').live_grep({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch by [G]rep' })
+telescope_menu_bind_n_and_v_mode('<leader>sg', function (defaultText) require('telescope').extensions.live_grep_args.live_grep_args({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch by [G]rep args' })
 telescope_menu_bind_n_and_v_mode('<leader>gs', function (defaultText) require('telescope.builtin').git_status({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search current [G]it [S]tatus' })
 telescope_menu_bind_n_and_v_mode('<leader>gh', function (defaultText) require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search [G]it [H]istory' })
 telescope_menu_bind_n_and_v_mode('<leader>gc', function (defaultText) require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search [G]it [C]ommits' })
