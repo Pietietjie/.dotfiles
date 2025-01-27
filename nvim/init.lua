@@ -522,6 +522,7 @@ require('telescope').setup {
         ["<C-p>"] = telescopeActions.cycle_history_prev,
         ["<C-j>"] = telescopeActions.cycle_history_next,
         ["<C-k>"] = telescopeActions.cycle_history_prev,
+        ["<C-s>"] = telescopeActions.to_fuzzy_refine,
       },
       i = {
         ['<C-u>'] = false,
@@ -531,6 +532,7 @@ require('telescope').setup {
         ["<C-Up>"] = previousHistoryAndChangeToNormalMode,
         ["<C-j>"] = nextHistoryAndChangeToNormalMode,
         ["<C-k>"] = previousHistoryAndChangeToNormalMode,
+        ["<C-s>"] = telescopeActions.to_fuzzy_refine,
       },
     },
   },
@@ -540,10 +542,8 @@ require('telescope').setup {
       -- define mappings, e.g.
       mappings = { -- extend mappings
         i = {
-          ["<C-k>"] = telescopeActionsLiveGrepArgs.quote_prompt(),
+          ["<C-s>"] = telescopeActions.to_fuzzy_refine,
           ["<C-i>"] = telescopeActionsLiveGrepArgs.quote_prompt({ postfix = " --iglob " }),
-          -- freeze the current list and start a fuzzy search in the frozen list
-          ["<C-space>"] = telescopeActions.to_fuzzy_refine,
         },
       },
       -- ... also accepts theme settings, for example:
