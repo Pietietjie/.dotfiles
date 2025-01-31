@@ -461,6 +461,10 @@ vim.keymap.set({'n', 'v'}, '<leader>.', function()
     end
   end)
 end, { noremap = true, silent = true, desc = '[→] Finds next and does the repeats the previous action. (For using with counts.)' } )
+vim.keymap.set('v', '<leader>j', 'joko', { desc = 'Move the selection both up and down'} )
+vim.keymap.set('v', '<leader>k', 'kojo', { desc = 'Move the selection both up and down'} )
+vim.keymap.set('v', '<leader>h', 'holo', { desc = 'Move the selection both left and right'} )
+vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left and right'} )
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
