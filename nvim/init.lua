@@ -514,8 +514,6 @@ require('telescope').setup {
       "dist/",
       ".git/",
       ".vscode/",
-      ".min",
-      "/bundle.",
     },
     mappings = {
       n = {
