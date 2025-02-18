@@ -15,7 +15,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 
 ## TODO
 - Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows) 
-- fix folds on nvim 0.10
+- fix folds and the lsp view (Shift + k) on nvim 0.10
 - fzf git aliases
 - look into highlighting for twig files
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
