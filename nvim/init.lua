@@ -115,11 +115,11 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '[h', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[H]unk Previous' })
-        vim.keymap.set('n', ']h', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[H]unk Next' })
+        vim.keymap.set('n', '[h', function () require('gitsigns').nav_hunk('prev', { target = 'all' }) end, { buffer = bufnr, desc = '[H]unk Previous' })
+        vim.keymap.set('n', ']h', function () require('gitsigns').nav_hunk('next', { target = 'all' }) end, { buffer = bufnr, desc = '[H]unk Next' })
         vim.keymap.set('n', '<leader>hv', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[H]unk pre[V]iew' })
         vim.keymap.set('n', '<leader>ha', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[H]unk [A]dd' })
-        vim.keymap.set('n', '<leader>hu', require('gitsigns').undo_stage_hunk, { buffer = bufnr, desc = '[H]unk [U]nstage' })
+        vim.keymap.set('n', '<leader>hu', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[H]unk [U]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)' })
         vim.keymap.set('n', '<leader>hr', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[H]unk [R]eset' })
         vim.keymap.set('n', '<leader>ga', function () vim.cmd("sil Git add %") end, { buffer = bufnr, desc = '[G]it [A]dd current buffer' })
         vim.keymap.set('n', '<leader>gu', function () vim.cmd("sil Git restore % --staged") end, { buffer = bufnr, desc = '[G]it [U]nstage current buffer' })
