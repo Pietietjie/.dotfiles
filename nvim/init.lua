@@ -152,26 +152,26 @@ require('lazy').setup({
     dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('bufferline').setup({
-          options = {
-            tab_size = 0,
-            max_name_length = 25,
-            offsets = {
-              {
-                filetype = 'NvimTree',
-                text = ' Files',
-                textalign = 'left',
-              },
-            },
-            modified_icon = '😡',
-            custom_areas = {
-              left = function()
-                return {
-                  { text = '    ', fg = '#bb9af7', bg = '' },
-                }
-              end,
+        options = {
+          tab_size = 0,
+          max_name_length = 25,
+          offsets = {
+            {
+              filetype = 'NvimTree',
+              text = ' Files',
+              textalign = 'left',
             },
           },
-        })
+          modified_icon = '😡',
+          custom_areas = {
+            left = function()
+              return {
+                { text = '    ', fg = '#bb9af7', bg = '' },
+              }
+            end,
+          },
+        },
+      })
     end,
   },
   -- Makes that bracket pairs have different colors based on level {#color1 {#color2 {#color3 { #color1 } } } }
