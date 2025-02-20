@@ -13,9 +13,9 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 & "$env:TEMP\bootstrap.ps1"
 ```
 
+- If nvim complains and says "nvim no parser for 'markdown' language" run `:TSInstall markdown markdown_inline`
 ## TODO
-- Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows) 
-- fix folds and the lsp view (Shift + k) on nvim 0.10
+- Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows)
 - fzf git aliases
 - look into highlighting for twig files
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
