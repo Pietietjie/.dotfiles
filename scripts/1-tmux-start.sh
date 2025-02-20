@@ -82,7 +82,7 @@ if [ -f ~/tmux-sessions.json ]; then
                 extraWindowExtraCommands=$(echo "$extraWindow" | jq -r '.extraCommands')
                 let "num++";
 
-                createWindow --dir "$extraWindowDirectory" --nvim "$nvim" --num "$num" --extraCommands "$extraCommands"
+                createWindow --dir "$extraWindowDirectory" --nvim "$extraWindowNvim" --num "$num" --extraCommands "$extraWindowExtraCommands"
             done
             fi
         else
