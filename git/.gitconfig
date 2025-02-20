@@ -50,10 +50,9 @@
     fzf = "!git checkout $(git fzf-branches)"
     fzf-status = "!echo $(git diff --name-only | fzf -m)"
     fzf-status-cached = "!echo $(git diff --name-only --cached | fzf -m)"
-    # TODO
-    fzf-srstr = ""
-    fzf-rstr = ""
-    fzf-a = ""
+    fzf-a= "!git add $(git fzf-status)"
+    fzf-srstr = "!git srstr $(git fzf-status-cached)"
+    fzf-rstr = "!git rstr $(git fzf-status)"
 [core]
     editor = nvim
 [diff]
