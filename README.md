@@ -16,10 +16,9 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 - If nvim complains and says "nvim no parser for 'markdown' language" run `:TSInstall markdown markdown_inline`
 ## TODO
 - Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows)
-- fzf git aliases
 - look into highlighting for twig files
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
-- Nvim add file spesific git history
+- Nvim add file spesific git history?
 - Nvim go to the diff of a git blame
 - Look at getting a [ debugger for nvim ](https://github.com/mfussenegger/nvim-dap)
 - Look creating functionality that allow Telescope buffer fuzzy finder to close buffers
