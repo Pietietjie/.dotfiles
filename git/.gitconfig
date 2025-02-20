@@ -1,68 +1,68 @@
 [user]
-	email = 21083972+Pietietjie@users.noreply.github.com
-	name = Pieter
+    email = 21083972+Pietietjie@users.noreply.github.com
+    name = Pieter
 [alias]
-	# custom commands
-	add-all-and-commit = "!git add . && git commit --verbose"
-	add-all = "!if [ \"$#\" -eq 0 ]; then git add .; else git add $@; fi; git status -s #"
-	alias = "!git config --global alias.$1 \"$2\" #"
-	dotfiles = "!dotfilesRanFromWorkingDirectory=$(pwd) && cd ~/.dotfiles && (git $@; cd $dotfilesRanFromWorkingDirectory) #"
-	push-with-tags = "!git push && git push --tags"
-	push-upstream = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
-	stash-checkout = "!git stash -q && ( git checkout $@ && git pull; git stash pop -q  ) #"
-	list-tags-by-created-date = "!git for-each-ref --sort=creatordate --format '%(refname) %(creatordate)' refs/tags | sed 's/^refs\\/tags\\///'"
-	staged-restore = "!if [ \"$#\" -eq 0 ]; then git restore . --staged; else git restore $@ --staged; fi; git status -s #"
-	clean-branches = "!git branch | grep -v $(git rev-parse --abbrev-ref HEAD) | xargs git branch -D"
-	#common typos
-	checout = checkout
-	chekcout = checkout
-	brach = branch
-	#shorthands one char
-	a = add-all
-	b = branch
-	c = "commit --verbose"
-	f = fetch
-	m = merge
-	p = push
-	s = "! git status -s"
-	#other shorthands
-	ac = add-all-and-commit
-	amend = commit --amend
-	b-cln = clean-branches
-	ch = checkout
-	ch-pck = cherry-pick
-	cl = clone
-	pl = "! git fetch && git pull"
-	sch = stash-checkout
-	srstr = staged-restore
-	st = "stash -u"
-	stp = "stash pop"
-	tls = list-tags-by-created-date
-	tp = push-with-tags
-	rb = rebase
-	rst = reset
-	rstr = restore
-	ups = push-upstream
-	# fuzzy finder commands require that fzf is installed
-	fzf-branches = "!echo $(git branch -a | fzf) | sed \"s/^remotes\\/[a-zA-Z]\\+\\///\" | sed \"s/ -> .*//\""
-	fzf-rb = "!git rebase -i $(git fzf-branches)"
-	fzf-m = "!git merge $(git branch -a | fzf)"
-	fzf = "!git checkout $(git fzf-branches)"
-	fzf-status = "!echo $(git diff --name-only | fzf -m)"
-	fzf-status-cached = "!echo $(git diff --name-only --cached | fzf -m)"
-	# TODO
-	fzf-srstr = ""
-	fzf-rstr = ""
-	fzf-a = ""
+    # custom commands
+    add-all-and-commit = "!git add . && git commit --verbose"
+    add-all = "!if [ \"$#\" -eq 0 ]; then git add .; else git add $@; fi; git status -s #"
+    alias = "!git config --global alias.$1 \"$2\" #"
+    dotfiles = "!dotfilesRanFromWorkingDirectory=$(pwd) && cd ~/.dotfiles && (git $@; cd $dotfilesRanFromWorkingDirectory) #"
+    push-with-tags = "!git push && git push --tags"
+    push-upstream = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+    stash-checkout = "!git stash -q && ( git checkout $@ && git pull; git stash pop -q  ) #"
+    list-tags-by-created-date = "!git for-each-ref --sort=creatordate --format '%(refname) %(creatordate)' refs/tags | sed 's/^refs\\/tags\\///'"
+    staged-restore = "!if [ \"$#\" -eq 0 ]; then git restore . --staged; else git restore $@ --staged; fi; git status -s #"
+    clean-branches = "!git branch | grep -v $(git rev-parse --abbrev-ref HEAD) | xargs git branch -D"
+    #common typos
+    checout = checkout
+    chekcout = checkout
+    brach = branch
+    #shorthands one char
+    a = add-all
+    b = branch
+    c = "commit --verbose"
+    f = fetch
+    m = merge
+    p = push
+    s = "! git status -s"
+    #other shorthands
+    ac = add-all-and-commit
+    amend = commit --amend
+    b-cln = clean-branches
+    ch = checkout
+    ch-pck = cherry-pick
+    cl = clone
+    pl = "! git fetch && git pull"
+    sch = stash-checkout
+    srstr = staged-restore
+    st = "stash -u"
+    stp = "stash pop"
+    tls = list-tags-by-created-date
+    tp = push-with-tags
+    rb = rebase
+    rst = reset
+    rstr = restore
+    ups = push-upstream
+    # fuzzy finder commands require that fzf is installed
+    fzf-branches = "!echo $(git branch -a | fzf) | sed \"s/^remotes\\/[a-zA-Z]\\+\\///\" | sed \"s/ -> .*//\""
+    fzf-rb = "!git rebase -i $(git fzf-branches)"
+    fzf-m = "!git merge $(git branch -a | fzf)"
+    fzf = "!git checkout $(git fzf-branches)"
+    fzf-status = "!echo $(git diff --name-only | fzf -m)"
+    fzf-status-cached = "!echo $(git diff --name-only --cached | fzf -m)"
+    # TODO
+    fzf-srstr = ""
+    fzf-rstr = ""
+    fzf-a = ""
 [core]
-	editor = nvim
+    editor = nvim
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [merge]
-	tool = vimdiff
+    tool = vimdiff
 [pull]
-	rebase = true
+    rebase = true
 [rerere]
-	enabled = true
+    enabled = true
 [http]
-	postBuffer = 524288000
+    postBuffer = 524288000
