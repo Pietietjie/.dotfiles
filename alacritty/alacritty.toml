@@ -1,0 +1,57 @@
+[window]
+    decorations = "None"
+    padding = {x = 16, y = 8}
+    dynamic_padding = true
+    opacity = 0.8
+    startup_mode = "Maximized"
+
+[font]
+    normal = { family = "FiraCode Nerd Font", style = "Regular" }
+    bold = { family = "FiraCode Nerd Font", style = "Bold" }
+    italic = { family = "FiraCode Nerd Font", style = "Italic" }
+    bold_italic = { family = "FiraCode Nerd Font", style = "Bold Italic" }
+    size = 12
+
+    # Offset is the extra space around each character. This is useful when using
+    # box drawing characters.
+    offset = { x = 0, y = 0 }
+
+    # Glyph offset determines the locations of the glyphs within their cells with
+    # the default being at the bottom.
+    glyph_offset = { x = 0, y = 0 }
+
+[colors.bright]
+    black = "#444b6a"
+    blue = "#7da6ff"
+    cyan = "#0db9d7"
+    green = "#b9f27c"
+    magenta = "#bb9af7"
+    red = "#ff7a93"
+    white = "#acb0d0"
+    yellow = "#ff9e64"
+
+[colors.normal]
+    black = "#32344a"
+    blue = "#7aa2f7"
+    cyan = "#449dab"
+    green = "#9ece6a"
+    magenta = "#ad8ee6"
+    red = "#f7768e"
+    white = "#787c99"
+    yellow = "#e0af68"
+
+[colors.primary]
+    background = "#1a1b26"
+    foreground = "#a9b1d6"
+
+[mouse]
+    hide_when_typing = true
+
+[terminal.shell]
+  program = "wsl"
+
+[keyboard]
+bindings = [
+    {key = "Space", mods = "Control", chars = "\u0000"},
+    {key = "V", mods = "Control", action = "Paste" },
+]

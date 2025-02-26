@@ -24,6 +24,11 @@
         path: nvim
         create: true
 - link:
+    ~/AppData/Roaming/alacritty:
+        relink: true
+        path: alacritty
+        create: true
+- link:
     /Aliases:
         relink: true
         path: Aliases
