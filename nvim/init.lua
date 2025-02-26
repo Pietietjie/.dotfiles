@@ -162,7 +162,7 @@ require('lazy').setup({
               textalign = 'left',
             },
           },
-          modified_icon = '😡',
+          modified_icon = '😒',
           custom_areas = {
             left = function()
               return {
