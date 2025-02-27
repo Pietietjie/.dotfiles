@@ -20,7 +20,7 @@
         description: "Build neovim from source if it is not allready installed."
         stderr: true
 
-- aptget: [ tmux, fzf, grep, ripgrep, mysql-server, mysql-client, sqlite3, jq ]
+- aptget: [ fd-find, tmux, fzf, grep, ripgrep, mysql-server, mysql-client, sqlite3, jq ]
 # PHP first add ppa then all the different versions and plugins
 - aptget: 
     php8.2: ppa:ondrej/php
