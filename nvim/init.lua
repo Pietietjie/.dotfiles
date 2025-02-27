@@ -555,6 +555,12 @@ require('telescope').setup {
     }
   }
 }
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TelescopePreviewerLoaded",
+  callback = function(args)
+      vim.wo.wrap = true
+  end,
+})
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
