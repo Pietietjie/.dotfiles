@@ -53,6 +53,7 @@
     fzf-a= "!git add $(git fzf-status)"
     fzf-srstr = "!git srstr $(git fzf-status-cached)"
     fzf-rstr = "!git rstr $(git fzf-status)"
+    fzf-rm = "!rm $(git fzf-status)"
 [core]
     editor = nvim
 [diff]
