@@ -511,7 +511,6 @@ require('telescope').setup {
     },
     file_ignore_patterns = {
       "node_modules/",
-      "dist/",
       ".git/",
       ".vscode/",
     },
@@ -525,6 +524,8 @@ require('telescope').setup {
         ["<C-j>"] = telescopeActions.cycle_history_next,
         ["<C-k>"] = telescopeActions.cycle_history_prev,
         ["<C-s>"] = telescopeActions.to_fuzzy_refine,
+        ["<C-a>"] = telescopeActions.select_all,
+        ["V"] = telescopeActions.add_selection,
       },
       i = {
         ['<C-u>'] = false,
@@ -544,7 +545,6 @@ require('telescope').setup {
       -- define mappings, e.g.
       mappings = { -- extend mappings
         i = {
-          ["<C-s>"] = telescopeActions.to_fuzzy_refine,
           ["<C-i>"] = telescopeActionsLiveGrepArgs.quote_prompt({ postfix = " --iglob " }),
         },
       },
@@ -642,10 +642,10 @@ telescope_menu_bind_n_and_v_mode('<leader>sh', function (defaultText) require('t
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'php' },
 
   -- auto-install languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
+  auto_install = true,
 
   highlight = { enable = true },
   indent = { enable = true },
