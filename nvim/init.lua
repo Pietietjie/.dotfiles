@@ -641,8 +641,36 @@ telescope_menu_bind_n_and_v_mode('<leader>sh', function (defaultText) require('t
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'php' },
-
+  ensure_installed = {
+    'bash',
+    'css',
+    'diff',
+    'git_config',
+    'gitcommit',
+    'git_rebase',
+    'gitattributes',
+    'gitignore',
+    'json',
+    'jq',
+    'javascript',
+    'jsdoc',
+    'nginx',
+    'html',
+    'lua',
+    'php',
+    'phpdoc',
+    'powershell',
+    'regex',
+    'scss',
+    'sql',
+    'twig',
+    'toml',
+    'typescript',
+    'xml',
+    'yaml',
+    'vimdoc',
+    'vim',
+  },
   -- auto-install languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
 
