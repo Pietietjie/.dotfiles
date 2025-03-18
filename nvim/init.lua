@@ -474,7 +474,8 @@ vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left 
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
 vim.keymap.set('n', '<leader>az', 'mz:%g/\\_sfunction\\_s\\(.\\|\\n\\)\\{-\\}\\_s*{/normal! gn%zf<cr>:%g/\\/\\*/normal zfac<cr>:%g/\\(public\\|protected\\|private\\) [a-zA-Z?]* \\$.\\{-\\} = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>:%g/const \\_S* = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>`z', { desc = 'Fold [A]ll', remap = true })
 -- Open the current file in the default program (on Mac this should just be just `open`)
-vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>')
+vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>', { desc = 'E[x]ecute the current file' })
+vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'Make the current file e[X]ecutable' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
