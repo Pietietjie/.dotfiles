@@ -115,16 +115,16 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set({ 'n', 'v' }, '[h', function () require('gitsigns').nav_hunk('prev', { target = 'all' }) end, { buffer = bufnr, desc = '[H]unk Previous' })
-        vim.keymap.set({ 'n', 'v' }, ']h', function () require('gitsigns').nav_hunk('next', { target = 'all' }) end, { buffer = bufnr, desc = '[H]unk Next' })
-        vim.keymap.set('n', '<leader>hv', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[H]unk pre[V]iew' })
-        vim.keymap.set('n', '<leader>ha', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[H]unk [A]dd' })
-        vim.keymap.set('n', '<leader>hu', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[H]unk [U]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)' })
-        vim.keymap.set('n', '<leader>hr', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[H]unk [R]eset' })
-        vim.keymap.set('n', '<leader>ga', function () vim.cmd("sil Git add %") end, { buffer = bufnr, desc = '[G]it [A]dd current buffer' })
-        vim.keymap.set('n', '<leader>gu', function () vim.cmd("sil Git restore % --staged") end, { buffer = bufnr, desc = '[G]it [U]nstage current buffer' })
-        vim.keymap.set('n', '<leader>gr', function () vim.cmd("sil Git restore %") end, { buffer = bufnr, desc = '[G]it [R]estore current buffer' })
-        vim.keymap.set('n', '<leader>gb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[G]it [B]lame' })
+        vim.keymap.set({ 'n', 'v' }, '[h', function () require('gitsigns').nav_hunk('prev', { target = 'all' }) end, { buffer = bufnr, desc = '[h]unk Previous' })
+        vim.keymap.set({ 'n', 'v' }, ']h', function () require('gitsigns').nav_hunk('next', { target = 'all' }) end, { buffer = bufnr, desc = '[h]unk Next' })
+        vim.keymap.set('n', '<leader>hv', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[h]unk pre[v]iew' })
+        vim.keymap.set('n', '<leader>ha', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[h]unk [a]dd' })
+        vim.keymap.set('n', '<leader>hu', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[h]unk [u]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)' })
+        vim.keymap.set('n', '<leader>hr', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[h]unk [r]eset' })
+        vim.keymap.set('n', '<leader>ga', function () vim.cmd("sil Git add %") end, { buffer = bufnr, desc = '[g]it [a]dd current buffer' })
+        vim.keymap.set('n', '<leader>gu', function () vim.cmd("sil Git restore % --staged") end, { buffer = bufnr, desc = '[g]it [u]nstage current buffer' })
+        vim.keymap.set('n', '<leader>gr', function () vim.cmd("sil Git restore %") end, { buffer = bufnr, desc = '[g]it [r]estore current buffer' })
+        vim.keymap.set('n', '<leader>gb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[g]it [b]lame' })
       end,
     },
   },
@@ -445,15 +445,15 @@ vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 -- keybinding/keymaps that use the leader key
 vim.keymap.set("n", "<leader>=", vim.lsp.buf.format)
 vim.keymap.set({ 'n', 'v' }, 'q:', ':', { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q'} )
-vim.keymap.set("n", "<leader>rp", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]e[P]lace' })
-vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [V]isual [B]lock mode'} )
+vim.keymap.set("n", "<leader>rp", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[r]e[p]lace' })
+vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [v]isual [b]lock mode'} )
 vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line'} )
 vim.keymap.set('n', '<leader>O', 'moO<Esc>`o', { desc = '[⬆] empty new line'} )
-vim.keymap.set({'n', 'v'}, '<leader>c', '"_c', { desc = '[C]hange without copying'} )
-vim.keymap.set({'n', 'v'}, '<leader>d', '"_d', { desc = '[D]elete without copying'} )
+vim.keymap.set({'n', 'v'}, '<leader>c', '"_c', { desc = '[c]hange without copying'} )
+vim.keymap.set({'n', 'v'}, '<leader>d', '"_d', { desc = '[d]elete without copying'} )
 vim.keymap.set({'n', 'v'}, '<leader>D', '"_d$', { desc = '[D]elete without copying until the end of the line'} )
 vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[P]astes over without copying'} )
-vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = '[Y]anks into system clipboard'} )
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = '[y]anks into system clipboard'} )
 vim.keymap.set({'n', 'v'}, '<leader>Y', '"+y$', { desc = '[Y]anks into system clipboard until the end of the line'} )
 vim.keymap.set({'n', 'v'}, '<leader>.', function()
   pcall(function ()
@@ -472,7 +472,7 @@ vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
-vim.keymap.set('n', '<leader>az', 'mz:%g/\\_sfunction\\_s\\(.\\|\\n\\)\\{-\\}\\_s*{/normal! gn%zf<cr>:%g/\\/\\*/normal zfac<cr>:%g/\\(public\\|protected\\|private\\) [a-zA-Z?]* \\$.\\{-\\} = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>:%g/const \\_S* = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>`z', { desc = 'Fold [A]ll', remap = true })
+vim.keymap.set('n', '<leader>az', 'mz:%g/\\_sfunction\\_s\\(.\\|\\n\\)\\{-\\}\\_s*{/normal! gn%zf<cr>:%g/\\/\\*/normal zfac<cr>:%g/\\(public\\|protected\\|private\\) [a-zA-Z?]* \\$.\\{-\\} = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>:%g/const \\_S* = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>`z', { desc = 'Fold [a]ll', remap = true })
 -- Open the current file in the default program (on Mac this should just be just `open`)
 vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>', { desc = 'E[x]ecute the current file' })
 vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'Make the current file e[X]ecutable' })
@@ -630,17 +630,17 @@ vim.keymap.set(
   end
 )
 -- See `:help telescope.builtin`
-telescope_menu_bind_n_and_v_mode('<leader>sf', function (defaultText) require('telescope.builtin').find_files { default_text = defaultText, initial_mode = defaultText and "normal" or "insert", hidden = true } end, { desc = '[S]earch [F]iles' })
-telescope_menu_bind_n_and_v_mode('<leader>sg', function (defaultText) require('telescope').extensions.live_grep_args.live_grep_args({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch by [G]rep args' })
+telescope_menu_bind_n_and_v_mode('<leader>sf', function (defaultText) require('telescope.builtin').find_files { default_text = defaultText, initial_mode = defaultText and "normal" or "insert", hidden = true } end, { desc = '[s]earch [f]iles' })
+telescope_menu_bind_n_and_v_mode('<leader>sg', function (defaultText) require('telescope').extensions.live_grep_args.live_grep_args({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[s]earch by [g]rep args' })
 telescope_menu_bind_n_and_v_mode('<leader>?', function (defaultText) require('telescope.builtin').oldfiles({ default_text = defaultText, initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' }, true)
 telescope_menu_bind_n_and_v_mode('<leader><cr>', function (defaultText) require('telescope.builtin').buffers({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Find existing buffers' }, true)
 telescope_menu_bind_n_and_v_mode('<leader>/', function(defaultText) require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert", winblend = 10, previewer = false, })) end, { desc = '[/] Fuzzily search in current buffer' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>gs', function (defaultText) require('telescope.builtin').git_status({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search current [G]it [S]tatus' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>gc', function (defaultText) require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search [G]it [C]ommits' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>gt', function (defaultText) require('telescope.builtin').git_stash({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search the [G]it s[T]ash' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>sd', function (defaultText) require('telescope.builtin').diagnostics({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch [D]iagnostics' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>sk', function (defaultText) require('telescope.builtin').keymaps({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch Binding/[K]eymaps' })
-telescope_menu_bind_n_and_v_mode('<leader>sh', function (defaultText) require('telescope.builtin').help_tags({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[S]earch [H]elp' })
+telescope_menu_bind_n_and_v_mode('<leader>gs', function (defaultText) require('telescope.builtin').git_status({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search current [g]it [s]tatus' }, true)
+telescope_menu_bind_n_and_v_mode('<leader>gc', function (defaultText) require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search [g]it [c]ommits' }, true)
+telescope_menu_bind_n_and_v_mode('<leader>gt', function (defaultText) require('telescope.builtin').git_stash({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search the [g]it s[t]ash' }, true)
+telescope_menu_bind_n_and_v_mode('<leader>sd', function (defaultText) require('telescope.builtin').diagnostics({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[s]earch [d]iagnostics' }, true)
+telescope_menu_bind_n_and_v_mode('<leader>sk', function (defaultText) require('telescope.builtin').keymaps({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[s]earch Binding/[k]eymaps' })
+telescope_menu_bind_n_and_v_mode('<leader>sh', function (defaultText) require('telescope.builtin').help_tags({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[s]earch [h]elp' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -760,25 +760,25 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[N]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
+  nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
+  nmap('gr', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[g]oto [r]eferences')
+  nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>sy', function () require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" }) end, 'Tele[S]cope Document S[Y]mbols')
-  nmap('<leader>wy', function () require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" }) end, '[W]orkspace S[Y]mbols')
+  nmap('<leader>sy', function () require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" }) end, 'Tele[s]cope Document S[y]mbols')
+  nmap('<leader>wy', function () require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" }) end, '[w]orkspace S[y]mbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function() vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[W]orkspace [L]ist Folders')
+  nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[w]orkspace [a]dd Folder')
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[w]orkspace [r]emove Folder')
+  nmap('<leader>wl', function() vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[w]orkspace [l]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
