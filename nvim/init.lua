@@ -328,11 +328,8 @@ require('lazy').setup({
 
   },
 
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Un-comment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+  -- useless plugin
+  'eandrju/cellular-automaton.nvim',
 }, {})
 
 -- ----------------------------------------------------
@@ -440,8 +437,10 @@ vim.keymap.set('v', 'Y', 'myY`y')
 vim.keymap.set('i', '<C-v>', '<Esc>"+p', { desc = 'Paste from system clipboard' })
 -- make that space can be used as a leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+-- useless binding for useless plugin
+vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 
--- keybinding/maps that use the leader key
+-- keybinding/keymaps that use the leader key
 vim.keymap.set({ 'n', 'v' }, 'q:', ':', { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q'} )
 vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [V]isual [B]lock mode'} )
 vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line'} )
