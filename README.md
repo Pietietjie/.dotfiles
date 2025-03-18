@@ -24,4 +24,3 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 - Look creating functionality that allow Telescope buffer fuzzy finder to close buffers
 - System preferences/settings
 - Find inspiration and examples in other Dotfiles repositories at [dotfiles.github.io](https://dotfiles.github.io/) or [nvim for Laravel lady](https://github.com/jessarcher/dotfiles) or [riced linux example](https://github.com/Amitabha37377/Awful-DOTS/tree/master) or [some guy](https://github.com/yutkat/dotfiles/tree/main) or [some laravel dev](https://github.com/shxfee/dotfiles/tree/master).
-- Make that this install can just be done on a new pc via curl [see](https://github.com/nickjj/dotfiles)
