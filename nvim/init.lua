@@ -445,6 +445,7 @@ vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 -- keybinding/keymaps that use the leader key
 vim.keymap.set("n", "<leader>=", vim.lsp.buf.format)
 vim.keymap.set({ 'n', 'v' }, 'q:', ':', { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q'} )
+vim.keymap.set("n", "<leader>rp", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]e[P]lace' })
 vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [V]isual [B]lock mode'} )
 vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line'} )
 vim.keymap.set('n', '<leader>O', 'moO<Esc>`o', { desc = '[⬆] empty new line'} )
