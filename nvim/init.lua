@@ -29,6 +29,7 @@ require('lazy').setup({
     },
   -- NOTE: First, some plugins that don't require any configuration
 
+  'mbbill/undotree',
   -- Git related plugins
   'tpope/vim-fugitive',
   --
@@ -443,7 +444,8 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 -- keybinding/keymaps that use the leader key
-vim.keymap.set("n", "<leader>=", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>=", vim.lsp.buf.format, { desc = "Formats the entire buffer using the LSP's formatter" })
+vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggles the [u]ndo [t]ree side bar" })
 vim.keymap.set({ 'n', 'v' }, 'q:', ':', { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q'} )
 vim.keymap.set("n", "<leader>rp", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[r]e[p]lace' })
 vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [v]isual [b]lock mode'} )

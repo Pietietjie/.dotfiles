@@ -23,7 +23,6 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
     - [some laravel dev](https://github.com/shxfee/dotfiles/tree/master).
     - [primeagen](https://github.com/ThePrimeagen/.dotfiles)
 - NVIM:
-    - [undo tree](https://github.com/mbbill/undotree)
     - [refactor plugin](https://github.com/ThePrimeagen/refactoring.nvim)
     - [trouble plugin](https://github.com/folke/trouble.nvim)
     - Nvim add file spesific git history?
