@@ -25,7 +25,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 - NVIM:
     - [refactor plugin](https://github.com/ThePrimeagen/refactoring.nvim)
     - [trouble plugin](https://github.com/folke/trouble.nvim)
-    - Nvim add file spesific git history?
+    - Nvim add file specific git history?
     - Nvim go to the diff of a git blame
     - Look at getting a [ debugger for nvim ](https://github.com/mfussenegger/nvim-dap)
     - Look creating functionality that allow Telescope buffer fuzzy finder to close buffers
