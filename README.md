@@ -14,6 +14,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 ```
 ### Troubleshooting/Tips/Common issues
 - If nvim complains and says "nvim no parser for 'markdown' language" run `:TSInstall markdown markdown_inline`
+- On windows WSL 2 when hosting docker containers sometimes you need to kill apache to allow the access the containers in chromium browsers `sudo service apache2 stop` || `sudo systemctl stop apache2`
 ## TODO
 - Find inspiration and examples in other Dotfiles repositories:
     - [dotfiles.github.io](https://dotfiles.github.io/) 
