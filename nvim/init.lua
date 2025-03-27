@@ -54,10 +54,6 @@ require('lazy').setup({
   -- continue editing file from last location
   'farmergreg/vim-lastplace',
 
-  -- better language based highlighting
-  -- TODO fix this as it is giving issues with lazy package manager
-  -- 'sheerun/vim-polyglot',
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
