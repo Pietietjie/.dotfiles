@@ -504,6 +504,22 @@ local nextHistoryAndChangeToNormalMode = function (prompt_bufnr)
   -- 'm', I think
   vim.api.nvim_feedkeys(keys,'m',false)
 end
+local select_one_or_multi = function(prompt_bufnr)
+  local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+  local multi = picker:get_multi_selection()
+  if not vim.tbl_isempty(multi) then
+
+    require('telescope.actions').close(prompt_bufnr)
+    for _, j in pairs(multi) do
+      if j.path ~= nil then
+
+        vim.cmd(string.format('%s %s', 'edit', j.path))
+      end
+    end
+  else
+    require('telescope.actions').select_default(prompt_bufnr)
+  end
+end
 local telescopeActionsLiveGrepArgs = require("telescope-live-grep-args.actions")
 require('telescope').setup {
   defaults = {
@@ -511,6 +527,9 @@ require('telescope').setup {
       path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
       limit = 100,
     },
+    prompt_prefix = '',
+    multi_icon = '> ',
+    selection_caret = '> ',
     file_ignore_patterns = {
       "node_modules/",
       ".git/",
@@ -526,10 +545,12 @@ require('telescope').setup {
         ["<C-j>"] = telescopeActions.cycle_history_next,
         ["<C-k>"] = telescopeActions.cycle_history_prev,
         ["<C-s>"] = telescopeActions.to_fuzzy_refine,
-        ["<C-a>"] = telescopeActions.select_all,
-        ["V"] = telescopeActions.add_selection,
+        ["<C-a>"] = telescopeActions.toggle_all,
+        ["V"] = telescopeActions.toggle_selection,
+        ['<CR>'] = select_one_or_multi,
       },
       i = {
+        ['<CR>'] = select_one_or_multi,
         ['<C-u>'] = false,
         ['<C-d>'] = false,
         ["<C-p>"] = previousHistoryAndChangeToNormalMode,
