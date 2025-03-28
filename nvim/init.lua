@@ -470,7 +470,7 @@ vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
-vim.keymap.set('n', '<leader>az', 'mz:%g/\\_sfunction\\_s\\(.\\|\\n\\)\\{-\\}\\_s*{/normal! gn%zf<cr>:%g/\\/\\*/normal zfac<cr>:%g/\\(public\\|protected\\|private\\) [a-zA-Z?]* \\$.\\{-\\} = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>:%g/const \\_S* = [a-zA-Z(\'"]*\\n\\(\\n\\|.\\)\\{-\\};/normal! zfgn<cr>`z', { desc = 'Fold [a]ll', remap = true })
+vim.keymap.set('n', '<leader>az', 'mz:%g/\\(public\\|protected\\|private\\|static\\)\\_s*function\\_s/normal zfaf<cr>`z', { desc = 'Fold [a]ll', remap = true })
 -- Open the current file in the default program (on Mac this should just be just `open`)
 vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>', { desc = 'E[x]ecute the current file' })
 vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'Make the current file e[X]ecutable' })
