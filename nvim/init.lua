@@ -508,14 +508,8 @@ local select_one_or_multi = function(prompt_bufnr)
   local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
   local multi = picker:get_multi_selection()
   if not vim.tbl_isempty(multi) then
-
-    require('telescope.actions').close(prompt_bufnr)
-    for _, j in pairs(multi) do
-      if j.path ~= nil then
-
-        vim.cmd(string.format('%s %s', 'edit', j.path))
-      end
-    end
+    telescopeActions.send_selected_to_qflist(prompt_bufnr)
+    telescopeActions.open_qflist(prompt_bufnr)
   else
     require('telescope.actions').select_default(prompt_bufnr)
   end
@@ -783,7 +777,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
-  nmap('gr', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[g]oto [r]eferences')
+  nmap('grr', vim.lsp.buf.references, '[g]oto [r]eferences')
+  nmap('grs', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[g]oto [r]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>sy', function () require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" }) end, 'Tele[s]cope Document S[y]mbols')
