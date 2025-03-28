@@ -422,7 +422,7 @@ vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
 -- vim.keymap.'set'({'n', 'v'}, 's', '"_s')
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
-vim.keymap.set('i', 'jj', '<Esc>')
+-- vim.keymap.set('i', 'jj', '<Esc>')
 -- Easy insertion of a trailing ; or , from insert mode
 vim.keymap.set('i', ';;', '<Esc>A;<Esc>')
 vim.keymap.set('i', ',,', '<Esc>A,<Esc>')
