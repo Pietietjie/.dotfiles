@@ -834,7 +834,6 @@ lspconfig.emmet_language_server.setup({
 })
 
 -- [[ Configure nvim-cmp ]]
--- See `:help cmp`
 local cmp = require 'cmp'
 local ls = require 'luasnip'
 local s = ls.snippet
@@ -846,24 +845,24 @@ require('luasnip.loaders.from_vscode').lazy_load()
 ls.config.setup {}
 
 ls.add_snippets("all", {
-  s(":sparkles:", fmt("✨ {}", { i(1) }), { alias = { ":new_feature:", ":feat:" } }),
-  s(":bug:", fmt("🐛 {}", { i(1) }), { alias = { ":fix_bug:", ":bugfix:" } }),
-  s(":memo:", fmt("📝 {}", { i(1) }), { alias = { ":add_docs:", ":update_docs:", ":documentation:" } }),
+  s(":sparkles:", fmt("✨ {}", { i(1) }), { alias = { ":feat:" } }),
+  s(":bug:", fmt("🐛 {}", { i(1) })),
+  s(":memo:", fmt("📝 {}", { i(1) }), { alias = { ":docs:" } }),
   s(":rocket:", fmt("🚀 {}", { i(1) }), { alias = { ":deploy:" } }),
-  s(":art:", fmt("🎨 {}", { i(1) }), { alias = { ":format_code:", ":code_style:" } }),
-  s(":lipstick:", fmt("💄 {}", { i(1) }), { alias = { ":ui_changes:", ":styling_changes:" } }),
-  s(":fire:", fmt("🔥 {}", { i(1) }), { alias = { ":remove_code:", ":delete_files:" } }),
+  s(":art:", fmt("🎨 {}", { i(1) }), { alias = { ":formatting:", ":style_code:" } }),
+  s(":lipstick:", fmt("💄 {}", { i(1) }), { alias = { ":ui:", ":styling_ui:" } }),
+  s(":fire:", fmt("🔥 {}", { i(1) }), { alias = { ":delete:" } }),
   s(":construction:", fmt("🚧 {}", { i(1) }), { alias = { ":wip:", ":work_in_progress:" } }),
-  s(":white_check_mark:", fmt("✅ {}", { i(1) }), { alias = { ":add_tests:", ":update_tests:", ":passing_tests:" } }),
-  s(":heavy_plus_sign:", fmt("➕ {}", { i(1) }), { alias = { ":add_dependency:", ":plus:" } }),
-  s(":heavy_minus_sign:", fmt("➖ {}", { i(1) }), { alias = { ":remove_dependency:", ":minus:" } }),
+  s(":white_check_mark:", fmt("✅ {}", { i(1) }), { alias = { ":tests_add:" } }),
+  s(":plus:", fmt("➕ {}", { i(1) }), { alias = { ":add_dependency:" } }),
+  s(":minus:", fmt("➖ {}", { i(1) }), { alias = { ":remove_dependency:" } }),
   s(":arrow_up:", fmt("⬆️ {}", { i(1) }), { alias = { ":upgrade_dependency:" } }),
   s(":arrow_down:", fmt("⬇️ {}", { i(1) }), { alias = { ":downgrade_dependency:" } }),
   s(":pin:", fmt("📌 {}", { i(1) }), { alias = { ":pin_dependency_version:" } }),
-  s(":bulb:", fmt("💡 {}", { i(1) }), { alias = { ":add_comments:", ":update_comments:" } }),
+  s(":bulb:", fmt("💡 {}", { i(1) }), { alias = { ":add_comments:" } }),
   s(":recycle:", fmt("♻️ {}", { i(1) }), { alias = { ":refactor:" } }),
   s(":package:", fmt("📦 {}", { i(1) }), { alias = { ":new_package:" } }),
-  s(":wrench:", fmt("🔧 {}", { i(1) }), { alias = { ":config:", ":configuration:" } }),
+  s(":wrench:", fmt("🔧 {}", { i(1) }), { alias = { ":config:", ":spanner:", ":configuration:" } }),
   s(":globe_with_meridians:", fmt("🌐 {}", { i(1) }), { alias = { ":internationalization:", ":i18n:" } }),
   s(":pencil2:", fmt("✏️ {}", { i(1) }), { alias = { ":typo:" } }),
   s(":rewind:", fmt("⏪ {}", { i(1) }), { alias = { ":revert:" } }),
@@ -874,16 +873,14 @@ ls.add_snippets("all", {
   s(":mute:", fmt("🔇 {}", { i(1) }), { alias = { ":remove_logs:" } }),
   s(":children_crossing:", fmt("🚸 {}", { i(1) }), { alias = { ":user_experience:", ":ux:" } }),
   s(":construction_worker:", fmt("👷 {}", { i(1) }), { alias = { ":add_ci:" } }),
-  s(":chart_with_upwards_trend:", fmt("📈 {}", { i(1) }), { alias = { ":add_analytics:" } }),
+  s(":chart_with_upwards_trend:", fmt("📈 {}", { i(1) }), { alias = { ":tracking:", ":analytics:" } }),
   s(":wheelchair:", fmt("♿ {}", { i(1) }), { alias = { ":accessibility:" } }),
-  s(":bulb:", fmt("💡 {}", { i(1) }), { alias = { ":add_comments:" } }),
-  s(":beers:", fmt("🍻 {}", { i(1) }), { alias = { ":write_drunk_code:" } }),
+  s(":bulb:", fmt("💡 {}", { i(1) }), { alias = { ":comments:" } }),
   s(":speech_balloon:", fmt("💬 {}", { i(1) }), { alias = { ":add_text:" } }),
   s(":busts_in_silhouette:", fmt("👥 {}", { i(1) }), { alias = { ":add_contributors:" } }),
   s(":building_construction:", fmt("🏗️ {}", { i(1) }), { alias = { ":infrastructure:" } }),
   s(":iphone:", fmt("📱 {}", { i(1) }), { alias = { ":responsive:" } }),
   s(":clown_face:", fmt("🤡 {}", { i(1) }), { alias = { ":mocking:", ":mock_things:" } }),
-  s(":egg:", fmt("🥚 {}", { i(1) }), { alias = { ":add_easter_egg:" } }),
   s(":see_no_evil:", fmt("🙈 {}", { i(1) }), { alias = { ":ignore_code:", ":gitignore:" } }),
   s(":camera_flash:", fmt("📸 {}", { i(1) }), { alias = { ":add_snapshots:" } }),
   s(":alembic:", fmt("⚗️ {}", { i(1) }), { alias = { ":experiment:" } }),
@@ -900,19 +897,13 @@ ls.add_snippets("all", {
   s(":test_tube:", fmt("🧪 {}", { i(1) }), { alias = { ":add_failing_test:" } }),
   s(":necktie:", fmt("👔 {}", { i(1) }), { alias = { ":business_logic:" } }),
   s(":card_file_box:", fmt("🗂️ {}", { i(1) }), { alias = { ":data_migration:", ":database:" } }),
-  s(":boom:", fmt("💥 {}", { i(1) }), { alias = { ":introduce_breaking_changes:" } }),
-  s(":poop:", fmt("💩 {}", { i(1) }), { alias = { ":bad_code:" } }),
+  s(":boom:", fmt("💥 {}", { i(1) }), { alias = { ":breaking_changes:" } }),
   s(":alien:", fmt("👽 {}", { i(1) }), { alias = { ":fix_external_api:" } }),
   s(":tada:", fmt("🎉 {}", { i(1) }), { alias = { ":initial_commit:" } }),
-  s(":pencil:", fmt("✏️ {}", { i(1) }), { alias = { ":typo:" } }),
-
-  s(":loudly_crying_face:", fmt("😭 {}", { i(1) }), { alias = { ":need_to_debug:" } }),
-  s(":rice_ball:", fmt("🍙 {}", { i(1) }), { alias = { ":add_demo:" } }),
   s(":bathtub:", fmt("🛁 {}", { i(1) }), { alias = { ":code_cleanup:" } }),
   s(":gem:", fmt("💎 {}", { i(1) }), { alias = { ":improve_code:" } }),
   s(":computer:", fmt("💻 {}", { i(1) }), { alias = { ":os_related:" } }),
   s(":whale:", fmt("🐳 {}", { i(1) }), { alias = { ":docker:" } }),
-  s(":thinking:", fmt("🤔 {}", { i(1) }), { alias = { ":discuss:" } }),
   s(":robot_face:", fmt("🤖 {}", { i(1) }), { alias = { ":automation:" } }),
 })
 ls.add_snippets("php", {
