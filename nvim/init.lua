@@ -4,12 +4,8 @@ vim.g.maplocalleader = ' '
 if (string.find(vim.loop.os_uname().sysname, "indows")) then
   vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
 end
--- add error handling
--- vim.cmd 'colorscheme tokyonight'
 
 -- Install package manager
---    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -291,9 +287,6 @@ require('lazy').setup({
     end
   },
 
-  -- makes the background transparent to blend in with the terminal
-  'xiyaowong/transparent.nvim',
-
   -- saves buffers automatically
   'pocco81/auto-save.nvim',
 
@@ -409,10 +402,12 @@ vim.cmd('let g:netrw_fastbrowse = 0')
 vim.cmd('set lazyredraw')
 vim.cmd('let g:netrw_bufsettings = \'noma nomod nu nowrap ro nobl\'')
 vim.cmd('autocmd FileType netrw setlocal number')
+
 -- ----------------------------------------------------
 -- Custom Commands
 -- ----------------------------------------------------
 vim.api.nvim_create_user_command('E', 'e .env', {})
+
 -- ----------------------------------------------------
 -- Key Bindings/Shortcuts
 -- ----------------------------------------------------
@@ -488,7 +483,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 -- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
 local telescopeActions = require("telescope.actions")
 local previousHistoryAndChangeToNormalMode = function (prompt_bufnr)
   telescopeActions.cycle_history_prev(prompt_bufnr);
@@ -756,55 +750,11 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', '<leader>-', function () vim.cmd('Explore .') end, { desc = 'Open Netrw in the project root'})
 
 -- [[ Configure LSP ]]
---  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
-
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-  end
-
-  nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
-
-  nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
-  nmap('grr', vim.lsp.buf.references, '[g]oto [r]eferences')
-  nmap('grs', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[g]oto [r]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>sy', function () require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" }) end, 'Tele[s]cope Document S[y]mbols')
-  nmap('<leader>wy', function () require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" }) end, '[w]orkspace S[y]mbols')
-
-  -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-  -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[w]orkspace [a]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[w]orkspace [r]emove Folder')
-  nmap('<leader>wl', function() vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[w]orkspace [l]ist Folders')
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
-end
-
 -- Setup neovim lua configuration
 require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local mason_lspconfig = require 'mason-lspconfig'
 
@@ -836,7 +786,41 @@ mason_lspconfig.setup_handlers {
   function(server_name)
     lspconfig[server_name].setup {
       capabilities = capabilities,
-      on_attach = on_attach,
+      on_attach = function(_, bufnr)
+        local nmap = function(keys, func, desc)
+          if desc then
+            desc = 'LSP: ' .. desc
+          end
+
+          vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+        end
+
+        nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
+        nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
+
+        nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
+        nmap('grr', vim.lsp.buf.references, '[g]oto [r]eferences')
+        nmap('grs', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[g]oto [r]eferences')
+        nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
+        nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+        nmap('<leader>sy', function () require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" }) end, 'Tele[s]cope Document S[y]mbols')
+        nmap('<leader>wy', function () require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" }) end, '[w]orkspace S[y]mbols')
+
+        -- See `:help K` for why this keymap
+        nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+        nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+        -- Lesser used LSP functionality
+        nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
+        nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[w]orkspace [a]dd Folder')
+        nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[w]orkspace [r]emove Folder')
+        nmap('<leader>wl', function() vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[w]orkspace [l]ist Folders')
+
+        -- Create a command `:Format` local to the LSP buffer
+        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+          vim.lsp.buf.format()
+        end, { desc = 'Format current buffer with LSP' })
+      end,
       settings = servers[server_name],
     }
   end,
@@ -852,61 +836,111 @@ lspconfig.emmet_language_server.setup({
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
-local luasnip = require 'luasnip'
+local ls = require 'luasnip'
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+local fmt = require("luasnip.extras.fmt").fmt
+
 require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
+ls.config.setup {}
 
-local function copy(args)
-  return args[1]
-end
+ls.add_snippets("all", {
+  s(":sparkles:", fmt("✨ {}", { i(1) }), { alias = { ":new_feature:", ":feat:" } }),
+  s(":bug:", fmt("🐛 {}", { i(1) }), { alias = { ":fix_bug:", ":bugfix:" } }),
+  s(":memo:", fmt("📝 {}", { i(1) }), { alias = { ":add_docs:", ":update_docs:", ":documentation:" } }),
+  s(":rocket:", fmt("🚀 {}", { i(1) }), { alias = { ":deploy:" } }),
+  s(":art:", fmt("🎨 {}", { i(1) }), { alias = { ":format_code:", ":code_style:" } }),
+  s(":lipstick:", fmt("💄 {}", { i(1) }), { alias = { ":ui_changes:", ":styling_changes:" } }),
+  s(":fire:", fmt("🔥 {}", { i(1) }), { alias = { ":remove_code:", ":delete_files:" } }),
+  s(":construction:", fmt("🚧 {}", { i(1) }), { alias = { ":wip:", ":work_in_progress:" } }),
+  s(":white_check_mark:", fmt("✅ {}", { i(1) }), { alias = { ":add_tests:", ":update_tests:", ":passing_tests:" } }),
+  s(":heavy_plus_sign:", fmt("➕ {}", { i(1) }), { alias = { ":add_dependency:", ":plus:" } }),
+  s(":heavy_minus_sign:", fmt("➖ {}", { i(1) }), { alias = { ":remove_dependency:", ":minus:" } }),
+  s(":arrow_up:", fmt("⬆️ {}", { i(1) }), { alias = { ":upgrade_dependency:" } }),
+  s(":arrow_down:", fmt("⬇️ {}", { i(1) }), { alias = { ":downgrade_dependency:" } }),
+  s(":pin:", fmt("📌 {}", { i(1) }), { alias = { ":pin_dependency_version:" } }),
+  s(":bulb:", fmt("💡 {}", { i(1) }), { alias = { ":add_comments:", ":update_comments:" } }),
+  s(":recycle:", fmt("♻️ {}", { i(1) }), { alias = { ":refactor:" } }),
+  s(":package:", fmt("📦 {}", { i(1) }), { alias = { ":new_package:" } }),
+  s(":wrench:", fmt("🔧 {}", { i(1) }), { alias = { ":config:", ":configuration:" } }),
+  s(":globe_with_meridians:", fmt("🌐 {}", { i(1) }), { alias = { ":internationalization:", ":i18n:" } }),
+  s(":pencil2:", fmt("✏️ {}", { i(1) }), { alias = { ":typo:" } }),
+  s(":rewind:", fmt("⏪ {}", { i(1) }), { alias = { ":revert:" } }),
+  s(":rotating_light:", fmt("🚨 {}", { i(1) }), { alias = { ":remove_linter_warning:" } }),
+  s(":green_heart:", fmt("💚 {}", { i(1) }), { alias = { ":fix_ci:" } }),
+  s(":lock:", fmt("🔒 {}", { i(1) }), { alias = { ":security:" } }),
+  s(":loud_sound:", fmt("🔊 {}", { i(1) }), { alias = { ":add_logs:" } }),
+  s(":mute:", fmt("🔇 {}", { i(1) }), { alias = { ":remove_logs:" } }),
+  s(":children_crossing:", fmt("🚸 {}", { i(1) }), { alias = { ":user_experience:", ":ux:" } }),
+  s(":construction_worker:", fmt("👷 {}", { i(1) }), { alias = { ":add_ci:" } }),
+  s(":chart_with_upwards_trend:", fmt("📈 {}", { i(1) }), { alias = { ":add_analytics:" } }),
+  s(":wheelchair:", fmt("♿ {}", { i(1) }), { alias = { ":accessibility:" } }),
+  s(":bulb:", fmt("💡 {}", { i(1) }), { alias = { ":add_comments:" } }),
+  s(":beers:", fmt("🍻 {}", { i(1) }), { alias = { ":write_drunk_code:" } }),
+  s(":speech_balloon:", fmt("💬 {}", { i(1) }), { alias = { ":add_text:" } }),
+  s(":busts_in_silhouette:", fmt("👥 {}", { i(1) }), { alias = { ":add_contributors:" } }),
+  s(":building_construction:", fmt("🏗️ {}", { i(1) }), { alias = { ":infrastructure:" } }),
+  s(":iphone:", fmt("📱 {}", { i(1) }), { alias = { ":responsive:" } }),
+  s(":clown_face:", fmt("🤡 {}", { i(1) }), { alias = { ":mocking:", ":mock_things:" } }),
+  s(":egg:", fmt("🥚 {}", { i(1) }), { alias = { ":add_easter_egg:" } }),
+  s(":see_no_evil:", fmt("🙈 {}", { i(1) }), { alias = { ":ignore_code:", ":gitignore:" } }),
+  s(":camera_flash:", fmt("📸 {}", { i(1) }), { alias = { ":add_snapshots:" } }),
+  s(":alembic:", fmt("⚗️ {}", { i(1) }), { alias = { ":experiment:" } }),
+  s(":mag:", fmt("🔍 {}", { i(1) }), { alias = { ":seo:" } }),
+  s(":seedling:", fmt("🌱 {}", { i(1) }), { alias = { ":add_seed_file:" } }),
+  s(":triangular_flag_on_post:", fmt("🚩 {}", { i(1) }), { alias = { ":add_feature_flag:" } }),
+  s(":goal_net:", fmt("🥅 {}", { i(1) }), { alias = { ":catch_errors:" } }),
+  s(":dizzy:", fmt("💫 {}", { i(1) }), { alias = { ":add_animations:" } }),
+  s(":wastebasket:", fmt("🗑️ {}", { i(1) }), { alias = { ":deprecated:" } }),
+  s(":passport_control:", fmt("🛂 {}", { i(1) }), { alias = { ":authentication:" } }),
+  s(":adhesive_bandage:", fmt("🩹 {}", { i(1) }), { alias = { ":simple_fix:" } }),
+  s(":monocle_face:", fmt("🧐 {}", { i(1) }), { alias = { ":data_exploration:" } }),
+  s(":coffin:", fmt("⚰️ {}", { i(1) }), { alias = { ":dead_code:" } }),
+  s(":test_tube:", fmt("🧪 {}", { i(1) }), { alias = { ":add_failing_test:" } }),
+  s(":necktie:", fmt("👔 {}", { i(1) }), { alias = { ":business_logic:" } }),
+  s(":card_file_box:", fmt("🗂️ {}", { i(1) }), { alias = { ":data_migration:", ":database:" } }),
+  s(":boom:", fmt("💥 {}", { i(1) }), { alias = { ":introduce_breaking_changes:" } }),
+  s(":poop:", fmt("💩 {}", { i(1) }), { alias = { ":bad_code:" } }),
+  s(":alien:", fmt("👽 {}", { i(1) }), { alias = { ":fix_external_api:" } }),
+  s(":tada:", fmt("🎉 {}", { i(1) }), { alias = { ":initial_commit:" } }),
+  s(":pencil:", fmt("✏️ {}", { i(1) }), { alias = { ":typo:" } }),
 
-luasnip.add_snippets("all", {
-  -- trigger is `fn`, second argument to snippet-constructor are the nodes to insert into the buffer on expansion.
-  luasnip.snippet("example", {
-    -- Simple static text.
-    luasnip.text_node("//Parameters: "),
-    -- function, first parameter is the function, second the Placeholders
-    -- whose text it gets as input.
-    luasnip.function_node(copy, 2),
-    luasnip.text_node({ "", "function " }),
-    -- Placeholder/Insert.
-    luasnip.insert_node(1),
-    luasnip.text_node("("),
-    -- Placeholder with initial text.
-    luasnip.insert_node(2, "int foo"),
-    -- Linebreak
-    luasnip.text_node({ ") {", "\t" }),
-    -- Last Placeholder, exit Point of the snippet.
-    luasnip.insert_node(0),
-    luasnip.text_node({ "", "}" }),
+  s(":loudly_crying_face:", fmt("😭 {}", { i(1) }), { alias = { ":need_to_debug:" } }),
+  s(":rice_ball:", fmt("🍙 {}", { i(1) }), { alias = { ":add_demo:" } }),
+  s(":bathtub:", fmt("🛁 {}", { i(1) }), { alias = { ":code_cleanup:" } }),
+  s(":gem:", fmt("💎 {}", { i(1) }), { alias = { ":improve_code:" } }),
+  s(":computer:", fmt("💻 {}", { i(1) }), { alias = { ":os_related:" } }),
+  s(":whale:", fmt("🐳 {}", { i(1) }), { alias = { ":docker:" } }),
+  s(":thinking:", fmt("🤔 {}", { i(1) }), { alias = { ":discuss:" } }),
+  s(":robot_face:", fmt("🤖 {}", { i(1) }), { alias = { ":automation:" } }),
+})
+ls.add_snippets("php", {
+  s("$app =", {
+    t("$app = Wow_Application::getInstance();"),
+  }),
+  s("echo_print_r", {
+    t("echo '<pre>';"),
+    t({ "", "print_r(" }),
+    i(0),
+    t(");"),
+    t({ "", "die;" }),
   }),
 })
-luasnip.add_snippets("php", {
-  luasnip.snippet("$app =", {
-    luasnip.text_node("$app = Wow_Application::getInstance();"),
-  }),
-  luasnip.snippet("echo_print_r", {
-    luasnip.text_node("echo '<pre>';"),
-    luasnip.text_node({ "", "print_r(" }),
-    luasnip.insert_node(0),
-    luasnip.text_node(");"),
-    luasnip.text_node({ "", "die;" }),
-  }),
-})
-luasnip.add_snippets("twig", {
-  luasnip.snippet("echo_all_vars", {
-    luasnip.text_node("<ol>"),
-    luasnip.text_node({"", "    {% for key, value in _context  %}"}),
-    luasnip.text_node({"", "      <li>{{ key }}: {{ value | json_encode }}</li>"}),
-    luasnip.text_node({"", "    {% endfor %}"}),
-    luasnip.text_node({"", "</ol>"}),
+ls.add_snippets("twig", {
+  s("echo_all_vars", {
+    t("<ol>"),
+    t({"", "    {% for key, value in _context  %}"}),
+    t({"", "      <li>{{ key }}: {{ value | json_encode }}</li>"}),
+    t({"", "    {% endfor %}"}),
+    t({"", "</ol>"}),
   }),
 })
 
 cmp.setup {
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      ls.lsp_expand(args.body)
     end,
   },
   completion = {
@@ -923,15 +957,15 @@ cmp.setup {
       select = true,
     },
     ['<C-e>'] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
+      if ls.expand_or_locally_jumpable() then
+        ls.expand_or_jump()
       else
         fallback()
       end
     end, { 'i', 's' }),
     ['<C-a>'] = cmp.mapping(function(fallback)
-      if luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
+      if ls.locally_jumpable(-1) then
+        ls.jump(-1)
       else
         fallback()
       end
