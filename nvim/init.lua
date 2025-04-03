@@ -799,8 +799,8 @@ mason_lspconfig.setup_handlers {
         nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
 
         nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
-        nmap('grr', vim.lsp.buf.references, '[g]oto [r]eferences')
-        nmap('grs', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[g]oto [r]eferences')
+        nmap('grr', vim.lsp.buf.references, '[g]oto quicklist [r]eferences')
+        nmap('grs', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[g]oto tele[s]cope references')
         nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
         nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
         nmap('<leader>sy', function () require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" }) end, 'Tele[s]cope Document S[y]mbols')
