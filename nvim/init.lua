@@ -901,6 +901,7 @@ ls.add_snippets("all", {
   s(":business_logic:", fmt("👔 {}", { i(1) })),
   s(":database:", fmt("🗂️ {}", { i(1) })),
   s(":db:", fmt("🗂️ {}", { i(1) })),
+  s(":development_experience:", fmt("🧑‍💻 {}", { i(1) })),
   s(":breaking_changes:", fmt("💥 {}", { i(1) })),
   s(":fix_external_api:", fmt("👽 {}", { i(1) })),
   s(":initial_commit:", fmt("🎉 {}", { i(1) })),
