@@ -847,6 +847,7 @@ ls.config.setup {}
 ls.add_snippets("gitcommit", {
   s(":feat:", fmt("✨ {}", { i(1) })),
   s(":bug:", fmt("🐛 {}", { i(1) })),
+  s(":assets:", fmt("🍱 {}", { i(1) })),
   s(":docs:", fmt("📝 {}", { i(1) })),
   s(":deploy:", fmt("🚀 {}", { i(1) })),
   s(":style_code:", fmt("🎨 {}", { i(1) })),
