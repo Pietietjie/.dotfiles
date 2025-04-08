@@ -844,7 +844,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 require('luasnip.loaders.from_vscode').lazy_load()
 ls.config.setup {}
 
-ls.add_snippets("all", {
+ls.add_snippets("gitcommit", {
   s(":feat:", fmt("✨ {}", { i(1) })),
   s(":bug:", fmt("🐛 {}", { i(1) })),
   s(":docs:", fmt("📝 {}", { i(1) })),
