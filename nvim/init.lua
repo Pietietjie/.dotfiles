@@ -912,6 +912,7 @@ ls.add_snippets("gitcommit", {
   s(":docker:", fmt("🐳 {}", { i(1) })),
   s(":automation:", fmt("🤖 {}", { i(1) })),
   s(":merge:", fmt("🔀 {}", { i(1) })),
+  s(":validation:", fmt("🦺 {}", { i(1) })),
 })
 ls.add_snippets("php", {
   s("$app =", {
