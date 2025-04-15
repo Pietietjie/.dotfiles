@@ -854,6 +854,7 @@ ls.add_snippets("gitcommit", {
   s(":formatting:", fmt("🎨{}", { i(1) })),
   s(":style_ui:", fmt("💄{}", { i(1) })),
   s(":remove:", fmt("🔥{}", { i(1) })),
+  s(":performance:", fmt("⚡{}", { i(1) })),
   s(":work_in_progress:", fmt("🚧{}", { i(1) })),
   s(":tests_add:", fmt("✅{}", { i(1) })),
   s(":add_dependency:", fmt("➕{}", { i(1) })),
