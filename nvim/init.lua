@@ -927,6 +927,11 @@ ls.add_snippets("php", {
     t(");"),
     t({ "", "die;" }),
   }),
+  s("$placeholders =", {
+    t("$placeholders = implode(',', array_fill(0, count("),
+    i(0),
+    t("), '?'));"),
+  }),
 })
 ls.add_snippets("twig", {
   s("echo_all_vars", {
