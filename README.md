@@ -24,6 +24,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
     - [some laravel dev](https://github.com/shxfee/dotfiles/tree/master).
     - [primeagen](https://github.com/ThePrimeagen/.dotfiles)
 - NVIM:
+    - look at making that the telescope preview is disabled to buffers that is minified
     - fix emojis breaking the spacing
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - disable the class text object
