@@ -480,6 +480,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+-- [[ disable text width on git commit ]]
+vim.api.nvim_create_augroup("gitcommit", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gitcommit",
+  callback = function()
+    vim.opt_local.textwidth = 0
+  end,
+  group = "gitcommit",
+})
 
 
 -- [[ Configure Telescope ]]
