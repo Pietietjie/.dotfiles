@@ -1,0 +1,13 @@
+- omnipkg:
+    - update
+- omnipkg:
+    - install: [
+        tmux,
+        neovim,
+        git,
+        fd,
+        fzf,
+        jq,
+        sqlite,
+        ripgrep
+    ]
