@@ -937,9 +937,9 @@ ls.add_snippets("php", {
     t({ "", "die;" }),
   }),
   s("$placeholders =", {
-    t("$placeholders = implode(',', array_fill(0, count("),
+    t("$placeholders = '(' . implode(',', array_fill(0, count("),
     i(0),
-    t("), '?'));"),
+    t("), '?')) . ')';"),
   }),
 })
 ls.add_snippets("twig", {
