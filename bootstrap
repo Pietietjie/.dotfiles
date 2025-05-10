@@ -23,12 +23,24 @@ done
 
 echo
 
+os_type="$(uname -s)"
+
+case "${os_type}" in
+    Linux*)
+        os_type="Linux"
+        if [   -f "/etc/debian_version" ]; then
+            sudo apt install -y git python3
+        elif grep -q '^ID=arch' /etc/os-release; then
+            sudo pacman -Sy && sudo pacman -S python git
+        fi
+
+        ;;
+esac
+
 # This is used to locally develop the install script.
 git clone https://github.com/Pietietjie/.dotfiles "${clone_path}"
 
 cd ${clone_path}
-
-os_type="$(uname -s)"
 
 git submodule init && git submodule update
 
