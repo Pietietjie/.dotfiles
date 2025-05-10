@@ -71,10 +71,27 @@ fi
 
 # My custom Aliases
 # Functions
-composer() { php $composer_path "$@" }
-artisan() { if [ -f vendor/.dontsail ]; then php artisan "$@"; elif [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
-composer-link() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/([^\/]+)$/\1/p'`; composer config "repositories.$package" '{"type": "path", "url": "'$1'"}'; }
-composer-github() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/(.*)\.git/\1/p'`; composer config "repositories.$package" vcs $1; }
+composer() {
+    php $composer_path "$@"
+}
+artisan() {
+    if [ -f vendor/.dontsail ]; then
+        php artisan "$@";
+    elif [ -f sail ] || [ -f vendor/bin/sail ]; then
+        sail artisan "$@"; else
+        php artisan "$@";
+    fi
+}
+composer-link() {
+    composer config minimum-stability dev;
+    local package=`echo $1 | sed -nr 's/.*\/([^\/]+)$/\1/p'`;
+    composer config "repositories.$package" '{"type": "path", "url": "'$1'"}';
+}
+composer-github() {
+    composer config minimum-stability dev;
+    local package=`echo $1 | sed -nr 's/.*\/(.*)\.git/\1/p'`;
+    composer config "repositories.$package" vcs $1;
+}
 # 1 Character Aliases
 alias a="artisan"
 alias d="docker"
