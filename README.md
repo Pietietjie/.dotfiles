@@ -1,18 +1,26 @@
 # .dotfiles
 
-My personal dotfile config ✍️(◔◡◔)
+My personal dotfile config (◔◡◔)
 
 ## Install
-- For Linux (only really Ubuntu atm) run
+### Bootstrap Linux
 ```bash
 bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)
 ```
-- For Windows run
+
+### Bootstrap Windows
 ```powershell
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap" -OutFile "$env:TEMP\bootstrap.ps1"
 & "$env:TEMP\bootstrap.ps1"
 ```
-### Troubleshooting/Tips/Common issues
+
+### Manual
+```bash
+git submodule init && git submodule update
+sudo ./install
+```
+
+#### Troubleshooting/Tips/Common issues
 - If nvim complains and says "nvim no parser for 'markdown' language" run `:TSInstall markdown markdown_inline`
 - On windows WSL 2 when hosting docker containers sometimes you need to kill apache to allow the access the containers in chromium browsers `sudo service apache2 stop` || `sudo systemctl stop apache2`
 ## TODO
