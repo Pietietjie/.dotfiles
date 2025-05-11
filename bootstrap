@@ -3,48 +3,53 @@
 ### makes that the script fails if a step fails
 set -e
 
-###############################################################################
-# Clone dotfiles
-###############################################################################
-
-read -rep $'\nWhere do you want to clone these dotfiles to [~/.dotfiles]? ' clone_path
-clone_path="${clone_path:-"${HOME}/.dotfiles"}"
-
-# Ensure path doesn't exist.
-while [ -e "${clone_path}" ]; do
-    read -rep $'\nPath exists, try again? (y) ' y
-    case "${y}" in
-        [Yy]*)
-
-            break;;
-        *) echo "Please answer y or CTRL+c the script to abort everything";;
-    esac
-done
-
-echo
-
 os_type="$(uname -s)"
 
 case "${os_type}" in
     Linux*)
         os_type="Linux"
         if [   -f "/etc/debian_version" ]; then
+            sudo apt update
             sudo apt install -y git python3
         elif grep -q '^ID=arch' /etc/os-release; then
-            sudo pacman -Sy && sudo pacman -S python git
+            sudo pacman -Sy tmux neovim git fd fzf jq sqlite ripgrep firefox ttf-firacode-nerd noto-font-emoji unzip zsh alacritty
         fi
 
         ;;
 esac
 
-# This is used to locally develop the install script.
-git clone https://github.com/Pietietjie/.dotfiles "${clone_path}"
+###############################################################################
+# Clone dotfiles
+###############################################################################
+read -p "Do you want to run the command? (y/n): " user_input
 
-cd ${clone_path}
+if [[ "$user_input" == "y" ]]; then
+    read -rep $'\nWhere do you want to clone these dotfiles to [~/.dotfiles]? ' clone_path
+    clone_path="${clone_path:-"${HOME}/.dotfiles"}"
 
-git submodule init && git submodule update
+    # Ensure path doesn't exist.
+    while [ -e "${clone_path}" ]; do
+        read -rep $'\nPath exists, try again? (y) ' y
+        case "${y}" in
+            [Yy]*)
 
-git remote remove origin && git remote add origin git@github.com:Pietietjie/.dotfiles.git
+                break;;
+            *) echo "Please answer y or CTRL+c the script to abort everything";;
+        esac
+    done
+
+    # This is used to locally develop the install script.
+    git clone https://github.com/Pietietjie/.dotfiles "${clone_path}"
+
+    cd ${clone_path}
+
+    git submodule init && git submodule update
+
+    git remote remove origin && git remote add origin git@github.com:Pietietjie/.dotfiles.git
+
+else
+  echo "Assuming that your are in the git dir"
+fi
 
 ###############################################################################
 # Detect OS and distro type
@@ -58,10 +63,27 @@ case "${os_type}" in
 
         if [   -f "/etc/debian_version" ]; then
             sudo ./install || true
-            sudo ./install -c ./install-ubuntu.conf.yaml -p dotbot-aptget/aptget.py || true
-        elif grep -q '^ID=arch' /etc/os-release; then
-            sudo ./install || true
-            sudo ./install -c ./install-arch.conf.yaml -p dotbot-omnipkg/omnipkg.py || true
+            sudo add-apt-repository ppa:ondrej/php
+            sudo apt update
+            sudo apt install -y git ninja-build gettext cmake unzip curl build-essential zsh fd-find tmux fzf grep ripgrep mysql-server mysql-client sqlite3 jq
+
+            read -p "Do you want to install php? (y/n): " user_input
+            if [[ "$user_input" == "y" ]]; then
+                sudo apt install -y php8.2 php8.2-zip php8.2-curl php8.2-gd php8.2-xml php8.2-sqlite3 php8.2-mysql php8.2-mbstring php8.2-xdebug php7.4 php7.4-zip php7.4-curl php7.4-gd php7.4-xml php7.4-sqlite3 php7.4-mysql php7.4-mbstring php7.4-xdebug
+            fi
+
+            if ! command -v nvim &> /dev/null;
+            then
+                git clone --depth 1 --single-branch --branch v0.10.3 https://github.com/neovim/neovim.git ~/build/neovim
+                && cd ~/build/neovim
+                && make CMAKE_BUILD_TYPE=RelWithDebInfo
+                && cd build
+                && cpack -G DEB
+                && sudo dpkg -i nvim-linux64.deb 
+                && cd ../..
+                && rm -rf neovim
+                && nvim --headless \"+Lazy! sync\" +qa;
+            fi
         fi
 
         ;;
