@@ -1,4 +1,9 @@
 - link:
+    ~/AppData/Roaming/alacritty:
+        relink: true
+        path: alacritty
+        create: true
+- link:
     ~/.wezterm.lua:
         relink: true
         path: wezterm/.wezterm.lua

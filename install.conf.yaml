@@ -25,7 +25,7 @@
         path: scripts
         create: true
 - shell:
-    - 
+    -
         command:
             "if [ ! -d \"$HOME/.oh-my-zsh\" ] && $(which zsh);
             then
