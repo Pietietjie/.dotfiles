@@ -15,8 +15,8 @@ case "${os_type}" in
             sudo pacman -Sy --noconfirm tmux neovim git fd fzf jq sqlite ripgrep firefox ttf-firacode-nerd noto-fonts-emoji unzip zsh alacritty man-db keepassxc
             nvim --headless \"+Lazy! sync\" +qa;
             # Make sure zsh is in /etc/shells
-            if ! grep -q "^/bin/zsh$" /etc/shells; then
-              sudo echo "/bin/zsh" >> /etc/shells
+            if ! grep -q "^$(which zsh)$" /etc/shells; then
+              sudo sh -c 'which zsh >> /etc/shells'
             fi
             # Change default shell for all normal users (UID >= 1000)
             echo "Changing shell to zsh for all normal users..."
