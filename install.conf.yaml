@@ -1,5 +1,5 @@
 - link:
-    ~/alacritty:
+    ~/.config/alacritty:
         relink: true
         path: alacritty
         create: true
