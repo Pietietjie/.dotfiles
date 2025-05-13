@@ -21,7 +21,7 @@ esac
 ###############################################################################
 # Clone dotfiles
 ###############################################################################
-read -p "Do you want to run the command? (y/n): " user_input
+read -p "Do you want to clone the git repo (if you run the command via curl)? (y/n): " user_input
 
 if [[ "$user_input" == "y" ]]; then
     read -rep $'\nWhere do you want to clone these dotfiles to [~/.dotfiles]? ' clone_path

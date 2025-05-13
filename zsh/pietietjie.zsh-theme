@@ -10,6 +10,31 @@ ZSH_THEME_GIT_PROMPT_CLEAN=""
 ZSH_THEME_CODE_PROMPT_PREFIX="%F{#bb9af7}‹%{$reset_color%}"
 ZSH_THEME_CODE_PROMPT_SUFFIX="%F{#bb9af7}›%{$reset_color%}"
 
+CODESUFFIX=""
+if type "php" > /dev/null; then
+  if [[ -z "$CODESUFFIX" ]]; then
+    CODESUFFIX+='%F{#bb9af7}‹%{%}'
+  else
+    CODESUFFIX+='/'
+  fi
+  CODESUFFIX+='%F{#bb9af7} '
+  CODESUFFIX+=$(php -r "echo PHP_VERSION;")
+  CODESUFFIX+='%{%}'
+fi
+if command -v nvm > /dev/null; then
+  if [[ -z "$CODESUFFIX" ]]; then
+    CODESUFFIX+='%F{#bb9af7}‹%{%}'
+  else
+    CODESUFFIX+='/'
+  fi
+  CODESUFFIX+='%F{#bb9af7} '
+  CODESUFFIX+=$(nvm current)
+  CODESUFFIX+='%{%}'
+fi
+if [[ ! -z "$CODESUFFIX" ]]; then
+  CODESUFFIX+='%F{#bb9af7}›%{%}'
+fi
+
 PROMPT='
-%(?.%F{#9ece6a}󰳉 .%F{#ff8787}󰻌 )%{$reset_color%} %F{#7aa2f7}🐧%{$reset_color%}${user_host}%F{#9ece6a}%~%{$reset_color%} %F{#bb9af7}‹%{%}%F{#bb9af7} $(php -r "echo PHP_VERSION;")%{%}/%F{#bb9af7} $(nvm current)%{%}%F{#bb9af7}›%{%}${virtualenv_prompt_info} %F{#ff8787} %*%{$reset_color%}
+%(?.%F{#9ece6a}󰳉 .%F{#ff8787}󰻌 )%{$reset_color%} %F{#7aa2f7}🐧%{$reset_color%}${user_host}%F{#9ece6a}%~%{$reset_color%} ${CODESUFFIX} ${virtualenv_prompt_info} %F{#ff8787} %*%{$reset_color%}
 %(?.%F{#9ece6a}.%F{#ff8787})╰─%{$reset_color%} $([[ $(git_prompt_info | sed "s/\w//g") ]] && echo $(git_prompt_info) || echo "%F{#ff8787}\uE0A0  %{$reset_color%}") %F{#bb9af7}:%{$reset_color%} '
