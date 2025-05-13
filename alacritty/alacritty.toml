@@ -11,11 +11,9 @@
     italic = { family = "FiraCode Nerd Font", style = "Italic" }
     bold_italic = { family = "FiraCode Nerd Font", style = "Bold Italic" }
     size = 14
-
     # Offset is the extra space around each character. This is useful when using
     # box drawing characters.
     offset = { x = 0, y = 0 }
-
     # Glyph offset determines the locations of the glyphs within their cells with
     # the default being at the bottom.
     glyph_offset = { x = 0, y = 0 }
@@ -46,9 +44,6 @@
 
 [mouse]
     hide_when_typing = true
-
-[terminal.shell]
-  program = "wsl"
 
 [keyboard]
 bindings = [
