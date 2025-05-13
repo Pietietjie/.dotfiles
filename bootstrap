@@ -14,23 +14,7 @@ case "${os_type}" in
         elif grep -q '^ID=arch' /etc/os-release; then
             sudo pacman -Sy --noconfirm tmux neovim git fd fzf jq sqlite ripgrep firefox ttf-firacode-nerd noto-fonts-emoji unzip zsh alacritty man-db keepassxc
             nvim --headless \"+Lazy! sync\" +qa;
-            # Make sure zsh is in /etc/shells
-            if ! grep -q "^$(which zsh)$" /etc/shells; then
-              sudo sh -c 'which zsh >> /etc/shells'
-            fi
-            # Change default shell for all normal users (UID >= 1000)
-            echo "Changing shell to zsh for all normal users..."
-            for user in $(awk -F: '$3 >= 1000 && $3 < 65534 {print $1}' /etc/passwd); do
-              echo "Changing shell for $user"
-              sudo chsh -s /bin/zsh "$user"
-            done
-            # Set zsh as default shell for new users
-            if [ -f /etc/default/useradd ]; then
-              sudo sed -i 's/^SHELL=.*/SHELL=\/bin\/zsh/' /etc/default/useradd
-            else
-              sudo echo "SHELL=/bin/zsh" >> /etc/default/useradd
-            fi
-            echo "Default shell changed to zsh for all users"
+            chsh -s /bin/zsh
         fi
 
         ;;
