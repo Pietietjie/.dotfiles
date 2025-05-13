@@ -13,6 +13,7 @@ case "${os_type}" in
             sudo apt install -y git python3
         elif grep -q '^ID=arch' /etc/os-release; then
             sudo pacman -Sy --noconfirm tmux neovim git fd fzf jq sqlite ripgrep firefox ttf-firacode-nerd noto-fonts-emoji unzip zsh alacritty man-db keepassxc
+            zsh
             nvim --headless \"+Lazy! sync\" +qa;
             chsh -s /bin/zsh
         fi
