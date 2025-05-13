@@ -1,4 +1,9 @@
 - link:
+    ~/alacritty:
+        relink: true
+        path: alacritty
+        create: true
+- link:
     ~/.bashrc:
         force: true
         relink: true
