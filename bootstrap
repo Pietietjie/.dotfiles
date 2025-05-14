@@ -34,7 +34,8 @@ case "${os_type}" in
             if [ ! -d \"$HOME/.oh-my-zsh\" ] && $(which zsh);
             then
                 sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"
-                zsh
+                autoload -U zsh-newuser-install
+                zsh-newuser-install -f
             fi
 
             mkdir -p ~/.local/share/nvim/databases && touch ~/.local/share/nvim/databases/telescope_history.sqlite3
