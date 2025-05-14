@@ -71,8 +71,7 @@ case "${os_type}" in
         fi
 
         if [ ! -d \"$HOME/.oh-my-zsh\" ] && $(which zsh); then
-            sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" \
-                && chsh -s $(which zsh);
+            sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" && chsh -s $(which zsh);
         fi
 
         ./install || true
@@ -90,15 +89,7 @@ case "${os_type}" in
 
             if ! command -v nvim &> /dev/null;
             then
-                git clone --depth 1 --single-branch --branch v0.10.3 https://github.com/neovim/neovim.git ~/build/neovim && \
-                cd ~/build/neovim && \
-                make CMAKE_BUILD_TYPE=RelWithDebInfo && \
-                cd build && \
-                cpack -G DEB && \
-                sudo dpkg -i nvim-linux64.deb && \
-                cd ../.. && \
-                rm -rf neovim && \
-                nvim --headless \"+Lazy! sync\" +qa;
+                git clone --depth 1 --single-branch --branch v0.10.3 https://github.com/neovim/neovim.git ~/build/neovim && cd ~/build/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb && cd ../.. && rm -rf neovim && nvim --headless \"+Lazy! sync\" +qa;
             fi
         elif grep -q '^ID=arch' /etc/os-release; then
             nvim --headless \"+Lazy! sync\" +qa;
