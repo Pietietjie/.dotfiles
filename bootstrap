@@ -22,7 +22,7 @@ case "${os_type}" in
               sudo chsh -s $(which zsh) "$user"
             done
             if [ -f /etc/default/useradd ]; then
-              sudo sed -i "s/^SHELL=.*/SHELL=$(which zsh | sed -i 's/\//\\\//g')" /etc/default/useradd
+              sudo sed -i "s/^SHELL=.*/SHELL=$(which zsh)" /etc/default/useradd
             else
               sudo echo "SHELL=$(which zsh)" >> /etc/default/useradd
             fi
