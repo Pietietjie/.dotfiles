@@ -22,14 +22,31 @@ case "${os_type}" in
             echo "Changing shell to zsh for all normal users..."
             for user in $(awk -F: '$3 >= 1000 && $3 < 65534 {print $1}' /etc/passwd); do
               echo "Changing shell for $user"
-              sudo chsh -s /bin/zsh "$user"
+              sudo chsh -s $(which zsh) "$user"
             done
             if [ -f /etc/default/useradd ]; then
-              sudo sed -i 's/^SHELL=.*/SHELL=\/bin\/zsh/' /etc/default/useradd
+              sudo sed -i "s/^SHELL=.*/SHELL=$(which zsh | sed -i 's/\//\\\//g')" /etc/default/useradd
             else
-              sudo echo "SHELL=/bin/zsh" >> /etc/default/useradd
+              sudo echo "SHELL=$(which zsh)" >> /etc/default/useradd
             fi
             echo "Default shell changed to zsh for all users"
+
+            if [ ! -d \"$HOME/.oh-my-zsh\" ] && $(which zsh);
+            then
+                sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"
+                zsh
+            fi
+
+            mkdir -p ~/.local/share/nvim/databases && touch ~/.local/share/nvim/databases/telescope_history.sqlite3
+
+            if [ ! -d "$HOME/.nvm" ];
+            then
+                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+                && export NVM_DIR="$HOME/.nvm"
+                && [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"
+                && [ -s "$NVM_DIR/bash_completion" ] && \\. "$NVM_DIR/bash_completion"
+                && nvm install v20.18.0;
+            fi
         fi
 
         ;;
@@ -113,5 +130,11 @@ Everything was installed successfully!
 
 You can safely close this terminal.
 EOF
+
+read -p "Restart to apply all settings? (y/n): " restart_input
+
+if [[ "$restart_input" == "y" ]]; then
+    sudo reboot
+fi
 
 exit 0

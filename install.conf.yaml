@@ -29,36 +29,6 @@
         relink: true
         path: scripts
         create: true
-- shell:
-    -
-        command:
-            "if [ ! -d \"$HOME/.oh-my-zsh\" ] && $(which zsh);
-            then
-                sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"
-                && chsh -s $(which zsh);
-            fi"
-        stdout: true
-        description: "Install oh my zsh: "
-        stderr: true
-    -
-        command:
-            "mkdir -p ~/.local/share/nvim/databases && touch ~/.local/share/nvim/databases/telescope_history.sqlite3"
-        stdout: true
-        description: "Create sqlite db for nvim"
-        stderr: true
-    -
-        command:
-            "if [ ! -d \"$HOME/.nvm\" ];
-            then
-                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-                && export NVM_DIR=\"$HOME/.nvm\"
-                && [ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\"
-                && [ -s \"$NVM_DIR/bash_completion\" ] && \\. \"$NVM_DIR/bash_completion\"
-                && nvm install v20.18.0;
-            fi"
-        stdout: true
-        stderr: true
-        description: "Install node version manager and node: "
 - link:
     ~/.oh-my-zsh/themes/pietietjie.zsh-theme:
         relink: true
