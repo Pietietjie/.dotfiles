@@ -31,9 +31,9 @@ case "${os_type}" in
             fi
             echo "Default shell changed to zsh for all users"
 
-            if [ ! -d \"$HOME/.oh-my-zsh\" ] && $(which zsh);
+            if [ ! -d "$HOME/.oh-my-zsh" ] && $(which zsh);
             then
-                sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"
+                sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
             fi
 
             mkdir -p ~/.local/share/nvim/databases && touch ~/.local/share/nvim/databases/telescope_history.sqlite3
