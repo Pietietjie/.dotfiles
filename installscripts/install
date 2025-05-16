@@ -39,7 +39,7 @@ case "${os_type}" in
         fi
 
         if [ ! -d \"$HOME/.oh-my-zsh\" ] && $(which zsh); then
-            sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" && chsh -s $(which zsh);
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         fi
 
         ./install || true
