@@ -103,7 +103,7 @@ alias dc="docker-compose"
 alias tm='tmux'
 alias nv='nvim'
 alias cl='clear'
-alias scrp='~/scripts/$(ls -a --color=never ~/scripts | sed "1d;2d" | fzf)'
+alias scrp='~/scripts/$(ls -a --color=never ~/scripts | grep ".*sh$" | sed "1d;2d" | fzf)'
 alias change="sudo update-alternatives --config"
 alias dexe="docker exec -it \$(docker container ls | sed 1d | fzf | awk '{print \$1}') bash"
 alias fzcp="cp \$(fzf)"

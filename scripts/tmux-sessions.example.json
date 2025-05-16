@@ -1,0 +1,70 @@
+[
+    {
+        "blueprintName": "1-all-projects",
+        "sessions": [
+            {
+                "sessionName": "dotfiles",
+                "dir": "~\/.dotfiles",
+                "windows": [
+                    {
+                        "maximized": true,
+                        "panes": [
+                            { "commands": "nv" },
+                            { "heightPercentage": "15" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "sessionName": "docker-compose",
+                "dir": "~\/proj",
+                "windows": [
+                    {
+                        "maximized": true,
+                        "panes": [
+                            { "commands": "powershell.exe -Command \"Start-Process 'C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe'\" && sleep 15 && dc up" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "maximized": true,
+                "panes": [
+                    { "commands": "nv" },
+                    { "heightPercentage": "15" }
+                ]
+            }
+        ]
+    },
+    {
+        "blueprintName": "2-current-dir",
+        "sessions": [
+            {
+                "sessionName": "dotfiles",
+                "dir": "~\/.dotfiles",
+                "windows": [
+                    {
+                        "maximized": true,
+                        "panes": [
+                            { "commands": "nv" },
+                            { "heightPercentage": "15" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "sessionName": "current-dir",
+                "dir": ".",
+                "windows": [
+                    {
+                        "maximized": true,
+                        "panes": [
+                            { "commands": "nv" },
+                            { "heightPercentage": "15" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

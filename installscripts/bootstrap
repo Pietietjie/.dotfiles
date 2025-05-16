@@ -50,6 +50,7 @@ if [[ "$user_input" == "y" ]]; then
 else
   echo "Assuming that your are in the git dir"
 fi
+
 ./install
 cat << EOF
 Everything was installed successfully!
