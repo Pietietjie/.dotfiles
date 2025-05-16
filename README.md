@@ -5,7 +5,7 @@ My personal dotfile config (◔◡◔)
 ## Install
 ### Bootstrap Linux
 ```bash
-bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)
+bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/installscripts/bootstrap)
 ```
 
 ### Bootstrap Windows
