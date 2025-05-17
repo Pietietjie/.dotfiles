@@ -1,4 +1,9 @@
 - link:
+    ~/.mozilla:
+        relink: true
+        path: mozilla
+        create: true
+- link:
     ~/.config/alacritty:
         relink: true
         path: alacritty

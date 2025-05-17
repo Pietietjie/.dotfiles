@@ -1,0 +1,4 @@
+*.default-release/
+*.default/
+Crash Reports/
+Pending Pings/
