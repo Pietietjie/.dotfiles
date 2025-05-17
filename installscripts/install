@@ -29,7 +29,7 @@ case "${os_type}" in
         ./install || true
 
         if [ ! -f ~/tmux-sessions.json ]; then
-            cp ../scripts/tmux-sessions.example.json ~/tmux-sessions.json
+            cp ~/.dotfiles/tmux/tmux-sessions.example.json ~/tmux-sessions.json
         fi
 
         mkdir -p ~/.local/share/nvim/databases && touch ~/.local/share/nvim/databases/telescope_history.sqlite3
