@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+### makes that the script fails if a step fails
+set -e
+
+os_type="$(uname -s)"
+
+case "${os_type}" in
+    Linux*)
+        os_type="Linux"
+        if [   -f "/etc/debian_version" ]; then
+            sudo apt update && sudo apt install -y git
+        elif grep -q '^ID=arch' /etc/os-release; then
+            sudo pacman -Sy --noconfirm git
+        fi
+        ;;
+esac
+
+###############################################################################
+# Clone dotfiles
+###############################################################################
+read -rep $'\nWhere do you want to clone these dotfiles to [~/.dotfiles]? ' clone_path
+clone_path="${clone_path:-"${HOME}/.dotfiles"}"
+
+# Ensure path doesn't exist.
+while [ -e "${clone_path}" ]; do
+    read -rep $'\nPath exists, try again? (y) ' y
+    case "${y}" in
+        [Yy]*)
+
+            break;;
+        *) echo "Please answer y or CTRL+c the script to abort everything";;
+    esac
+done
+
+# This is used to locally develop the install script.
+git clone https://github.com/Pietietjie/.dotfiles "${clone_path}"
+cd ${clone_path}
+git submodule init && git submodule update && git remote remove origin && git remote add origin git@github.com:Pietietjie/.dotfiles.git
+
+###############################################################################
+# Install dotfiles config and packages
+###############################################################################
+./install
+
+cat << EOF
+Everything was installed successfully!
+You can safely close this terminal.
+EOF
+
+read -p "Restart to apply all settings? (y/n): " restart_input
+if [[ "$restart_input" == "y" ]]; then
+    sudo reboot
+fi
+
+exit 0
