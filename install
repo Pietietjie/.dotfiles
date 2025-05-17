@@ -45,7 +45,8 @@ if [ ! -d "$HOME/.nvm" ]; then
 fi
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")
+    echo "Oh My Zsh installation completed (in a subshell). Continuing with the script..."
 fi
 
 ./install_dotbot || true
