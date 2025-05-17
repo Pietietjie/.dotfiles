@@ -63,7 +63,7 @@ case "${os_type}" in
 
         elif grep -q '^ID=arch' /etc/os-release; then
             nvim --headless \"+Lazy! sync\" +qa;
-            sudo pacman -Sy --noconfirm tmux neovim git fd fzf jq sqlite ripgrep firefox ttf-firacode-nerd noto-fonts-emoji unzip zsh alacritty man-db keepassxc xclip
+            sudo pacman -Sy --noconfirm tmux neovim git fd fzf jq sqlite ripgrep firefox ttf-firacode-nerd noto-fonts-emoji unzip zsh alacritty man-db keepassxc xclip openssh
         fi
 
         ;;
