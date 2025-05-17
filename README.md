@@ -1,16 +1,16 @@
 # .dotfiles
 
-My personal dotfile config (◔◡◔)
+My personal dotfile config 🔫(◔◡◔)🤏
 
 ## Install
 ### Bootstrap Linux
 ```bash
-bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/installscripts/bootstrap)
+bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)
 ```
 
 ### Bootstrap Windows
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/installscripts/bootstrap" -OutFile "$env:TEMP\bootstrap.ps1"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap" -OutFile "$env:TEMP\bootstrap.ps1"
 & "$env:TEMP\bootstrap.ps1"
 ```
 
