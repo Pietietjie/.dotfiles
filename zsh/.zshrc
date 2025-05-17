@@ -38,7 +38,9 @@ plugins=(
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6ec99,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-source $ZSH/oh-my-zsh.sh
+if [ -f $ZSH/oh-my-zsh.sh ]; then
+    source $ZSH/oh-my-zsh.sh
+fi
 
 export FZF_DEFAULT_OPTS='
 --border=rounded
