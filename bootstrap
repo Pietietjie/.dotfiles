@@ -36,7 +36,7 @@ done
 # This is used to locally develop the install script.
 git clone https://github.com/Pietietjie/.dotfiles "${clone_path}"
 cd ${clone_path}
-git submodule init && git submodule update && git remote remove origin && git remote add origin git@github.com:Pietietjie/.dotfiles.git
+git submodule init && git submodule update && git remote remove origin && git remote add origin git@github.com:Pietietjie/.dotfiles.git && git branch --set-upstream-to=origin/main main
 
 ###############################################################################
 # Install dotfiles config and packages
