@@ -854,6 +854,8 @@ require('luasnip.loaders.from_vscode').lazy_load()
 ls.config.setup {}
 
 ls.add_snippets("gitcommit", {
+  s(":rename:", fmt("🚚{}", { i(1) })),
+  s(":move:", fmt("🚚{}", { i(1) })),
   s(":feat:", fmt("✨{}", { i(1) })),
   s(":bug:", fmt("🐛{}", { i(1) })),
   s(":assets:", fmt("🍱{}", { i(1) })),
