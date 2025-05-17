@@ -45,3 +45,9 @@
         relink: true
         path: zsh/.zshrc
         create: true
+- link:
+    ~/.config/awesome/rc:
+        force: true
+        relink: true
+        path: awesome/rc.lua
+        create: true
