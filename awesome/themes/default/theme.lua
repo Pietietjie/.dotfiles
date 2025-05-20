@@ -11,7 +11,7 @@ local themes_path                               = awful.util.getdir("config") ..
 
 local theme                                     = {}
 
-theme.font                                      = "sans 8"
+theme.font                                      = "FiraCode Nerd Font Mono 8"
 
 theme.bg_normal                                 = "#222222"
 theme.bg_focus                                  = "#535d6c"
