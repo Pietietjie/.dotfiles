@@ -25,7 +25,7 @@ case "${os_type}" in
             fi
 
         elif grep -q '^ID=arch' /etc/os-release; then
-            sudo pacman -Sy --noconfirm tmux neovim git fd fzf jq sqlite ripgrep firefox ttf-firacode-nerd noto-fonts-emoji unzip zsh alacritty man-db keepassxc xclip python gpick
+            sudo pacman -S --needed - < /etc/pkglist.txt
             nvim --headless \"+Lazy! sync\" +qa;
         fi
 
