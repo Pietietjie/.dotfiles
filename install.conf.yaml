@@ -51,3 +51,15 @@
         relink: true
         path: awesome
         create: true
+- link:
+    /usr/share/libalpm/hooks:
+        force: true
+        relink: true
+        path: pacman/hooks
+        create: true
+- link:
+    /etc/pkglist.txt:
+        force: true
+        relink: true
+        path: pacman/pkglist.txt
+        create: true
