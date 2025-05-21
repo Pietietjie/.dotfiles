@@ -51,7 +51,7 @@ read -p "Restart to apply all settings? (y/n): " restart_input
 case "${y}" in
     [Yy]*)
         sudo reboot
-        break;;
+        ;;
 esac
 
 exit 0
