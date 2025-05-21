@@ -25,12 +25,13 @@ sudo ./install
 - On windows WSL 2 when hosting docker containers sometimes you need to kill apache to allow the access the containers in chromium browsers `sudo service apache2 stop` || `sudo systemctl stop apache2`
 ## TODO
 - Find inspiration and examples in other Dotfiles repositories:
-    - [dotfiles.github.io](https://dotfiles.github.io/) 
+    - [dotfiles.github.io](https://dotfiles.github.io/)
     - [nvim for Laravel lady](https://github.com/jessarcher/dotfiles)
     - [riced linux example](https://github.com/Amitabha37377/Awful-DOTS/tree/master)
     - [some guy](https://github.com/yutkat/dotfiles/tree/main)
-    - [some laravel dev](https://github.com/shxfee/dotfiles/tree/master).
+    - [some laravel dev](https://github.com/shxfee/dotfiles/tree/master)
     - [primeagen](https://github.com/ThePrimeagen/.dotfiles)
+    - [examples on arch wiki](https://wiki.archlinux.org/title/Dotfiles#User_repositories)
 - NVIM:
     - look at making that the telescope preview is disabled to buffers that is minified
     - fix emojis breaking the spacing
