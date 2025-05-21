@@ -45,12 +45,13 @@ git submodule init && git submodule update && git remote remove origin && git re
 
 cat << EOF
 Everything was installed successfully!
-You can safely close this terminal.
 EOF
 
 read -p "Restart to apply all settings? (y/n): " restart_input
-if [[ "$restart_input" == "y" ]]; then
-    sudo reboot
-fi
+case "${y}" in
+    [Yy]*)
+        sudo reboot
+        break;;
+esac
 
 exit 0

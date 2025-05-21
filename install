@@ -51,3 +51,11 @@ fi
 
 ./install_dotbot || true
 
+read -rep $'Do you want to do the symlinks for the root user?(y)' y
+
+case "${y}" in
+    [Yy]*)
+        sudo ./install_dotbot || true
+        ;;
+esac
+
