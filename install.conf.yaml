@@ -55,11 +55,13 @@
     /usr/share/libalpm/hooks:
         force: true
         relink: true
+        if: "[[ \"$EUID\" -eq 0 ]]"
         path: pacman/hooks
         create: true
 - link:
     /etc/pkglist.txt:
         force: true
         relink: true
+        if: "[[ \"$EUID\" -eq 0 ]]"
         path: pacman/pkglist.txt
         create: true
