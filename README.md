@@ -34,6 +34,7 @@ sudo ./install
     - [examples on arch wiki](https://wiki.archlinux.org/title/Dotfiles#User_repositories)
 - NVIM:
     - look at making that the telescope preview is disabled to buffers that is minified
+    - make that the selection that is used for the telescope 🔭 grep search is escaped
     - fix emojis breaking the spacing
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - disable the class text object
