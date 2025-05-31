@@ -8,7 +8,7 @@ end
 config.color_scheme = 'Tokyo Night Storm'
 config.default_prog = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' }
 
-config.font_size = 10.0
+config.font_size = 13.0
 config.line_height = 1.25
 config.window_background_opacity = 0.8
 config.enable_tab_bar = false
