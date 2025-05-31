@@ -33,6 +33,7 @@ sudo ./install
     - [primeagen](https://github.com/ThePrimeagen/.dotfiles)
     - [examples on arch wiki](https://wiki.archlinux.org/title/Dotfiles#User_repositories)
 - NVIM:
+    - NB! NB! look at improving the error management I cannot have a text editor that screams and cries all the time if there is something wrong with the enviroment I should still be able to see if there is anything that breaks but it should require a special binding to interact with and should be non invasive
     - look at making that the telescope preview is disabled to buffers that is minified
     - make that the selection that is used for the telescope 🔭 grep search is escaped
     - fix emojis breaking the spacing
