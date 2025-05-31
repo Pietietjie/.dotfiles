@@ -37,7 +37,7 @@ git submodule update
 git remote remove origin
 git remote add origin git@github.com:Pietietjie/.dotfiles.git
 
-.\install.ps1 -c install-windows.conf.yml
+.\install.ps1
 
 Write-Host "Everything was installed successfully!"
 Write-Host "`nYou can safely close this PowerShell window."

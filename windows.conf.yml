@@ -38,17 +38,3 @@
         relink: true
         path: Aliases
         create: true
-- shell:
-    -
-        command:
-            "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
-    -
-        command:
-            "choco install -y sqlite neovim zig ripgrep"
-    -
-        command:
-            "mkdir ~/.local/share/nvim/databases"
-    -
-        command:
-            "New-Item -f file mkdir ~/.local/share/nvim/databases/telescope_history.sqlite3"
-
