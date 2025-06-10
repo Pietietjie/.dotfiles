@@ -1,4 +1,8 @@
 - link:
+    '~/Documents':
+        path: ~/OneDrive/Documents/
+        create: true
+- link:
     ~/AppData/Roaming/alacritty:
         relink: true
         path: alacritty
@@ -17,6 +21,11 @@
     '~/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1':
         relink: true
         path: powershell/powershell_profile.ps1
+        create: true
+- link:
+    '~/Documents/PowerToys/':
+        relink: true
+        path: powertoys
         create: true
 - link:
     '~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1':
