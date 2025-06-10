@@ -111,8 +111,14 @@ alias dexe="docker exec -it \$(docker container ls | sed 1d | fzf | awk '{print 
 alias fzcp="cp \$(fzf)"
 alias fzmv="mv \$(fzf)"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [[ -d "$HOME/.config/herd-lite/bin" ]]; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 # update_dot="g dotfiles pl"
 # "${update_dot}" &>/dev/null & disown;
+if [[ -d "$HOME/.config/herd-lite/bin" ]]; then
+    export PATH="$HOME/.config/herd-lite/bin:$PATH"
+    export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+fi
