@@ -53,7 +53,7 @@ if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
 
 try {
     Write-Host "Installing software..."
-    choco install -y sqlite neovim zig ripgrep
+    choco install -y sqlite neovim zig ripgrep nodejs
 } catch {
     Write-Host "Error installing software: $($Error[0].Message)"
 }
