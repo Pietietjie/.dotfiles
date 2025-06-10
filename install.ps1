@@ -2,11 +2,6 @@
 $ErrorActionPreference = "Continue"
 
 ###############################################################################
-# set up symlinks
-###############################################################################
-.\install_dotbot.ps1 -c windows.conf.yml
-
-###############################################################################
 # copy and override the shortcuts
 ###############################################################################
 $sourcePath = Join-Path -Path $PSScriptRoot -ChildPath "shortcuts"
@@ -57,9 +52,16 @@ try {
     choco install -y neovim --version=0.10.3
     choco install -y alacritty --version=0.15.1
     choco install -y wezterm --version=20240203.110809.0
+    choco install -y python --version=3.13.4
+    refreshenv
 } catch {
     Write-Host "Error installing software: $($Error[0].Message)"
 }
+
+###############################################################################
+# set up symlinks
+###############################################################################
+.\install_dotbot.ps1 -c windows.conf.yml
 
 try {
     $nvimDbPath = Join-Path -Path $env:HOME -ChildPath ".local/share/nvim/databases"
