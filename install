@@ -23,19 +23,9 @@ case "${os_type}" in
                     sudo apt install -y php8.2 php8.2-zip php8.2-curl php8.2-gd php8.2-xml php8.2-sqlite3 php8.2-mysql php8.2-mbstring php8.2-xdebug php7.4 php7.4-zip php7.4-curl php7.4-gd php7.4-xml php7.4-sqlite3 php7.4-mysql php7.4-mbstring php7.4-xdebug
                 fi
             fi
-            ./install_dotbot || true
-            read -rep $'Do you want to do the symlinks for the root user?(y)' y
-            case "${y}" in
-                [Yy]*)
-                    sudo ./install_dotbot || true
-                    ;;
-            esac
 
         elif grep -q '^ID=arch' /etc/os-release; then
-            sudo pacman -Sy --needed python
-            ./install_dotbot || true
-            sudo ./install_dotbot || true
-            sudo pacman -Sy --needed - < /etc/pkglist.txt
+            sudo pacman -S --needed - < pacman/pkglist.txt
             nvim --headless \"+Lazy! sync\" +qa;
         fi
 
@@ -58,4 +48,13 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")
     echo "Oh My Zsh installation completed (in a subshell). Continuing with the script..."
 fi
+
+./install_dotbot || true
+
+read -rep $'Do you want to do the symlinks for the root user?(y)' y
+case "${y}" in
+    [Yy]*)
+        sudo ./install_dotbot || true
+        ;;
+esac
 
