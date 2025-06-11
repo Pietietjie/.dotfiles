@@ -10,6 +10,7 @@ gpick
 grub
 htop
 iwd
+tmux
 jq
 nano
 neovim
