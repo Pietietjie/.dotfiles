@@ -1,10 +1,29 @@
 [window]
     decorations = "None"
-    padding = {x = 16, y = 8}
+    padding = {x = 4, y = 4}
     dynamic_padding = true
     opacity = 0.8
+    title = "Alacritty"
+    dynamic_title = true
+
+    [window.class]
+    instance = "Alacritty"
+    general = "Alacritty"
+
+    [window.dimensions]
+    columns = 50
+    lines = 32
+
+    [window.position]
+    x = 445
+    y = 58
+
+[scrolling]
+    history = 5000
+    multiplier = 5
 
 [font]
+    # normal from PoisonIsBestType/BlackLotus: family = "JetBrainsMono Nerd Font", style = "Regular"
     normal = { family = "FiraCode Nerd Font", style = "Regular" }
     bold = { family = "FiraCode Nerd Font", style = "Bold" }
     italic = { family = "FiraCode Nerd Font", style = "Italic" }
@@ -18,28 +37,155 @@
     glyph_offset = { x = 0, y = 0 }
 
 [colors.bright]
+    # black from PoisonIsBestType/BlackLotus: "#302e31"
     black = "#444b6a"
-    blue = "#7da6ff"
-    cyan = "#0db9d7"
-    green = "#b9f27c"
-    magenta = "#bb9af7"
+    # red from PoisonIsBestType/BlackLotus: "#a55377"
     red = "#ff7a93"
+    # blue from PoisonIsBestType/BlackLotus: "#2f88ff"
+    blue = "#7da6ff"
+    # green from PoisonIsBestType/BlackLotus: "#c8cc86"
+    green = "#b9f27c"
+    # magenta from PoisonIsBestType/BlackLotus: "#8853c7"
+    magenta = "#bb9af7"
+    # cyan from PoisonIsBestType/BlackLotus: "#6dabd6"
+    cyan = "#0db9d7"
+    # white from PoisonIsBestType/BlackLotus: "#dcefff"
     white = "#acb0d0"
+    # yellow from PoisonIsBestType/BlackLotus: "#d9c793"
     yellow = "#ff9e64"
 
 [colors.normal]
+    # black from PoisonIsBestType/BlackLotus: "#211f21"
     black = "#32344a"
-    blue = "#7aa2f7"
-    cyan = "#449dab"
-    green = "#9ece6a"
-    magenta = "#ad8ee6"
+    # red from PoisonIsBestType/BlackLotus: "#7b3e59"
     red = "#f7768e"
+    # blue from PoisonIsBestType/BlackLotus: "#3f6cad"
+    blue = "#7aa2f7"
+    # green from PoisonIsBestType/BlackLotus: "#798347"
+    green = "#9ece6a"
+    # magenta from PoisonIsBestType/BlackLotus: "#553976"
+    magenta = "#ad8ee6"
+    # cyan from PoisonIsBestType/BlackLotus: "#416680"
+    cyan = "#449dab"
+    # white from PoisonIsBestType/BlackLotus: "#adc4e3"
     white = "#787c99"
+    # yellow from PoisonIsBestType/BlackLotus: "#ae9f76"
     yellow = "#e0af68"
 
 [colors.primary]
+    # background from PoisonIsBestType/BlackLotus: "#121212"
     background = "#1a1b26"
-    foreground = "#a9b1d6"
+    # foreground from PoisonIsBestType/BlackLotus: "#c8c8c8"
+    foreground = "#c8c8c8"
+    bright_foreground = "#ffffff"
+
+[colors.cursor]
+    text = "CellBackground"
+    cursor = "CellForeground"
+
+[colors.vi_mode_cursor]
+    text = "CellBackground"
+    cursor = "CellForeground"
+
+[colors.search.matches]
+    foreground = "#191919"
+    background = "#c8cc86"
+
+[colors.search.focused_match]
+    foreground = "#191919"
+    background = "#d9c793"
+
+[colors.footer_bar]
+    background = "#302e31"
+    foreground = "#dcefff"
+
+[colors.hints.start]
+    foreground = "#302e31"
+    background = "#d9c793"
+
+[colors.hints.end]
+    foreground = "#d9c793"
+    background = "#302e31"
+
+[colors.line_indicator]
+    foreground = "None"
+    background = "None"
+
+[colors.selection]
+    text = "CellForeground"
+    background = "#302e31"
+
+[[colors.indexed_colors]]
+index = 21
+color = "#2f88ff"
+
+[[colors.indexed_colors]]
+index = 22
+color = "#3684FA"
+
+[[colors.indexed_colors]]
+index = 23
+color = "#3C81F7"
+
+[[colors.indexed_colors]]
+index = 24
+color = "#437EF3"
+
+[[colors.indexed_colors]]
+index = 25
+color = "#497AEF"
+
+[[colors.indexed_colors]]
+index = 26
+color = "#4F77EB"
+
+[[colors.indexed_colors]]
+index = 27
+color = "#5573E7"
+
+[[colors.indexed_colors]]
+index = 28
+color = "#5B70E4"
+
+[[colors.indexed_colors]]
+index = 29
+color = "#616CE0"
+
+[[colors.indexed_colors]]
+index = 30
+color = "#6768DC"
+
+[[colors.indexed_colors]]
+index = 31
+color = "#6D64D8"
+
+[[colors.indexed_colors]]
+index = 32
+color = "#7261D5"
+
+[[colors.indexed_colors]]
+index = 33
+color = "#775ED2"
+
+[[colors.indexed_colors]]
+index = 34
+color = "#7C5BCF"
+
+[[colors.indexed_colors]]
+index = 35
+color = "#8257CB"
+
+[[colors.indexed_colors]]
+index = 36
+color = "#8853c7"
+
+[cursor]
+    blink_interval = 500
+    blink_timeout = 0
+    unfocused_hollow = true
+
+    [cursor.style]
+    blinking = "Always"
 
 [mouse]
     hide_when_typing = true
