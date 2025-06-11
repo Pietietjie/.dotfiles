@@ -9,6 +9,13 @@ case "${os_type}" in
     Linux*)
         os_type="Linux"
         if [ -f "/etc/debian_version" ]; then
+            ./install_dotbot || true
+            read -rep $'Do you want to do the symlinks for the root user?(y)' y
+            case "${y}" in
+                [Yy]*)
+                    sudo ./install_dotbot || true
+                    ;;
+            esac
             sudo apt update
             sudo apt install -y git ninja-build gettext cmake unzip curl build-essential zsh fd-find tmux fzf grep ripgrep mysql-server mysql-client sqlite3 jq python3
             if ! command -v nvim &> /dev/null;
@@ -25,6 +32,8 @@ case "${os_type}" in
             fi
 
         elif grep -q '^ID=arch' /etc/os-release; then
+            ./install_dotbot || true
+            sudo ./install_dotbot || true
             sudo pacman -S --needed - < /etc/pkglist.txt
             nvim --headless \"+Lazy! sync\" +qa;
         fi
@@ -48,14 +57,4 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")
     echo "Oh My Zsh installation completed (in a subshell). Continuing with the script..."
 fi
-
-./install_dotbot || true
-
-read -rep $'Do you want to do the symlinks for the root user?(y)' y
-
-case "${y}" in
-    [Yy]*)
-        sudo ./install_dotbot || true
-        ;;
-esac
 
