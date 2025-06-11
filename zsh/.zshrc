@@ -111,7 +111,7 @@ alias dexe="docker exec -it \$(docker container ls | sed 1d | fzf | awk '{print 
 alias fzcp="cp \$(fzf)"
 alias fzmv="mv \$(fzf)"
 
-if [[ -d "$HOME/.config/herd-lite/bin" ]]; then
+if [[ -d "$HOME/.nvm" ]]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
