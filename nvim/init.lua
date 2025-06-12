@@ -20,9 +20,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    checker = {
-        check_pinned = true
-    },
+  checker = {
+    check_pinned = true
+  },
   -- NOTE: First, some plugins that don't require any configuration
 
   'mbbill/undotree',
@@ -71,7 +71,7 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
@@ -93,7 +93,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -108,15 +108,59 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set({ 'n', 'v' }, '[h', function () require('gitsigns').nav_hunk('prev', { target = 'all' }) end, { buffer = bufnr, desc = '[h]unk Previous' })
-        vim.keymap.set({ 'n', 'v' }, ']h', function () require('gitsigns').nav_hunk('next', { target = 'all' }) end, { buffer = bufnr, desc = '[h]unk Next' })
+        vim.keymap.set(
+          { 'n', 'v' },
+          '[h',
+          function()
+            require('gitsigns').nav_hunk('prev', { target = 'all' })
+          end,
+          { buffer = bufnr, desc = '[h]unk Previous' }
+        )
+        vim.keymap.set(
+          { 'n', 'v' },
+          ']h',
+          function()
+            require('gitsigns').nav_hunk('next', { target = 'all' })
+          end,
+          { buffer = bufnr, desc = '[h]unk Next' }
+        )
         vim.keymap.set('n', '<leader>hv', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[h]unk pre[v]iew' })
         vim.keymap.set('n', '<leader>ha', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[h]unk [a]dd' })
-        vim.keymap.set('n', '<leader>hu', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[h]unk [u]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)' })
+        vim.keymap.set(
+          'n',
+          '<leader>hu',
+          require('gitsigns').stage_hunk,
+          {
+            buffer = bufnr,
+            desc =
+            '[h]unk [u]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)'
+          }
+        )
         vim.keymap.set('n', '<leader>hr', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[h]unk [r]eset' })
-        vim.keymap.set('n', '<leader>ga', function () vim.cmd("sil Git add %") end, { buffer = bufnr, desc = '[g]it [a]dd current buffer' })
-        vim.keymap.set('n', '<leader>gu', function () vim.cmd("sil Git restore % --staged") end, { buffer = bufnr, desc = '[g]it [u]nstage current buffer' })
-        vim.keymap.set('n', '<leader>gr', function () vim.cmd("sil Git restore %") end, { buffer = bufnr, desc = '[g]it [r]estore current buffer' })
+        vim.keymap.set(
+          'n',
+          '<leader>ga',
+          function()
+            vim.cmd("sil Git add %")
+          end,
+          { buffer = bufnr, desc = '[g]it [a]dd current buffer' }
+        )
+        vim.keymap.set(
+          'n',
+          '<leader>gu',
+          function()
+            vim.cmd("sil Git restore % --staged")
+          end,
+          { buffer = bufnr, desc = '[g]it [u]nstage current buffer' }
+        )
+        vim.keymap.set(
+          'n',
+          '<leader>gr',
+          function()
+            vim.cmd("sil Git restore %")
+          end,
+          { buffer = bufnr, desc = '[g]it [r]estore current buffer' }
+        )
         vim.keymap.set('n', '<leader>gb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[g]it [b]lame' })
       end,
     },
@@ -204,7 +248,7 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim',
       {
-        "nvim-telescope/telescope-live-grep-args.nvim" ,
+        "nvim-telescope/telescope-live-grep-args.nvim",
         version = "^1.0.0",
       },
     }
@@ -244,17 +288,17 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
       require('treesitter-context').setup({
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 5, -- How many lines the window should span. Values <= 0 mean no limit.
-        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 5,            -- How many lines the window should span. Values <= 0 mean no limit.
+        min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
         line_numbers = true,
         multiline_threshold = 20, -- Maximum number of lines to show for a single context
-        trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+        trim_scope = 'outer',     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+        mode = 'cursor',          -- Line used to calculate context. Choices: 'cursor', 'topline'
         -- Separator between context and content. Should be a single character string, like '-'.
         -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
         separator = nil,
-        zindex = 20, -- The Z-index of the context window
+        zindex = 20,     -- The Z-index of the context window
         on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
       })
     end
@@ -268,22 +312,24 @@ require('lazy').setup({
   {
     'kana/vim-textobj-user',
     dependencies = {
-      'whatyouhide/vim-textobj-xmlattr', -- for XML based text objects
-      'kana/vim-textobj-entire', -- for 'ae' and 'ie' everything
-      'kana/vim-textobj-function', -- for 'af' and 'if' function
-      'glts/vim-textobj-comment', -- comments 'ac' and 'ic'
-      'michaeljsmith/vim-indent-object', -- 'ii' indentation
-      'kana/vim-textobj-lastpat', -- 'i/' last searched pattern
-      'sgur/vim-textobj-parameter', -- 'i,' argument
-      'Julian/vim-textobj-variable-segment', -- 'iv' case segment
+      'whatyouhide/vim-textobj-xmlattr',        -- for XML based text objects
+      'kana/vim-textobj-entire',                -- for 'ae' and 'ie' everything
+      'kana/vim-textobj-function',              -- for 'af' and 'if' function
+      'glts/vim-textobj-comment',               -- comments 'ac' and 'ic'
+      'michaeljsmith/vim-indent-object',        -- 'ii' indentation
+      'kana/vim-textobj-lastpat',               -- 'i/' last searched pattern
+      'sgur/vim-textobj-parameter',             -- 'i,' argument
+      'Julian/vim-textobj-variable-segment',    -- 'iv' case segment
       'adriaanzon/vim-textobj-blade-directive', -- 'ad' blade directive
     }
   },
 
   {
     'nishigori/increment-activator',
-    config = function ()
-      vim.cmd( "let g:increment_activator_filetype_candidates = { '_': [['true', 'false'],['enable', 'disable'],['enabled','disabled'],], }")
+    config = function()
+      vim.cmd(
+        "let g:increment_activator_filetype_candidates = { '_': [['true', 'false'],['enable', 'disable'],['enabled','disabled'],], }"
+      )
     end
   },
 
@@ -360,7 +406,8 @@ vim.opt.relativenumber = true
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
-vim.opt.wildmode = 'longest:full,full' -- For tab completion complete the longest common match then cycle through the matches
+-- For tab completion complete the longest common match then cycle through the matches
+vim.opt.wildmode = 'longest:full,full'
 
 vim.opt.title = true
 
@@ -372,7 +419,7 @@ vim.opt.termguicolors = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true -- case sensitive searches when there is a capital in the search
 
-vim.opt.list = true -- enable the below listchars
+vim.opt.list = true      -- enable the below listchars
 vim.opt.listchars = { tab = '▸ ', trail = '·' }
 
 vim.opt.fillchars:append({ eob = ' ' })
@@ -386,11 +433,11 @@ vim.opt.spelloptions = 'camel'
 vim.opt.scrolloff = 100
 vim.opt.sidescrolloff = 100
 
-vim.opt.confirm = true -- ask for confirmation instead of erring
+vim.opt.confirm = true        -- ask for confirmation instead of erring
 
-vim.opt.undofile = true -- persistent undo
+vim.opt.undofile = true       -- persistent undo
 
-vim.opt.backup = true -- automatically save a backup file
+vim.opt.backup = true         -- automatically save a backup file
 
 vim.opt.backupdir:remove('.') -- keep backups out of the current directory
 
@@ -411,7 +458,7 @@ vim.api.nvim_create_user_command('E', 'e .env', {})
 -- ----------------------------------------------------
 -- Key Bindings/Shortcuts
 -- ----------------------------------------------------
-vim.keymap.set({'n', 'v'}, 'x', '"_x')
+vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
 vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
 -- vim.keymap.'set'({'n', 'v'}, 's', '"_s')
@@ -437,35 +484,57 @@ vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 -- keybinding/keymaps that use the leader key
 vim.keymap.set("n", "<leader>=", vim.lsp.buf.format, { desc = "Formats the entire buffer using the LSP's formatter" })
 vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggles the [u]ndo [t]ree side bar" })
-vim.keymap.set({ 'n', 'v' }, 'q:', ':', { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q'} )
+vim.keymap.set(
+  { 'n', 'v' },
+  'q:',
+  ':',
+  { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q' }
+)
 vim.keymap.set("n", "<leader>rp", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[r]e[p]lace' })
-vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [v]isual [b]lock mode'} )
-vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line'} )
-vim.keymap.set('n', '<leader>O', 'moO<Esc>`o', { desc = '[⬆] empty new line'} )
-vim.keymap.set({'n', 'v'}, '<leader>c', '"_c', { desc = '[c]hange without copying'} )
-vim.keymap.set({'n', 'v'}, '<leader>d', '"_d', { desc = '[d]elete without copying'} )
-vim.keymap.set({'n', 'v'}, '<leader>D', '"_d$', { desc = '[D]elete without copying until the end of the line'} )
-vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[P]astes over without copying'} )
-vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = '[y]anks into system clipboard'} )
-vim.keymap.set({'n', 'v'}, '<leader>Y', '"+y$', { desc = '[Y]anks into system clipboard until the end of the line'} )
-vim.keymap.set({'n', 'v'}, '<leader>.', function()
-  pcall(function ()
-    local count = vim.v.count
-    if count == 0 then count = 1 end
-    for _ = 1, count do
-      vim.cmd('normal! n')
-      vim.cmd('normal! .')
-    end
-  end)
-end, { noremap = true, silent = true, desc = '[→] Finds next and does the repeats the previous action. (For using with counts.)' } )
-vim.keymap.set('v', '<leader>j', 'joko', { desc = 'Move the selection both up and down'} )
-vim.keymap.set('v', '<leader>k', 'kojo', { desc = 'Move the selection both up and down'} )
-vim.keymap.set('v', '<leader>h', 'holo', { desc = 'Move the selection both left and right'} )
-vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left and right'} )
+vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [v]isual [b]lock mode' })
+vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line' })
+vim.keymap.set('n', '<leader>O', 'moO<Esc>`o', { desc = '[⬆] empty new line' })
+vim.keymap.set({ 'n', 'v' }, '<leader>c', '"_c', { desc = '[c]hange without copying' })
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = '[d]elete without copying' })
+vim.keymap.set({ 'n', 'v' }, '<leader>D', '"_d$', { desc = '[D]elete without copying until the end of the line' })
+vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[P]astes over without copying' })
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = '[y]anks into system clipboard' })
+vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$', { desc = '[Y]anks into system clipboard until the end of the line' })
+vim.keymap.set(
+  { 'n', 'v' },
+  '<leader>.',
+  function()
+    pcall(
+      function()
+        local count = vim.v.count
+        if count == 0 then count = 1 end
+        for _ = 1, count do
+          vim.cmd('normal! n')
+          vim.cmd('normal! .')
+        end
+      end
+    )
+  end,
+  {
+    noremap = true,
+    silent = true,
+    desc =
+    '[→] Finds next and does the repeats the previous action. (For using with counts.)'
+  }
+)
+vim.keymap.set('v', '<leader>j', 'joko', { desc = 'Move the selection both up and down' })
+vim.keymap.set('v', '<leader>k', 'kojo', { desc = 'Move the selection both up and down' })
+vim.keymap.set('v', '<leader>h', 'holo', { desc = 'Move the selection both left and right' })
+vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left and right' })
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
-vim.keymap.set('n', '<leader>az', 'mz:%g/\\(public\\|protected\\|private\\|static\\)\\_s*function\\_s/normal zfaf<cr>:%g/\\/\\*\\*/normal zfac<cr>`z', { desc = 'Fold [a]ll', remap = true })
+vim.keymap.set(
+  'n',
+  '<leader>az',
+  'mz:%g/\\(public\\|protected\\|private\\|static\\)\\_s*function\\_s/normal zfaf<cr>:%g/\\/\\*\\*/normal zfac<cr>`z',
+  { desc = 'Fold [a]ll', remap = true }
+)
 -- Open the current file in the default program (on Mac this should just be just `open`)
 vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>', { desc = 'E[x]ecute the current file' })
 vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'Make the current file e[X]ecutable' })
@@ -493,19 +562,19 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- [[ Configure Telescope ]]
 local telescopeActions = require("telescope.actions")
-local previousHistoryAndChangeToNormalMode = function (prompt_bufnr)
+local previousHistoryAndChangeToNormalMode = function(prompt_bufnr)
   telescopeActions.cycle_history_prev(prompt_bufnr);
-  local keys = vim.api.nvim_replace_termcodes('<ESC>',true,false,true)
+  local keys = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
   -- 'm' is the mode, you can find on the feedkeys docs, but your case is
   -- 'm', I think
-  vim.api.nvim_feedkeys(keys,'m',false)
+  vim.api.nvim_feedkeys(keys, 'm', false)
 end
-local nextHistoryAndChangeToNormalMode = function (prompt_bufnr)
+local nextHistoryAndChangeToNormalMode = function(prompt_bufnr)
   telescopeActions.cycle_history_nextt(prompt_bufnr);
-  local keys = vim.api.nvim_replace_termcodes('<ESC>',true,false,true)
+  local keys = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
   -- 'm' is the mode, you can find on the feedkeys docs, but your case is
   -- 'm', I think
-  vim.api.nvim_feedkeys(keys,'m',false)
+  vim.api.nvim_feedkeys(keys, 'm', false)
 end
 local select_one_or_multi = function(prompt_bufnr)
   local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
@@ -563,7 +632,7 @@ require('telescope').setup {
     live_grep_args = {
       auto_quoting = true, -- enable/disable auto-quoting
       -- define mappings, e.g.
-      mappings = { -- extend mappings
+      mappings = {         -- extend mappings
         i = {
           ["<C-i>"] = telescopeActionsLiveGrepArgs.quote_prompt({ postfix = " --iglob " }),
         },
@@ -578,7 +647,7 @@ require('telescope').setup {
 vim.api.nvim_create_autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
   callback = function(args)
-      vim.wo.wrap = true
+    vim.wo.wrap = true
   end,
 })
 
@@ -611,7 +680,7 @@ local function telescope_menu_bind_n_and_v_mode(bindingInputVim, bindingAction, 
   vim.keymap.set(
     'n',
     bindingInputVim,
-    function ()
+    function()
       previousTelescopeMenuAction = bindingAction;
       previousTelescopeMenuShowHistory = not dontShowPreviousHistory
       bindingAction();
@@ -621,7 +690,7 @@ local function telescope_menu_bind_n_and_v_mode(bindingInputVim, bindingAction, 
   vim.keymap.set(
     'v',
     bindingInputVim,
-    function ()
+    function()
       previousTelescopeMenuAction = bindingAction;
       previousTelescopeMenuShowHistory = not dontShowPreviousHistory
       bindingAction(get_visual_selection());
@@ -632,31 +701,118 @@ end
 vim.keymap.set(
   'n',
   '<C-p>',
-  function ()
+  function()
     if (previousTelescopeMenuAction == nil) then
       return;
     end
     previousTelescopeMenuAction();
     if (previousTelescopeMenuShowHistory) then
-      local keys = vim.api.nvim_replace_termcodes('<C-p>',true,false,true)
+      local keys = vim.api.nvim_replace_termcodes('<C-p>', true, false, true)
       -- 'm' is the mode, you can find on the feedkeys docs, but your case is
       -- 'm', I think
-      vim.api.nvim_feedkeys(keys,'m',false)
+      vim.api.nvim_feedkeys(keys, 'm', false)
     end
   end
 )
 -- See `:help telescope.builtin`
-telescope_menu_bind_n_and_v_mode('<leader>sf', function (defaultText) require('telescope.builtin').find_files { default_text = defaultText, initial_mode = defaultText and "normal" or "insert", hidden = true } end, { desc = '[s]earch [f]iles' })
-telescope_menu_bind_n_and_v_mode('<leader>sg', function (defaultText) require('telescope').extensions.live_grep_args.live_grep_args({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[s]earch by [g]rep args' })
-telescope_menu_bind_n_and_v_mode('<leader>?', function (defaultText) require('telescope.builtin').oldfiles({ default_text = defaultText, initial_mode = "normal" }) end, { desc = '[?] Find recently opened files' }, true)
-telescope_menu_bind_n_and_v_mode('<leader><cr>', function (defaultText) require('telescope.builtin').buffers({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Find existing buffers' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>/', function(defaultText) require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert", winblend = 10, previewer = false, })) end, { desc = '[/] Fuzzily search in current buffer' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>gs', function (defaultText) require('telescope.builtin').git_status({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search current [g]it [s]tatus' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>gc', function (defaultText) require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search [g]it [c]ommits' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>gt', function (defaultText) require('telescope.builtin').git_stash({ default_text = defaultText, initial_mode = "normal" }) end, { desc = 'Search the [g]it s[t]ash' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>sd', function (defaultText) require('telescope.builtin').diagnostics({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[s]earch [d]iagnostics' }, true)
-telescope_menu_bind_n_and_v_mode('<leader>sk', function (defaultText) require('telescope.builtin').keymaps({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[s]earch Binding/[k]eymaps' })
-telescope_menu_bind_n_and_v_mode('<leader>sh', function (defaultText) require('telescope.builtin').help_tags({ default_text = defaultText, initial_mode = defaultText and "normal" or "insert" }) end, { desc = '[s]earch [h]elp' })
+telescope_menu_bind_n_and_v_mode(
+  '<leader>sf',
+  function(defaultText)
+    require('telescope.builtin').find_files { default_text = defaultText, initial_mode = defaultText and "normal" or "insert", hidden = true }
+  end,
+  { desc = '[s]earch [f]iles' }
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>sg',
+  function(defaultText)
+    require('telescope').extensions.live_grep_args.live_grep_args({
+      default_text = defaultText,
+      initial_mode =
+          defaultText and "normal" or "insert"
+    })
+  end, { desc = '[s]earch by [g]rep args' }
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>?',
+  function(defaultText)
+    require('telescope.builtin').oldfiles({ default_text = defaultText, initial_mode = "normal" })
+  end,
+  { desc = '[?] Find recently opened files' }, true
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader><cr>',
+  function(defaultText)
+    require('telescope.builtin').buffers({ default_text = defaultText, initial_mode = "normal" })
+  end,
+  { desc = 'Find existing buffers' }, true
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>/',
+  function(defaultText)
+    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+      default_text =
+          defaultText,
+      initial_mode = defaultText and "normal" or "insert",
+      winblend = 10,
+      previewer = false,
+    }))
+  end,
+  { desc = '[/] Fuzzily search in current buffer' }, true
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>gs',
+  function(defaultText)
+    require('telescope.builtin').git_status({ default_text = defaultText, initial_mode = "normal" })
+  end,
+  { desc = 'Search current [g]it [s]tatus' }, true
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>gc',
+  function(defaultText)
+    require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" })
+  end,
+  { desc = 'Search [g]it [c]ommits' }, true
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>gt',
+  function(defaultText)
+    require('telescope.builtin').git_stash({ default_text = defaultText, initial_mode = "normal" })
+  end,
+  { desc = 'Search the [g]it s[t]ash' }, true
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>sd',
+  function(defaultText)
+    require('telescope.builtin').diagnostics({
+      default_text = defaultText,
+      initial_mode = defaultText and "normal" or
+          "insert"
+    })
+  end,
+  { desc = '[s]earch [d]iagnostics' }, true
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>sk',
+  function(defaultText)
+    require('telescope.builtin').keymaps({
+      default_text = defaultText,
+      initial_mode = defaultText and "normal" or
+          "insert"
+    })
+  end,
+  { desc = '[s]earch Binding/[k]eymaps' }
+)
+telescope_menu_bind_n_and_v_mode(
+  '<leader>sh',
+  function(defaultText)
+    require('telescope.builtin').help_tags({
+      default_text = defaultText,
+      initial_mode = defaultText and "normal" or
+          "insert"
+    })
+  end,
+  { desc = '[s]earch [h]elp' }
+)
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -756,7 +912,7 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-vim.keymap.set('n', '<leader>-', function () vim.cmd('Explore .') end, { desc = 'Open Netrw in the project root'})
+vim.keymap.set('n', '<leader>-', function() vim.cmd('Explore .') end, { desc = 'Open Netrw in the project root' })
 
 -- [[ Configure LSP ]]
 -- Setup neovim lua configuration
@@ -809,11 +965,29 @@ mason_lspconfig.setup_handlers {
 
         nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
         nmap('grr', vim.lsp.buf.references, '[g]oto quicklist [r]eferences')
-        nmap('grs', function () require('telescope.builtin').lsp_references({ initial_mode = "normal" }) end, '[g]oto tele[s]cope references')
+        nmap(
+          'grs',
+          function()
+            require('telescope.builtin').lsp_references({ initial_mode = "normal" })
+          end,
+          '[g]oto tele[s]cope references'
+        )
         nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
         nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-        nmap('<leader>sy', function () require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" }) end, 'Tele[s]cope Document S[y]mbols')
-        nmap('<leader>wy', function () require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" }) end, '[w]orkspace S[y]mbols')
+        nmap(
+          '<leader>sy',
+          function()
+            require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" })
+          end,
+          'Tele[s]cope Document S[y]mbols'
+        )
+        nmap(
+          '<leader>wy',
+          function()
+            require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" })
+          end,
+          '[w]orkspace S[y]mbols'
+        )
 
         -- See `:help K` for why this keymap
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -823,7 +997,13 @@ mason_lspconfig.setup_handlers {
         nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
         nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[w]orkspace [a]dd Folder')
         nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[w]orkspace [r]emove Folder')
-        nmap('<leader>wl', function() vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[w]orkspace [l]ist Folders')
+        nmap(
+          '<leader>wl',
+          function()
+            vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+          end,
+          '[w]orkspace [l]ist Folders'
+        )
 
         -- Create a command `:Format` local to the LSP buffer
         vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -836,7 +1016,7 @@ mason_lspconfig.setup_handlers {
 }
 
 lspconfig.html.setup({
-  filetypes = {"html", "templ", "twig"},
+  filetypes = { "html", "templ", "twig" },
 })
 lspconfig.emmet_language_server.setup({
   filetypes = { "css", "eruby", "html", "htmldjango", "javascriptreact", "less", "pug", "sass", "scss", "typescriptreact", "htmlangular", "twig" },
@@ -947,10 +1127,10 @@ ls.add_snippets("php", {
 ls.add_snippets("twig", {
   s("echo_all_vars", {
     t("<ol>"),
-    t({"", "    {% for key, value in _context  %}"}),
-    t({"", "      <li>{{ key }}: {{ value | json_encode }}</li>"}),
-    t({"", "    {% endfor %}"}),
-    t({"", "</ol>"}),
+    t({ "", "    {% for key, value in _context  %}" }),
+    t({ "", "      <li>{{ key }}: {{ value | json_encode }}</li>" }),
+    t({ "", "    {% endfor %}" }),
+    t({ "", "</ol>" }),
   }),
 })
 
