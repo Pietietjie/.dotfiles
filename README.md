@@ -26,7 +26,6 @@ sudo ./install
 ## TODO
 - NVIM:
     - NB! NB! look at improving the error management I cannot have a text editor that screams and cries all the time if there is something wrong with the enviroment I should still be able to see if there is anything that breaks but it should require a special binding to interact with and should be non invasive
-    - look at making that the telescope preview is disabled to buffers that is minified
     - fix emojis breaking the spacing
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - look into polyglot

@@ -587,8 +587,46 @@ local select_one_or_multi = function(prompt_bufnr)
   end
 end
 local telescopeActionsLiveGrepArgs = require("telescope-live-grep-args.actions")
+
 require('telescope').setup {
   defaults = {
+    preview = {
+      filetype_hook = function(filepath, bufnr, opts)
+        local putils = require("telescope.previewers.utils")
+        local function is_minified_file(path, buf)
+          if path:match("%.min%.js$") or path:match("%.min%.css$") or
+              path:match("%.min%.html$") or path:match("-min%.") then
+            return true
+          end
+          local filename = vim.fn.fnamemodify(path, ":t")
+          if filename:match("bundle") or filename:match("vendor") or
+              filename:match("dist") or filename:match("build") then
+            return true
+          end
+          local stat = vim.loop.fs_stat(path)
+          if stat and stat.size > 1024 * 1024 then -- 1MB
+            return true
+          end
+          local lines = vim.api.nvim_buf_get_lines(buf, 0, 5, false)
+          for _, line in ipairs(lines) do
+            -- If any line is extremely long (typical of minified files)
+            if #line > 500 then
+              return true
+            end
+          end
+          return false
+        end
+        if is_minified_file(filepath, bufnr) then
+          putils.set_preview_message(
+            bufnr,
+            opts.winid,
+            "Preview disabled for minified/bundled files"
+          )
+          return false
+        end
+        return true
+      end,
+    },
     history = {
       path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
       limit = 100,
