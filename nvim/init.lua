@@ -725,10 +725,12 @@ telescope_menu_bind_n_and_v_mode(
 telescope_menu_bind_n_and_v_mode(
   '<leader>sg',
   function(defaultText)
+    if defaultText then
+      defaultText = defaultText:gsub("[%.%*%[%]%^%$%\\%+%?%(%)%{%}%|]", "\\%1");
+    end
     require('telescope').extensions.live_grep_args.live_grep_args({
       default_text = defaultText,
-      initial_mode =
-          defaultText and "normal" or "insert"
+      initial_mode = defaultText and "normal" or "insert",
     })
   end, { desc = '[s]earch by [g]rep args' }
 )
