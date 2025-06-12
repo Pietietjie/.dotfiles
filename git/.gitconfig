@@ -25,6 +25,7 @@
     m = merge
     p = push
     s = "! git status -s"
+    r = reset
     #other shorthands
     ac = add-all-and-commit
     amend = commit --amend
@@ -34,14 +35,13 @@
     cl = clone
     pl = "! git fetch && git pull"
     sch = stash-checkout
-    srstr = staged-restore
+    srr = staged-restore
     st = "stash -u"
     stp = "stash pop"
     tls = list-tags-by-created-date
     tp = push-with-tags
     rb = rebase
-    rst = reset
-    rstr = restore
+    rr = restore
     ups = push-upstream
     # fuzzy finder commands require that fzf is installed
     fzf-branches = "!echo $(git branch -a | fzf) | sed \"s/^remotes\\/[a-zA-Z]\\+\\///\" | sed \"s/ -> .*//\""
@@ -51,8 +51,8 @@
     fzf-status = "!echo $(git diff --name-only | fzf -m)"
     fzf-status-cached = "!echo $(git diff --name-only --cached | fzf -m)"
     fzf-a= "!git add $(git fzf-status)"
-    fzf-srstr = "!git srstr $(git fzf-status-cached)"
-    fzf-rstr = "!git rstr $(git fzf-status)"
+    fzf-srr = "!git srstr $(git fzf-status-cached)"
+    fzf-rr = "!git rstr $(git fzf-status)"
     fzf-rm = "!rm $(git fzf-status)"
 [core]
     editor = nvim
