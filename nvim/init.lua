@@ -478,6 +478,9 @@ vim.keymap.set('v', 'Y', 'myY`y')
 vim.keymap.set('i', '<C-v>', '<Esc>"+p', { desc = 'Paste from system clipboard' })
 -- make that space can be used as a leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+-- made that capital c & d work as usual when prefaced with c or d
+vim.keymap.set("n", "dD", "D")
+vim.keymap.set("n", "cC", "C")
 -- useless binding for useless plugin
 vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 
