@@ -43,17 +43,27 @@
     rb = rebase
     rr = restore
     ups = push-upstream
+    file-names-changed = "diff --name-only"
+    file-names-untracked = "ls-files --others --exclude-standard"
+    file-names-status = "!{ git diff --name-only; git ls-files --others --exclude-standard; }"
     # fuzzy finder commands require that fzf is installed
-    fzf-branches = "!echo $(git branch -a | fzf) | sed \"s/^remotes\\/[a-zA-Z]\\+\\///\" | sed \"s/ -> .*//\""
-    fzf-rb = "!git rebase -i $(git fzf-branches)"
-    fzf-m = "!git merge $(git branch -a | fzf)"
-    fzf = "!git checkout $(git fzf-branches)"
-    fzf-status = "!echo $(git diff --name-only | fzf -m)"
+    fzf-b = "!echo $(git branch -a | fzf) | sed \"s/^remotes\\/[a-zA-Z]\\+\\///\" | sed \"s/ -> .*//\""
     fzf-status-cached = "!echo $(git diff --name-only --cached | fzf -m)"
+    fzf-status = "!echo $(git file-names-status | fzf -m)"
+    fzf = "!git checkout $(git fzf-b)"
+    fzf-rb = "!git rebase -i $(git fzf-b)"
+    fzf-m = "!git merge $(git branch -a | fzf)"
     fzf-a= "!git add $(git fzf-status)"
-    fzf-srr = "!git srstr $(git fzf-status-cached)"
-    fzf-rr = "!git rstr $(git fzf-status)"
+    fzf-srr = "!git srr $(git fzf-status-cached)"
+    fzf-rr = "!git rr $(git fzf-status)"
     fzf-rm = "!rm $(git fzf-status)"
+    fz = fzf
+    fz-rb = fzf-rb
+    fz-m = fzf-m
+    fz-a =  fzf-a
+    fz-srr = fzf-srr
+    fz-rr = fzf-rr
+    fz-rm = fzf-rm
 [core]
     editor = nvim
 [diff]
