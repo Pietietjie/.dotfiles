@@ -1069,6 +1069,7 @@ lspconfig.emmet_language_server.setup({
 local cmp = require 'cmp'
 local ls = require 'luasnip'
 local s = ls.snippet
+local f = ls.function_node
 local t = ls.text_node
 local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
@@ -1176,6 +1177,22 @@ ls.add_snippets("twig", {
     t({ "", "</ol>" }),
   }),
 })
+ls.add_snippets("all", {
+  s({ trig = "random string: (%d+)", regTrig = true }, {
+    f(function(_, snip)
+      local n = tonumber(snip.captures[1])
+      local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~"
+      local result = {}
+      math.randomseed(os.time())
+      for j = 1, n do
+        local randomIndex = math.random(1, #chars)
+        result[j] = chars:sub(randomIndex, randomIndex)
+      end
+      return table.concat(result)
+    end, {}),
+  }),
+})
+
 
 cmp.setup {
   snippet = {
