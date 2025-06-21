@@ -1177,18 +1177,36 @@ ls.add_snippets("twig", {
     t_node({ "", "</ol>" }),
   }),
 })
+local function randomString(chars, length)
+  local result = {}
+  math.randomseed(os.time())
+  for i = 1, length do
+    local randomIndex = math.random(1, #chars)
+    result[i] = chars:sub(randomIndex, randomIndex)
+  end
+  return table.concat(result)
+end
 ls.add_snippets("all", {
+  s({ trig = "random string alpha num: (%d+)", regTrig = true }, {
+    f_node(function(_, snip)
+      local n = tonumber(snip.captures[1])
+      local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return randomString(chars, n)
+    end, {}),
+  }),
+  s({ trig = "random string alpha: (%d+)", regTrig = true }, {
+    f_node(function(_, snip)
+      local n = tonumber(snip.captures[1])
+      local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            return randomString(chars, n)
+
+    end, {}),
+  }),
   s({ trig = "random string: (%d+)", regTrig = true }, {
     f_node(function(_, snip)
       local n = tonumber(snip.captures[1])
       local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~"
-      local result = {}
-      math.randomseed(os.time())
-      for i = 1, n do
-        local randomIndex = math.random(1, #chars)
-        result[i] = chars:sub(randomIndex, randomIndex)
-      end
-      return table.concat(result)
+      return randomString(chars, n)
     end, {}),
   }),
 })
