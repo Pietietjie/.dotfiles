@@ -64,6 +64,20 @@ function zshaddhistory() {
 }
 # My custom Aliases
 # Functions
+dexe() {
+  local container_id
+  container_id=$(docker container ls | sed 1d | fzf | awk '{print $1}')
+
+  if [ -z "$container_id" ]; then
+    echo "No container selected or found."
+    return 1
+  fi
+
+  local shell="${1:-bash}"
+
+  echo "Executing '$shell' in container ID: $container_id"
+  docker exec -it "$container_id" "$shell"
+}
 if type "php" > /dev/null; then
     composer() { php $composer_path "$@" }
     sailartisan() {
@@ -117,7 +131,6 @@ alias nv='nvim'
 alias cl='clear'
 alias scrp='~/scripts/$(ls -a --color=never ~/scripts | sed "1d;2d" | fzf)'
 alias change="sudo update-alternatives --config"
-alias dexe="docker exec -it \$(docker container ls | sed 1d | fzf | awk '{print \$1}') bash"
 alias fzcp="cp \$(fzf)"
 alias fzmv="mv \$(fzf)"
 
