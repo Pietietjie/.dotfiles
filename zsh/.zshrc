@@ -66,10 +66,20 @@ function zshaddhistory() {
 # Functions
 if type "php" > /dev/null; then
     composer() { php $composer_path "$@" }
-    artisan() { if [ -f vendor/.dontsail ]; then php artisan "$@"; elif [ -f sail ] || [ -f vendor/bin/sail ]; then sail artisan "$@"; else php artisan "$@"; fi; }
+    sailartisan() {
+        if [ -f vendor/.dontsail ]; then
+            php artisan "$@";
+        elif [ -f sail ] || [ -f vendor/bin/sail ]; then
+            sail artisan "$@";
+        else
+            php artisan "$@";
+        fi
+    }
     composer-link() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/([^\/]+)$/\1/p'`; composer config "repositories.$package" '{"type": "path", "url": "'$1'"}'; }
     composer-github() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/(.*)\.git/\1/p'`; composer config "repositories.$package" vcs $1; }
+    alias artisan="php artisan"
     alias a="artisan"
+    alias aa="sailartisan"
     alias p="php"
     alias cdump="composer dump-autoload -o"
     alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
