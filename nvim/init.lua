@@ -951,8 +951,6 @@ require('nvim-treesitter.configs').setup {
         ['ii'] = '@conditional.inner',
         ['al'] = '@loop.outer',
         ['il'] = '@loop.inner',
-        ['l='] = '@assignment.rhs',
-        ['r='] = '@assignment.lhs',
         ['a='] = '@assignment.outer',
         ['i='] = '@assignment.inner',
         ['ao'] = '@class.outer',
