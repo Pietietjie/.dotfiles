@@ -25,7 +25,10 @@ require('lazy').setup({
   },
   -- NOTE: First, some plugins that don't require any configuration
 
-  'mbbill/undotree',
+  {
+    'mbbill/undotree',
+    event = "VeryLazy",
+  },
   -- Git related plugins
   'tpope/vim-fugitive',
   --
@@ -45,13 +48,19 @@ require('lazy').setup({
   'tpope/vim-repeat',
 
   -- use * to search visual mode selection
-  'nelstrom/vim-visual-star-search',
+  {
+    'nelstrom/vim-visual-star-search',
+    event = "VeryLazy",
+  },
 
   -- continue editing file from last location
   'farmergreg/vim-lastplace',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  {
+    'tpope/vim-sleuth',
+    event = "VeryLazy",
+  },
 
   -- detects the root dir of the project
   {
@@ -93,10 +102,15 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  {
+    'folke/which-key.nvim',
+    event = "VeryLazy",
+    opts = {}
+  },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
+    event = "VeryLazy",
     opts = {
       sign_priority = 20,
       -- See `:help gitsigns.txt`
@@ -214,10 +228,12 @@ require('lazy').setup({
   -- Makes that bracket pairs have different colors based on level {#color1 {#color2 {#color3 { #color1 } } } }
   {
     'HiPhish/rainbow-delimiters.nvim',
+    event = "VeryLazy",
   },
   {
     -- -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
+    event = "VeryLazy",
     main = "ibl",
     opts = {
       exclude = {
@@ -239,7 +255,11 @@ require('lazy').setup({
   },
 
   -- Add comment key binding on "gc"
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    event = "VeryLazy",
+    opts = {},
+  },
 
   -- Fuzzy Finder (files, LSP, etc)
   {
@@ -326,6 +346,7 @@ require('lazy').setup({
 
   {
     'nishigori/increment-activator',
+    event = "VeryLazy",
     config = function()
       vim.cmd(
         "let g:increment_activator_filetype_candidates = { '_': [['true', 'false'],['enable', 'disable'],['enabled','disabled'],], }"
@@ -341,12 +362,14 @@ require('lazy').setup({
   -- otherwise indents for example only work after set ft=blade
   {
     "jwalton512/vim-blade",
+    event = "VeryLazy",
     ft = "blade",
   },
 
   -- improves the styling of the folded lines
   {
     "bbjornstad/pretty-fold.nvim",
+    event = "VeryLazy",
     config = function()
       require('pretty-fold').setup({
         sections = {
@@ -367,7 +390,10 @@ require('lazy').setup({
   -- hides env values
   'laytan/cloak.nvim',
   -- useless plugin
-  'eandrju/cellular-automaton.nvim',
+  {
+    'eandrju/cellular-automaton.nvim',
+    event = "VeryLazy",
+  }
 }, {})
 
 -- ----------------------------------------------------
@@ -1201,8 +1227,7 @@ ls.add_snippets("all", {
     f_node(function(_, snip)
       local n = tonumber(snip.captures[1])
       local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            return randomString(chars, n)
-
+      return randomString(chars, n)
     end, {}),
   }),
   s({ trig = "random string: (%d+)", regTrig = true }, {
