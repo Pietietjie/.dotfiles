@@ -34,8 +34,7 @@ sudo ./install
     - [trouble plugin](https://github.com/folke/trouble.nvim)
     - Look at [fidget](https://github.com/j-hui/fidget.nvim) I think it is used by the lsp where it has that ugly pink thing on the side
     - Look at making undo tree prettier
-    - Look at getting a [ debugger for nvim ](https://github.com/mfussenegger/nvim-dap)
-    - Look at tailwind formation order
+    - Look at getting a [debugger for nvim](https://github.com/mfussenegger/nvim-dap)
     - Look at AI plugins [super maven](https://github.com/supermaven-inc/supermaven-nvim) & [avante](https://github.com/yetone/avante.nvim)
 - Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows)
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
