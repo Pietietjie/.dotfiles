@@ -29,6 +29,7 @@ require('lazy').setup({
     'mbbill/undotree',
     event = "VeryLazy",
   },
+
   -- Git related plugins
   'tpope/vim-fugitive',
   --
@@ -107,6 +108,7 @@ require('lazy').setup({
     event = "VeryLazy",
     opts = {}
   },
+
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -195,8 +197,40 @@ require('lazy').setup({
         theme = 'tokyonight',
         component_separators = '|',
       },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = {
+          {
+            function()
+              local recording_register = vim.fn.reg_recording()
+              if recording_register == '' then
+                return ''
+              else
+                return 'RECORDING @' .. recording_register
+              end
+            end,
+            cond = function()
+              return vim.fn.reg_recording() ~= ''
+            end,
+            color = { fg = '#E0AF68', bg = '#2D445D' },
+          },
+          'branch',
+          'diff',
+        },
+        lualine_c = {
+          {
+            'filename',
+            file_status = true,
+            path = 1,
+          },
+        },
+        lualine_x = { 'diagnostics', 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
+      },
     },
   },
+
   -- Shows active buffers at the top to the screen kind of like vscode's file tabs
   {
     'akinsho/bufferline.nvim',
@@ -225,11 +259,13 @@ require('lazy').setup({
       })
     end,
   },
+
   -- Makes that bracket pairs have different colors based on level {#color1 {#color2 {#color3 { #color1 } } } }
   {
     'HiPhish/rainbow-delimiters.nvim',
     event = "VeryLazy",
   },
+
   {
     -- -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
@@ -286,6 +322,7 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end,
   },
+
   -- adds history to telescope uses sqlite
   {
     'nvim-telescope/telescope-smart-history.nvim',
@@ -386,11 +423,13 @@ require('lazy').setup({
 
   -- hides env values
   'laytan/cloak.nvim',
+
   -- useless plugin
   {
     'eandrju/cellular-automaton.nvim',
     event = "VeryLazy",
   },
+
   {
     "folke/noice.nvim",
     event = "VeryLazy",
