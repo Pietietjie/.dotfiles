@@ -332,15 +332,12 @@ require('lazy').setup({
   {
     'kana/vim-textobj-user',
     dependencies = {
-      'whatyouhide/vim-textobj-xmlattr',        -- for XML based text objects
-      'kana/vim-textobj-entire',                -- for 'ae' and 'ie' everything
-      'kana/vim-textobj-function',              -- for 'af' and 'if' function
-      'glts/vim-textobj-comment',               -- comments 'ac' and 'ic'
-      'michaeljsmith/vim-indent-object',        -- 'ii' indentation
-      'kana/vim-textobj-lastpat',               -- 'i/' last searched pattern
-      'sgur/vim-textobj-parameter',             -- 'i,' argument
-      'Julian/vim-textobj-variable-segment',    -- 'iv' case segment
-      'adriaanzon/vim-textobj-blade-directive', -- 'ad' blade directive
+      'whatyouhide/vim-textobj-xmlattr',     -- for XML based text objects
+      'kana/vim-textobj-entire',             -- for 'ae' and 'ie' everything
+      'glts/vim-textobj-comment',            -- comments 'ac' and 'ic'
+      'michaeljsmith/vim-indent-object',     -- 'ii' indentation
+      'kana/vim-textobj-lastpat',            -- 'i/' last searched pattern
+      'Julian/vim-textobj-variable-segment', -- 'iv' case segment
     }
   },
 
@@ -487,6 +484,19 @@ vim.api.nvim_create_user_command('E', 'e .env', {})
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
 vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
+-- treesitter repeat that overrides the ;,fFtT
+local treesitter_repeat = require('nvim-treesitter.textobjects.repeatable_move')
+vim.keymap.set({ 'n', 'x', 'o' }, ';', treesitter_repeat.repeat_last_move, { desc = 'Repeat last Treesitter move' })
+vim.keymap.set({ 'n', 'x', 'o' }, ',', treesitter_repeat.repeat_last_move_opposite,
+  { desc = 'Repeat last Treesitter move opposite' })
+vim.keymap.set({ 'n', 'x', 'o' }, 'f', treesitter_repeat.builtin_f_expr,
+  { expr = true, desc = 'Treesitter find char forward' })
+vim.keymap.set({ 'n', 'x', 'o' }, 'F', treesitter_repeat.builtin_F_expr,
+  { expr = true, desc = 'Treesitter find char backward' })
+vim.keymap.set({ 'n', 'x', 'o' }, 't', treesitter_repeat.builtin_t_expr,
+  { expr = true, desc = 'Treesitter to char forward' })
+vim.keymap.set({ 'n', 'x', 'o' }, 'T', treesitter_repeat.builtin_T_expr,
+  { expr = true, desc = 'Treesitter to char backward' })
 -- vim.keymap.'set'({'n', 'v'}, 's', '"_s')
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
@@ -569,8 +579,8 @@ vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>', { desc = 'E[x]ecute the
 vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'Make the current file e[X]ecutable' })
 
 -- text object keymaps/bindings
-vim.keymap.set({'o', 'x'}, 'ih', require('gitsigns').select_hunk)
-vim.keymap.set({'o', 'x'}, 'ah', require('gitsigns').select_hunk)
+vim.keymap.set({ 'o', 'x' }, 'ih', require('gitsigns').select_hunk)
+vim.keymap.set({ 'o', 'x' }, 'ah', require('gitsigns').select_hunk)
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -932,10 +942,10 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
+      init_selection = '<M-o>',
+      node_incremental = '<M-o>',
       scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
+      node_decremental = '<M-i>',
     },
   },
   textobjects = {
@@ -955,35 +965,35 @@ require('nvim-treesitter.configs').setup {
         ['i='] = '@assignment.inner',
         ['ao'] = '@class.outer',
         ['io'] = '@class.inner',
+        ['a,'] = '@parameter.outer',
+        ['i,'] = '@parameter.inner',
       },
     },
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jump-list
       goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
+        [']f'] = '@function.outer',
       },
       goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
+        [']F'] = '@function.outer',
       },
       goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
+        ['[f'] = '@function.outer',
       },
       goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
+        ['[F'] = '@function.outer',
       },
     },
     swap = {
       enable = true,
       swap_next = {
-        ['<leader>a'] = '@parameter.inner',
+        ['<leader>wa'] = '@parameter.inner',
+        ['<leader>wf'] = '@function.outer',
       },
       swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
+        ['<leader>wA'] = '@parameter.inner',
+        ['<leader>wF'] = '@function.outer',
       },
     },
   },
@@ -1064,11 +1074,11 @@ mason_lspconfig.setup_handlers {
           'Tele[s]cope Document S[y]mbols'
         )
         nmap(
-          '<leader>wy',
+          '<leader>swy',
           function()
             require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" })
           end,
-          '[w]orkspace S[y]mbols'
+          'Tele[s]cope [w]orkspace S[y]mbols'
         )
 
         -- See `:help K` for why this keymap
@@ -1077,14 +1087,14 @@ mason_lspconfig.setup_handlers {
 
         -- Lesser used LSP functionality
         nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
-        nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[w]orkspace [a]dd Folder')
-        nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[w]orkspace [r]emove Folder')
+        nmap('<leader>wd', vim.lsp.buf.add_workspace_folder, '[w]orkspace [d]ir/folder add')
+        nmap('<leader>wdr', vim.lsp.buf.remove_workspace_folder, '[w]orkspace [d]ir/folder [r]emove')
         nmap(
           '<leader>wl',
           function()
             vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end,
-          '[w]orkspace [l]ist Folders'
+          '[w]orkspace [d]ir/folder [l]ist'
         )
 
         -- Create a command `:Format` local to the LSP buffer
