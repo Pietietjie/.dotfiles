@@ -393,7 +393,7 @@ require('lazy').setup({
   {
     'eandrju/cellular-automaton.nvim',
     event = "VeryLazy",
-  }
+  },
 }, {})
 
 -- ----------------------------------------------------
@@ -567,6 +567,10 @@ vim.keymap.set(
 -- Open the current file in the default program (on Mac this should just be just `open`)
 vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>', { desc = 'E[x]ecute the current file' })
 vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'Make the current file e[X]ecutable' })
+
+-- text object keymaps/bindings
+vim.keymap.set({'o', 'x'}, 'ih', require('gitsigns').select_hunk)
+vim.keymap.set({'o', 'x'}, 'ah', require('gitsigns').select_hunk)
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -943,8 +947,16 @@ require('nvim-treesitter.configs').setup {
         ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
+        ['ai'] = '@conditional.loop.outer',
+        ['ii'] = '@conditional.inner',
         ['al'] = '@loop.outer',
         ['il'] = '@loop.inner',
+        ['l='] = '@assignment.rhs',
+        ['r='] = '@assignment.lhs',
+        ['a='] = '@assignment.outer',
+        ['i='] = '@assignment.inner',
+        ['ao'] = '@class.outer',
+        ['io'] = '@class.inner',
       },
     },
     move = {
