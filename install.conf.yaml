@@ -1,9 +1,4 @@
 - link:
-    ~/.mozilla:
-        relink: true
-        path: mozilla
-        create: true
-- link:
     ~/.config/alacritty:
         relink: true
         path: alacritty
@@ -44,12 +39,6 @@
         force: true
         relink: true
         path: zsh/.zshrc
-        create: true
-- link:
-    ~/.config/awesome:
-        force: true
-        relink: true
-        path: awesome
         create: true
 - link:
     /usr/share/libalpm/hooks:
