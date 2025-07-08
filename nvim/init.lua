@@ -440,8 +440,17 @@ require('lazy').setup({
       -- "rcarriga/nvim-notify",
     }
   },
+
+  {
+    'laytan/tailwind-sorter.nvim',
+    event = "VeryLazy",
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
+    build = 'cd formatter && npm ci && npm run build',
+    config = true,
+  },
 }, {})
 
+-- [[ configure noice ]]
 require("noice").setup({
   lsp = {
     override = {
@@ -458,6 +467,8 @@ require("noice").setup({
     lsp_doc_border = false,       -- add a border to hover docs and signature help
   },
 })
+
+
 
 -- ----------------------------------------------------
 -- colorscheme
@@ -667,7 +678,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
   group = "gitcommit",
 })
-
 
 -- [[ Configure Telescope ]]
 local telescopeActions = require("telescope.actions")
@@ -965,6 +975,12 @@ telescope_menu_bind_n_and_v_mode(
   end,
   { desc = '[s]earch [h]elp' }
 )
+-- configure tailwind class sorter
+require('tailwind-sorter').setup({
+  on_save_enabled = true,
+  on_save_pattern = { '*.html', '*.js', '*.jsx', '*.tsx', '*.twig', '*.hbs', '*.php', '*.heex', '*.astro' }, -- The file patterns to watch and sort.
+  node_path = 'node',
+})
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
