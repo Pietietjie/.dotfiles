@@ -25,7 +25,7 @@ case "${os_type}" in
             fi
 
         elif grep -q '^ID=arch' /etc/os-release; then
-            sudo pacman -S --needed - < pacman/pkglist.txt
+            sudo pacman -S --needed  --noconfirm - < pacman/pkglist.txt
             if command -v nvim &> /dev/null;
             then
                 nvim --headless \"+Lazy! sync\" +qa;
