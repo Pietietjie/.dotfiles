@@ -59,9 +59,10 @@ then
     nvm install v20.18.0
 fi
 
-if command -v npm &> /dev/null;
-then
-    npm install -g neovim;
+if command -v npm &> /dev/null; then
+    if ! npm list -g neovim &> /dev/null; then
+        npm install -g neovim;
+    fi
 fi
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
