@@ -36,7 +36,7 @@ done
 # This is used to locally develop the install script.
 git clone https://github.com/Pietietjie/.dotfiles "${clone_path}"
 cd ${clone_path}
-git submodule init && git submodule update && git remote remove origin
+git submodule init && git submodule update
 
 ###############################################################################
 # Install dotfiles config and packages
@@ -46,6 +46,7 @@ git submodule init && git submodule update && git remote remove origin
 read -rep $'Do you want to change the origin to ssh?(y)' y
 case "${y}" in
     [Yy]*)
+        git remote remove origin || true
         git remote add origin git@github.com:Pietietjie/.dotfiles.git || true
         git fetch || true
         git branch --set-upstream-to=origin/main main || true

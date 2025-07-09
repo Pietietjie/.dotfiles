@@ -75,6 +75,12 @@ fi
 
 ./install_dotbot || true
 
+if [ -f "unix_desktop/README.md" ]; then
+    cd unix_desktop
+    ./install|| true
+    cd ..
+fi
+
 read -rep $'Do you want to do the symlinks for the root user?(y)' y
 case "${y}" in
     [Yy]*)
