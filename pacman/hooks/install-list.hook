@@ -6,4 +6,4 @@ Target = *
 
 [Action]
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/pacman -Qqet | sed "/^xf86-video/d" > /etc/pkglist.txt'
+Exec = /usr/local/bin/update_pkglist_hook.sh

@@ -1,0 +1,3 @@
+grub
+xorg-xinit
+zram-generator
