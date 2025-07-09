@@ -26,7 +26,10 @@ case "${os_type}" in
 
         elif grep -q '^ID=arch' /etc/os-release; then
             sudo pacman -S --needed - < pacman/pkglist.txt
-            nvim --headless \"+Lazy! sync\" +qa;
+            if command -v nvim &> /dev/null;
+            then
+                nvim --headless \"+Lazy! sync\" +qa;
+            fi
         fi
 
         ;;
@@ -42,6 +45,10 @@ fi
 
 if [ ! -d "$HOME/.nvm" ]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh" && [ -s "$NVM_DIR/bash_completion" ] && \\. "$NVM_DIR/bash_completion" && nvm install v20.18.0;
+fi
+
+if command -v npm &> /dev/null;
+then
     npm install -g neovim;
 fi
 
