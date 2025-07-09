@@ -53,8 +53,12 @@ then
 fi
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")
+    (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended)
     echo "Oh My Zsh installation completed (in a subshell). Continuing with the script..."
+    if ! grep -q "$(which zsh)" /etc/shells; then
+        command -v zsh | sudo tee -a /etc/shells
+    fi
+    chsh -s "$(which zsh)"
 fi
 
 ./install_dotbot || true
