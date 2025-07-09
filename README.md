@@ -25,7 +25,6 @@ sudo ./install
 - On windows WSL 2 when hosting docker containers sometimes you need to kill apache to allow the access the containers in chromium browsers `sudo service apache2 stop` || `sudo systemctl stop apache2`
 ## TODO
 - NVIM:
-    - NB! NB! look at improving the error management I cannot have a text editor that screams and cries all the time if there is something wrong with the enviroment I should still be able to see if there is anything that breaks but it should require a special binding to interact with and should be non invasive
     - fix emojis breaking the spacing
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - look into polyglot
