@@ -13,7 +13,7 @@ case "${os_type}" in
             sudo apt install -y git ninja-build gettext cmake unzip curl build-essential zsh fd-find tmux fzf grep ripgrep mysql-server mysql-client sqlite3 jq python3
             if ! command -v nvim &> /dev/null;
             then
-                git clone --depth 1 --single-branch --branch v0.10.3 https://github.com/neovim/neovim.git ~/build/neovim && cd ~/build/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb && cd ../.. && rm -rf neovim && nvim --headless \"+Lazy! sync\" +qa;
+                git clone --depth 1 --single-branch --branch v0.10.3 https://github.com/neovim/neovim.git ~/build/neovim && cd ~/build/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb && cd ../.. && rm -rf neovim;
             fi
 
             if ! command -v "php" >/dev/null 2>&1; then
@@ -26,10 +26,13 @@ case "${os_type}" in
 
         elif grep -q '^ID=arch' /etc/os-release; then
             sudo pacman -S --needed  --noconfirm - < pacman/pkglist.txt
-            if command -v nvim &> /dev/null;
-            then
-                nvim --headless \"+Lazy! sync\" +qa;
+            if [ ! -d "$HOME/build/yay" ]; then
+                git clone https://aur.archlinux.org/yay.git ~/build/yay
+                cd ~/build/yay
+                makepkg -si
+                cd -
             fi
+
         fi
 
         ;;
@@ -75,6 +78,11 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 fi
 
 ./install_dotbot || true
+
+if command -v nvim &> /dev/null;
+then
+    nvim --headless \"+Lazy! sync\" +qa;
+fi
 
 if [ -f "unix_desktop/README.md" ]; then
     cd unix_desktop

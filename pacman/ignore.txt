@@ -1,3 +1,5 @@
 grub
 xorg-xinit
 zram-generator
+yay
+yay-debug
