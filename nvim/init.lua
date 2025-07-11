@@ -977,7 +977,6 @@ telescope_menu_bind_n_and_v_mode(
 )
 -- configure tailwind class sorter
 require('tailwind-sorter').setup({
-  on_save_enabled = true,
   on_save_pattern = { '*.html', '*.js', '*.jsx', '*.tsx', '*.twig', '*.hbs', '*.php', '*.heex', '*.astro' }, -- The file patterns to watch and sort.
   node_path = 'node',
 })
