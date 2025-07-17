@@ -109,3 +109,6 @@ json
 selectable
 CDN
 versioning
+memoized
+memoize
+memoization
