@@ -648,7 +648,7 @@ vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', re
 vim.keymap.set(
   'n',
   '<leader>az',
-  'mz:%g/\\(public\\|protected\\|private\\|static\\)\\_s*function\\_s/normal zfaf<cr>:%g/\\/\\*\\*/normal zfac<cr>`z',
+  'mz:%g/\\(public\\|protected\\|private\\|static\\)\\_s*function\\_s/normal zfafu<cr>:%g/\\/\\*\\*/normal zfac<cr>`z',
   { desc = 'Fold [a]ll', remap = true }
 )
 -- Open the current file in the default program (on Mac this should just be just `open`)
