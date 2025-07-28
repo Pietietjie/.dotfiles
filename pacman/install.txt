@@ -1,0 +1,12 @@
+htop
+fd
+jq
+neovim
+adobe-source-han-sans-otc-fonts
+mandoc
+fzf
+ttf-firacode-nerd
+unzip
+wget
+yay
+yay-debug

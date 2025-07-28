@@ -25,7 +25,7 @@ case "${os_type}" in
             fi
 
         elif grep -q '^ID=arch' /etc/os-release; then
-            sudo pacman -S --needed  --noconfirm - < pacman/pkglist.txt
+            sudo pacman -S --needed  --noconfirm - < pacman/install.txt
             if [ ! -d "$HOME/build/yay" ]; then
                 git clone https://aur.archlinux.org/yay.git ~/build/yay
                 cd ~/build/yay
