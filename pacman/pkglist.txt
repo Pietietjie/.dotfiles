@@ -9,10 +9,10 @@ dolphin
 extra-cmake-modules
 fd
 firefox
-fprintd
 fzf
 grub
 htop
+imagemagick
 jq
 libva-nvidia-driver
 neovim
