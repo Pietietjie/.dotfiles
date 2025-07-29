@@ -1,6 +1,0 @@
-grub
-xorg-xinit
-zram-generator
-sddm-silent-theme
-yay
-yay-debug

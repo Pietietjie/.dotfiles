@@ -8,5 +8,3 @@ fzf
 ttf-firacode-nerd
 unzip
 wget
-yay
-yay-debug
