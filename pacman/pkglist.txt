@@ -15,6 +15,7 @@ htop
 imagemagick
 jq
 libva-nvidia-driver
+mpv
 neovim
 nvidia
 plasma-meta
