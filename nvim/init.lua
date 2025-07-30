@@ -1287,9 +1287,9 @@ ls.add_snippets("php", {
   }),
   s("echo_print_r", {
     t_node("echo '<pre>';"),
-    t_node({ "", "print_r(" }),
+    t_node({ "", "print_r([" }),
     i_node(0),
-    t_node(");"),
+    t_node("]);"),
     t_node({ "", "die;" }),
   }),
   s("$placeholders =", {
