@@ -40,12 +40,6 @@
         path: pacman/hooks
         create: true
 - link:
-    /etc/ignore.txt:
-        force: true
-        relink: true
-        if: "[[ \"$EUID\" -eq 0 ]]"
-        path: pacman/ignore.txt
-        create: true
     /usr/local/bin/update_pkglist_hook.sh:
         force: true
         relink: true
