@@ -2,7 +2,7 @@
     decorations = "None"
     padding = {x = 4, y = 4}
     dynamic_padding = true
-    opacity = 0.8
+    opacity = 0.85
     title = "Alacritty"
     dynamic_title = true
 
