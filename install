@@ -26,13 +26,6 @@ case "${os_type}" in
 
         elif grep -q '^ID=arch' /etc/os-release; then
             sudo pacman -S --needed  --noconfirm - < pacman/install.txt
-            if [ ! -d "$HOME/build/yay" ]; then
-                git clone https://aur.archlinux.org/yay.git ~/build/yay
-                cd ~/build/yay
-                makepkg -si
-                cd -
-            fi
-
         fi
 
         ;;
@@ -86,14 +79,9 @@ fi
 
 if [ -f "unix_desktop/README.md" ]; then
     cd unix_desktop
-    ./install|| true
+    ./install || true
     cd ..
 fi
 
-read -rep $'Do you want to do the symlinks for the root user?(y)' y
-case "${y}" in
-    [Yy]*)
-        sudo ./install_dotbot || true
-        ;;
-esac
+sudo ./install_dotbot || true
 
