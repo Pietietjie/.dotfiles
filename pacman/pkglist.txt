@@ -18,7 +18,7 @@ kcharselect
 libva-nvidia-driver
 mpv
 neovim
-nvidia
+nvidia-dkms
 plasma-meta
 sddm-silent-theme
 sof-firmware
@@ -27,8 +27,5 @@ ttf-firacode-nerd
 unzip
 wget
 wireless_tools
-xdotool
 xorg-xinit
-yay
-yay-debug
 zram-generator
