@@ -1219,6 +1219,7 @@ ls.add_snippets("gitcommit", {
   s(":formatting:", fmt("🎨{}", { i_node(1) })),
   s(":style_ui:", fmt("💄{}", { i_node(1) })),
   s(":remove:", fmt("🔥{}", { i_node(1) })),
+  s(":nothing_burger:", fmt("🍔{}", { i_node(1) })),
   s(":performance:", fmt("⚡{}", { i_node(1) })),
   s(":work_in_progress:", fmt("🚧{}", { i_node(1) })),
   s(":tests_add:", fmt("✅{}", { i_node(1) })),
