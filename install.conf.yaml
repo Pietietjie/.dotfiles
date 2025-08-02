@@ -20,10 +20,6 @@
         relink: true
         path: nvim
         create: true
-    ~/scripts:
-        relink: true
-        path: scripts
-        create: true
     ~/.oh-my-zsh/themes/pietietjie.zsh-theme:
         relink: true
         path: zsh/pietietjie.zsh-theme
@@ -33,13 +29,19 @@
         relink: true
         path: zsh/.zshrc
         create: true
+- link:
     /usr/share/libalpm/hooks:
         force: true
         relink: true
         if: "[[ \"$EUID\" -eq 0 ]]"
         path: pacman/hooks
         create: true
-- link:
+    /usr/local/bin/scrp:
+        force: true
+        relink: true
+        if: "[[ \"$EUID\" -eq 0 ]]"
+        path: zsh/scrp
+        create: true
     /usr/local/bin/update_pkglist_hook.sh:
         force: true
         relink: true

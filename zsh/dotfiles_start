@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/usr/local/bin/scrp --script 1-tmux-start.sh --blueprint 0-dotfiles --dont_attach

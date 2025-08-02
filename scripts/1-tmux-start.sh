@@ -1,7 +1,27 @@
 #!/bin/bash
 
 if [ -f ~/tmux-sessions.json ]; then
-    jq -c ".[] | select(.blueprintName == \"$(jq -r '.[].blueprintName' ~/tmux-sessions.json | fzf --tac)\") | .sessions | .[]" ~/tmux-sessions.json | while IFS= read -r sessionJson; do
+    blueprint_name=""
+    attach=true
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --dont_attach)
+                attach=false
+                shift
+                ;;
+            --blueprint)
+                blueprint_name="$2"
+                shift 2
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+    if [ -z "$blueprint_name" ]; then
+        blueprint_name=$(jq -r '.[].blueprintName' ~/tmux-sessions.json | fzf --tac)
+    fi
+    jq -c ".[] | select(.blueprintName == \"$blueprint_name\") | .sessions | .[]" ~/tmux-sessions.json | while IFS= read -r sessionJson; do
         sessionName=$(echo "$sessionJson" | jq -r '.sessionName')
         sessionDir=$(echo "$sessionJson" | jq -r '.dir' | sed "s|^~|$HOME|;s|^.$|$(pwd)|")
         if tmux new-session -d -s $sessionName -c "$sessionDir"; then
@@ -48,7 +68,7 @@ if [ -f ~/tmux-sessions.json ]; then
     done
 fi
 
-if [[ -z "$TMUX" ]]; then
+if [[ -z "$TMUX" && $attach ]]; then
     tmux attach-session
 fi
 

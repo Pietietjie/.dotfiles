@@ -1,0 +1,28 @@
+#!/bin/bash
+
+params=("$@")
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --script)
+            scriptFile="$2"
+            shift 2
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$scriptFile" ]; then
+    scriptFile="$(ls -a --color=never ~/scripts | sed "1d;2d" | fzf)"
+fi
+
+scriptPath="$dot/scripts/$scriptFile"
+
+if [ -f "$scriptPath" ]; then
+    bash "$scriptPath" "${params[@]}"
+else
+    echo "Script not found: $scriptPath"
+    exit 1
+fi
