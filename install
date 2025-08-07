@@ -77,11 +77,5 @@ then
     nvim --headless \"+Lazy! sync\" +qa;
 fi
 
-if [ -f "unix_desktop/README.md" ]; then
-    cd unix_desktop
-    ./install || true
-    cd ..
-fi
-
 sudo ./install_dotbot || true
 

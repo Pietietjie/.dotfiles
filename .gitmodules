@@ -2,6 +2,3 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
-[submodule "unix_desktop"]
-	path = unix_desktop
-	url = git@github.com:Pietietjie/.dotfilesDesktopUnix.git
