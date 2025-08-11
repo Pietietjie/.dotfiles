@@ -25,7 +25,7 @@ case "${os_type}" in
             fi
 
         elif grep -q '^ID=arch' /etc/os-release; then
-            sudo pacman -S --needed  --noconfirm - < pacman/install.txt
+            sudo pacman -S --needed --noconfirm tmux zsh fd fzf jq neovim git cmake unzip curl ripgrep sqlite3 python3 grep
         fi
 
         ;;
