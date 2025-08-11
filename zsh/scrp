@@ -15,7 +15,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ -z "$scriptFile" ]; then
-    scriptFile="$(ls -a --color=never ~/scripts | sed "1d;2d" | fzf)"
+    scriptFile="$(ls -a --color=never $dot/scripts | sed "1d;2d" | fzf)"
 fi
 
 scriptPath="$dot/scripts/$scriptFile"
