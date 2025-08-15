@@ -39,9 +39,6 @@ require('lazy').setup({
   -- adds, replaces, removes surrounding pairs
   'tpope/vim-surround',
 
-  -- Adds some bindings useing the bracket pairing ] [
-  'tpope/vim-unimpaired',
-
   -- improves netrw
   'tpope/vim-vinegar',
 
@@ -124,22 +121,6 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set(
-          { 'n', 'v' },
-          '[h',
-          function()
-            require('gitsigns').nav_hunk('prev', { target = 'all' })
-          end,
-          { buffer = bufnr, desc = '[h]unk Previous' }
-        )
-        vim.keymap.set(
-          { 'n', 'v' },
-          ']h',
-          function()
-            require('gitsigns').nav_hunk('next', { target = 'all' })
-          end,
-          { buffer = bufnr, desc = '[h]unk Next' }
-        )
         vim.keymap.set('n', '<leader>hv', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[h]unk pre[v]iew' })
         vim.keymap.set('n', '<leader>ha', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[h]unk [a]dd' })
         vim.keymap.set(
@@ -556,7 +537,7 @@ vim.cmd('autocmd FileType netrw setlocal number')
 vim.api.nvim_create_user_command('E', 'e .env', {})
 
 -- ----------------------------------------------------
--- Key Bindings/Shortcuts
+-- Key Bindings/Shortcuts/Keybinds
 -- ----------------------------------------------------
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
@@ -574,6 +555,81 @@ vim.keymap.set({ 'n', 'x', 'o' }, 't', treesitter_repeat.builtin_t_expr,
   { expr = true, desc = 'Treesitter to char forward' })
 vim.keymap.set({ 'n', 'x', 'o' }, 'T', treesitter_repeat.builtin_T_expr,
   { expr = true, desc = 'Treesitter to char backward' })
+
+local next_diagnostic, prev_diagnostic = treesitter_repeat.make_repeatable_move_pair(
+  vim.diagnostic.goto_next,
+  vim.diagnostic.goto_prev
+)
+vim.keymap.set('n', '[d', prev_diagnostic, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', next_diagnostic, { desc = 'Go to next diagnostic message' })
+
+local next_buffer, prev_buffer = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('bnext') end,
+  function() vim.cmd('bprevious') end
+)
+vim.keymap.set('n', ']b', next_buffer, { desc = 'Next buffer' })
+local first_buffer, last_buffer = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('blast') end,
+  function() vim.cmd('bfirst') end
+)
+vim.keymap.set('n', ']B', first_buffer, { desc = 'Last buffer' })
+vim.keymap.set('n', '[B', last_buffer, { desc = 'First buffer' })
+vim.keymap.set('n', '[b', prev_buffer, { desc = 'Previous buffer' })
+
+local next_qf, prev_qf = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('cnext') end,
+  function() vim.cmd('cprevious') end
+)
+vim.keymap.set('n', ']q', next_qf, { desc = 'Next quickfix' })
+vim.keymap.set('n', '[q', prev_qf, { desc = 'Previous quickfix' })
+local first_qf, last_qf = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('clast') end,
+  function() vim.cmd('cfirst') end
+)
+vim.keymap.set('n', ']Q', first_qf, { desc = 'Last quickfix' })
+vim.keymap.set('n', '[Q', last_qf, { desc = 'First quickfix' })
+
+local next_loc, prev_loc = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('lnext') end,
+  function() vim.cmd('lprevious') end
+)
+vim.keymap.set('n', ']l', next_loc, { desc = 'Next location list' })
+vim.keymap.set('n', '[l', prev_loc, { desc = 'Previous location list' })
+local first_loc_list, last_loc_list = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('llast') end,
+  function() vim.cmd('lfirst') end
+)
+vim.keymap.set('n', ']L', first_loc_list, { desc = 'Last location list' })
+vim.keymap.set('n', '[L', last_loc_list, { desc = 'First location list' })
+
+local next_arg, prev_arg = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('next') end,
+  function() vim.cmd('previous') end
+)
+vim.keymap.set('n', ']a', next_arg, { desc = 'Next argument' })
+vim.keymap.set('n', '[a', prev_arg, { desc = 'Previous argument' })
+
+local next_tag, prev_tag = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('tnext') end,
+  function() vim.cmd('tprevious') end
+)
+vim.keymap.set('n', ']t', next_tag, { desc = 'Next tag' })
+vim.keymap.set('n', '[t', prev_tag, { desc = 'Previous tag' })
+
+local next_hunk, prev_hunk = treesitter_repeat.make_repeatable_move_pair(
+  function() require('gitsigns').nav_hunk('prev', { target = 'all' }) end,
+  function() require('gitsigns').nav_hunk('next', { target = 'all' }) end
+)
+vim.keymap.set('n', ']h', next_hunk, { desc = 'Next git hunk' })
+vim.keymap.set('n', '[h', prev_hunk, { desc = 'Previous git hunk' })
+
+local next_spell, prev_spell = treesitter_repeat.make_repeatable_move_pair(
+  function() vim.cmd('normal! ]s') end,
+  function() vim.cmd('normal! [s') end
+)
+vim.keymap.set('n', ']s', next_spell, { desc = 'Next misspelling' })
+vim.keymap.set('n', '[s', prev_spell, { desc = 'Previous misspelling' })
+
 -- vim.keymap.'set'({'n', 'v'}, 's', '"_s')
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
@@ -1017,7 +1073,6 @@ require('nvim-treesitter.configs').setup {
   },
   -- auto-install languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
-
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
@@ -1081,8 +1136,6 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 vim.keymap.set('n', '<leader>-', function() vim.cmd('Explore .') end, { desc = 'Open Netrw in the project root' })
