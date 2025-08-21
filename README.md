@@ -25,13 +25,12 @@ sudo ./install
 - On windows WSL 2 when hosting docker containers sometimes you need to kill apache to allow the access the containers in chromium browsers `sudo service apache2 stop` || `sudo systemctl stop apache2`
 ## TODO
 - NVIM:
-    - fix emojis breaking the spacing
+    - fix emojis breaking the spacing on windows (😔)
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - look into polyglot
     - look at an alternative to vim pasta that does not break sometimes
     - [refactor plugin](https://github.com/ThePrimeagen/refactoring.nvim)
     - [trouble plugin](https://github.com/folke/trouble.nvim)
-    - Look at [fidget](https://github.com/j-hui/fidget.nvim) I think it is used by the lsp where it has that ugly pink thing on the side
     - Look at making undo tree prettier
     - Look at getting a [debugger for nvim](https://github.com/mfussenegger/nvim-dap)
     - Look at AI plugins [super maven](https://github.com/supermaven-inc/supermaven-nvim) & [avante](https://github.com/yetone/avante.nvim)

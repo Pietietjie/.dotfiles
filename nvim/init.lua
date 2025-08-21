@@ -620,8 +620,8 @@ local next_hunk, prev_hunk = treesitter_repeat.make_repeatable_move_pair(
   function() require('gitsigns').nav_hunk('prev', { target = 'all' }) end,
   function() require('gitsigns').nav_hunk('next', { target = 'all' }) end
 )
-vim.keymap.set('n', ']h', next_hunk, { desc = 'Next git hunk' })
-vim.keymap.set('n', '[h', prev_hunk, { desc = 'Previous git hunk' })
+vim.keymap.set('n', '[h', next_hunk, { desc = 'Next git hunk' })
+vim.keymap.set('n', ']h', prev_hunk, { desc = 'Previous git hunk' })
 
 local next_spell, prev_spell = treesitter_repeat.make_repeatable_move_pair(
   function() vim.cmd('normal! ]s') end,
