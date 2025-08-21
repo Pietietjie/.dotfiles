@@ -1187,7 +1187,7 @@ mason_lspconfig.setup_handlers {
         end
 
         nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
-        nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
+        nmap('<leader>sa', vim.lsp.buf.code_action, 'L[s]P code [a]ction')
 
         nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
         nmap('grr', vim.lsp.buf.references, '[g]oto quicklist [r]eferences')
