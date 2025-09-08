@@ -144,5 +144,8 @@ if [[ -d "$HOME/.config/herd-lite/bin" ]]; then
     export PATH="$HOME/.config/herd-lite/bin:$PATH"
     export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 fi
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$(go env GOPATH)/bin
+
+if [[ -v go ]]; then
+    export PATH=$PATH:/usr/local/go/bin
+    export PATH=$PATH:$(go env GOPATH)/bin
+fi
