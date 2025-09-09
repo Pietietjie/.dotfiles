@@ -30,23 +30,11 @@
         path: zsh/.zshrc
         create: true
 - link:
-    /usr/share/libalpm/hooks:
-        force: true
-        relink: true
-        if: "[[ \"$EUID\" -eq 0 ]]"
-        path: pacman/hooks
-        create: true
     /usr/local/bin/scrp:
         force: true
         relink: true
         if: "[[ \"$EUID\" -eq 0 ]]"
         path: zsh/scrp
-        create: true
-    /usr/local/bin/update_pkglist_hook.sh:
-        force: true
-        relink: true
-        if: "[[ \"$EUID\" -eq 0 ]]"
-        path: pacman/update_pkglist_hook.sh
         create: true
     /etc/pkglist.txt:
         force: true
