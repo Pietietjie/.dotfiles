@@ -32,6 +32,7 @@ require('lazy').setup({
 
   -- Git related plugins
   'tpope/vim-fugitive',
+  'AndrewRadev/tagalong.vim',
   --
   -- github plugin
   -- 'tpope/vim-rhubarb',
