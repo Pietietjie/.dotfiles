@@ -1014,8 +1014,7 @@ telescope_menu_bind_n_and_v_mode(
   function(defaultText)
     require('telescope.builtin').diagnostics({
       default_text = defaultText,
-      initial_mode = defaultText and "normal" or
-          "insert"
+      initial_mode = "normal"
     })
   end,
   { desc = '[s]earch [d]iagnostics' }, true
