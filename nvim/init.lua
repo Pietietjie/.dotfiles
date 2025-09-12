@@ -30,6 +30,8 @@ require('lazy').setup({
     event = "VeryLazy",
   },
 
+  'sheerun/vim-polyglot',
+
   -- Git related plugins
   'tpope/vim-fugitive',
   'AndrewRadev/tagalong.vim',
