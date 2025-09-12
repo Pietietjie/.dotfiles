@@ -117,6 +117,15 @@ require('lazy').setup({
       vim.g.undotree_HighlightSyntaxDel = "DiffDelete"
       vim.g.undotree_HelpLine = 0
       vim.g.undotree_CursorLine = 1
+      vim.g.undotree_DiffAutoOpen = 1
+      vim.g.Undotree_CustomMap = function()
+        vim.api.nvim_buf_set_keymap(0, 'n', 'j', 'j<Plug>UndotreeEnter', { noremap = false, silent = true })
+        vim.api.nvim_buf_set_keymap(0, 'n', 'k', 'k<Plug>UndotreeEnter', { noremap = false, silent = true })
+        vim.api.nvim_buf_set_keymap(0, 'n', '<Down>', '<Down><Plug>UndotreeEnter', { noremap = false, silent = true })
+        vim.api.nvim_buf_set_keymap(0, 'n', '<Up>', '<Up><Plug>UndotreeEnter', { noremap = false, silent = true })
+        vim.api.nvim_buf_set_keymap(0, 'n', '<LeftMouse>', '<LeftMouse><Plug>UndotreeEnter',
+          { noremap = false, silent = true })
+      end
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "undotree",
         callback = function()
