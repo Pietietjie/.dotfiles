@@ -101,14 +101,21 @@ require('lazy').setup({
     event = "VeryLazy",
   },
 
-  'sheerun/vim-polyglot',
+  {'sheerun/vim-polyglot'},
 
   -- Git related plugins
   'tpope/vim-fugitive',
-  'AndrewRadev/tagalong.vim',
+
+  {
+    'AndrewRadev/tagalong.vim',
+    event = "VeryLazy",
+  },
 
   -- adds, replaces, removes surrounding pairs
-  'tpope/vim-surround',
+  {
+    'tpope/vim-surround',
+    event = "VeryLazy",
+  },
 
   -- improves netrw
   'tpope/vim-vinegar',
@@ -158,6 +165,7 @@ require('lazy').setup({
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
+    event = "VeryLazy",
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -414,7 +422,10 @@ require('lazy').setup({
   },
 
   -- copy paste intent fix
-  'sickill/vim-pasta',
+  {
+    'sickill/vim-pasta',
+    event = "VeryLazy",
+  },
 
   -- allows easier custom text objects
   -- https://github.com/kana/vim-textobj-user/wiki
@@ -441,15 +452,9 @@ require('lazy').setup({
   },
 
   -- saves buffers automatically
-  'pocco81/auto-save.nvim',
-
-  -- Syntax and indent for Laravel blade files
-  -- loading this on ft because that seems to work better for some reason
-  -- otherwise indents for example only work after set ft=blade
   {
-    "jwalton512/vim-blade",
+    'pocco81/auto-save.nvim',
     event = "VeryLazy",
-    ft = "blade",
   },
 
   -- improves the styling of the folded lines
@@ -470,7 +475,6 @@ require('lazy').setup({
         fill_char = ' ',
       })
     end
-
   },
 
   -- hides env values
