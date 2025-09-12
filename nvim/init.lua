@@ -1484,6 +1484,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
+    ['<M-e>'] = cmp.mapping.abort(),
   },
   sources = {
     { name = 'nvim_lsp' },
