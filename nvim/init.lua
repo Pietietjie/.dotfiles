@@ -19,6 +19,77 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- ----------------------------------------------------
+-- Options
+-- ----------------------------------------------------
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+
+-- Set highlight on search
+vim.o.hlsearch = false
+
+-- Enable break indent
+vim.o.breakindent = true
+
+vim.opt.smartindent = true
+
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
+-- For tab completion complete the longest common match then cycle through the matches
+vim.opt.wildmode = 'longest:full,full'
+
+vim.opt.title = true
+
+vim.opt.mouse = 'a'
+
+vim.opt.termguicolors = true
+
+-- Search settings
+vim.opt.ignorecase = true
+vim.opt.smartcase = true -- case sensitive searches when there is a capital in the search
+
+vim.opt.list = true      -- enable the below listchars
+vim.opt.listchars = { tab = '▸ ', trail = '·' }
+
+vim.opt.fillchars:append({ eob = ' ' })
+
+vim.opt.splitright = true
+
+vim.opt.spell = true
+vim.opt.spelllang = 'en_us'
+vim.opt.spelloptions = 'camel'
+
+vim.opt.scrolloff = 100
+vim.opt.sidescrolloff = 100
+
+vim.opt.confirm = true        -- ask for confirmation instead of erring
+
+vim.opt.undofile = true       -- persistent undo
+
+vim.opt.backup = true         -- automatically save a backup file
+
+vim.opt.backupdir:remove('.') -- keep backups out of the current directory
+
+vim.opt.signcolumn = 'yes:1'
+
+vim.cmd('autocmd User TelescopePreviewerLoaded setlocal number')
+vim.cmd('autocmd FileType netrw setl bufhidden=delete')
+vim.cmd('let g:netrw_fastbrowse = 0')
+vim.cmd('let g:netrw_bufsettings = \'noma nomod nu nowrap ro nobl\'')
+vim.cmd('autocmd FileType netrw setlocal number')
+
+-- ----------------------------------------------------
+-- Custom Commands
+-- ----------------------------------------------------
+vim.api.nvim_create_user_command('E', 'e .env', {})
+
+
 require('lazy').setup({
   checker = {
     check_pinned = true
@@ -35,9 +106,6 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'AndrewRadev/tagalong.vim',
-  --
-  -- github plugin
-  -- 'tpope/vim-rhubarb',
 
   -- adds, replaces, removes surrounding pairs
   'tpope/vim-surround',
@@ -477,76 +545,6 @@ vim.cmd 'highlight BufferLineDevIconDefaultSelected ctermfg=66 guifg=#6d8086'
 vim.cmd 'highlight BufferLineDevIconDefaultInactive ctermfg=66 guifg=#6d8086'
 vim.cmd 'highlight BufferLineDevIconLuaSelected ctermfg=66 guifg=#6d8086'
 vim.cmd 'highlight BufferLineDevIconLuaInactive ctermfg=66 guifg=#6d8086'
-
--- ----------------------------------------------------
--- Options
--- ----------------------------------------------------
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-
--- Set highlight on search
-vim.o.hlsearch = false
-
--- Enable break indent
-vim.o.breakindent = true
-
-vim.opt.smartindent = true
-
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- For tab completion complete the longest common match then cycle through the matches
-vim.opt.wildmode = 'longest:full,full'
-
-vim.opt.title = true
-
-vim.opt.mouse = 'a'
-
-vim.opt.termguicolors = true
-
--- Search settings
-vim.opt.ignorecase = true
-vim.opt.smartcase = true -- case sensitive searches when there is a capital in the search
-
-vim.opt.list = true      -- enable the below listchars
-vim.opt.listchars = { tab = '▸ ', trail = '·' }
-
-vim.opt.fillchars:append({ eob = ' ' })
-
-vim.opt.splitright = true
-
-vim.opt.spell = true
-vim.opt.spelllang = 'en_us'
-vim.opt.spelloptions = 'camel'
-
-vim.opt.scrolloff = 100
-vim.opt.sidescrolloff = 100
-
-vim.opt.confirm = true        -- ask for confirmation instead of erring
-
-vim.opt.undofile = true       -- persistent undo
-
-vim.opt.backup = true         -- automatically save a backup file
-
-vim.opt.backupdir:remove('.') -- keep backups out of the current directory
-
-vim.opt.signcolumn = 'yes:1'
-
-vim.cmd('autocmd User TelescopePreviewerLoaded setlocal number')
-vim.cmd('autocmd FileType netrw setl bufhidden=delete')
-vim.cmd('let g:netrw_fastbrowse = 0')
-vim.cmd('let g:netrw_bufsettings = \'noma nomod nu nowrap ro nobl\'')
-vim.cmd('autocmd FileType netrw setlocal number')
-
--- ----------------------------------------------------
--- Custom Commands
--- ----------------------------------------------------
-vim.api.nvim_create_user_command('E', 'e .env', {})
 
 -- ----------------------------------------------------
 -- Key Bindings/Shortcuts/Keybinds
