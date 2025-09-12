@@ -1168,14 +1168,10 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  ["twiggy_language_server"] = {
-  },
-  intelephense = {
-  },
-  html = {
-  },
-  ["emmet_language_server"] = {
-  },
+  ["twiggy_language_server"] = {},
+  intelephense = {},
+  html = {},
+  ["emmet_language_server"] = {},
 }
 
 mason_lspconfig.setup {
