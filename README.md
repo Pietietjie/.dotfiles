@@ -31,7 +31,6 @@ sudo ./install
     - look at an alternative to vim pasta that does not break sometimes
     - [refactor plugin](https://github.com/ThePrimeagen/refactoring.nvim)
     - [trouble plugin](https://github.com/folke/trouble.nvim)
-    - Look at making undo tree prettier
     - Look at getting a [debugger for nvim](https://github.com/mfussenegger/nvim-dap)
     - Look at AI plugins [super maven](https://github.com/supermaven-inc/supermaven-nvim) & [avante](https://github.com/yetone/avante.nvim)
 - Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows)
