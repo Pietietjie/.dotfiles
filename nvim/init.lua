@@ -717,6 +717,9 @@ vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<leader>=", vim.lsp.buf.format, { desc = "Formats the entire buffer using the LSP's formatter" })
 vim.keymap.set("n", "<leader>_", "1z=", { desc = "Set the spelling error to the first correct option" })
 vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggles the [u]ndo [t]ree side bar" })
+vim.keymap.set('n', '<leader>yu', function()
+  vim.fn.setreg('+', vim.fn.expand('%:p'))
+end, { desc = 'Copy/[Y]ank current buffer path/[U]rl to system clipboard' })
 vim.keymap.set(
   { 'n', 'v' },
   'q:',
