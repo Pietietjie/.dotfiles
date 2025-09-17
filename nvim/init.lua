@@ -659,6 +659,57 @@ local function open_qf_buffers()
     vim.notify("All quickfix buffers are already open", vim.log.levels.INFO)
   end
 end
+local function randomString(chars, length)
+  local result = {}
+  math.randomseed(os.time())
+  for i = 1, length do
+    local randomIndex = math.random(1, #chars)
+    result[i] = chars:sub(randomIndex, randomIndex)
+  end
+  return table.concat(result)
+end
+-- from https://neovim.discourse.group/t/function-that-return-visually-selected-text/1601 @credit to https://github.com/kristijanhusak
+-- also fixed with https://www.reddit.com/r/neovim/comments/1b3uarv/trouble_getting_start_and_end_position_of_a/
+-- TODO improve this
+local function get_visual_selection()
+  local s_start = vim.fn.getpos("v")
+  local s_end = vim.fn.getpos(".")
+  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+  lines[1] = string.sub(lines[1], s_start[3], -1)
+  if n_lines == 1 then
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+  else
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+  end
+  return table.concat(lines, '\n')
+end
+
+local previousTelescopeMenuAction = nil;
+local previousTelescopeMenuShowHistory = true;
+local function telescope_menu_bind_n_and_v_mode(bindingInputVim, bindingAction, opt, dontShowPreviousHistory)
+  vim.keymap.set(
+    'n',
+    bindingInputVim,
+    function()
+      previousTelescopeMenuAction = bindingAction;
+      previousTelescopeMenuShowHistory = not dontShowPreviousHistory
+      bindingAction();
+    end,
+    opt
+  );
+  vim.keymap.set(
+    'v',
+    bindingInputVim,
+    function()
+      previousTelescopeMenuAction = bindingAction;
+      previousTelescopeMenuShowHistory = not dontShowPreviousHistory
+      bindingAction(get_visual_selection());
+    end,
+    opt
+  );
+end
+
 -- ----------------------------------------------------
 -- Key Bindings/Shortcuts/Keybinds
 -- ----------------------------------------------------
@@ -1006,46 +1057,6 @@ pcall(require('telescope').load_extension, 'smart_history')
 -- Enable telescope live grep args, if installed
 pcall(require('telescope').load_extension, 'live_grep_args')
 
--- from https://neovim.discourse.group/t/function-that-return-visually-selected-text/1601 @credit to https://github.com/kristijanhusak
--- also fixed with https://www.reddit.com/r/neovim/comments/1b3uarv/trouble_getting_start_and_end_position_of_a/
-local function get_visual_selection()
-  local s_start = vim.fn.getpos("v")
-  local s_end = vim.fn.getpos(".")
-  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
-  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
-  lines[1] = string.sub(lines[1], s_start[3], -1)
-  if n_lines == 1 then
-    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
-  else
-    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
-  end
-  return table.concat(lines, '\n')
-end
-
-local previousTelescopeMenuAction = nil;
-local previousTelescopeMenuShowHistory = true;
-local function telescope_menu_bind_n_and_v_mode(bindingInputVim, bindingAction, opt, dontShowPreviousHistory)
-  vim.keymap.set(
-    'n',
-    bindingInputVim,
-    function()
-      previousTelescopeMenuAction = bindingAction;
-      previousTelescopeMenuShowHistory = not dontShowPreviousHistory
-      bindingAction();
-    end,
-    opt
-  );
-  vim.keymap.set(
-    'v',
-    bindingInputVim,
-    function()
-      previousTelescopeMenuAction = bindingAction;
-      previousTelescopeMenuShowHistory = not dontShowPreviousHistory
-      bindingAction(get_visual_selection());
-    end,
-    opt
-  );
-end
 vim.keymap.set(
   'n',
   '<C-p>',
@@ -1483,15 +1494,6 @@ ls.add_snippets("twig", {
     t_node({ "", "</ol>" }),
   }),
 })
-local function randomString(chars, length)
-  local result = {}
-  math.randomseed(os.time())
-  for i = 1, length do
-    local randomIndex = math.random(1, #chars)
-    result[i] = chars:sub(randomIndex, randomIndex)
-  end
-  return table.concat(result)
-end
 ls.add_snippets("all", {
   s({ trig = "random string alpha num: (%d+)", regTrig = true }, {
     f_node(function(_, snip)
