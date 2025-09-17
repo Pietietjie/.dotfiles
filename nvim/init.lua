@@ -710,9 +710,13 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- made that capital c & d work as usual when prefaced with c or d
 vim.keymap.set("n", "dD", "D")
 vim.keymap.set("n", "cC", "C")
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- netrw keymap
+vim.keymap.set('n', '<leader>-', function() vim.cmd('Explore .') end, { desc = 'Open Netrw in the project root' })
 -- useless binding for useless plugin
 vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
-
 -- keybinding/keymaps that use the leader key
 vim.keymap.set("n", "<leader>=", vim.lsp.buf.format, { desc = "Formats the entire buffer using the LSP's formatter" })
 vim.keymap.set("n", "<leader>_", "1z=", { desc = "Set the spelling error to the first correct option" })
@@ -1197,11 +1201,6 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
-
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-vim.keymap.set('n', '<leader>-', function() vim.cmd('Explore .') end, { desc = 'Open Netrw in the project root' })
 
 -- [[ Configure LSP ]]
 -- Setup neovim lua configuration
