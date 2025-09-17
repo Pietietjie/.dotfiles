@@ -597,6 +597,69 @@ vim.cmd 'highlight BufferLineDevIconLuaSelected ctermfg=66 guifg=#6d8086'
 vim.cmd 'highlight BufferLineDevIconLuaInactive ctermfg=66 guifg=#6d8086'
 
 -- ----------------------------------------------------
+-- utility functions
+-- ----------------------------------------------------
+local function open_qf_buffers()
+  local qflist = vim.fn.getqflist()
+
+  if #qflist == 0 then
+    vim.notify("Quickfix list is empty", vim.log.levels.WARN)
+    return
+  end
+
+  local opened_count = 0
+  local buffers_opened = {}
+  local first_openened_buffer = nil
+
+  for _, entry in ipairs(qflist) do
+    if entry.bufnr and entry.bufnr > 0 then
+      -- Check if buffer is already loaded
+      if not vim.api.nvim_buf_is_loaded(entry.bufnr) then
+        -- Load the buffer
+        vim.api.nvim_buf_set_option(entry.bufnr, 'buflisted', true)
+        vim.fn.bufload(entry.bufnr)
+        opened_count = opened_count + 1
+        table.insert(buffers_opened, vim.api.nvim_buf_get_name(entry.bufnr))
+        if first_openened_buffer == nil then
+          first_openened_buffer = entry.bufnr;
+        end
+      end
+    elseif entry.filename and entry.filename ~= "" then
+      -- Handle case where bufnr might not be set but filename exists
+      local bufnr = vim.fn.bufnr(entry.filename)
+      if bufnr == -1 then
+        -- Create new buffer for the file
+        bufnr = vim.fn.bufnr(entry.filename, true)
+        vim.fn.bufload(bufnr)
+        opened_count = opened_count + 1
+        table.insert(buffers_opened, entry.filename)
+      elseif not vim.api.nvim_buf_is_loaded(bufnr) then
+        -- Load existing buffer
+        vim.fn.bufload(bufnr)
+        opened_count = opened_count + 1
+        table.insert(buffers_opened, entry.filename)
+      end
+    end
+  end
+
+  if opened_count > 0 then
+    vim.notify(string.format("Opened %d buffer(s) from quickfix list", opened_count), vim.log.levels.INFO)
+    -- Optionally print the list of opened buffers
+    if #buffers_opened > 0 then
+      print("Opened buffers:")
+      for _, buf in ipairs(buffers_opened) do
+        print("  " .. vim.fn.fnamemodify(buf, ":~:."))
+      end
+    end
+    if first_openened_buffer ~= nil then
+      vim.api.nvim_set_current_buf(first_openened_buffer);
+    end
+    vim.cmd('cclose')
+  else
+    vim.notify("All quickfix buffers are already open", vim.log.levels.INFO)
+  end
+end
+-- ----------------------------------------------------
 -- Key Bindings/Shortcuts/Keybinds
 -- ----------------------------------------------------
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
@@ -712,7 +775,8 @@ vim.keymap.set("n", "dD", "D")
 vim.keymap.set("n", "cC", "C")
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>qd', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>qa', open_qf_buffers, { desc = 'Open all buffers from quickfix list', silent = true })
 -- netrw keymap
 vim.keymap.set('n', '<leader>-', function() vim.cmd('Explore .') end, { desc = 'Open Netrw in the project root' })
 -- useless binding for useless plugin
