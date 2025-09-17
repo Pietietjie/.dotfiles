@@ -57,7 +57,7 @@ vim.opt.smartcase = true -- case sensitive searches when there is a capital in t
 vim.opt.list = true      -- enable the below listchars
 vim.opt.listchars = { tab = '▸ ', trail = '·' }
 
-vim.opt.fillchars:append({ eob = ' ' })
+vim.opt.fillchars:append('eob: ')
 
 vim.opt.splitright = true
 
@@ -1045,7 +1045,7 @@ require('telescope').setup {
 }
 vim.api.nvim_create_autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
-  callback = function(args)
+  callback = function()
     vim.wo.wrap = true
   end,
 })
@@ -1182,6 +1182,9 @@ require('tailwind-sorter').setup({
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
+  modules = {},
+  sync_install = false,
+  ignore_install = {},
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = {
     'bash',
