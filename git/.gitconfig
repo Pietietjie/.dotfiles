@@ -18,6 +18,7 @@
     chekcout = checkout
     brach = branch
     #shorthands one char
+    g = "!git $@ #"
     a = add-all
     b = branch
     c = "commit --verbose"
