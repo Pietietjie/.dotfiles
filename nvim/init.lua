@@ -1526,7 +1526,7 @@ ls.add_snippets("twig", {
   s("echo_all_vars", {
     t_node("<ol>"),
     t_node({ "", "    {% for key, value in _context  %}" }),
-    t_node({ "", "      <li>{{ key }}: {{ value | json_encode }}</li>" }),
+    t_node({ "", "      <li>{{ key }}: {{ value | json_encode(constant('JSON_PRETTY_PRINT')) }}</li>" }),
     t_node({ "", "    {% endfor %}" }),
     t_node({ "", "</ol>" }),
   }),
