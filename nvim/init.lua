@@ -147,6 +147,28 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'scheisa/relpointers.nvim',
+    config = function(self, opts)
+      require("relpointers").setup({
+        amount = 4,
+        distance = 5,
+
+        hl_properties = { underline = true },
+
+        pointer_style = "line region",
+
+        white_space_rendering = "\t\t\t\t\t",
+
+        virtual_pointer_position = -4,
+        virtual_pointer_text = "@",
+
+        enable_autocmd = true,
+        autocmd_pattern = "*",
+      })
+    end
+  },
+
   { 'sheerun/vim-polyglot' },
 
   -- Git related plugins
@@ -502,15 +524,15 @@ require('lazy').setup({
     'pocco81/auto-save.nvim',
     config = function()
       require("auto-save").setup({
-        enabled = true, -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
+        enabled = true,        -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
         execution_message = {
           message = function() -- message to print on save
             return (" 󱑆 " .. vim.fn.strftime("%H:%M:%S"))
           end,
-          dim = 0,                -- dim the color of `message`
-          cleaning_interval = 250,-- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
+          dim = 0,                 -- dim the color of `message`
+          cleaning_interval = 250, -- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
         },
-        trigger_events = {}, -- vim events that trigger auto-save. See :h events
+        trigger_events = {},       -- vim events that trigger auto-save. See :h events
         -- function that determines whether to save the current buffer or not
         -- return true: if buffer is ok to be saved
         -- return false: if it's not ok to be saved
@@ -520,18 +542,18 @@ require('lazy').setup({
           if
               fn.getbufvar(buf, "&modifiable") == 1 and
               utils.not_in(fn.getbufvar(buf, "&filetype"), {}) then
-            return true        -- met condition(s), can save
+            return true                -- met condition(s), can save
           end
-          return false         -- can't save
+          return false                 -- can't save
         end,
-        write_all_buffers = false, -- write all buffers when the current one meets `condition`
-        debounce_delay = 5000,  -- saves the file at most every `debounce_delay` milliseconds
-        callbacks = {          -- functions to be executed at different intervals
-          enabling = nil,      -- ran when enabling auto-save
-          disabling = nil,     -- ran when disabling auto-save
+        write_all_buffers = false,     -- write all buffers when the current one meets `condition`
+        debounce_delay = 5000,         -- saves the file at most every `debounce_delay` milliseconds
+        callbacks = {                  -- functions to be executed at different intervals
+          enabling = nil,              -- ran when enabling auto-save
+          disabling = nil,             -- ran when disabling auto-save
           before_asserting_save = nil, -- ran before checking `condition`
-          before_saving = nil, -- ran before doing the actual save
-          after_saving = nil   -- ran after doing the actual save
+          before_saving = nil,         -- ran before doing the actual save
+          after_saving = nil           -- ran after doing the actual save
         }
       })
     end
@@ -1532,42 +1554,42 @@ ls.add_snippets("twig", {
   }),
 })
 ls.add_snippets("javascript", {
-    s("cl", fmt("console.log({}){}", { i_node(1, "'💡'"), i_node(2) })),
-    s("ce", fmt("console.error({}){}", { i_node(1, "'❌'"), i_node(2) })),
-    s("cw", fmt("console.warn({}){}", { i_node(1, "'⚠️'"), i_node(2) })),
-    s("ci", fmt("console.info({}){}", { i_node(1, "'💬'"), i_node(2) })),
-    s("cd", fmt("console.debug({}){}", { i_node(1, "'🐞'"), i_node(2) })),
-    s("ct", fmt("console.trace({}){}", { i_node(1, "''"), i_node(2) })),
-    s("ca", fmt("console.assert({}, {}){}", { i_node(1), i_node(2, "'🤔'"), i_node(3) })),
-    s("cc", fmt("console.clear(){}", { i_node(1) })),
-    s("cco", fmt("console.count({}){}", { i_node(1, "'🔢'"), i_node(2) })),
-    s("ccr", fmt("console.countReset({}){}", { i_node(1, "'🔄'"), i_node(2) })),
-    s("cg", fmt("console.group({}){}", { i_node(1, "'👇'"), i_node(2) })),
-    s("cgc", fmt("console.groupCollapsed({}){}", { i_node(1, "'📁'"), i_node(2) })),
-    s("cge", fmt("console.groupEnd(){}", { i_node(1) })),
-    s("cta", fmt("console.table({}){}", { i_node(1, "'📊'"), i_node(2) })),
-    s("cti", fmt("console.time({}){}", { i_node(1, "'⏱️'"), i_node(2) })),
-    s("cte", fmt("console.timeEnd({}){}", { i_node(1, "'🏁'"), i_node(2) })),
-    s("ctl", fmt("console.timeLog({}){}", { i_node(1, "'⏳'"), i_node(2) })),
+  s("cl", fmt("console.log({}){}", { i_node(1, "'💡'"), i_node(2) })),
+  s("ce", fmt("console.error({}){}", { i_node(1, "'❌'"), i_node(2) })),
+  s("cw", fmt("console.warn({}){}", { i_node(1, "'⚠️'"), i_node(2) })),
+  s("ci", fmt("console.info({}){}", { i_node(1, "'💬'"), i_node(2) })),
+  s("cd", fmt("console.debug({}){}", { i_node(1, "'🐞'"), i_node(2) })),
+  s("ct", fmt("console.trace({}){}", { i_node(1, "''"), i_node(2) })),
+  s("ca", fmt("console.assert({}, {}){}", { i_node(1), i_node(2, "'🤔'"), i_node(3) })),
+  s("cc", fmt("console.clear(){}", { i_node(1) })),
+  s("cco", fmt("console.count({}){}", { i_node(1, "'🔢'"), i_node(2) })),
+  s("ccr", fmt("console.countReset({}){}", { i_node(1, "'🔄'"), i_node(2) })),
+  s("cg", fmt("console.group({}){}", { i_node(1, "'👇'"), i_node(2) })),
+  s("cgc", fmt("console.groupCollapsed({}){}", { i_node(1, "'📁'"), i_node(2) })),
+  s("cge", fmt("console.groupEnd(){}", { i_node(1) })),
+  s("cta", fmt("console.table({}){}", { i_node(1, "'📊'"), i_node(2) })),
+  s("cti", fmt("console.time({}){}", { i_node(1, "'⏱️'"), i_node(2) })),
+  s("cte", fmt("console.timeEnd({}){}", { i_node(1, "'🏁'"), i_node(2) })),
+  s("ctl", fmt("console.timeLog({}){}", { i_node(1, "'⏳'"), i_node(2) })),
 })
 ls.add_snippets("typescript", {
-    s("cl", fmt("console.log({}){}", { i_node(1, "'✨'"), i_node(2) })),
-    s("ce", fmt("console.error({}){}", { i_node(1, "'💥'"), i_node(2) })),
-    s("cw", fmt("console.warn({}){}", { i_node(1, "'🚧'"), i_node(2) })),
-    s("ci", fmt("console.info({}){}", { i_node(1, "'📝'"), i_node(2) })),
-    s("cd", fmt("console.debug({}){}", { i_node(1, "'🐛'"), i_node(2) })),
-    s("ct", fmt("console.trace({}){}", { i_node(1, "''"), i_node(2) })),
-    s("ca", fmt("console.assert({}, {}){}", { i_node(1), i_node(2, "'❓'"), i_node(3) })),
-    s("cc", fmt("console.clear(){}", { i_node(1) })),
-    s("cco", fmt("console.count({}){}", { i_node(1, "'💯'"), i_node(2) })),
-    s("ccr", fmt("console.countReset({}){}", { i_node(1, "'↩️'"), i_node(2) })),
-    s("cg", fmt("console.group({}){}", { i_node(1, "'⬇️'"), i_node(2) })),
-    s("cgc", fmt("console.groupCollapsed({}){}", { i_node(1, "'🗂️'"), i_node(2) })),
-    s("cge", fmt("console.groupEnd(){}", { i_node(1) })),
-    s("cta", fmt("console.table({}){}", { i_node(1, "'📈'"), i_node(2) })),
-    s("cti", fmt("console.time({}){}", { i_node(1, "'⏰'"), i_node(2) })),
-    s("cte", fmt("console.timeEnd({}){}", { i_node(1, "'✅'"), i_node(2) })),
-    s("ctl", fmt("console.timeLog({}){}", { i_node(1, "'⌛'"), i_node(2) })),
+  s("cl", fmt("console.log({}){}", { i_node(1, "'✨'"), i_node(2) })),
+  s("ce", fmt("console.error({}){}", { i_node(1, "'💥'"), i_node(2) })),
+  s("cw", fmt("console.warn({}){}", { i_node(1, "'🚧'"), i_node(2) })),
+  s("ci", fmt("console.info({}){}", { i_node(1, "'📝'"), i_node(2) })),
+  s("cd", fmt("console.debug({}){}", { i_node(1, "'🐛'"), i_node(2) })),
+  s("ct", fmt("console.trace({}){}", { i_node(1, "''"), i_node(2) })),
+  s("ca", fmt("console.assert({}, {}){}", { i_node(1), i_node(2, "'❓'"), i_node(3) })),
+  s("cc", fmt("console.clear(){}", { i_node(1) })),
+  s("cco", fmt("console.count({}){}", { i_node(1, "'💯'"), i_node(2) })),
+  s("ccr", fmt("console.countReset({}){}", { i_node(1, "'↩️'"), i_node(2) })),
+  s("cg", fmt("console.group({}){}", { i_node(1, "'⬇️'"), i_node(2) })),
+  s("cgc", fmt("console.groupCollapsed({}){}", { i_node(1, "'🗂️'"), i_node(2) })),
+  s("cge", fmt("console.groupEnd(){}", { i_node(1) })),
+  s("cta", fmt("console.table({}){}", { i_node(1, "'📈'"), i_node(2) })),
+  s("cti", fmt("console.time({}){}", { i_node(1, "'⏰'"), i_node(2) })),
+  s("cte", fmt("console.timeEnd({}){}", { i_node(1, "'✅'"), i_node(2) })),
+  s("ctl", fmt("console.timeLog({}){}", { i_node(1, "'⌛'"), i_node(2) })),
 })
 ls.add_snippets("all", {
   s({ trig = "random string alpha num: (%d+)", regTrig = true }, {

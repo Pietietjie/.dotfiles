@@ -29,6 +29,7 @@
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
   "pretty-fold.nvim": { "branch": "master", "commit": "1eb18f228972e86b7b8f5ef33ca8091e53fb1e49" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "011d98eaa3a73b5a51d82ce5bc6b1397dde95562" },
+  "relpointers.nvim": { "branch": "main", "commit": "0d82fc87facb61f286c3e053791150fe33413c53" },
   "sqlite.lua": { "branch": "master", "commit": "b487fcc8937b683942a1f7d9662fcf50ca5acd58" },
   "tagalong.vim": { "branch": "main", "commit": "5a2bbf2b1d5b657685a49d48d98a4aa921c1fde3" },
   "tailwind-sorter.nvim": { "branch": "main", "commit": "717e5c9761ed8334dadbb9357df7d826aae97b92" },
