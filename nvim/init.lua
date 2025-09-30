@@ -147,28 +147,6 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'scheisa/relpointers.nvim',
-    config = function(self, opts)
-      require("relpointers").setup({
-        amount = 4,
-        distance = 5,
-
-        hl_properties = { underline = true },
-
-        pointer_style = "line region",
-
-        white_space_rendering = "\t\t\t\t\t",
-
-        virtual_pointer_position = -4,
-        virtual_pointer_text = "@",
-
-        enable_autocmd = true,
-        autocmd_pattern = "*",
-      })
-    end
-  },
-
   { 'sheerun/vim-polyglot' },
 
   -- Git related plugins
