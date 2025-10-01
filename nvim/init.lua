@@ -1636,6 +1636,39 @@ cmp.setup {
   },
 }
 
+-- make that vinegar opens netrw over the current buffer
+local last_active_file = nil
+-- Autocommand to store the last active file when leaving a buffer
+vim.api.nvim_create_autocmd("BufLeave", {
+  group = vim.api.nvim_create_augroup("NetrwCursor", { clear = true }),
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    if vim.bo[bufnr].buftype == "" and vim.bo[bufnr].modifiable then
+      last_active_file = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ":p")
+    end
+  end,
+})
+-- Autocommand to position the cursor in netrw when it opens
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("NetrwCursor", { clear = false }),
+  pattern = "netrw",
+  callback = function()
+    if last_active_file then
+      local current_netrw_dir = vim.fn.expand("%:p")
+      local last_file_dir = vim.fn.fnamemodify(last_active_file, ":h")
+
+      -- Only try to position if the last active file is in the current netrw directory
+      if current_netrw_dir == last_file_dir then
+        local filename = vim.fn.fnamemodify(last_active_file, ":t")
+        -- Search for the filename in the netrw buffer and move the cursor
+        vim.cmd("normal! /" .. vim.fn.escape(filename, "/") .. "\\<CR>")
+        -- Move to the start of the line (after potential icons/indentation)
+        vim.cmd("normal! ^")
+      end
+    end
+  end,
+})
+
 -- cloak config
 require('cloak').setup({
   enabled = true,
