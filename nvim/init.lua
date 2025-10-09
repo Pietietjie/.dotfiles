@@ -1488,6 +1488,7 @@ ls.add_snippets("gitcommit", {
   s(":authentication:", fmt("🛂{}", { i_node(1) })),
   s(":simple_fix:", fmt("🩹{}", { i_node(1) })),
   s(":data_exploration:", fmt("🧐{}", { i_node(1) })),
+  s(":debug:", fmt("🐞{}", { i_node(1) })),
   s(":dead_code:", fmt("⚰️{}", { i_node(1) })),
   s(":add_failing_test:", fmt("🧪{}", { i_node(1) })),
   s(":business_logic:", fmt("👔{}", { i_node(1) })),
