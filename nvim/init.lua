@@ -152,11 +152,6 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
 
-  {
-    'AndrewRadev/tagalong.vim',
-    event = "VeryLazy",
-  },
-
   -- adds, replaces, removes surrounding pairs
   {
     'tpope/vim-surround',
