@@ -65,6 +65,12 @@
     fz-srr = fzf-srr
     fz-rr = fzf-rr
     fz-rm = fzf-rm
+    f-rb = fzf-rb
+    f-m = fzf-m
+    f-a =  fzf-a
+    f-srr = fzf-srr
+    f-rr = fzf-rr
+    f-rm = fzf-rm
 [core]
     editor = nvim
 [diff]
