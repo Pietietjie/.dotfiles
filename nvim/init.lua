@@ -1512,6 +1512,13 @@ ls.add_snippets("php", {
     t_node("]);"),
     t_node({ "", "die;" }),
   }),
+  s("echo_print_r_no_die", {
+    t_node("echo '<pre>';"),
+    t_node({ "", "print_r([" }),
+    i_node(0),
+    t_node("]);"),
+    t_node({ "", "echo '</pre>';" }),
+  }),
   s("$placeholders =", {
     t_node("$placeholders = '(' . implode(',', array_fill(0, count("),
     i_node(0),
