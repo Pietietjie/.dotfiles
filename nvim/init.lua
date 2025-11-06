@@ -1505,14 +1505,14 @@ ls.add_snippets("php", {
   s("$app =", {
     t_node("$app = Wow_Application::getInstance();"),
   }),
-  s("echo_print_r", {
+  s("echo_print_r_die", {
     t_node("echo '<pre>';"),
     t_node({ "", "print_r([" }),
     i_node(0),
     t_node("]);"),
     t_node({ "", "die;" }),
   }),
-  s("echo_print_r_no_die", {
+  s("echo_print_r", {
     t_node("echo '<pre>';"),
     t_node({ "", "print_r([" }),
     i_node(0),
