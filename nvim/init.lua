@@ -462,12 +462,6 @@ require('lazy').setup({
     end
   },
 
-  -- copy paste intent fix
-  {
-    'sickill/vim-pasta',
-    event = "VeryLazy",
-  },
-
   -- allows easier custom text objects
   -- https://github.com/kana/vim-textobj-user/wiki
   {
