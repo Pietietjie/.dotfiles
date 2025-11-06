@@ -1447,6 +1447,7 @@ ls.add_snippets("gitcommit", {
   s(":internationalization:", fmt("🌐{}", { i_node(1) })),
   s(":i18n:", fmt("🌐{}", { i_node(1) })),
   s(":typo:", fmt("✏️{}", { i_node(1) })),
+  s(":fix_spelling_mistake:", fmt("✏️{}", { i_node(1) })),
   s(":revert:", fmt("⏪{}", { i_node(1) })),
   s(":remove_linter_warning:", fmt("🚨{}", { i_node(1) })),
   s(":fix_ci:", fmt("💚{}", { i_node(1) })),
