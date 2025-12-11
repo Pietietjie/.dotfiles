@@ -1331,74 +1331,74 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
+local lspconfigOnAttach = function(_, bufnr)
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
+
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
+
+  nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
+  nmap('<leader>sa', vim.lsp.buf.code_action, 'L[s]P code [a]ction')
+
+  nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
+  nmap('grr', vim.lsp.buf.references, '[g]oto quicklist [r]eferences')
+  nmap(
+    'grs',
+    function()
+      require('telescope.builtin').lsp_references({ initial_mode = "normal" })
+    end,
+    '[g]oto tele[s]cope references'
+  )
+  nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
+  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap(
+    '<leader>sy',
+    function()
+      require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" })
+    end,
+    'Tele[s]cope Document S[y]mbols'
+  )
+  nmap(
+    '<leader>swy',
+    function()
+      require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" })
+    end,
+    'Tele[s]cope [w]orkspace S[y]mbols'
+  )
+
+  -- See `:help K` for why this keymap
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+  -- Lesser used LSP functionality
+  nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
+  nmap('<leader>wd', vim.lsp.buf.add_workspace_folder, '[w]orkspace [d]ir/folder add')
+  nmap('<leader>wdr', vim.lsp.buf.remove_workspace_folder, '[w]orkspace [d]ir/folder [r]emove')
+  nmap(
+    '<leader>wl',
+    function()
+      vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end,
+    '[w]orkspace [d]ir/folder [l]ist'
+  )
+
+  -- Create a command `:Format` local to the LSP buffer
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    vim.lsp.buf.format()
+  end, { desc = 'Format current buffer with LSP' })
+end
 local lspconfig = require('lspconfig');
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    lspconfig[server_name].setup {
-      capabilities = capabilities,
-      on_attach = function(_, bufnr)
-        local nmap = function(keys, func, desc)
-          if desc then
-            desc = 'LSP: ' .. desc
-          end
 
-          vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-        end
-
-        nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
-        nmap('<leader>sa', vim.lsp.buf.code_action, 'L[s]P code [a]ction')
-
-        nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
-        nmap('grr', vim.lsp.buf.references, '[g]oto quicklist [r]eferences')
-        nmap(
-          'grs',
-          function()
-            require('telescope.builtin').lsp_references({ initial_mode = "normal" })
-          end,
-          '[g]oto tele[s]cope references'
-        )
-        nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
-        nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-        nmap(
-          '<leader>sy',
-          function()
-            require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" })
-          end,
-          'Tele[s]cope Document S[y]mbols'
-        )
-        nmap(
-          '<leader>swy',
-          function()
-            require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" })
-          end,
-          'Tele[s]cope [w]orkspace S[y]mbols'
-        )
-
-        -- See `:help K` for why this keymap
-        nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-        nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-        -- Lesser used LSP functionality
-        nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
-        nmap('<leader>wd', vim.lsp.buf.add_workspace_folder, '[w]orkspace [d]ir/folder add')
-        nmap('<leader>wdr', vim.lsp.buf.remove_workspace_folder, '[w]orkspace [d]ir/folder [r]emove')
-        nmap(
-          '<leader>wl',
-          function()
-            vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end,
-          '[w]orkspace [d]ir/folder [l]ist'
-        )
-
-        -- Create a command `:Format` local to the LSP buffer
-        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-          vim.lsp.buf.format()
-        end, { desc = 'Format current buffer with LSP' })
-      end,
-      settings = servers[server_name],
+for server_name, server_settings in pairs(servers) do
+    require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = lspconfigOnAttach,
+        settings = server_settings, -- Use the specific settings for this server
     }
-  end,
-}
+end
 
 lspconfig.html.setup({
   filetypes = { "html", "templ", "twig" },
