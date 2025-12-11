@@ -1322,69 +1322,16 @@ local servers = {
     },
   },
   ["twiggy_language_server"] = {
-    filetypes = { "twig" },
+    twiggy = {
+      framework = "ignore",
+      symfony = false,
+      phpBin = false
+    }
   },
   intelephense = {},
-  html = {
-    filetypes = { "html", "templ", "twig" },
-  },
-  ["tailwindcss"] = {
-    filetypes = {
-      "aspnetcorerazor",
-      "astro",
-      "astro-markdown",
-      "blade",
-      "clojure",
-      "django-html",
-      "htmldjango",
-      "edge",
-      "eelixir",
-      "elixir",
-      "ejs",
-      "erb",
-      "eruby",
-      "gohtml",
-      "gohtmltmpl",
-      "haml",
-      "handlebars",
-      "hbs",
-      "html",
-      "htmlangular",
-      "html-eex",
-      "heex",
-      "jade",
-      "leaf",
-      "liquid",
-      "markdown",
-      "mdx",
-      "mustache",
-      "njk",
-      "nunjucks",
-      "php",
-      "razor",
-      "slim",
-      "twig",
-      "css",
-      "less",
-      "postcss",
-      "sass",
-      "scss",
-      "stylus",
-      "sugarss",
-      "javascript",
-      "javascriptreact",
-      "reason",
-      "rescript",
-      "typescript",
-      "typescriptreact",
-      "vue",
-      "svelte",
-      "templ"
-    },
-  },
-  ["emmet_language_server"] = {
-    filetypes = { "css", "eruby", "html", "htmldjango", "javascriptreact", "less", "pug", "sass", "scss", "typescriptreact", "htmlangular", "twig" },
-  },
+  html = {},
+  ["tailwindcss"] = {},
+  ["emmet_language_server"] = {},
 }
 
 mason_lspconfig.setup {
@@ -1459,7 +1406,72 @@ for server_name, server_settings in pairs(servers) do
   })
 end
 
+vim.lsp.config("twiggy_language_server", {
+  filetypes = { "twig", "html.twig" },
+  init_options = {
+    framework = "none"
+  }
+})
+vim.lsp.config("tailwindcss", {
+  filetypes = {
+    "aspnetcorerazor",
+    "astro",
+    "astro-markdown",
+    "blade",
+    "clojure",
+    "django-html",
+    "htmldjango",
+    "edge",
+    "eelixir",
+    "elixir",
+    "ejs",
+    "erb",
+    "eruby",
+    "gohtml",
+    "gohtmltmpl",
+    "haml",
+    "handlebars",
+    "hbs",
+    "html",
+    "htmlangular",
+    "html-eex",
+    "heex",
+    "jade",
+    "leaf",
+    "liquid",
+    "markdown",
+    "mdx",
+    "mustache",
+    "njk",
+    "nunjucks",
+    "php",
+    "razor",
+    "slim",
+    "twig",
+    "html.twig",
+    "css",
+    "less",
+    "postcss",
+    "sass",
+    "scss",
+    "stylus",
+    "sugarss",
+    "javascript",
+    "javascriptreact",
+    "reason",
+    "rescript",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "svelte",
+    "templ"
+  },
+})
 vim.lsp.config("html", {
+  filetypes = { "html", "templ", "twig", "html.twig" },
+})
+vim.lsp.config("emmet_language_server", {
+  filetypes = { "css", "eruby", "html", "htmldjango", "javascriptreact", "less", "pug", "sass", "scss", "typescriptreact", "htmlangular", "twig", "html.twig" },
 })
 
 -- [[ Configure nvim-cmp ]]
