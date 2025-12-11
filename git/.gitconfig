@@ -28,6 +28,7 @@
     s = "! git status -s"
     r = reset
     #other shorthands
+    dot = dotfiles
     ac = add-all-and-commit
     amend = commit --amend
     b-cln = clean-branches
