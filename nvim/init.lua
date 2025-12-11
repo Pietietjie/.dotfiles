@@ -1321,10 +1321,70 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  ["twiggy_language_server"] = {},
+  ["twiggy_language_server"] = {
+    filetypes = { "twig" },
+  },
   intelephense = {},
-  html = {},
-  ["emmet_language_server"] = {},
+  html = {
+    filetypes = { "html", "templ", "twig" },
+  },
+  ["tailwindcss"] = {
+    filetypes = {
+      "aspnetcorerazor",
+      "astro",
+      "astro-markdown",
+      "blade",
+      "clojure",
+      "django-html",
+      "htmldjango",
+      "edge",
+      "eelixir",
+      "elixir",
+      "ejs",
+      "erb",
+      "eruby",
+      "gohtml",
+      "gohtmltmpl",
+      "haml",
+      "handlebars",
+      "hbs",
+      "html",
+      "htmlangular",
+      "html-eex",
+      "heex",
+      "jade",
+      "leaf",
+      "liquid",
+      "markdown",
+      "mdx",
+      "mustache",
+      "njk",
+      "nunjucks",
+      "php",
+      "razor",
+      "slim",
+      "twig",
+      "css",
+      "less",
+      "postcss",
+      "sass",
+      "scss",
+      "stylus",
+      "sugarss",
+      "javascript",
+      "javascriptreact",
+      "reason",
+      "rescript",
+      "typescript",
+      "typescriptreact",
+      "vue",
+      "svelte",
+      "templ"
+    },
+  },
+  ["emmet_language_server"] = {
+    filetypes = { "css", "eruby", "html", "htmldjango", "javascriptreact", "less", "pug", "sass", "scss", "typescriptreact", "htmlangular", "twig" },
+  },
 }
 
 mason_lspconfig.setup {
@@ -1390,21 +1450,16 @@ local lspconfigOnAttach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
-local lspconfig = require('lspconfig');
 
 for server_name, server_settings in pairs(servers) do
-    require('lspconfig')[server_name].setup {
-        capabilities = capabilities,
-        on_attach = lspconfigOnAttach,
-        settings = server_settings, -- Use the specific settings for this server
-    }
+  vim.lsp.config(server_name, {
+    capabilities = capabilities,
+    on_attach = lspconfigOnAttach,
+    settings = server_settings,
+  })
 end
 
-lspconfig.html.setup({
-  filetypes = { "html", "templ", "twig" },
-})
-lspconfig.emmet_language_server.setup({
-  filetypes = { "css", "eruby", "html", "htmldjango", "javascriptreact", "less", "pug", "sass", "scss", "typescriptreact", "htmlangular", "twig" },
+vim.lsp.config("html", {
 })
 
 -- [[ Configure nvim-cmp ]]
