@@ -58,6 +58,8 @@ fi
 if command -v npm &> /dev/null; then
     if ! npm list -g neovim &> /dev/null; then
         npm install -g neovim;
+    else
+        npm update -g neovim;
     fi
 fi
 
