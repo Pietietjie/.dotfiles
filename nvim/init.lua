@@ -7,39 +7,10 @@ if (string.find(vim.loop.os_uname().sysname, "indows")) then
 end
 
 local function get_visual_selection()
-  local start_pos = vim.fn.getpos("'<")
-  local end_pos = vim.fn.getpos("'>")
-
-  if not start_pos or not end_pos then
-    l.error("Could not find any selection (wrong mode)")
-    return ""
+  if vim.api.nvim_get_mode().mode == "v" or vim.api.nvim_get_mode().mode == "V" then
+    vim.cmd.normal('y')
+    return vim.fn.getreg('"');
   end
-
-  local start_line, start_col = start_pos[2], start_pos[3]
-  local end_line, end_col = end_pos[2], end_pos[3]
-
-  if not (start_line and start_col and end_line and end_col) then
-    l.error("Could not find any selection (malformed)")
-    return ""
-  end
-
-  local lines = vim.fn.getline(start_line, end_line)
-  if #lines == 0 then
-    l.error("Could not find any selection (lines null)")
-    l.info(lines)
-    l.info(start_pos)
-    l.info(end_pos)
-    return ""
-  end
-
-  if #lines == 1 then
-    lines[1] = string.sub(lines[1], start_col, end_col)
-  else
-    lines[1] = string.sub(lines[1], start_col)
-    lines[#lines] = string.sub(lines[#lines], 1, end_col)
-  end
-
-  return table.concat(lines, "\n")
 end
 
 -- Install package manager
@@ -920,7 +891,8 @@ vim.keymap.set({ 'n', 'v' }, '<leader>c', '"_c', { desc = '[c]hange without copy
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = '[d]elete without copying' })
 vim.keymap.set({ 'n', 'v' }, '<leader>D', '"_d$', { desc = '[D]elete without copying until the end of the line' })
 vim.keymap.set('v', '<leader>p', '"_c<C-r>"<ESC>', { desc = '[P]astes over without copying' })
-vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = '[y]anks into system clipboard' })
+vim.keymap.set({ 'n' }, '<leader>y', '"+y', { desc = '[y]anks into system clipboard' })
+vim.keymap.set({  'v' }, '<leader>yy', '"+y', { desc = '[y]anks into system clipboard' })
 vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$', { desc = '[Y]anks into system clipboard until the end of the line' })
 vim.keymap.set(
   { 'n', 'v' },
