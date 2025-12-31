@@ -1,8 +1,45 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+l = require('pietietjie.loggers')
 -- if windows use the chocolatey sqlite package
 if (string.find(vim.loop.os_uname().sysname, "indows")) then
   vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
+end
+
+local function get_visual_selection()
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
+
+  if not start_pos or not end_pos then
+    l.error("Could not find any selection (wrong mode)")
+    return ""
+  end
+
+  local start_line, start_col = start_pos[2], start_pos[3]
+  local end_line, end_col = end_pos[2], end_pos[3]
+
+  if not (start_line and start_col and end_line and end_col) then
+    l.error("Could not find any selection (malformed)")
+    return ""
+  end
+
+  local lines = vim.fn.getline(start_line, end_line)
+  if #lines == 0 then
+    l.error("Could not find any selection (lines null)")
+    l.info(lines)
+    l.info(start_pos)
+    l.info(end_pos)
+    return ""
+  end
+
+  if #lines == 1 then
+    lines[1] = string.sub(lines[1], start_col, end_col)
+  else
+    lines[1] = string.sub(lines[1], start_col)
+    lines[#lines] = string.sub(lines[#lines], 1, end_col)
+  end
+
+  return table.concat(lines, "\n")
 end
 
 -- Install package manager
@@ -626,7 +663,7 @@ local function open_qf_buffers()
   local qflist = vim.fn.getqflist()
 
   if #qflist == 0 then
-    vim.notify("Quickfix list is empty", vim.log.levels.WARN)
+    l.warn("Quickfix list is empty")
     return
   end
 
@@ -666,12 +703,12 @@ local function open_qf_buffers()
   end
 
   if opened_count > 0 then
-    vim.notify(string.format("Opened %d buffer(s) from quickfix list", opened_count), vim.log.levels.INFO)
+    l.info(string.format("Opened %d buffer(s) from quickfix list", opened_count))
     -- Optionally print the list of opened buffers
     if #buffers_opened > 0 then
-      print("Opened buffers:")
+      l.info("Opened buffers:")
       for _, buf in ipairs(buffers_opened) do
-        print("  " .. vim.fn.fnamemodify(buf, ":~:."))
+        l.info("  " .. vim.fn.fnamemodify(buf, ":~:."))
       end
     end
     if first_openened_buffer ~= nil then
@@ -679,7 +716,7 @@ local function open_qf_buffers()
     end
     vim.cmd('cclose')
   else
-    vim.notify("All quickfix buffers are already open", vim.log.levels.INFO)
+    l.info("All quickfix buffers are already open")
   end
 end
 local function randomString(chars, length)
@@ -690,22 +727,6 @@ local function randomString(chars, length)
     result[i] = chars:sub(randomIndex, randomIndex)
   end
   return table.concat(result)
-end
--- from https://neovim.discourse.group/t/function-that-return-visually-selected-text/1601 @credit to https://github.com/kristijanhusak
--- also fixed with https://www.reddit.com/r/neovim/comments/1b3uarv/trouble_getting_start_and_end_position_of_a/
--- TODO improve this
-local function get_visual_selection()
-  local s_start = vim.fn.getpos("v")
-  local s_end = vim.fn.getpos(".")
-  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
-  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
-  lines[1] = string.sub(lines[1], s_start[3], -1)
-  if n_lines == 1 then
-    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
-  else
-    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
-  end
-  return table.concat(lines, '\n')
 end
 
 local previousTelescopeMenuAction = nil;
@@ -859,9 +880,32 @@ vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<leader>=", vim.lsp.buf.format, { desc = "Formats the entire buffer using the LSP's formatter" })
 vim.keymap.set("n", "<leader>_", "1z=", { desc = "Set the spelling error to the first correct option" })
 vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggles the [u]ndo [t]ree side bar" })
-vim.keymap.set('n', '<leader>yu', function()
+vim.keymap.set({ "n", "v" }, '<leader>ym', function()
+  if vim.api.nvim_get_mode().mode == "v" or vim.api.nvim_get_mode().mode == "V" then
+    local content = get_visual_selection()
+    if not content then
+      l.info('nothing selected')
+    else
+      local wrapped = '```' .. vim.fn.expand('%:.') .. '\n' .. content .. '\n```'
+      vim.fn.setreg('+', wrapped)
+      l.info('Selection yanked to clipboard with markdown code block')
+    end
+  else
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    local content = table.concat(lines, '\n')
+    local wrapped = '```' .. vim.fn.expand('%:.') .. '\n' .. content .. '\n```'
+    vim.fn.setreg('+', wrapped)
+    l.info('File yanked to clipboard with markdown code block')
+  end
+end, { desc = '[Y]ank [F]ile all with [M]arkdown code block to clipboard' })
+vim.keymap.set('n', '<leader>yn', function()
+  vim.fn.setreg('+', vim.fn.expand('%:.'))
+  l.info('Relative file path yanked to clipboard')
+end, { desc = 'Copy/[Y]ank current buffer\'s file [N]ame' })
+vim.keymap.set('n', '<leader>yp', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
-end, { desc = 'Copy/[Y]ank current buffer path/[U]rl to system clipboard' })
+  l.info('Absolute file path yanked to clipboard')
+end, { desc = 'Copy/[Y]ank current buffer\'s file [P]ath' })
 vim.keymap.set(
   { 'n', 'v' },
   'q:',
@@ -1387,7 +1431,7 @@ local lspconfigOnAttach = function(_, bufnr)
   nmap(
     '<leader>wl',
     function()
-      vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+      l.info(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end,
     '[w]orkspace [d]ir/folder [l]ist'
   )
