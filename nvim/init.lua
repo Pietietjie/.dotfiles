@@ -857,7 +857,7 @@ vim.keymap.set({ "n", "v" }, '<leader>ym', function()
     if not content then
       l.info('nothing selected')
     else
-      local wrapped = '```' .. vim.fn.expand('%:.') .. '\n' .. content .. '\n```'
+      local wrapped = '\n```' .. vim.fn.expand('%:.') .. '\n' .. content .. '\n```'
       vim.fn.setreg('+', wrapped)
       l.info('Selection yanked to clipboard with markdown code block')
     end
