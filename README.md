@@ -26,6 +26,7 @@ sudo ./install
 ## TODO
 - NVIM:
     - Make that the `]b` & `[b` work with number e.g. `2[b`
+    - add spelling mistakes to the lua line bar
     - fix emojis breaking the spacing on windows (😔)
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - look into polyglot
