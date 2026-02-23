@@ -768,75 +768,75 @@ local make_repeatable_move_pair = function (forward_move_fn, backward_move_fn)
 end
 
 local next_diagnostic, prev_diagnostic = make_repeatable_move_pair(
-  vim.diagnostic.goto_next,
-  vim.diagnostic.goto_prev
+  function() vim.diagnostic.jump({ count = vim.v.count1, float=true }) end,
+  function() vim.diagnostic.jump({ count = vim.v.count1 * -1, float=true }) end
 )
 vim.keymap.set('n', '[d', prev_diagnostic, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', next_diagnostic, { desc = 'Go to next diagnostic message' })
 
 local next_buffer, prev_buffer = make_repeatable_move_pair(
-  function() vim.cmd('bnext') end,
-  function() vim.cmd('bprevious') end
+    function() vim.cmd(string.format("%dbnext", vim.v.count1)) end,
+    function() vim.cmd(string.format("%dbprevious", vim.v.count1)) end
 )
-vim.keymap.set('n', ']b', next_buffer, { desc = 'Next buffer' })
 local first_buffer, last_buffer = make_repeatable_move_pair(
   function() vim.cmd('blast') end,
   function() vim.cmd('bfirst') end
 )
 vim.keymap.set('n', ']B', first_buffer, { desc = 'Last buffer' })
 vim.keymap.set('n', '[B', last_buffer, { desc = 'First buffer' })
+vim.keymap.set('n', ']b', next_buffer, { desc = 'Next buffer' })
 vim.keymap.set('n', '[b', prev_buffer, { desc = 'Previous buffer' })
 
 local next_qf, prev_qf = make_repeatable_move_pair(
-  function() vim.cmd('cnext') end,
-  function() vim.cmd('cprevious') end
+  function() vim.cmd(string.format('%dcnext', vim.v.count1)) end,
+  function() vim.cmd(string.format('%dcprevious', vim.v.count1)) end
 )
-vim.keymap.set('n', ']q', next_qf, { desc = 'Next quickfix' })
-vim.keymap.set('n', '[q', prev_qf, { desc = 'Previous quickfix' })
 local first_qf, last_qf = make_repeatable_move_pair(
   function() vim.cmd('clast') end,
   function() vim.cmd('cfirst') end
 )
 vim.keymap.set('n', ']Q', first_qf, { desc = 'Last quickfix' })
 vim.keymap.set('n', '[Q', last_qf, { desc = 'First quickfix' })
+vim.keymap.set('n', ']q', next_qf, { desc = 'Next quickfix' })
+vim.keymap.set('n', '[q', prev_qf, { desc = 'Previous quickfix' })
 
 local next_loc, prev_loc = make_repeatable_move_pair(
-  function() vim.cmd('lnext') end,
-  function() vim.cmd('lprevious') end
+  function() vim.cmd(string.format('%dlnext', vim.v.count1)) end,
+  function() vim.cmd(string.format('%dlprevious', vim.v.count1)) end
 )
-vim.keymap.set('n', ']l', next_loc, { desc = 'Next location list' })
-vim.keymap.set('n', '[l', prev_loc, { desc = 'Previous location list' })
 local first_loc_list, last_loc_list = make_repeatable_move_pair(
   function() vim.cmd('llast') end,
   function() vim.cmd('lfirst') end
 )
 vim.keymap.set('n', ']L', first_loc_list, { desc = 'Last location list' })
 vim.keymap.set('n', '[L', last_loc_list, { desc = 'First location list' })
+vim.keymap.set('n', ']l', next_loc, { desc = 'Next location list' })
+vim.keymap.set('n', '[l', prev_loc, { desc = 'Previous location list' })
 
 local next_arg, prev_arg = make_repeatable_move_pair(
-  function() vim.cmd('next') end,
-  function() vim.cmd('previous') end
+  function() vim.cmd(string.format('%dnext', vim.v.count1)) end,
+  function() vim.cmd(string.format('%dprevious', vim.v.count1)) end
 )
 vim.keymap.set('n', ']a', next_arg, { desc = 'Next argument' })
 vim.keymap.set('n', '[a', prev_arg, { desc = 'Previous argument' })
 
 local next_tag, prev_tag = make_repeatable_move_pair(
-  function() vim.cmd('tnext') end,
-  function() vim.cmd('tprevious') end
+  function() vim.cmd(string.format('%dtnext', vim.v.count1)) end,
+  function() vim.cmd(string.format('%dtprevious', vim.v.count1)) end
 )
 vim.keymap.set('n', ']t', next_tag, { desc = 'Next tag' })
 vim.keymap.set('n', '[t', prev_tag, { desc = 'Previous tag' })
 
 local next_hunk, prev_hunk = make_repeatable_move_pair(
-  function() require('gitsigns').nav_hunk('prev', { target = 'all' }) end,
-  function() require('gitsigns').nav_hunk('next', { target = 'all' }) end
+  function() require('gitsigns').nav_hunk('prev', { count = vim.v.count1, target = 'all' }) end,
+  function() require('gitsigns').nav_hunk('next', { count = vim.v.count1, target = 'all' }) end
 )
 vim.keymap.set('n', '[h', next_hunk, { desc = 'Next git hunk' })
 vim.keymap.set('n', ']h', prev_hunk, { desc = 'Previous git hunk' })
 
 local next_spell, prev_spell = make_repeatable_move_pair(
-  function() vim.cmd('normal! ]s') end,
-  function() vim.cmd('normal! [s') end
+  function() vim.cmd(string.format('normal! %d]s', vim.v.count1)) end,
+  function() vim.cmd(string.format('normal! %d[s', vim.v.count1)) end
 )
 vim.keymap.set('n', ']s', next_spell, { desc = 'Next misspelling' })
 vim.keymap.set('n', '[s', prev_spell, { desc = 'Previous misspelling' })

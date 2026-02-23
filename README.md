@@ -25,7 +25,6 @@ sudo ./install
 - On windows WSL 2 when hosting docker containers sometimes you need to kill apache to allow the access the containers in chromium browsers `sudo service apache2 stop` || `sudo systemctl stop apache2`
 ## TODO
 - NVIM:
-    - Make that the `]b` & `[b` work with number e.g. `2[b`
     - add spelling mistakes to the lua line bar
     - fix emojis breaking the spacing on windows (😔)
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
