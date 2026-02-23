@@ -731,8 +731,9 @@ end
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
 vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
+
 -- treesitter repeat that overrides the ;,fFtT
-local treesitter_repeat = require('nvim-treesitter.textobjects.repeatable_move')
+local treesitter_repeat = require('nvim-treesitter-textobjects.repeatable_move')
 vim.keymap.set({ 'n', 'x', 'o' }, ';', treesitter_repeat.repeat_last_move, { desc = 'Repeat last Treesitter move' })
 vim.keymap.set({ 'n', 'x', 'o' }, ',', treesitter_repeat.repeat_last_move_opposite,
   { desc = 'Repeat last Treesitter move opposite' })
@@ -744,20 +745,41 @@ vim.keymap.set({ 'n', 'x', 'o' }, 't', treesitter_repeat.builtin_t_expr,
   { expr = true, desc = 'Treesitter to char forward' })
 vim.keymap.set({ 'n', 'x', 'o' }, 'T', treesitter_repeat.builtin_T_expr,
   { expr = true, desc = 'Treesitter to char backward' })
+local make_repeatable_move_pair = function (forward_move_fn, backward_move_fn)
+  local general_repeatable_move_fn = treesitter_repeat.make_repeatable_move(
+    function(opts, ...)
+      if opts.forward then
+        forward_move_fn(...)
+      else
+        backward_move_fn(...)
+      end
+    end
+  )
 
-local next_diagnostic, prev_diagnostic = treesitter_repeat.make_repeatable_move_pair(
+  local repeatable_forward_move_fn = function(...)
+    general_repeatable_move_fn({ forward = true }, ...);
+  end
+
+  local repeatable_backward_move_fn = function(...)
+    general_repeatable_move_fn({ forward = false }, ...);
+  end
+
+  return repeatable_forward_move_fn, repeatable_backward_move_fn
+end
+
+local next_diagnostic, prev_diagnostic = make_repeatable_move_pair(
   vim.diagnostic.goto_next,
   vim.diagnostic.goto_prev
 )
 vim.keymap.set('n', '[d', prev_diagnostic, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', next_diagnostic, { desc = 'Go to next diagnostic message' })
 
-local next_buffer, prev_buffer = treesitter_repeat.make_repeatable_move_pair(
+local next_buffer, prev_buffer = make_repeatable_move_pair(
   function() vim.cmd('bnext') end,
   function() vim.cmd('bprevious') end
 )
 vim.keymap.set('n', ']b', next_buffer, { desc = 'Next buffer' })
-local first_buffer, last_buffer = treesitter_repeat.make_repeatable_move_pair(
+local first_buffer, last_buffer = make_repeatable_move_pair(
   function() vim.cmd('blast') end,
   function() vim.cmd('bfirst') end
 )
@@ -765,54 +787,54 @@ vim.keymap.set('n', ']B', first_buffer, { desc = 'Last buffer' })
 vim.keymap.set('n', '[B', last_buffer, { desc = 'First buffer' })
 vim.keymap.set('n', '[b', prev_buffer, { desc = 'Previous buffer' })
 
-local next_qf, prev_qf = treesitter_repeat.make_repeatable_move_pair(
+local next_qf, prev_qf = make_repeatable_move_pair(
   function() vim.cmd('cnext') end,
   function() vim.cmd('cprevious') end
 )
 vim.keymap.set('n', ']q', next_qf, { desc = 'Next quickfix' })
 vim.keymap.set('n', '[q', prev_qf, { desc = 'Previous quickfix' })
-local first_qf, last_qf = treesitter_repeat.make_repeatable_move_pair(
+local first_qf, last_qf = make_repeatable_move_pair(
   function() vim.cmd('clast') end,
   function() vim.cmd('cfirst') end
 )
 vim.keymap.set('n', ']Q', first_qf, { desc = 'Last quickfix' })
 vim.keymap.set('n', '[Q', last_qf, { desc = 'First quickfix' })
 
-local next_loc, prev_loc = treesitter_repeat.make_repeatable_move_pair(
+local next_loc, prev_loc = make_repeatable_move_pair(
   function() vim.cmd('lnext') end,
   function() vim.cmd('lprevious') end
 )
 vim.keymap.set('n', ']l', next_loc, { desc = 'Next location list' })
 vim.keymap.set('n', '[l', prev_loc, { desc = 'Previous location list' })
-local first_loc_list, last_loc_list = treesitter_repeat.make_repeatable_move_pair(
+local first_loc_list, last_loc_list = make_repeatable_move_pair(
   function() vim.cmd('llast') end,
   function() vim.cmd('lfirst') end
 )
 vim.keymap.set('n', ']L', first_loc_list, { desc = 'Last location list' })
 vim.keymap.set('n', '[L', last_loc_list, { desc = 'First location list' })
 
-local next_arg, prev_arg = treesitter_repeat.make_repeatable_move_pair(
+local next_arg, prev_arg = make_repeatable_move_pair(
   function() vim.cmd('next') end,
   function() vim.cmd('previous') end
 )
 vim.keymap.set('n', ']a', next_arg, { desc = 'Next argument' })
 vim.keymap.set('n', '[a', prev_arg, { desc = 'Previous argument' })
 
-local next_tag, prev_tag = treesitter_repeat.make_repeatable_move_pair(
+local next_tag, prev_tag = make_repeatable_move_pair(
   function() vim.cmd('tnext') end,
   function() vim.cmd('tprevious') end
 )
 vim.keymap.set('n', ']t', next_tag, { desc = 'Next tag' })
 vim.keymap.set('n', '[t', prev_tag, { desc = 'Previous tag' })
 
-local next_hunk, prev_hunk = treesitter_repeat.make_repeatable_move_pair(
+local next_hunk, prev_hunk = make_repeatable_move_pair(
   function() require('gitsigns').nav_hunk('prev', { target = 'all' }) end,
   function() require('gitsigns').nav_hunk('next', { target = 'all' }) end
 )
 vim.keymap.set('n', '[h', next_hunk, { desc = 'Next git hunk' })
 vim.keymap.set('n', ']h', prev_hunk, { desc = 'Previous git hunk' })
 
-local next_spell, prev_spell = treesitter_repeat.make_repeatable_move_pair(
+local next_spell, prev_spell = make_repeatable_move_pair(
   function() vim.cmd('normal! ]s') end,
   function() vim.cmd('normal! [s') end
 )
