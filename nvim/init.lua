@@ -745,7 +745,7 @@ vim.keymap.set({ 'n', 'x', 'o' }, 't', treesitter_repeat.builtin_t_expr,
   { expr = true, desc = 'Treesitter to char forward' })
 vim.keymap.set({ 'n', 'x', 'o' }, 'T', treesitter_repeat.builtin_T_expr,
   { expr = true, desc = 'Treesitter to char backward' })
-local make_repeatable_move_pair = function (forward_move_fn, backward_move_fn)
+local make_repeatable_move_pair = function(forward_move_fn, backward_move_fn)
   local general_repeatable_move_fn = treesitter_repeat.make_repeatable_move(
     function(opts, ...)
       if opts.forward then
@@ -768,15 +768,15 @@ local make_repeatable_move_pair = function (forward_move_fn, backward_move_fn)
 end
 
 local next_diagnostic, prev_diagnostic = make_repeatable_move_pair(
-  function() vim.diagnostic.jump({ count = vim.v.count1, float=true }) end,
-  function() vim.diagnostic.jump({ count = vim.v.count1 * -1, float=true }) end
+  function() vim.diagnostic.jump({ count = vim.v.count1, float = true }) end,
+  function() vim.diagnostic.jump({ count = vim.v.count1 * -1, float = true }) end
 )
 vim.keymap.set('n', '[d', prev_diagnostic, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', next_diagnostic, { desc = 'Go to next diagnostic message' })
 
 local next_buffer, prev_buffer = make_repeatable_move_pair(
-    function() vim.cmd(string.format("%dbnext", vim.v.count1)) end,
-    function() vim.cmd(string.format("%dbprevious", vim.v.count1)) end
+  function() vim.cmd(string.format("%dbnext", vim.v.count1)) end,
+  function() vim.cmd(string.format("%dbprevious", vim.v.count1)) end
 )
 local first_buffer, last_buffer = make_repeatable_move_pair(
   function() vim.cmd('blast') end,
@@ -914,7 +914,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = '[d]elete without copy
 vim.keymap.set({ 'n', 'v' }, '<leader>D', '"_d$', { desc = '[D]elete without copying until the end of the line' })
 vim.keymap.set('v', '<leader>p', '"_c<C-r>"<ESC>', { desc = '[P]astes over without copying' })
 vim.keymap.set({ 'n' }, '<leader>y', '"+y', { desc = '[y]anks into system clipboard' })
-vim.keymap.set({  'v' }, '<leader>yy', '"+y', { desc = '[y]anks into system clipboard' })
+vim.keymap.set({ 'v' }, '<leader>yy', '"+y', { desc = '[y]anks into system clipboard' })
 vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$', { desc = '[Y]anks into system clipboard until the end of the line' })
 vim.keymap.set(
   { 'n', 'v' },
