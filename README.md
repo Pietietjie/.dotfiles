@@ -29,12 +29,11 @@ sudo ./install
     - fix emojis breaking the spacing on windows (😔)
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - look into polyglot
-    - look at an alternative to vim pasta that does not break sometimes
     - [refactor plugin](https://github.com/ThePrimeagen/refactoring.nvim)
     - [trouble plugin](https://github.com/folke/trouble.nvim)
     - Look at getting a [debugger for nvim](https://github.com/mfussenegger/nvim-dap)
     - Look at AI plugins [super maven](https://github.com/supermaven-inc/supermaven-nvim) & [avante](https://github.com/yetone/avante.nvim)
-    - Make that code can be copied with highlighting as it is in nvim like vs code does
+    - Make that code can be copied with highlighting as it is in nvim like vs code does (when pasting in word then it looks like the code does in the editor)
 - Look at implementing the [windows dotbot plugin](https://github.com/kurtmckee/dotbot-windows)
 - Look at a better way to add long paths when writing commands like `cp` and `mv`
 - System preferences/settings
