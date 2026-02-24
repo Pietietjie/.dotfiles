@@ -6,8 +6,13 @@ if (string.find(vim.loop.os_uname().sysname, "indows")) then
   vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
 end
 
+local function is_visual()
+  local mode = vim.api.nvim_get_mode().mode
+  return mode == "v" or mode == "V"
+end
+
 local function get_visual_selection()
-  if vim.api.nvim_get_mode().mode == "v" or vim.api.nvim_get_mode().mode == "V" then
+  if is_visual() then
     vim.cmd.normal('y')
     return vim.fn.getreg('"');
   end
@@ -916,7 +921,7 @@ vim.keymap.set("n", "<leader>=", vim.lsp.buf.format, { desc = "Formats the entir
 vim.keymap.set("n", "<leader>_", "1z=", { desc = "Set the spelling error to the first correct option" })
 vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggles the [u]ndo [t]ree side bar" })
 vim.keymap.set({ "n", "v" }, '<leader>ym', function()
-  if vim.api.nvim_get_mode().mode == "v" or vim.api.nvim_get_mode().mode == "V" then
+  if is_visual() then
     local content = get_visual_selection()
     if not content then
       l.info('nothing selected')
