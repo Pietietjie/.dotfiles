@@ -354,7 +354,26 @@ require('lazy').setup({
             path = 1,
           },
         },
-        lualine_x = { 'diagnostics', 'encoding', 'fileformat', 'filetype' },
+        lualine_x = {
+          'diagnostics',
+          {
+            function()
+              local count = 0
+              for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
+                for _, word in ipairs(vim.spell.check(line)) do
+                  if word[2] == 'bad' then count = count + 1 end
+                end
+              end
+              if count == 0 then return '' end
+              return '󰓆 ' .. count
+            end,
+            cond = function() return vim.wo.spell end,
+            color = { fg = '#e0af68' },
+          },
+          'encoding',
+          'fileformat',
+          'filetype',
+        },
         lualine_y = { 'progress' },
         lualine_z = { 'location' },
       },
