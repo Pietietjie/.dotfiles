@@ -12,15 +12,15 @@ HIST_STAMPS="mm/dd/yyyy"
 VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
-if [ ! -d "$ZSH/custom/plugins/artisan" ]; then 
+if [ ! -d "$ZSH/custom/plugins/artisan" ]; then
     git clone https://github.com/jessarcher/zsh-artisan.git ~/.oh-my-zsh/custom/plugins/artisan
 fi
 
-if [ ! -d "$ZSH/custom/plugins/zsh-autosuggestions" ]; then 
+if [ ! -d "$ZSH/custom/plugins/zsh-autosuggestions" ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 
-if [ ! -d "$ZSH/custom/plugins/zsh-syntax-highlighting" ]; then 
+if [ ! -d "$ZSH/custom/plugins/zsh-syntax-highlighting" ]; then
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi
 
