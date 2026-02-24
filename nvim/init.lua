@@ -985,12 +985,67 @@ vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
-vim.keymap.set(
-  'n',
-  '<leader>az',
-  'mz:%g/\\(public\\|protected\\|private\\|static\\)\\_s*function\\_s/normal zfafu<cr>:%g/\\/\\*\\*/normal zfac<cr>`z',
-  { desc = 'Fold [a]ll', remap = true }
-)
+vim.keymap.set('n', '<leader>az', function ()
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
+  if not ok or not parser then
+    vim.notify('<leader>az: No treesitter parser available for this filetype', vim.log.levels.WARN)
+    return
+  end
+  vim.cmd('normal! mz')
+
+  vim.wo.foldmethod = 'manual'
+  vim.cmd('normal! zE') -- clear all existing folds
+
+  local root = parser:parse()[1]:root()
+
+  -- Node types to fold. The multiline check (end_row > start_row) filters out single-line comments that share a type with block comments.
+  local fold_types = {
+    -- Functions / methods
+    function_definition = true,
+    function_declaration = true,
+    method_definition = true,
+    method_declaration = true,
+    local_function    = true, -- Lua
+    function_item     = true, -- Rust
+    -- Block / doc comments
+    comment           = true,
+    block_comment     = true,
+    doc_comment       = true,
+    multiline_comment = true,
+    -- Multi-line strings
+    string            = true,
+    heredoc           = true, -- PHP heredoc (<<<SQL ... SQL;)
+    nowdoc            = true, -- PHP nowdoc (<<<'SQL' ... SQL;)
+    encapsed_string   = true, -- PHP double-quoted
+    template_literal  = true, -- JS/TS template strings
+  }
+
+  local folds = {}
+
+  local function walk(node)
+    local ntype = node:type()
+    local start_row, _, end_row, _ = node:range()
+
+    if fold_types[ntype] and end_row > start_row then
+      table.insert(folds, { start_row + 1, end_row + 1 })
+    end
+
+    for child in node:iter_children() do
+      walk(child)
+    end
+  end
+
+  walk(root)
+
+  for _, fold in ipairs(folds) do
+    pcall(vim.cmd, string.format('%d,%dfold', fold[1], fold[2]))
+  end
+
+  vim.cmd('normal! `z')
+end
+, { desc = 'Fold [a]ll functions and block comments' })
 -- Open the current file in the default program (on Mac this should just be just `open`)
 vim.keymap.set('n', '<leader>x', ':!xdg-open %<cr><cr>', { desc = 'E[x]ecute the current file' })
 vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'Make the current file e[X]ecutable' })
