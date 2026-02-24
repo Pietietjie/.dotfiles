@@ -235,7 +235,7 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
       -- Additional lua configuration, makes nvim stuff amazing!
-      { 'folke/lazydev.nvim', ft = 'lua', opts = {} },
+      { 'folke/lazydev.nvim',      ft = 'lua',     opts = {} },
     },
   },
 
@@ -875,8 +875,10 @@ vim.keymap.set('n', ']t', next_tag, { desc = 'Next tag' })
 vim.keymap.set('n', '[t', prev_tag, { desc = 'Previous tag' })
 
 local next_hunk, prev_hunk = make_repeatable_move_pair(
-  function() require('gitsigns').nav_hunk('prev', { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' }) end,
-  function() require('gitsigns').nav_hunk('next', { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' }) end
+  function() require('gitsigns').nav_hunk('prev',
+      { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' }) end,
+  function() require('gitsigns').nav_hunk('next',
+      { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' }) end
 )
 vim.keymap.set('n', '[h', next_hunk, { desc = 'Next git hunk' })
 vim.keymap.set('n', ']h', prev_hunk, { desc = 'Previous git hunk' })
@@ -966,7 +968,8 @@ vim.keymap.set({ 'n', 'v' }, '<leader>D', '"_d$', { desc = '[D]elete without cop
 vim.keymap.set('v', '<leader>p', '"_c<C-r>"<ESC>', { desc = '[P]astes over without copying' })
 vim.keymap.set({ 'n' }, '<leader>y', '"+y', { desc = '[y]anks into system clipboard' })
 vim.keymap.set({ 'v' }, '<leader>yy', '"+y', { desc = '[y]anks into system clipboard' })
-vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$', { desc = '[Y]anks into system clipboard from the cursor until the end of the line' })
+vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$',
+  { desc = '[Y]anks into system clipboard from the cursor until the end of the line' })
 vim.keymap.set(
   { 'n', 'v' },
   '<leader>.',
@@ -996,7 +999,7 @@ vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
-vim.keymap.set('n', '<leader>az', function ()
+vim.keymap.set('n', '<leader>az', function()
   local bufnr = vim.api.nvim_get_current_buf()
 
   local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
@@ -1014,23 +1017,23 @@ vim.keymap.set('n', '<leader>az', function ()
   -- Node types to fold. The multiline check (end_row > start_row) filters out single-line comments that share a type with block comments.
   local fold_types = {
     -- Functions / methods
-    function_definition = true,
+    function_definition  = true,
     function_declaration = true,
-    method_definition = true,
-    method_declaration = true,
-    local_function    = true, -- Lua
-    function_item     = true, -- Rust
+    method_definition    = true,
+    method_declaration   = true,
+    local_function       = true, -- Lua
+    function_item        = true, -- Rust
     -- Block / doc comments
-    comment           = true,
-    block_comment     = true,
-    doc_comment       = true,
-    multiline_comment = true,
+    comment              = true,
+    block_comment        = true,
+    doc_comment          = true,
+    multiline_comment    = true,
     -- Multi-line strings
-    string            = true,
-    heredoc           = true, -- PHP heredoc (<<<SQL ... SQL;)
-    nowdoc            = true, -- PHP nowdoc (<<<'SQL' ... SQL;)
-    encapsed_string   = true, -- PHP double-quoted
-    template_literal  = true, -- JS/TS template strings
+    string               = true,
+    heredoc              = true, -- PHP heredoc (<<<SQL ... SQL;)
+    nowdoc               = true, -- PHP nowdoc (<<<'SQL' ... SQL;)
+    encapsed_string      = true, -- PHP double-quoted
+    template_literal     = true, -- JS/TS template strings
   }
 
   local folds = {}
@@ -1284,7 +1287,9 @@ telescope_menu_bind_n_and_v_mode(
     local bufnrs = vim.tbl_filter(function(b) return vim.fn.buflisted(b) == 1 end, vim.api.nvim_list_bufs())
     local n = 0
     for i, b in ipairs(bufnrs) do
-      if b == current_buf then n = i - 1; break end
+      if b == current_buf then
+        n = i - 1; break
+      end
     end
     require('telescope.builtin').buffers({
       default_text = defaultText,
