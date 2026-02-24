@@ -1164,7 +1164,24 @@ telescope_menu_bind_n_and_v_mode(
 telescope_menu_bind_n_and_v_mode(
   '<leader><cr>',
   function(defaultText)
-    require('telescope.builtin').buffers({ default_text = defaultText, initial_mode = "normal" })
+    local current_buf = vim.api.nvim_get_current_buf()
+    local bufnrs = vim.tbl_filter(function(b) return vim.fn.buflisted(b) == 1 end, vim.api.nvim_list_bufs())
+    local n = 0
+    for i, b in ipairs(bufnrs) do
+      if b == current_buf then n = i - 1; break end
+    end
+    require('telescope.builtin').buffers({
+      default_text = defaultText,
+      initial_mode = "normal",
+      attach_mappings = function()
+        if n > 0 then
+          vim.schedule(function()
+            vim.api.nvim_feedkeys(n .. 'k', 't', false)
+          end)
+        end
+        return true
+      end
+    })
   end,
   { desc = 'Find existing buffers' }, true
 )
