@@ -1,6 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-l = require('pietietjie.loggers')
+local l = require('pietietjie.loggers')
 -- if windows use the chocolatey sqlite package
 if (string.find(vim.loop.os_uname().sysname, "indows")) then
   vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
@@ -689,7 +689,7 @@ local function open_qf_buffers()
       -- Check if buffer is already loaded
       if not vim.api.nvim_buf_is_loaded(entry.bufnr) then
         -- Load the buffer
-        vim.api.nvim_buf_set_option(entry.bufnr, 'buflisted', true)
+        vim.bo[entry.bufnr].buflisted = true;
         vim.fn.bufload(entry.bufnr)
         opened_count = opened_count + 1
         table.insert(buffers_opened, vim.api.nvim_buf_get_name(entry.bufnr))
@@ -870,8 +870,8 @@ vim.keymap.set('n', ']t', next_tag, { desc = 'Next tag' })
 vim.keymap.set('n', '[t', prev_tag, { desc = 'Previous tag' })
 
 local next_hunk, prev_hunk = make_repeatable_move_pair(
-  function() require('gitsigns').nav_hunk('prev', { count = vim.v.count1, target = 'all' }) end,
-  function() require('gitsigns').nav_hunk('next', { count = vim.v.count1, target = 'all' }) end
+  function() require('gitsigns').nav_hunk('prev', { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' }) end,
+  function() require('gitsigns').nav_hunk('next', { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' }) end
 )
 vim.keymap.set('n', '[h', next_hunk, { desc = 'Next git hunk' })
 vim.keymap.set('n', ']h', prev_hunk, { desc = 'Previous git hunk' })
@@ -1042,7 +1042,7 @@ vim.keymap.set('n', '<leader>az', function ()
   walk(root)
 
   for _, fold in ipairs(folds) do
-    pcall(vim.cmd, string.format('%d,%dfold', fold[1], fold[2]))
+    vim.cmd(string.format('%d,%dfold', fold[1], fold[2]))
   end
 
   vim.cmd('normal! `z')
