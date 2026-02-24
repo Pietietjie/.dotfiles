@@ -1,5 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 export dot="$HOME/.dotfiles"
+export EDITOR="nvim"
 
 composer_path=$(which composer)
 ZSH_THEME="pietietjie"
