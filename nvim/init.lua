@@ -1118,6 +1118,16 @@ pcall(require('telescope').load_extension, 'smart_history')
 -- Enable telescope live grep args, if installed
 pcall(require('telescope').load_extension, 'live_grep_args')
 
+-- Make :q close telescope without save prompts.
+vim.api.nvim_create_autocmd("QuitPre", {
+  callback = function()
+    local ft = vim.bo.filetype
+    if ft == "TelescopePrompt" or ft == "TelescopeResults" or ft == "TelescopePreview" then
+      vim.bo.modified = false
+    end
+  end,
+})
+
 vim.keymap.set(
   'n',
   '<C-p>',
