@@ -35,6 +35,8 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 
+vim.diagnostic.config({ float = { border = 'rounded' } })
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
