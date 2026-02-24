@@ -921,20 +921,24 @@ vim.keymap.set("n", "<leader>=", vim.lsp.buf.format, { desc = "Formats the entir
 vim.keymap.set("n", "<leader>_", "1z=", { desc = "Set the spelling error to the first correct option" })
 vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggles the [u]ndo [t]ree side bar" })
 vim.keymap.set({ "n", "v" }, '<leader>ym', function()
+  local content = '';
+  local path_suffix = '';
   if is_visual() then
-    local content = get_visual_selection()
-    if not content then
-      l.info('nothing selected')
-    else
-      local wrapped = '\n```' .. vim.fn.expand('%:.') .. '\n' .. content .. '\n```'
-      vim.fn.setreg('+', wrapped)
-      l.info('Selection yanked to clipboard with markdown code block')
-    end
+    path_suffix = ':' .. vim.fn.line("'<") .. ':' .. vim.fn.line("'>");
+    content = get_visual_selection()
   else
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-    local content = table.concat(lines, '\n')
-    local wrapped = '```' .. vim.fn.expand('%:.') .. '\n' .. content .. '\n```'
-    vim.fn.setreg('+', wrapped)
+    content = table.concat(lines, '\n')
+  end
+  if not content then
+    l.info('nothing selected')
+    return;
+  end
+  local wrapped = '\n```' .. vim.fn.expand('%:.') .. path_suffix .. '\n' .. content .. '\n```'
+  vim.fn.setreg('+', wrapped)
+  if is_visual() then
+    l.info('Selection yanked to clipboard with markdown code block')
+  else
     l.info('File yanked to clipboard with markdown code block')
   end
 end, { desc = '[Y]ank [F]ile all with [M]arkdown code block to clipboard' })
