@@ -1774,7 +1774,7 @@ ls.add_snippets("javascript", {
   s("ce", fmt("console.error({}){}", { i_node(1, "'❌'"), i_node(2) })),
   s("cw", fmt("console.warn({}){}", { i_node(1, "'⚠️'"), i_node(2) })),
   s("ci", fmt("console.info({}){}", { i_node(1, "'💬'"), i_node(2) })),
-  s("cd", fmt("console.debug({}){}", { i_node(1, "'🐞'"), i_node(2) })),
+  s("cdebug", fmt("console.debug({}){}", { i_node(1, "'🐞'"), i_node(2) })),
   s("ct", fmt("console.trace({}){}", { i_node(1, "''"), i_node(2) })),
   s("ca", fmt("console.assert({}, {}){}", { i_node(1), i_node(2, "'🤔'"), i_node(3) })),
   s("cc", fmt("console.clear(){}", { i_node(1) })),
