@@ -28,6 +28,7 @@ sudo ./install
     - fix emojis breaking the spacing on windows (😔)
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - look into polyglot
+    - [mini highlight plugin](https://github.com/nvim-mini/mini.hipatterns) allows very custom highlighting example having hex colors render with that color as a bg
     - [refactor plugin](https://github.com/ThePrimeagen/refactoring.nvim)
     - [trouble plugin](https://github.com/folke/trouble.nvim)
     - Look at getting a [debugger for nvim](https://github.com/mfussenegger/nvim-dap)
