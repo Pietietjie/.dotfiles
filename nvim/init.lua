@@ -277,11 +277,11 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>hv', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[h]unk pre[v]iew' })
-        vim.keymap.set('n', '<leader>ha', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[h]unk [a]dd' })
+        vim.keymap.set('n', '[_Hunk]v', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[h]unk pre[v]iew' })
+        vim.keymap.set('n', '[_Hunk]a', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[h]unk [a]dd' })
         vim.keymap.set(
           'n',
-          '<leader>hu',
+          '[_Hunk]u',
           require('gitsigns').stage_hunk,
           {
             buffer = bufnr,
@@ -289,10 +289,10 @@ require('lazy').setup({
             '[h]unk [u]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)'
           }
         )
-        vim.keymap.set('n', '<leader>hr', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[h]unk [r]eset' })
+        vim.keymap.set('n', '[_Hunk]r', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[h]unk [r]eset' })
         vim.keymap.set(
           'n',
-          '<leader>ga',
+          '[_Git]a',
           function()
             vim.cmd("sil Git add %")
           end,
@@ -300,7 +300,7 @@ require('lazy').setup({
         )
         vim.keymap.set(
           'n',
-          '<leader>gu',
+          '[_Git]u',
           function()
             vim.cmd("sil Git restore % --staged")
           end,
@@ -308,13 +308,13 @@ require('lazy').setup({
         )
         vim.keymap.set(
           'n',
-          '<leader>gr',
+          '[_Git]r',
           function()
             vim.cmd("sil Git restore %")
           end,
           { buffer = bufnr, desc = '[g]it [r]estore current buffer' }
         )
-        vim.keymap.set('n', '<leader>gb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[g]it [b]lame' })
+        vim.keymap.set('n', '[_Git]b', require('gitsigns').blame_line, { buffer = bufnr, desc = '[g]it [b]lame' })
       end,
     },
   },
@@ -641,13 +641,13 @@ require('lazy').setup({
       },
     },
     keys = {
-      { "<S-Enter>",   function() require("noice").redirect(vim.fn.getcmdline()) end,                 mode = "c",                 desc = "Redirect Cmdline" },
-      { "<leader>snl", function() require("noice").cmd("last") end,                                   desc = "Noice Last Message" },
-      { "<leader>snh", function() require("noice").cmd("history") end,                                desc = "Noice History" },
-      { "<leader>sna", function() require("noice").cmd("all") end,                                    desc = "Noice All" },
-      { "<leader>snd", function() require("noice").cmd("dismiss") end,                                desc = "Dismiss All" },
-      { "<c-f>",       function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end,  silent = true,              expr = true,              desc = "Scroll forward",  mode = { "i", "n", "s" } },
-      { "<c-b>",       function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true,              expr = true,              desc = "Scroll backward", mode = { "i", "n", "s" } },
+      { "<S-Enter>",             function() require("noice").redirect(vim.fn.getcmdline()) end,                 mode = "c",                 desc = "Redirect Cmdline" },
+      { "[_Search]nl", function() require("noice").cmd("last") end,                                   desc = "Noice Last Message" },
+      { "[_Search]nh", function() require("noice").cmd("history") end,                                desc = "Noice History" },
+      { "[_Search]na", function() require("noice").cmd("all") end,                                    desc = "Noice All" },
+      { "[_Search]nd", function() require("noice").cmd("dismiss") end,                                desc = "Dismiss All" },
+      { "<c-f>",                 function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end,  silent = true,              expr = true,              desc = "Scroll forward",  mode = { "i", "n", "s" } },
+      { "<c-b>",                 function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true,              expr = true,              desc = "Scroll backward", mode = { "i", "n", "s" } },
     },
   },
 
@@ -775,9 +775,12 @@ end
 -- ----------------------------------------------------
 -- Key Bindings/Shortcuts/Keybinds
 -- ----------------------------------------------------
-vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
-vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
-vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
+-- Group prefix mappings (remap=true so the string is fed back as keystrokes)
+vim.keymap.set({ 'n', 'v' }, '<leader>s', '[_Search]', { remap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>g', '[_Git]', { remap = true })
+vim.keymap.set('n', '<leader>h', '[_Hunk]', { remap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>r', '[_Refactor]', { remap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '[_Yank]', { remap = true })
 
 -- treesitter repeat that overrides the ;,fFtT
 local treesitter_repeat = require('nvim-treesitter-textobjects.repeatable_move')
@@ -875,10 +878,14 @@ vim.keymap.set('n', ']t', next_tag, { desc = 'Next tag' })
 vim.keymap.set('n', '[t', prev_tag, { desc = 'Previous tag' })
 
 local next_hunk, prev_hunk = make_repeatable_move_pair(
-  function() require('gitsigns').nav_hunk('prev',
-      { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' }) end,
-  function() require('gitsigns').nav_hunk('next',
-      { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' }) end
+  function()
+    require('gitsigns').nav_hunk('prev',
+      { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' })
+  end,
+  function()
+    require('gitsigns').nav_hunk('next',
+      { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' })
+  end
 )
 vim.keymap.set('n', '[h', next_hunk, { desc = 'Next git hunk' })
 vim.keymap.set('n', ']h', prev_hunk, { desc = 'Previous git hunk' })
@@ -922,7 +929,13 @@ vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<leader>=", vim.lsp.buf.format, { desc = "Formats the entire buffer using the LSP's formatter" })
 vim.keymap.set("n", "<leader>_", "1z=", { desc = "Set the spelling error to the first correct option" })
 vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggles the [u]ndo [t]ree side bar" })
-vim.keymap.set({ "n", "v" }, '<leader>ym', function()
+
+-- Yank keymaps
+vim.keymap.set({ 'n' }, '[_Yank]y', '"+y', { desc = '[y]anks into system clipboard' })
+vim.keymap.set({ 'v' }, '[_Yank]y', '"+y', { desc = '[y]anks into system clipboard' })
+vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$',
+  { desc = '[Y]anks into system clipboard from the cursor until the end of the line' })
+vim.keymap.set({ "n", "v" }, '[_Yank]m', function()
   local content = '';
   local path_suffix = '';
   if is_visual() then
@@ -944,32 +957,31 @@ vim.keymap.set({ "n", "v" }, '<leader>ym', function()
     l.info('File yanked to clipboard with markdown code block')
   end
 end, { desc = '[Y]ank [F]ile all with [M]arkdown code block to clipboard' })
-vim.keymap.set('n', '<leader>yn', function()
+vim.keymap.set('n', '[_Yank]n', function()
   vim.fn.setreg('+', vim.fn.expand('%:.'))
   l.info('Relative file path yanked to clipboard')
 end, { desc = 'Copy/[Y]ank current buffer\'s file [N]ame' })
-vim.keymap.set('n', '<leader>yp', function()
+vim.keymap.set('n', '[_Yank]p', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
   l.info('Absolute file path yanked to clipboard')
 end, { desc = 'Copy/[Y]ank current buffer\'s file [P]ath' })
-vim.keymap.set(
-  { 'n', 'v' },
-  'q:',
-  ':',
-  { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q' }
-)
-vim.keymap.set("n", "<leader>rp", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[r]e[p]lace' })
-vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [v]isual [b]lock mode' })
-vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line' })
-vim.keymap.set('n', '<leader>O', 'moO<Esc>`o', { desc = '[⬆] empty new line' })
 vim.keymap.set({ 'n', 'v' }, '<leader>c', '"_c', { desc = '[c]hange without copying' })
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = '[d]elete without copying' })
 vim.keymap.set({ 'n', 'v' }, '<leader>D', '"_d$', { desc = '[D]elete without copying until the end of the line' })
 vim.keymap.set('v', '<leader>p', '"_c<C-r>"<ESC>', { desc = '[P]astes over without copying' })
-vim.keymap.set({ 'n' }, '<leader>y', '"+y', { desc = '[y]anks into system clipboard' })
-vim.keymap.set({ 'v' }, '<leader>yy', '"+y', { desc = '[y]anks into system clipboard' })
-vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$',
-  { desc = '[Y]anks into system clipboard from the cursor until the end of the line' })
+
+-- misc
+vim.keymap.set("n", "[_Refactor]p", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[r]e[p]lace' })
+
+vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
+vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
+vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
+
+vim.keymap.set({ 'n', 'v' }, 'q:', ':',
+  { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q' })
+vim.keymap.set({ 'n', 'v' }, '<leader>v', '<c-v>', { desc = 'Goes into [v]isual [b]lock mode' })
+vim.keymap.set('n', '<leader>o', 'moo<Esc>`o', { desc = '[⬇] empty new line' })
+vim.keymap.set('n', '<leader>O', 'moO<Esc>`o', { desc = '[⬆] empty new line' })
 vim.keymap.set(
   { 'n', 'v' },
   '<leader>.',
@@ -1255,14 +1267,14 @@ vim.keymap.set(
 )
 -- See `:help telescope.builtin`
 telescope_menu_bind_n_and_v_mode(
-  '<leader>sf',
+  '[_Search]f',
   function(defaultText)
     require('telescope.builtin').find_files { default_text = defaultText, initial_mode = defaultText and "normal" or "insert", hidden = true }
   end,
   { desc = '[s]earch [f]iles' }
 )
 telescope_menu_bind_n_and_v_mode(
-  '<leader>sg',
+  '[_Search]g',
   function(defaultText)
     if defaultText then
       defaultText = defaultText:gsub("[%.%*%[%]%^%$%\\%+%?%(%)%{%}%|]", "\\%1");
@@ -1320,28 +1332,28 @@ telescope_menu_bind_n_and_v_mode(
   { desc = '[/] Fuzzily search in current buffer' }, true
 )
 telescope_menu_bind_n_and_v_mode(
-  '<leader>gs',
+  '[_Git]s',
   function(defaultText)
     require('telescope.builtin').git_status({ default_text = defaultText, initial_mode = "normal" })
   end,
   { desc = 'Search current [g]it [s]tatus' }, true
 )
 telescope_menu_bind_n_and_v_mode(
-  '<leader>gc',
+  '[_Git]c',
   function(defaultText)
     require('telescope.builtin').git_commits({ default_text = defaultText, initial_mode = "normal" })
   end,
   { desc = 'Search [g]it [c]ommits' }, true
 )
 telescope_menu_bind_n_and_v_mode(
-  '<leader>gt',
+  '[_Git]t',
   function(defaultText)
     require('telescope.builtin').git_stash({ default_text = defaultText, initial_mode = "normal" })
   end,
   { desc = 'Search the [g]it s[t]ash' }, true
 )
 telescope_menu_bind_n_and_v_mode(
-  '<leader>sd',
+  '[_Search]d',
   function(defaultText)
     require('telescope.builtin').diagnostics({
       default_text = defaultText,
@@ -1351,7 +1363,7 @@ telescope_menu_bind_n_and_v_mode(
   { desc = '[s]earch [d]iagnostics' }, true
 )
 telescope_menu_bind_n_and_v_mode(
-  '<leader>sk',
+  '[_Search]k',
   function(defaultText)
     require('telescope.builtin').keymaps({
       default_text = defaultText,
@@ -1362,7 +1374,7 @@ telescope_menu_bind_n_and_v_mode(
   { desc = '[s]earch Binding/[k]eymaps' }
 )
 telescope_menu_bind_n_and_v_mode(
-  '<leader>sh',
+  '[_Search]h',
   function(defaultText)
     require('telescope.builtin').help_tags({
       default_text = defaultText,
@@ -1520,8 +1532,8 @@ local lspconfigOnAttach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
-  nmap('<leader>sa', vim.lsp.buf.code_action, 'L[s]P code [a]ction')
+  nmap('[_Refactor]n', vim.lsp.buf.rename, '[r]e[n]ame')
+  nmap('[_Search]a', vim.lsp.buf.code_action, 'L[s]P code [a]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
   nmap('grr', vim.lsp.buf.references, '[g]oto quicklist [r]eferences')
@@ -1535,14 +1547,14 @@ local lspconfigOnAttach = function(_, bufnr)
   nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap(
-    '<leader>sy',
+    '[_Search]y',
     function()
       require('telescope.builtin').lsp_document_symbols({ initial_mode = "normal" })
     end,
     'Tele[s]cope Document S[y]mbols'
   )
   nmap(
-    '<leader>swy',
+    '[_Search]wy',
     function()
       require('telescope.builtin').lsp_dynamic_workspace_symbols({ initial_mode = "normal" })
     end,
