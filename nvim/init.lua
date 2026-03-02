@@ -365,12 +365,22 @@ require('lazy').setup({
           'diagnostics',
           {
             function()
+              if not vim.wo.spell then return '' end
               local count = 0
-              for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
-                for _, word in ipairs(vim.spell.check(line)) do
-                  if word[2] == 'bad' then count = count + 1 end
+              local saved = vim.fn.winsaveview()
+              vim.fn.cursor(1, 1)
+              local found = vim.fn.search([[\<\a]], 'cW')
+              while found ~= 0 do
+                local lnum, col = vim.fn.line('.'), vim.fn.col('.')
+                local bad = vim.fn.spellbadword()
+                if bad[1] ~= '' and vim.fn.line('.') == lnum and vim.fn.col('.') == col then
+                  count = count + 1
                 end
+                vim.fn.cursor(lnum, col)
+                vim.fn.search([[\k\+]], 'ceW')
+                found = vim.fn.search([[\<\a]], 'W')
               end
+              vim.fn.winrestview(saved)
               if count == 0 then return '' end
               return '󰓆 ' .. count
             end,
