@@ -1,7 +1,3 @@
-import = [
-    "~/.config/alacritty-platform.toml",
-    "~/AppData/Roaming/alacritty-platform.toml",
-]
 
 [window]
     decorations = "None"
@@ -199,4 +195,10 @@ color = "#8853c7"
 bindings = [
     {key = "Space", mods = "Control", chars = "\u0000"},
     {key = "V", mods = "Control", action = "Paste" },
+]
+
+[general]
+import = [
+    "~/.config/alacritty-platform.toml",
+    "~/AppData/Roaming/alacritty-platform.toml",
 ]
