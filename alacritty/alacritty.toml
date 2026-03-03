@@ -1,3 +1,8 @@
+import = [
+    "~/.config/alacritty-platform.toml",
+    "~/AppData/Roaming/alacritty-platform.toml",
+]
+
 [window]
     decorations = "None"
     padding = {x = 4, y = 4}
@@ -189,11 +194,6 @@ color = "#8853c7"
 
 [mouse]
     hide_when_typing = true
-
-import = [
-    "~/.config/alacritty-platform.toml",
-    "~/AppData/Roaming/alacritty-platform.toml",
-]
 
 [keyboard]
 bindings = [
