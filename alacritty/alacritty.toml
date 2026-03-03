@@ -3,7 +3,7 @@
     decorations = "None"
     padding = {x = 4, y = 4}
     dynamic_padding = true
-    opacity = 0.85
+    opacity = 0.75
     title = "Alacritty"
     dynamic_title = true
 
@@ -195,6 +195,8 @@ color = "#8853c7"
 bindings = [
     {key = "Space", mods = "Control", chars = "\u0000"},
     {key = "V", mods = "Control", action = "Paste" },
+    {key = "]", mods = "Control", command = {program = "powershell", args = ["-ExecutionPolicy", "Bypass", "-Command", "& \"$env:APPDATA\\alacritty\\opacity.ps1\" '+'"]}} ,
+    {key = "[", mods = "Control", command = {program = "powershell", args = ["-ExecutionPolicy", "Bypass", "-Command", "& \"$env:APPDATA\\alacritty\\opacity.ps1\" '-'"]}},
 ]
 
 [general]

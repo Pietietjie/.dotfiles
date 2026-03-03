@@ -1,5 +1,0 @@
-[keyboard]
-bindings = [
-    {key = "=", mods = "Control|Shift", command = {program = "powershell", args = ["-ExecutionPolicy", "Bypass", "-Command", "& \"$env:APPDATA\\alacritty\\opacity.ps1\" '+'"]}} ,
-    {key = "-", mods = "Control|Shift", command = {program = "powershell", args = ["-ExecutionPolicy", "Bypass", "-Command", "& \"$env:APPDATA\\alacritty\\opacity.ps1\" '-'"]}},
-]
