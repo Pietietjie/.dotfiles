@@ -139,7 +139,8 @@ function Install-Software
         @{ Name = "keepassxc"; Version = $null },
         @{ Name = "dbeaver"; Version = $null },
         @{ Name = "postman"; Version = $null },
-        @{ Name = "neovim"; Version = "0.10.3" },
+        @{ Name = "mingw"; Version = $null },
+        @{ Name = "neovim"; Version = "0.11.5" },
         @{ Name = "alacritty"; Version = "0.15.1" },
         @{ Name = "wezterm"; Version = "20240203.110809.0" },
         @{ Name = "python"; Version = "3.13.4" }
