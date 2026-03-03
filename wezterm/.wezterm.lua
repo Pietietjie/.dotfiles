@@ -26,7 +26,18 @@ config.disable_default_key_bindings = true
 config.default_cursor_style = 'SteadyBar'
 
 config.leader = { key = ' ', mods = 'CTRL' }
+local is_transparent = true
 local is_zoomed = false
+local function transparency_toggle(window)
+  window:toast_notification('WezTerm', 'Transparency: ' .. (is_transparent and 'on (0.8)' or 'off (1.0)'), nil, 2000)
+  is_transparent = not is_transparent
+  local opacity = is_transparent and 0.8 or 1.0
+  wezterm.log_info('transparency_toggle: is_transparent=' .. tostring(is_transparent) .. ' opacity=' .. tostring(opacity))
+  local overrides = window:get_config_overrides() or {}
+  overrides.window_background_opacity = opacity
+  window:set_config_overrides(overrides)
+  window:toast_notification('WezTerm', 'Transparency: ' .. (is_transparent and 'on (0.8)' or 'off (1.0)'), nil, 2000)
+end
 local function zoom_toggle(window, pane)
   is_zoomed = not is_zoomed
   window:perform_action(act.SetPaneZoomState(is_zoomed), pane)
@@ -46,6 +57,7 @@ config.keys = {
   { key = 's', mods = 'LEADER',       action = wezterm.action { SplitVertical = { domain = 'CurrentPaneDomain' }, }, },
   { key = 'v', mods = 'LEADER',       action = wezterm.action { SplitHorizontal = { domain = 'CurrentPaneDomain' }, }, },
   { key = 'z', mods = 'LEADER',       action = wezterm.action_callback(function(window, pane) zoom_toggle(window, pane) end), },
+  { key = 't', mods = 'LEADER',       action = wezterm.action_callback(function(window, _) transparency_toggle(window) end), },
   { key = 'c', mods = 'LEADER',       action = wezterm.action { SpawnTab = 'CurrentPaneDomain' }, },
   { key = 'L', mods = 'CTRL|SHIFT',   action = wezterm.action.ShowDebugOverlay },
   { key = 'h', mods = 'LEADER',       action = wezterm.action_callback(function(window, pane) navigate_panes_with_zoom(window, pane, 'Left') end), },
