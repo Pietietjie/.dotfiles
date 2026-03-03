@@ -3,6 +3,10 @@
         relink: true
         path: alacritty
         create: true
+    ~/.config/alacritty-platform.toml:
+        relink: true
+        path: alacritty/alacritty-keys-linux.toml
+        create: true
     ~/.bashrc:
         force: true
         relink: true

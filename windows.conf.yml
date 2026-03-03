@@ -7,6 +7,10 @@
         relink: true
         path: alacritty
         create: true
+    ~/AppData/Roaming/alacritty-platform.toml:
+        relink: true
+        path: alacritty/alacritty-keys-windows.toml
+        create: true
 - link:
     ~/.wezterm.lua:
         relink: true

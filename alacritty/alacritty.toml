@@ -190,10 +190,13 @@ color = "#8853c7"
 [mouse]
     hide_when_typing = true
 
+import = [
+    "~/.config/alacritty-platform.toml",
+    "~/AppData/Roaming/alacritty-platform.toml",
+]
+
 [keyboard]
 bindings = [
     {key = "Space", mods = "Control", chars = "\u0000"},
     {key = "V", mods = "Control", action = "Paste" },
-    {key = "=", mods = "Control|Shift", command = {program = "/bin/bash", args = ["-c", "$HOME/.dotfiles/alacritty/opacity.sh +"]}},
-    {key = "-", mods = "Control|Shift", command = {program = "/bin/bash", args = ["-c", "$HOME/.dotfiles/alacritty/opacity.sh -"]}},
 ]

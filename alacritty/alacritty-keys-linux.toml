@@ -1,0 +1,5 @@
+[keyboard]
+bindings = [
+    {key = "=", mods = "Control|Shift", command = {program = "/bin/bash", args = ["-c", "$HOME/.dotfiles/alacritty/opacity.sh +"]}},
+    {key = "-", mods = "Control|Shift", command = {program = "/bin/bash", args = ["-c", "$HOME/.dotfiles/alacritty/opacity.sh -"]}},
+]
