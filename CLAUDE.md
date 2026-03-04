@@ -37,11 +37,15 @@ git dotfiles <git-command>   # e.g. git dotfiles status
 ### Neovim Config (`nvim/`)
 All configuration lives in a **single `nvim/init.lua`** file — no split plugin files. [lazy.nvim](https://github.com/folke/lazy.nvim) is the plugin manager. LSP servers are managed via Mason (`mason.nvim` + `mason-lspconfig`). Configured LSPs: `lua_ls`, `intelephense` (PHP), `html`, `tailwindcss`, `emmet_language_server`, `twiggy_language_server`.
 
+All user-created Lua modules live under `nvim/lua/pietietjie/`. New files should be placed there and required via `require('pietietjie.<module>')`. Current modules:
+- `loggers.lua` — provides the global `l` logger (`l.info`, `l.trace`, `l.debug`, `l.warn`, `l.error`)
+- `snippets/` — per-filetype LuaSnip snippet files, each returning a table of snippets. Loaded in `init.lua` via `ls.add_snippets('filetype', require('pietietjie.snippets.<filetype>'))`
+
 A global `l` variable is available in all Lua code for logging:
 ```lua
 l.info("message")   -- l.trace / l.debug / l.warn / l.error
 ```
-This is set up in `nvim/init.lua` via `l = require('pietietjie.loggers')` and the module lives at `nvim/lua/pietietjie/loggers.lua`.
+This is set up in `nvim/init.lua` via `l = require('pietietjie.loggers')`.
 
 Navigation bindings (`]b`/`[b`, `]q`/`[q`, `]h`/`[h`, etc.) use `make_repeatable_move_pair()` which wraps `nvim-treesitter-textobjects`'s repeatable move API so they work with vim count and `;`/`,` repeat.
 
@@ -61,4 +65,4 @@ Heavy use of aliases. Key ones:
 - `git dotfiles <cmd>` — run git commands on the dotfiles repo from any directory
 
 ### Commit Convention
-Commits use gitmoji (emoji prefix). LuaSnip snippets in `nvim/init.lua` provide trigger words like `:feat:` → `✨`, `:bug:` → `🐛`, `:docs:` → `📝`, `:refactor:` → `♻️`, etc. for use in gitcommit buffers.
+Commits use gitmoji (emoji prefix). LuaSnip snippets in `nvim/lua/pietietjie/snippets/gitcommit.lua` provide trigger words like `:feat:` → `✨`, `:bug:` → `🐛`, `:docs:` → `📝`, `:refactor:` → `♻️`, etc. for use in gitcommit buffers.
