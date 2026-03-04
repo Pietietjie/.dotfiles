@@ -965,7 +965,7 @@ vim.keymap.set("n", "<leader>_", "1z=", { desc = "Set the spelling error to the 
 vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggles the [u]ndo [t]ree side bar" })
 
 -- Yank keymaps
-vim.keymap.set({ 'n' }, '[_Yank]y', '"+y', { desc = '[y]anks into system clipboard' })
+vim.keymap.set({ 'n' }, '[_Yank]', '"+y', { desc = '[y]anks into system clipboard' })
 vim.keymap.set({ 'v' }, '[_Yank]y', '"+y', { desc = '[y]anks into system clipboard' })
 vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y$',
   { desc = '[Y]anks into system clipboard from the cursor until the end of the line' })
