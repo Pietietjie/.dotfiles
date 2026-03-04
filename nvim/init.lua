@@ -668,6 +668,30 @@ require('lazy').setup({
     build = 'cd formatter && npm ci && npm run build',
     config = true,
   },
+  {
+    "https://codeberg.org/andyg/leap.nvim",
+    name = "leap.nvim",
+    config = function()
+      vim.keymap.set({'n', 'x', 'o'}, 'gl', '<Plug>(leap)')
+      vim.keymap.set({ 'x', 'o' }, 'R', function()
+        require('leap.treesitter').select {
+          opts = require('leap.user').with_traversal_keys('R', 'r')
+        }
+      end)
+      vim.keymap.set({ 'n' }, 'R', function()
+        vim.cmd.normal("v");
+        require('leap.treesitter').select {
+          opts = require('leap.user').with_traversal_keys('R', 'r')
+        }
+      end)
+      vim.keymap.set({ 'n', 'o' }, 'gs', function()
+        require('leap.remote').action {
+          -- Automatically enter Visual mode when coming from Normal.
+          input = vim.fn.mode(true):match('o') and '' or 'v'
+        }
+      end)
+    end,
+  },
 }, {})
 
 -- ----------------------------------------------------
