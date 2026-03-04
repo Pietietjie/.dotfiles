@@ -651,13 +651,13 @@ require('lazy').setup({
       },
     },
     keys = {
-      { "<S-Enter>",             function() require("noice").redirect(vim.fn.getcmdline()) end,                 mode = "c",                 desc = "Redirect Cmdline" },
+      { "<S-Enter>",   function() require("noice").redirect(vim.fn.getcmdline()) end,                 mode = "c",                 desc = "Redirect Cmdline" },
       { "[_Search]nl", function() require("noice").cmd("last") end,                                   desc = "Noice Last Message" },
       { "[_Search]nh", function() require("noice").cmd("history") end,                                desc = "Noice History" },
       { "[_Search]na", function() require("noice").cmd("all") end,                                    desc = "Noice All" },
       { "[_Search]nd", function() require("noice").cmd("dismiss") end,                                desc = "Dismiss All" },
-      { "<c-f>",                 function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end,  silent = true,              expr = true,              desc = "Scroll forward",  mode = { "i", "n", "s" } },
-      { "<c-b>",                 function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true,              expr = true,              desc = "Scroll backward", mode = { "i", "n", "s" } },
+      { "<c-f>",       function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end,  silent = true,              expr = true,              desc = "Scroll forward",  mode = { "i", "n", "s" } },
+      { "<c-b>",       function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true,              expr = true,              desc = "Scroll backward", mode = { "i", "n", "s" } },
     },
   },
 
@@ -672,7 +672,7 @@ require('lazy').setup({
     "https://codeberg.org/andyg/leap.nvim",
     name = "leap.nvim",
     config = function()
-      vim.keymap.set({'n', 'x', 'o'}, 'gl', '<Plug>(leap)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'gl', '<Plug>(leap)')
       vim.keymap.set({ 'x', 'o' }, 'R', function()
         require('leap.treesitter').select {
           opts = require('leap.user').with_traversal_keys('R', 'r')
@@ -1701,11 +1701,11 @@ require('luasnip.loaders.from_vscode').lazy_load()
 ls.config.setup {}
 
 ls.add_snippets('gitcommit', require('pietietjie.snippets.gitcommit'))
-ls.add_snippets('php',       require('pietietjie.snippets.php'))
-ls.add_snippets('twig',      require('pietietjie.snippets.twig'))
+ls.add_snippets('php', require('pietietjie.snippets.php'))
+ls.add_snippets('twig', require('pietietjie.snippets.twig'))
 ls.add_snippets('javascript', require('pietietjie.snippets.javascript'))
 ls.add_snippets('typescript', require('pietietjie.snippets.javascript'))
-ls.add_snippets('all',       require('pietietjie.snippets.all'))
+ls.add_snippets('all', require('pietietjie.snippets.all'))
 
 cmp.setup {
   snippet = {
