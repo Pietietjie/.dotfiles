@@ -1,3 +1,7 @@
+- shell:
+    - command: cp -n shell/.path ~/.path
+      description: Copy .path to home (skips if already exists)
+
 - link:
     ~/.config/alacritty:
         relink: true

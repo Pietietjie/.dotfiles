@@ -134,20 +134,7 @@ alias change="sudo update-alternatives --config"
 alias fzcp="cp \$(fzf)"
 alias fzmv="mv \$(fzf)"
 
-if [[ -d "$HOME/.nvm" ]]; then
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
 # update_dot="g dotfiles pl"
 # "${update_dot}" &>/dev/null & disown;
-if [[ -d "$HOME/.config/herd-lite/bin" ]]; then
-    export PATH="$HOME/.config/herd-lite/bin:$PATH"
-    export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-fi
-
-if [[ -v go ]]; then
-    export PATH=$PATH:/usr/local/go/bin
-    export PATH=$PATH:$(go env GOPATH)/bin
-fi
+[ -f ~/.path ] && source ~/.path
 export PATH="$HOME/.local/bin:$PATH"
