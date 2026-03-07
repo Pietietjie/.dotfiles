@@ -5,6 +5,9 @@ local l = require('pietietjie.loggers')
 if (string.find(vim.loop.os_uname().sysname, "indows")) then
   vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
 end
+if (string.find(vim.loop.os_uname().sysname, "Linux") and string.find(vim.loop.os_uname().version, 'Nix')) then
+  vim.cmd("let g:sqlite_clib_path = '/run/current-system/sw/lib/libsqlite3.so'")
+end
 
 local function is_visual()
   local mode = vim.api.nvim_get_mode().mode

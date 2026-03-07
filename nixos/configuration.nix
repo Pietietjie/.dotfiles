@@ -50,6 +50,30 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+fonts = {
+    packages = (with pkgs; [
+      noto-fonts
+      noto-fonts-color-emoji
+      fira-code
+      fira-code-symbols
+      dina-font
+      proggyfonts
+      udev-gothic-nf
+      font-awesome
+      cantarell-fonts
+    ]);
+
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [ "UDEV Gothic 35NFLG" ];
+        sansSerif = [ "DejaVu Sans" ];
+        serif = [ "DejaVu Serif" ];
+      };
+      subpixel = { lcdfilter = "light"; };
+    };
+  };
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -80,7 +104,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -102,6 +126,12 @@
     fzf
     ripgrep
     nodejs_20
+    fd
+    sqlite
+    sqlite.out
+    jq
+    unzip
+    oh-my-zsh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

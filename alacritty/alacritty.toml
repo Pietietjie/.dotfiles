@@ -24,17 +24,12 @@
     multiplier = 5
 
 [font]
-    # normal from PoisonIsBestType/BlackLotus: family = "JetBrainsMono Nerd Font", style = "Regular"
-    normal = { family = "FiraCode Nerd Font", style = "Regular" }
-    bold = { family = "FiraCode Nerd Font", style = "Bold" }
-    italic = { family = "FiraCode Nerd Font", style = "Italic" }
-    bold_italic = { family = "FiraCode Nerd Font", style = "Bold Italic" }
+    normal = { family = "UDEV Gothic 35NFLG", style = "Regular" }
+    bold = { family = "UDEV Gothic 35NFLG", style = "Bold" }
+    italic = { family = "UDEV Gothic 35NFLG", style = "Italic" }
+    bold_italic = { family = "UDEV Gothic 35NFLG", style = "Bold Italic" }
     size = 14
-    # Offset is the extra space around each character. This is useful when using
-    # box drawing characters.
     offset = { x = 0, y = 0 }
-    # Glyph offset determines the locations of the glyphs within their cells with
-    # the default being at the bottom.
     glyph_offset = { x = 0, y = 0 }
 
 [colors.bright]
