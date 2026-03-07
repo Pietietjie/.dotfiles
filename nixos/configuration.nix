@@ -94,7 +94,24 @@ fonts = {
   # services.xserver.libinput.enable = true;
 
   # Set zsh as default shell for all users.
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    ohMyZsh = {
+      enable = true;
+      custom = "$HOME/.oh-my-zsh/custom/";
+      theme = "pietietjie";
+      plugins = [
+        "artisan"
+        "npm"
+        "composer"
+        "git"
+        "zsh-autosuggestions"
+        "zsh-syntax-highlighting"
+        "docker"
+        "docker-compose"
+      ];
+    };
+  };
   users.defaultUserShell = pkgs.zsh;
 
   # Define a user account. Don't forget to set a password with 'passwd'.
@@ -131,7 +148,6 @@ fonts = {
     sqlite.out
     jq
     unzip
-    oh-my-zsh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

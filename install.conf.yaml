@@ -3,10 +3,6 @@
         relink: true
         path: alacritty
         create: true
-    ~/.config/alacritty-platform.toml:
-        relink: true
-        path: alacritty/alacritty-keys-linux.toml
-        create: true
     ~/.bashrc:
         force: true
         relink: true
@@ -25,6 +21,10 @@
         path: nvim
         create: true
     ~/.oh-my-zsh/themes/pietietjie.zsh-theme:
+        relink: true
+        path: zsh/pietietjie.zsh-theme
+        create: true
+    ~/.oh-my-zsh/custom/themes/pietietjie.zsh-theme:
         relink: true
         path: zsh/pietietjie.zsh-theme
         create: true
