@@ -190,8 +190,10 @@ color = "#8853c7"
 bindings = [
     {key = "Space", mods = "Control", chars = "\u0000"},
     {key = "V", mods = "Control", action = "Paste" },
-    {key = "]", mods = "Control", command = {program = "powershell", args = ["-ExecutionPolicy", "Bypass", "-Command", "& \"$env:APPDATA\\alacritty\\opacity.ps1\" '+'"]}} ,
-    {key = "[", mods = "Control", command = {program = "powershell", args = ["-ExecutionPolicy", "Bypass", "-Command", "& \"$env:APPDATA\\alacritty\\opacity.ps1\" '-'"]}},
+    {key = "]", mods = "Control", command = {program = "bash", args = ["-c", "~/.config/alacritty/opacity.sh +"]}},
+    {key = "[", mods = "Control", command = {program = "bash", args = ["-c", "~/.config/alacritty/opacity.sh -"]}},
+    # {key = "[", mods = "Control", command = {program = "powershell", args = ["-ExecutionPolicy", "Bypass", "-Command", "& \"$env:APPDATA\\alacritty\\opacity.ps1\" '-'"]}},
+    # {key = "[", mods = "Control", command = {program = "powershell", args = ["-ExecutionPolicy", "Bypass", "-Command", "& \"$env:APPDATA\\alacritty\\opacity.ps1\" '-'"]}},
 ]
 
 [general]
