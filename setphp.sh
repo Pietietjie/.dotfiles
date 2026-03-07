@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 versionAliasFile="/tmp/php_version.dat"
 

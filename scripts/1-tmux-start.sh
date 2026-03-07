@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -f ~/tmux-sessions.json ]; then
     blueprint_name=""

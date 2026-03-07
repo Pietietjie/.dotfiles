@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 session_list=$(tmux list-sessions -F "#{session_created}|#{session_name}|#{session_attached}" 2>/dev/null | sort -n | awk -F'|' '
 {

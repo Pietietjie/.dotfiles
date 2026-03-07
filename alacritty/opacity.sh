@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/alacritty/alacritty.toml"
 CURRENT=$(grep -oP '^\s+opacity = \K[\d.]+' "$CONFIG")
 
