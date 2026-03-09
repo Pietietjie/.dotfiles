@@ -83,8 +83,7 @@ vim.opt.spell = true
 vim.opt.spelllang = 'en_us'
 vim.opt.spelloptions = 'camel'
 
-vim.opt.scrolloff = 100
-vim.opt.sidescrolloff = 100
+vim.opt.scrolloff = 8
 
 vim.opt.confirm = true        -- ask for confirmation instead of erring
 
@@ -977,6 +976,18 @@ vim.keymap.set('n', '[s', prev_spell, { desc = 'Previous misspelling' })
 -- vim.keymap.'set'({'n', 'v'}, 's', '"_s')
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+-- Center cursor after vertical movements
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-f>', '<C-f>zz')
+vim.keymap.set('n', '<C-b>', '<C-b>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+vim.keymap.set('n', 'G', 'Gzz')
+vim.keymap.set('n', 'gg', 'ggzz')
+vim.keymap.set('n', '{', '{zz')
+vim.keymap.set('n', '}', '}zz')
+vim.keymap.set('n', '%', '%zz')
 -- vim.keymap.set('i', 'jj', '<Esc>')
 -- Easy insertion of a trailing ; or , from insert mode
 vim.keymap.set('i', ';;', '<Esc>A;<Esc>')
