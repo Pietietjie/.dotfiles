@@ -364,50 +364,6 @@ require('lazy').setup({
             path = 1,
           },
         },
-        lualine_x = {
-          'diagnostics',
-          (function()
-            local spell_cache = {}
-            local function recount_spell(buf)
-              local saved = vim.fn.winsaveview()
-              local prev_ws = vim.o.wrapscan
-              vim.o.wrapscan = false
-              vim.fn.cursor(1, 1)
-              local count = 0
-              if vim.fn.spellbadword()[1] == '' then
-                vim.cmd('keepjumps silent! normal! ]s')
-              end
-              while vim.fn.spellbadword()[1] ~= '' do
-                count = count + 1
-                local pos = vim.fn.getpos('.')
-                vim.cmd('keepjumps silent! normal! ]s')
-                local new_pos = vim.fn.getpos('.')
-                if new_pos[2] == pos[2] and new_pos[3] == pos[3] then break end
-              end
-              vim.o.wrapscan = prev_ws
-              vim.fn.winrestview(saved)
-              spell_cache[buf] = count
-            end
-            vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'BufEnter', }, {
-              callback = function(ev) recount_spell(ev.buf) end,
-            })
-            vim.api.nvim_create_autocmd('BufDelete', {
-              callback = function(ev) spell_cache[ev.buf] = nil end,
-            })
-            return {
-              function()
-                local count = spell_cache[vim.api.nvim_get_current_buf()] or 0
-                if count == 0 then return '' end
-                return '󰓆 ' .. count
-              end,
-              cond = function() return vim.wo.spell end,
-              color = { fg = '#e0af68' },
-            }
-          end)(),
-          'encoding',
-          'fileformat',
-          'filetype',
-        },
         lualine_y = { 'progress' },
         lualine_z = { 'location' },
       },
