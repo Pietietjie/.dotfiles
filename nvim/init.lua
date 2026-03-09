@@ -164,8 +164,6 @@ require('lazy').setup({
     end,
   },
 
-  { 'sheerun/vim-polyglot' },
-
   -- Git related plugins
   { 'tpope/vim-fugitive', event = "VeryLazy" },
 
