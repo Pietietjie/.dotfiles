@@ -168,7 +168,7 @@ require('lazy').setup({
   { 'sheerun/vim-polyglot' },
 
   -- Git related plugins
-  'tpope/vim-fugitive',
+  { 'tpope/vim-fugitive', event = "VeryLazy" },
 
   -- adds, replaces, removes surrounding pairs
   {
@@ -179,6 +179,7 @@ require('lazy').setup({
   -- improves netrw
   {
     'tpope/vim-vinegar',
+    event = "VeryLazy",
     config = function()
       -- Fix: vim-vinegar's `-` doesn't always position the cursor on the current
       -- file when opening netrw from a subdirectory. This override opens the
@@ -201,7 +202,7 @@ require('lazy').setup({
   },
 
   -- adds compatibility for "." in other packages
-  'tpope/vim-repeat',
+  { 'tpope/vim-repeat', event = "VeryLazy" },
 
   -- use * to search visual mode selection
   {
@@ -417,6 +418,7 @@ require('lazy').setup({
   -- Shows active buffers at the top to the screen kind of like vscode's file tabs
   {
     'akinsho/bufferline.nvim',
+    event = "VeryLazy",
     dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('bufferline').setup({
@@ -546,6 +548,7 @@ require('lazy').setup({
   -- show the current context of the cursor like which function, class, if statement, loop, etc. at the top of the buffer
   {
     'nvim-treesitter/nvim-treesitter-context',
+    event = "VeryLazy",
     config = function()
       require('treesitter-context').setup({
         enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -568,6 +571,7 @@ require('lazy').setup({
   -- https://github.com/kana/vim-textobj-user/wiki
   {
     'kana/vim-textobj-user',
+    event = "VeryLazy",
     dependencies = {
       'whatyouhide/vim-textobj-xmlattr',     -- for XML based text objects
       'kana/vim-textobj-entire',             -- for 'ae' and 'ie' everything
@@ -591,6 +595,7 @@ require('lazy').setup({
   -- saves buffers automatically
   {
     'pocco81/auto-save.nvim',
+    event = "VeryLazy",
     config = function()
       require("auto-save").setup({
         enabled = true,        -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
@@ -649,7 +654,7 @@ require('lazy').setup({
   },
 
   -- hides env values
-  'laytan/cloak.nvim',
+  { 'laytan/cloak.nvim', event = "VeryLazy" },
 
   -- useless plugin
   {
@@ -708,6 +713,7 @@ require('lazy').setup({
   {
     "https://codeberg.org/andyg/leap.nvim",
     name = "leap.nvim",
+    event = "VeryLazy",
     config = function()
       vim.keymap.set({ 'n', 'x', 'o' }, 'gl', '<Plug>(leap)')
       vim.keymap.set({ 'x', 'o' }, 'R', function()
