@@ -366,30 +366,44 @@ require('lazy').setup({
         },
         lualine_x = {
           'diagnostics',
-          {
-            function()
-              if not vim.wo.spell then return '' end
-              local count = 0
+          (function()
+            local spell_cache = {}
+            local function recount_spell(buf)
               local saved = vim.fn.winsaveview()
+              local prev_ws = vim.o.wrapscan
+              vim.o.wrapscan = false
               vim.fn.cursor(1, 1)
-              local found = vim.fn.search([[\<\a]], 'cW')
-              while found ~= 0 do
-                local lnum, col = vim.fn.line('.'), vim.fn.col('.')
-                local bad = vim.fn.spellbadword()
-                if bad[1] ~= '' and vim.fn.line('.') == lnum and vim.fn.col('.') == col then
-                  count = count + 1
-                end
-                vim.fn.cursor(lnum, col)
-                vim.fn.search([[\k\+]], 'ceW')
-                found = vim.fn.search([[\<\a]], 'W')
+              local count = 0
+              if vim.fn.spellbadword()[1] == '' then
+                vim.cmd('keepjumps silent! normal! ]s')
               end
+              while vim.fn.spellbadword()[1] ~= '' do
+                count = count + 1
+                local pos = vim.fn.getpos('.')
+                vim.cmd('keepjumps silent! normal! ]s')
+                local new_pos = vim.fn.getpos('.')
+                if new_pos[2] == pos[2] and new_pos[3] == pos[3] then break end
+              end
+              vim.o.wrapscan = prev_ws
               vim.fn.winrestview(saved)
-              if count == 0 then return '' end
-              return '󰓆 ' .. count
-            end,
-            cond = function() return vim.wo.spell end,
-            color = { fg = '#e0af68' },
-          },
+              spell_cache[buf] = count
+            end
+            vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'BufEnter', }, {
+              callback = function(ev) recount_spell(ev.buf) end,
+            })
+            vim.api.nvim_create_autocmd('BufDelete', {
+              callback = function(ev) spell_cache[ev.buf] = nil end,
+            })
+            return {
+              function()
+                local count = spell_cache[vim.api.nvim_get_current_buf()] or 0
+                if count == 0 then return '' end
+                return '󰓆 ' .. count
+              end,
+              cond = function() return vim.wo.spell end,
+              color = { fg = '#e0af68' },
+            }
+          end)(),
           'encoding',
           'fileformat',
           'filetype',
@@ -507,6 +521,26 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+  },
+
+  -- LSP features inside injected language regions (e.g. lua blocks in markdown)
+  {
+    'jmbuhr/otter.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {},
+    config = function(_, opts)
+      require('otter').setup(opts)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'markdown', 'html', 'php' },
+        callback = function() require('otter').activate() end,
+        desc = 'Auto-activate otter for injected language LSP',
+      })
+    end,
+    ft = { 'markdown', 'html', 'php' },
+    keys = {
+      { '<leader>la', function() require('otter').activate() end, desc = '[L]SP [A]ctivate otter' },
+      { '<leader>ld', function() require('otter').deactivate() end, desc = '[L]SP [D]eactivate otter' },
+    },
   },
 
   -- show the current context of the cursor like which function, class, if statement, loop, etc. at the top of the buffer
@@ -1554,6 +1588,7 @@ local servers = {
   html = {},
   ["tailwindcss"] = {},
   ["emmet_language_server"] = {},
+  sqls = {},
 }
 
 mason_lspconfig.setup {
@@ -1627,6 +1662,11 @@ for server_name, server_settings in pairs(servers) do
     settings = server_settings,
   })
 end
+
+vim.lsp.config("sqls", {
+  root_markers = { ".sqls.yml" },
+  cmd = { "sqls", "-config", ".sqls.yml" },
+})
 
 vim.lsp.config("twiggy_language_server", {
   filetypes = { "twig", "html.twig" },
