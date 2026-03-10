@@ -1482,56 +1482,56 @@ require('nvim-treesitter.configs').setup {
       node_decremental = '<M-i>',
     },
   },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['afu'] = '@function.outer',
-        ['ifu'] = '@function.inner',
-        ['afi'] = '@conditional.outer',
-        ['ifi'] = '@conditional.inner',
-        ['al'] = '@loop.outer',
-        ['il'] = '@loop.inner',
-        ['a='] = '@assignment.outer',
-        ['i='] = '@assignment.inner',
-        ['ao'] = '@class.outer',
-        ['io'] = '@class.inner',
-        ['a,'] = '@parameter.outer',
-        ['i,'] = '@parameter.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jump-list
-      goto_next_start = {
-        [']f'] = '@function.outer',
-      },
-      goto_next_end = {
-        [']F'] = '@function.outer',
-      },
-      goto_previous_start = {
-        ['[f'] = '@function.outer',
-      },
-      goto_previous_end = {
-        ['[F'] = '@function.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>wa'] = '@parameter.inner',
-        ['<leader>wf'] = '@function.outer',
-      },
-      swap_previous = {
-        ['<leader>wA'] = '@parameter.inner',
-        ['<leader>wF'] = '@function.outer',
-      },
-    },
+}
+
+-- [[ Configure Treesitter Textobjects ]]
+local ts_select = require("nvim-treesitter-textobjects.select")
+local ts_move = require("nvim-treesitter-textobjects.move")
+local ts_swap = require("nvim-treesitter-textobjects.swap")
+
+require("nvim-treesitter-textobjects").setup {
+  select = {
+    lookahead = true,
+  },
+  move = {
+    set_jumps = true,
   },
 }
+
+-- select keymaps
+local select_maps = {
+  { 'aa', '@parameter.outer' },
+  { 'ia', '@parameter.inner' },
+  { 'afu', '@function.outer' },
+  { 'ifu', '@function.inner' },
+  { 'afi', '@conditional.outer' },
+  { 'ifi', '@conditional.inner' },
+  { 'al', '@loop.outer' },
+  { 'il', '@loop.inner' },
+  { 'a=', '@assignment.outer' },
+  { 'i=', '@assignment.inner' },
+  { 'ao', '@class.outer' },
+  { 'io', '@class.inner' },
+  { 'a,', '@parameter.outer' },
+  { 'i,', '@parameter.inner' },
+}
+for _, map in ipairs(select_maps) do
+  vim.keymap.set({ 'x', 'o' }, map[1], function()
+    ts_select.select_textobject(map[2], 'textobjects')
+  end)
+end
+
+-- move keymaps
+vim.keymap.set({ 'n', 'x', 'o' }, ']f', function() ts_move.goto_next_start('@function.outer', 'textobjects') end)
+vim.keymap.set({ 'n', 'x', 'o' }, ']F', function() ts_move.goto_next_end('@function.outer', 'textobjects') end)
+vim.keymap.set({ 'n', 'x', 'o' }, '[f', function() ts_move.goto_previous_start('@function.outer', 'textobjects') end)
+vim.keymap.set({ 'n', 'x', 'o' }, '[F', function() ts_move.goto_previous_end('@function.outer', 'textobjects') end)
+
+-- swap keymaps
+vim.keymap.set('n', '<leader>wa', function() ts_swap.swap_next('@parameter.inner') end)
+vim.keymap.set('n', '<leader>wf', function() ts_swap.swap_next('@function.outer') end)
+vim.keymap.set('n', '<leader>wA', function() ts_swap.swap_previous('@parameter.inner') end)
+vim.keymap.set('n', '<leader>wF', function() ts_swap.swap_previous('@function.outer') end)
 
 -- [[ Configure LSP ]]
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
