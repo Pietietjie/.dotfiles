@@ -2,16 +2,28 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  sources = import ./lon.nix;
+  lanzaboote = import sources.lanzaboote {
+    inherit pkgs;
+  };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      lanzaboote.nixosModules.lanzaboote
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
@@ -134,6 +146,8 @@ fonts = {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    sbctl
+    lon
     keepassxc
     python3
     tmux
