@@ -928,20 +928,23 @@ vim.keymap.set('n', ']s', next_spell, { desc = 'Next misspelling' })
 vim.keymap.set('n', '[s', prev_spell, { desc = 'Previous misspelling' })
 
 -- vim.keymap.'set'({'n', 'v'}, 's', '"_s')
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gkzz' : 'kzz'", { expr = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gjzz' : 'jzz'", { expr = true })
 -- Center cursor after vertical movements
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
-vim.keymap.set('n', '<C-f>', '<C-f>zz')
-vim.keymap.set('n', '<C-b>', '<C-b>zz')
-vim.keymap.set('n', 'n', 'nzzzv')
-vim.keymap.set('n', 'N', 'Nzzzv')
-vim.keymap.set('n', 'G', 'Gzz')
-vim.keymap.set('n', 'gg', 'ggzz')
-vim.keymap.set('n', '{', '{zz')
-vim.keymap.set('n', '}', '}zz')
-vim.keymap.set('n', '%', '%zz')
+vim.keymap.set('v', 'j', 'jzz')
+vim.keymap.set('v', 'k', 'kzz')
+vim.keymap.set({ 'n', 'v' }, '<C-d>', '<C-d>zz')
+vim.keymap.set({ 'n', 'v' }, '<C-u>', '<C-u>zz')
+vim.keymap.set({ 'n', 'v' }, '<C-f>', '<C-f>zz')
+vim.keymap.set({ 'n', 'v' }, '<C-b>', '<C-b>zz')
+vim.keymap.set({ 'n', 'v' }, 'n', 'nzzzv')
+vim.keymap.set({ 'n', 'v' }, 'N', 'Nzzzv')
+vim.keymap.set({ 'n', 'v' }, 'G', 'Gzz')
+vim.keymap.set({ 'n', 'v' }, 'gg', 'ggzz')
+vim.keymap.set({ 'n', 'v' }, '{', '{zz')
+vim.keymap.set({ 'n', 'v' }, '}', '}zz')
+vim.keymap.set({ 'n', 'v' }, '%', '%zz')
+vim.keymap.set('v', 'o', 'ozz')
 -- vim.keymap.set('i', 'jj', '<Esc>')
 -- Easy insertion of a trailing ; or , from insert mode
 vim.keymap.set('i', ';;', '<Esc>A;<Esc>')
@@ -1282,6 +1285,23 @@ pcall(require('telescope').load_extension, 'smart_history')
 pcall(require('telescope').load_extension, 'live_grep_args')
 
 -- Make :q close telescope without save prompts.
+local centered_bufs = {}
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function(args)
+    if centered_bufs[args.buf] then
+      return
+    end
+    centered_bufs[args.buf] = true
+    vim.cmd('normal! zz')
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufDelete", {
+  callback = function(args)
+    centered_bufs[args.buf] = nil
+  end,
+})
+
 vim.api.nvim_create_autocmd("QuitPre", {
   callback = function()
     local ft = vim.bo.filetype
