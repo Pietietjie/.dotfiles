@@ -95,7 +95,6 @@ vim.opt.backupdir:remove('.') -- keep backups out of the current directory
 
 vim.opt.signcolumn = 'yes:1'
 
-vim.cmd('autocmd User TelescopePreviewerLoaded setlocal number')
 vim.cmd('autocmd FileType netrw setl bufhidden=delete')
 vim.cmd('let g:netrw_fastbrowse = 0')
 vim.cmd('let g:netrw_bufsettings = \'noma nomod nu nowrap ro nobl\'')
@@ -849,12 +848,12 @@ local next_buffer, prev_buffer = make_repeatable_move_pair(
   function() vim.cmd(string.format("%dbnext", vim.v.count1)) end,
   function() vim.cmd(string.format("%dbprevious", vim.v.count1)) end
 )
-local first_buffer, last_buffer = make_repeatable_move_pair(
+local last_buffer, first_buffer = make_repeatable_move_pair(
   function() vim.cmd('blast') end,
   function() vim.cmd('bfirst') end
 )
-vim.keymap.set('n', ']B', first_buffer, { desc = 'Last buffer' })
-vim.keymap.set('n', '[B', last_buffer, { desc = 'First buffer' })
+vim.keymap.set('n', ']B', last_buffer, { desc = 'Last buffer' })
+vim.keymap.set('n', '[B', first_buffer, { desc = 'First buffer' })
 vim.keymap.set('n', ']b', next_buffer, { desc = 'Next buffer' })
 vim.keymap.set('n', '[b', prev_buffer, { desc = 'Previous buffer' })
 
@@ -862,12 +861,12 @@ local next_qf, prev_qf = make_repeatable_move_pair(
   function() vim.cmd(string.format('%dcnext', vim.v.count1)) end,
   function() vim.cmd(string.format('%dcprevious', vim.v.count1)) end
 )
-local first_qf, last_qf = make_repeatable_move_pair(
+local last_qf, first_qf = make_repeatable_move_pair(
   function() vim.cmd('clast') end,
   function() vim.cmd('cfirst') end
 )
-vim.keymap.set('n', ']Q', first_qf, { desc = 'Last quickfix' })
-vim.keymap.set('n', '[Q', last_qf, { desc = 'First quickfix' })
+vim.keymap.set('n', ']Q', last_qf, { desc = 'Last quickfix' })
+vim.keymap.set('n', '[Q', first_qf, { desc = 'First quickfix' })
 vim.keymap.set('n', ']q', next_qf, { desc = 'Next quickfix' })
 vim.keymap.set('n', '[q', prev_qf, { desc = 'Previous quickfix' })
 
@@ -875,12 +874,12 @@ local next_loc, prev_loc = make_repeatable_move_pair(
   function() vim.cmd(string.format('%dlnext', vim.v.count1)) end,
   function() vim.cmd(string.format('%dlprevious', vim.v.count1)) end
 )
-local first_loc_list, last_loc_list = make_repeatable_move_pair(
+local last_loc_list, first_loc_list = make_repeatable_move_pair(
   function() vim.cmd('llast') end,
   function() vim.cmd('lfirst') end
 )
-vim.keymap.set('n', ']L', first_loc_list, { desc = 'Last location list' })
-vim.keymap.set('n', '[L', last_loc_list, { desc = 'First location list' })
+vim.keymap.set('n', ']L', last_loc_list, { desc = 'Last location list' })
+vim.keymap.set('n', '[L', first_loc_list, { desc = 'First location list' })
 vim.keymap.set('n', ']l', next_loc, { desc = 'Next location list' })
 vim.keymap.set('n', '[l', prev_loc, { desc = 'Previous location list' })
 
@@ -1266,6 +1265,7 @@ vim.api.nvim_create_autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
   callback = function()
     vim.wo.wrap = true
+    vim.wo.number = true
   end,
 })
 
