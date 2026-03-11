@@ -1156,7 +1156,7 @@ local previousHistoryAndChangeToNormalMode = function(prompt_bufnr)
   vim.api.nvim_feedkeys(keys, 'm', false)
 end
 local nextHistoryAndChangeToNormalMode = function(prompt_bufnr)
-  telescopeActions.cycle_history_nextt(prompt_bufnr);
+  telescopeActions.cycle_history_next(prompt_bufnr);
   local keys = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
   -- 'm' is the mode, you can find on the feedkeys docs, but your case is
   -- 'm', I think
