@@ -1359,6 +1359,7 @@ telescope_menu_bind_n_and_v_mode(
     end
     require('telescope.builtin').buffers({
       default_text = defaultText,
+      show_all_buffers = true,
       initial_mode = "normal",
       attach_mappings = function()
         if n > 0 then
