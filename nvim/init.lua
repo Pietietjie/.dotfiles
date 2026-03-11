@@ -2,10 +2,10 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 local l = require('pietietjie.loggers')
 -- if windows use the chocolatey sqlite package
-if (string.find(vim.loop.os_uname().sysname, "indows")) then
+if (string.find(vim.uv.os_uname().sysname, "indows")) then
   vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
 end
-if (string.find(vim.loop.os_uname().sysname, "Linux") and string.find(vim.loop.os_uname().version, 'Nix')) then
+if (string.find(vim.uv.os_uname().sysname, "Linux") and string.find(vim.uv.os_uname().version, 'Nix')) then
   vim.cmd("let g:sqlite_clib_path = '/run/current-system/sw/lib/libsqlite3.so'")
 end
 
@@ -23,7 +23,7 @@ end
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     'git',
     'clone',
@@ -1180,7 +1180,7 @@ require('telescope').setup {
               filename:match("dist") or filename:match("build") then
             return true
           end
-          local stat = vim.loop.fs_stat(path)
+          local stat = vim.uv.fs_stat(path)
           if stat and stat.size > 1024 * 1024 then -- 1MB
             return true
           end
