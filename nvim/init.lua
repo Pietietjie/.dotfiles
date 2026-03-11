@@ -199,7 +199,7 @@ require('lazy').setup({
   },
 
   -- adds compatibility for "." in other packages
-  { 'tpope/vim-repeat', event = "VeryLazy" },
+  { 'tpope/vim-repeat',   event = "VeryLazy" },
 
   -- use * to search visual mode selection
   {
@@ -234,9 +234,9 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
       -- Additional lua configuration, makes nvim stuff amazing!
-      { 'folke/lazydev.nvim',      ft = 'lua',     opts = {} },
+      { 'folke/lazydev.nvim',      ft = 'lua',   opts = {} },
     },
   },
 
@@ -493,7 +493,7 @@ require('lazy').setup({
     end,
     ft = { 'markdown', 'html', 'php' },
     keys = {
-      { '<leader>la', function() require('otter').activate() end, desc = '[L]SP [A]ctivate otter' },
+      { '<leader>la', function() require('otter').activate() end,   desc = '[L]SP [A]ctivate otter' },
       { '<leader>ld', function() require('otter').deactivate() end, desc = '[L]SP [D]eactivate otter' },
     },
   },
@@ -1512,20 +1512,20 @@ require("nvim-treesitter-textobjects").setup {
 
 -- select keymaps
 local select_maps = {
-  { 'aa', '@parameter.outer' },
-  { 'ia', '@parameter.inner' },
+  { 'aa',  '@parameter.outer' },
+  { 'ia',  '@parameter.inner' },
   { 'afu', '@function.outer' },
   { 'ifu', '@function.inner' },
   { 'afi', '@conditional.outer' },
   { 'ifi', '@conditional.inner' },
-  { 'al', '@loop.outer' },
-  { 'il', '@loop.inner' },
-  { 'a=', '@assignment.outer' },
-  { 'i=', '@assignment.inner' },
-  { 'ao', '@class.outer' },
-  { 'io', '@class.inner' },
-  { 'a,', '@parameter.outer' },
-  { 'i,', '@parameter.inner' },
+  { 'al',  '@loop.outer' },
+  { 'il',  '@loop.inner' },
+  { 'a=',  '@assignment.outer' },
+  { 'i=',  '@assignment.inner' },
+  { 'ao',  '@class.outer' },
+  { 'io',  '@class.inner' },
+  { 'a,',  '@parameter.outer' },
+  { 'i,',  '@parameter.inner' },
 }
 for _, map in ipairs(select_maps) do
   vim.keymap.set({ 'x', 'o' }, map[1], function()
