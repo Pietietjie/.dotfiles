@@ -767,15 +767,6 @@ local function open_qf_buffers()
     l.info("All quickfix buffers are already open")
   end
 end
-local function randomString(chars, length)
-  local result = {}
-  math.randomseed(os.time())
-  for i = 1, length do
-    local randomIndex = math.random(1, #chars)
-    result[i] = chars:sub(randomIndex, randomIndex)
-  end
-  return table.concat(result)
-end
 
 local previousTelescopeMenuAction = nil;
 local previousTelescopeMenuShowHistory = true;
