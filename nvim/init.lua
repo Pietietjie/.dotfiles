@@ -909,16 +909,16 @@ vim.keymap.set('n', '[t', prev_tag, { desc = 'Previous tag' })
 
 local next_hunk, prev_hunk = make_repeatable_move_pair(
   function()
-    require('gitsigns').nav_hunk('prev',
+    require('gitsigns').nav_hunk('next',
       { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' })
   end,
   function()
-    require('gitsigns').nav_hunk('next',
+    require('gitsigns').nav_hunk('prev',
       { wrap = true, foldopen = true, navigation_message = true, greedy = false, count = vim.v.count1, target = 'all' })
   end
 )
-vim.keymap.set('n', '[h', next_hunk, { desc = 'Next git hunk' })
-vim.keymap.set('n', ']h', prev_hunk, { desc = 'Previous git hunk' })
+vim.keymap.set('n', '[h', prev_hunk, { desc = 'Previous git hunk' })
+vim.keymap.set('n', ']h', next_hunk, { desc = 'Next git hunk' })
 
 local next_spell, prev_spell = make_repeatable_move_pair(
   function() vim.cmd(string.format('normal! %d]s', vim.v.count1)) end,
