@@ -975,7 +975,11 @@ vim.keymap.set({ "n", "v" }, '[_Yank]m', function()
   local content = '';
   local path_suffix = '';
   if is_visual() then
-    path_suffix = ':' .. vim.fn.line("'<") .. ':' .. vim.fn.line("'>");
+    local startLine = vim.fn.line("'<")
+    local endLine = vim.fn.line("'>")
+    if startLine ~= 0 and endLine ~= 0 then
+      path_suffix = ':' .. startLine .. ' - ' .. endLine
+    end
     content = get_visual_selection()
   else
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
@@ -985,7 +989,7 @@ vim.keymap.set({ "n", "v" }, '[_Yank]m', function()
     l.info('nothing selected')
     return;
   end
-  local wrapped = '\n```' .. vim.fn.expand('%:.') .. path_suffix .. '\n' .. content .. '\n```'
+  local wrapped = '`' .. vim.fn.expand('%:.') .. path_suffix .. '`:\n```' .. vim.bo.filetype .. '\n' .. content .. '\n```'
   vim.fn.setreg('+', wrapped)
   if is_visual() then
     l.info('Selection yanked to clipboard with markdown code block')
