@@ -10,7 +10,7 @@
     ];
 
   boot.initrd.systemd.enable = true;
-  
+
   boot.initrd.luks.devices."luks-3d37da59-f6ff-42c9-a8bd-f2032188da51".crypttabExtraOpts = [ "tpm2-device=auto" ];
   boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" "tpm_tis_core" ];
   # Bootloader.
@@ -46,8 +46,28 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+  users.groups.greeter = {};
+  users.users.greeter = {
+    isSystemUser = true;
+    description   = "Greeter user for greetd";
+    group         = "greeter";
+    home          = "/var/empty";
+    createHome    = false;
+    shell         = "${pkgs.shadow}/bin/nologin";
+    extraGroups = [ "video" "audio" "input" "wheel" ];
+  };
+  services.displayManager.sddm.enable = false;
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        user = "greeter";
+        command =
+          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd startplasma-wayland";
+      };
+    };
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -141,10 +161,6 @@ fonts = {
     isNormalUser = true;
     description = "Pieter Louis van der Meijden";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-      #  thunderbird
-    ];
   };
 
   # Install firefox.
