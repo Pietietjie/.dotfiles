@@ -3,20 +3,16 @@
 # and in the NixOS manual (accessible by running 'nixos-help').
 
 { config, pkgs, lib, ... }:
-
-let
-  sources = import ./lon.nix;
-  lanzaboote = import sources.lanzaboote {
-    inherit pkgs;
-  };
-in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      lanzaboote.nixosModules.lanzaboote
     ];
 
+  boot.initrd.systemd.enable = true;
+  
+  boot.initrd.luks.devices."luks-3d37da59-f6ff-42c9-a8bd-f2032188da51".crypttabExtraOpts = [ "tpm2-device=auto" ];
+  boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" "tpm_tis_core" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = lib.mkForce false;
 
@@ -147,7 +143,6 @@ fonts = {
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     sbctl
-    lon
     keepassxc
     python3
     tmux

@@ -48,7 +48,7 @@
         force: true
         relink: true
         if: "[[ \"$EUID\" -eq 0 ]] && [[ -f /etc/NIXOS ]]"
-        path: nixos
+        path: nixos/hosts/pietietjie
         create: true
     /etc/pkglist.txt:
         force: true
