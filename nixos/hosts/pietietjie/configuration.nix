@@ -47,27 +47,7 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
-  users.groups.greeter = {};
-  users.users.greeter = {
-    isSystemUser = true;
-    description   = "Greeter user for greetd";
-    group         = "greeter";
-    home          = "/var/empty";
-    createHome    = false;
-    shell         = "${pkgs.shadow}/bin/nologin";
-    extraGroups = [ "video" "audio" "input" "wheel" ];
-  };
-  services.displayManager.sddm.enable = false;
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        user = "greeter";
-        command =
-          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd startplasma-wayland";
-      };
-    };
-  };
+  services.displayManager.sddm.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
