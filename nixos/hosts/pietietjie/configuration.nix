@@ -146,6 +146,10 @@ fonts = {
   # Install firefox.
   programs.firefox.enable = true;
 
+  #file managers
+  programs.yazi.enable = true;
+  programs.thunar.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -153,11 +157,10 @@ fonts = {
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     sbctl
-    keepassxc
     python3
-    tmux
-    alacritty
     git
+    tmux
+
     neovim
     fzf
     ripgrep
@@ -166,7 +169,15 @@ fonts = {
     sqlite
     sqlite.out
     jq
+
     unzip
+
+    keepassxc
+    alacritty
+    kitty
+    mpv
+    imv
+    btop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
