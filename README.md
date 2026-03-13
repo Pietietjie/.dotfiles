@@ -58,6 +58,7 @@ sudo ./install
     - [mini align plug](https://github.com/nvim-mini/mini.align)
     - [refactor plugin](https://github.com/ThePrimeagen/refactoring.nvim)
     - [trouble plugin](https://github.com/folke/trouble.nvim)
+    - [big boy plugin list](https://github.com/yutkat/my-neovim-pluginlist)
 ## 🌱 Inspiration 🌟
 - Find inspiration and examples in other Dotfiles repositories:
     - [dotfiles.github.io](https://dotfiles.github.io/)
