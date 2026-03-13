@@ -21,12 +21,13 @@ if [ -f ~/tmux-sessions.json ]; then
     if [ -z "$blueprint_name" ]; then
         blueprint_name=$(jq -r '.[].blueprintName' ~/tmux-sessions.json | fzf --tac)
     fi
-    jq -c ".[] | select(.blueprintName == \"$blueprint_name\") | .sessions | .[]" ~/tmux-sessions.json | while IFS= read -r sessionJson; do
+    selectSession=$(jq -r ".[] | select(.blueprintName == \"$blueprint_name\") | .selectSession // empty" ~/tmux-sessions.json)
+    jq -c ".[] | select(.blueprintName == \"$blueprint_name\") | .sessions // [] | .[]" ~/tmux-sessions.json | while IFS= read -r sessionJson; do
         sessionName=$(echo "$sessionJson" | jq -r '.sessionName')
         sessionDir=$(echo "$sessionJson" | jq -r '.dir' | sed "s|^~|$HOME|;s|^.$|$(pwd)|")
         if tmux new-session -d -s $sessionName -c "$sessionDir"; then
             windowNumber=1
-            echo "$sessionJson" | jq -c '.windows | .[]' | while IFS= read -r windowsJson; do
+            echo "$sessionJson" | jq -c '.windows // [] | .[]' | while IFS= read -r windowsJson; do
                 # Check if window has its own directory
                 windowDir=$(echo "$windowsJson" | jq -r '.dir')
                 if [[ -n $windowDir && "$windowDir" != "null" ]]; then
@@ -43,7 +44,7 @@ if [ -f ~/tmux-sessions.json ]; then
                     # For the first window, we need to set the directory since it was already created
                     tmux send-keys -t $sessionName:$windowNumber "cd \"$currentDir\"" C-m
                 fi
-                echo "$windowsJson" | jq -c '.panes | .[]' | while IFS= read -r paneJson; do
+                echo "$windowsJson" | jq -c '.panes // [] | .[]' | while IFS= read -r paneJson; do
                     if [[ "$paneNumber" != "1" ]]; then
                         heightPercentage=$(echo "$paneJson" | jq -r '.heightPercentage')
                         if [[ -n $heightPercentage && "$heightPercentage" != "null" ]]; then
@@ -58,17 +59,32 @@ if [ -f ~/tmux-sessions.json ]; then
                     fi
                     ((paneNumber++))
                 done
+                selectPane=$(echo "$windowsJson" | jq -r '.selectPane')
+                if [[ -n $selectPane && "$selectPane" != "null" ]]; then
+                    tmux select-pane -t $sessionName:$windowNumber.$selectPane
+                fi
+
                 maximized=$(echo "$windowsJson" | jq -r '.maximized')
                 if [[ -n $maximized && "$maximized" != "null" ]]; then
                     tmux resize-pane -Z -t $sessionName:$windowNumber;
                 fi
+
                 ((windowNumber++))
             done
+
+            selectWindow=$(echo "$sessionJson" | jq -r '.selectWindow')
+            if [[ -n $selectWindow && "$selectWindow" != "null" ]]; then
+                tmux select-window -t $sessionName:$selectWindow
+            fi
         fi
     done
 fi
 
 if [[ -z "$TMUX" && $attach ]]; then
-    tmux attach-session
+    if [[ -n $selectSession ]]; then
+        tmux attach-session -t "$selectSession"
+    else
+        tmux attach-session
+    fi
 fi
 
