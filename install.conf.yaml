@@ -37,6 +37,11 @@
         relink: true
         path: zsh/.zshrc
         create: true
+    ~/.config/niri/config.kdl:
+        force: true
+        relink: true
+        path: niri/config.kdl
+        create: true
 - link:
     /usr/local/bin/scrp:
         force: true
