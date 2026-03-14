@@ -183,7 +183,7 @@ binds {
     Mod+Down  { focus-window-down-or-column-left; }
     Mod+Up    { focus-window-up-or-column-right; }
     Mod+Right { focus-column-right-or-first; }
-    Mod+H     { focus-column-left-or-first; }
+    Mod+H     { focus-column-left-or-last; }
     Mod+J     { focus-window-down-or-column-left; }
     Mod+K     { focus-window-up-or-column-right; }
     Mod+L     { focus-column-right-or-first; }
