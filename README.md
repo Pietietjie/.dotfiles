@@ -30,6 +30,7 @@ sudo ./install
 - [ ] make that the install script can uninstall
 - [ ] make a [cli tool](https://github.com/charmbracelet/bubbletea) for managing nix builds
 - NVIM:
+    - [ ] make that links can be opened in the browser
     - [ ] fix emojis breaking the spacing on windows (😔)
         - caused by LSP, snippets, tokyo night theme, & vim.opt.termguicolors = true
     - [ ] Look at getting a [debugger for nvim](https://github.com/mfussenegger/nvim-dap)
