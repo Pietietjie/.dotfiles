@@ -44,7 +44,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.o.exrc = true
 
-vim.diagnostic.config({ float = { border = 'rounded' } })
+vim.diagnostic.config({ underline = true, float = { border = 'rounded' } })
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -733,6 +733,10 @@ vim.cmd 'highlight FloatShadow guibg=#24283b blend=none'
 vim.cmd 'highlight FloatShadowThrough guibg=#24283b blend=none'
 vim.cmd 'highlight Folded guifg=#7aa2f7 guibg=none'
 vim.cmd 'highlight Todo guifg=#ffa500'
+vim.cmd 'highlight DiagnosticUnderlineError gui=underline guisp=#db4b4b'
+vim.cmd 'highlight DiagnosticUnderlineWarn gui=underline guisp=#e0af68'
+vim.cmd 'highlight DiagnosticUnderlineInfo gui=underline guisp=#0db9d7'
+vim.cmd 'highlight DiagnosticUnderlineHint gui=underline guisp=#1abc9c'
 vim.cmd 'highlight BufferLineDevIconDefaultSelected ctermfg=66 guifg=#6d8086'
 vim.cmd 'highlight BufferLineDevIconDefaultInactive ctermfg=66 guifg=#6d8086'
 vim.cmd 'highlight BufferLineDevIconLuaSelected ctermfg=66 guifg=#6d8086'
