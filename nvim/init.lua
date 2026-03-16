@@ -274,19 +274,19 @@ require('lazy').setup({
     config = function(_, opts)
       require('render-markdown').setup(opts)
       -- bold background colours for each heading level
-        local hl = vim.api.nvim_set_hl
-        hl(0, 'RenderMarkdownH1', { fg = '#7aa2f7', bold = true })
-        hl(0, 'RenderMarkdownH2', { fg = '#e0af68', bold = true })
-        hl(0, 'RenderMarkdownH3', { fg = '#9ece6a', bold = true })
-        hl(0, 'RenderMarkdownH4', { fg = '#7dcfff', bold = true })
-        hl(0, 'RenderMarkdownH5', { fg = '#bb9af7', bold = true })
-        hl(0, 'RenderMarkdownH6', { fg = '#9d7cd8', bold = true })
-        hl(0, 'RenderMarkdownH1Bg', { bg = '#24283b', fg = '#7aa2f7', bold = true })
-        hl(0, 'RenderMarkdownH2Bg', { bg = '#2a2520', fg = '#e0af68', bold = true })
-        hl(0, 'RenderMarkdownH3Bg', { bg = '#1f2b24', fg = '#9ece6a', bold = true })
-        hl(0, 'RenderMarkdownH4Bg', { bg = '#1b2b34', fg = '#7dcfff', bold = true })
-        hl(0, 'RenderMarkdownH5Bg', { bg = '#2a2438', fg = '#bb9af7', bold = true })
-        hl(0, 'RenderMarkdownH6Bg', { bg = '#241f33', fg = '#9d7cd8', bold = true })
+      local hl = vim.api.nvim_set_hl
+      hl(0, 'RenderMarkdownH1', { fg = '#7aa2f7', bold = true })
+      hl(0, 'RenderMarkdownH2', { fg = '#e0af68', bold = true })
+      hl(0, 'RenderMarkdownH3', { fg = '#9ece6a', bold = true })
+      hl(0, 'RenderMarkdownH4', { fg = '#7dcfff', bold = true })
+      hl(0, 'RenderMarkdownH5', { fg = '#bb9af7', bold = true })
+      hl(0, 'RenderMarkdownH6', { fg = '#9d7cd8', bold = true })
+      hl(0, 'RenderMarkdownH1Bg', { bg = '#24283b', fg = '#7aa2f7', bold = true })
+      hl(0, 'RenderMarkdownH2Bg', { bg = '#2a2520', fg = '#e0af68', bold = true })
+      hl(0, 'RenderMarkdownH3Bg', { bg = '#1f2b24', fg = '#9ece6a', bold = true })
+      hl(0, 'RenderMarkdownH4Bg', { bg = '#1b2b34', fg = '#7dcfff', bold = true })
+      hl(0, 'RenderMarkdownH5Bg', { bg = '#2a2438', fg = '#bb9af7', bold = true })
+      hl(0, 'RenderMarkdownH6Bg', { bg = '#241f33', fg = '#9d7cd8', bold = true })
     end,
   },
 
@@ -1029,7 +1029,7 @@ vim.keymap.set({ "n", "v" }, '[_Yank]m', function()
     return;
   end
   local wrapped = '`' ..
-  vim.fn.expand('%:.') .. path_suffix .. '`:\n```' .. vim.bo.filetype .. '\n' .. content .. '\n```'
+      vim.fn.expand('%:.') .. path_suffix .. '`:\n```' .. vim.bo.filetype .. '\n' .. content .. '\n```'
   vim.fn.setreg('+', wrapped)
   if is_visual() then
     l.info('Selection yanked to clipboard with markdown code block')
