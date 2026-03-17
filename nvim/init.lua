@@ -989,6 +989,12 @@ vim.keymap.set('i', '<C-v>', '<Esc>"+p', { desc = 'Paste from system clipboard' 
 -- make that space can be used as a leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<Enter>', '<Nop>', { silent = true })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  callback = function()
+    vim.keymap.set('n', '<CR>', '<CR>', { buffer = true, silent = true })
+  end,
+})
 -- made that capital c & d work as usual when prefaced with c or d
 vim.keymap.set("n", "dD", "D")
 vim.keymap.set("n", "cC", "C")
