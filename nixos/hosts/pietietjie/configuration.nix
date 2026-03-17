@@ -115,6 +115,19 @@ fonts = {
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+  services.keyd = {
+    enable = true;
+
+    keyboards.default = {
+      ids = [ "*" ];
+
+      settings = {
+        main = {
+          leftmeta = "overload(meta, f24)";
+        };
+      };
+    };
+  };
 
   # Set zsh as default shell for all users.
   programs.zsh = {
@@ -174,7 +187,8 @@ fonts = {
     unzip
 
     keepassxc
-    rofi
+    fuzzel
+    wl-color-picker
     alacritty
     kitty
     mpv

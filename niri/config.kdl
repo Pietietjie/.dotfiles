@@ -18,8 +18,6 @@ input {
     }
 
     warp-mouse-to-focus
-
-    focus-follows-mouse max-scroll-amount="50%"
 }
 
 // SEE: https://yalter.github.io/niri/Configuration:-Outputs
@@ -45,7 +43,7 @@ layout {
     preset-window-heights { proportion 0.5; proportion 1.0; }
 
     // You can change the default width of the new windows.
-    default-column-width { proportion 1.0; }
+    default-column-width { proportion 0.66667; }
 
     // If you don't like that, you should uncomment `prefer-no-csd` below.
     // Niri will draw focus ring and border *around* windows that agree to omit their
@@ -85,7 +83,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+spawn-at-startup "noctalia-shell"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
@@ -142,7 +140,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-    f24 hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Super+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
