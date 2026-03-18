@@ -643,6 +643,104 @@ require('lazy').setup({
   -- hides env values
   { 'laytan/cloak.nvim', event = "VeryLazy" },
 
+  {
+    'echasnovski/mini.hipatterns',
+    event = "VeryLazy",
+    config = function()
+      local hipatterns = require('mini.hipatterns')
+      local colors = require('pietietjie.colors')
+
+      local function hex_to_hl(hex)
+        return MiniHipatterns.compute_hex_color_group(hex, 'bg')
+      end
+
+      local function color_group(pattern_str, parser)
+        return {
+          pattern = pattern_str,
+          group = function(_, match)
+            local hex = parser(match)
+            if hex then return hex_to_hl(hex) end
+          end,
+        }
+      end
+
+      local function rgb_parser(match)
+        local r, g, b = match:match('(%d+)%s*,%s*(%d+)%s*,%s*(%d+)')
+        if r then
+          return string.format('#%02x%02x%02x',
+            colors.clamp(tonumber(r), 0, 255), colors.clamp(tonumber(g), 0, 255), colors.clamp(tonumber(b), 0, 255))
+        end
+      end
+
+      local function hsl_parser(match)
+        local h, s, lv = match:match('(%d+)%s*,%s*(%d+)%%%s*,%s*(%d+)%%')
+        if h then return colors.hsl_to_hex(tonumber(h), tonumber(s), tonumber(lv)) end
+      end
+
+      local function vec3_parser(match)
+        local r, g, b = match:match('([%d%.]+)%s*,%s*([%d%.]+)%s*,%s*([%d%.]+)')
+        if r then
+          return string.format('#%02x%02x%02x',
+            colors.clamp(math.floor(tonumber(r) * 255 + 0.5), 0, 255),
+            colors.clamp(math.floor(tonumber(g) * 255 + 0.5), 0, 255),
+            colors.clamp(math.floor(tonumber(b) * 255 + 0.5), 0, 255))
+        end
+      end
+
+      local function word(kw, group) return { pattern = '%f[%w]()' .. kw .. '()%f[%W]', group = group } end
+
+      for name, hl in pairs({
+        HiLogError = { fg = '#f7768e', italic = true },
+        HiLogWarn  = { fg = '#e0af68', italic = true },
+        HiLogInfo  = { fg = '#7dcfff', italic = true },
+        HiLogDebug = { fg = '#9ece6a', italic = true },
+        HiLogTrace = { fg = '#737aa2', italic = true },
+        HiUrl      = { fg = '#7aa2f7', underline = true },
+      }) do vim.api.nvim_set_hl(0, name, hl) end
+
+      hipatterns.setup({
+        highlighters = {
+          fixme     = word('FIXME', 'MiniHipatternsFixme'),
+          hack      = word('HACK', 'MiniHipatternsHack'),
+          todo      = word('TODO', 'MiniHipatternsTodo'),
+          note      = word('NOTE', 'MiniHipatternsNote'),
+
+          hex_color = hipatterns.gen_highlighter.hex_color(),
+          rgb       = color_group('rgb%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*%)',                     rgb_parser),
+          rgba      = color_group('rgba%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*,%s*[%d%.]+%s*%)',       rgb_parser),
+          hsl       = color_group('hsl%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*%)',                   hsl_parser),
+          hsla      = color_group('hsla%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*,%s*[%d%.]+%s*%)',    hsl_parser),
+          vec3      = color_group('vec3%(%s*[%d%.]+%s*,%s*[%d%.]+%s*,%s*[%d%.]+%s*%)',          vec3_parser),
+
+          css_named_color = {
+            pattern = '%f[%w]()%a+()%f[%W]',
+            group = function(_, match)
+              local hex = colors.css[match:lower()]
+              if hex then return hex_to_hl(hex) end
+            end,
+          },
+
+          tailwind = {
+            pattern = '[%w-]-()%a+%-()%d+',
+            group = function(_, match)
+              local hex = colors.tailwind[match:lower()]
+              if hex then return hex_to_hl(hex) end
+            end,
+          },
+
+          log_error = word('ERROR', 'HiLogError'),
+          log_warn  = word('WARN',  'HiLogWarn'),
+          log_info  = word('INFO',  'HiLogInfo'),
+          log_debug = word('DEBUG', 'HiLogDebug'),
+          log_trace = word('TRACE', 'HiLogTrace'),
+
+          url   = { pattern = 'https?://[%w_.~!*:@&=+$/?#%%-%%]+', group = 'HiUrl' },
+          email = { pattern = '[%w._%+-]+@[%w.-]+%.%a%a+',         group = 'HiUrl' },
+        },
+      })
+    end,
+  },
+
   -- useless plugin
   {
     'eandrju/cellular-automaton.nvim',

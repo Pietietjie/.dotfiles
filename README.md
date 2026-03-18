@@ -49,7 +49,6 @@ sudo ./install
     - [grim](https://sr.ht/~emersion/grim/) \w [slurp](https://github.com/emersion/slurp) \w [swappy](https://github.com/jtheoof/swappy) - screenshots
 - Nvim plugs:
     - Look at AI plugins [super maven](https://github.com/supermaven-inc/supermaven-nvim) & [avante](https://github.com/yetone/avante.nvim)
-    - [mini highlight plugin](https://github.com/nvim-mini/mini.hipatterns) allows very custom highlighting example having hex colors render with that color as a bg
     - [mini test](https://nvim-mini.org/mini.nvim/readmes/mini-test.html)
     - [mini split join](https://github.com/nvim-mini/mini.splitjoin)
     - [mini misc](https://nvim-mini.org/mini.nvim/readmes/mini-misc.html)
