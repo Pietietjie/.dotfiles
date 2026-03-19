@@ -37,30 +37,12 @@
         relink: true
         path: zsh/.zshrc
         create: true
-    ~/.local/share/noctalia:
-        force: true
-        relink: true
-        path: noctalia
-        if: "[[ -f /etc/NIXOS ]]"
-        create: true
-    ~/.config/niri/config.kdl:
-        force: true
-        relink: true
-        path: niri/config.kdl
-        if: "[[ -f /etc/NIXOS ]]"
-        create: true
 - link:
     /usr/local/bin/scrp:
         force: true
         relink: true
         if: "[[ \"$EUID\" -eq 0 ]]"
         path: zsh/scrp
-        create: true
-    /etc/nixos:
-        force: true
-        relink: true
-        if: "[[ \"$EUID\" -eq 0 ]] && [[ -f /etc/NIXOS ]]"
-        path: nixos/hosts/pietietjie
         create: true
     /etc/pkglist.txt:
         force: true

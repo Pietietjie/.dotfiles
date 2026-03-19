@@ -10,6 +10,7 @@
     ];
 
   boot.initrd.systemd.enable = true;
+  services.noctalia-shell.enable = true;
 
   boot.initrd.luks.devices."luks-3d37da59-f6ff-42c9-a8bd-f2032188da51".crypttabExtraOpts = [ "tpm2-device=auto" ];
   boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" "tpm_tis_core" ];
