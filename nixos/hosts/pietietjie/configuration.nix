@@ -174,6 +174,12 @@ fonts = {
     python3
     git
     tmux
+    tldr
+    bat
+    eza
+    zoxide
+    wget
+    zig
 
     neovim
     fzf
@@ -188,7 +194,7 @@ fonts = {
 
     keepassxc
     fuzzel
-    wl-color-picker
+    hyprpicker
     alacritty
     kitty
     mpv

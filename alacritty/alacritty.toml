@@ -198,6 +198,5 @@ bindings = [
 
 [general]
 import = [
-    "~/.config/alacritty-platform.toml",
-    "~/AppData/Roaming/alacritty-platform.toml",
+    "~/.config/alacritty/themes/noctalia.toml",
 ]
