@@ -28,12 +28,12 @@ return {
   s("echo_print_r_die", {
     d(1, function()
       if is_laravel() then
-        return sn(nil, { t_node("dd("), i_node(1), t_node(");") })
+        return sn(nil, { t_node("dd("), i_node(1, "\"😿\""), t_node(");") })
       else
         return sn(nil, {
           t_node("echo '<pre>';"),
           t_node({ "", "print_r([" }),
-          i_node(1),
+          i_node(1, "\"😢\""),
           t_node("]);"),
           t_node({ "", "die;" }),
         })
@@ -43,12 +43,12 @@ return {
   s("echo_print_r", {
     d(1, function()
       if is_laravel() then
-        return sn(nil, { t_node("dump("), i_node(1), t_node(");") })
+        return sn(nil, { t_node("dump("), i_node(1, "\"😹\""), t_node(");") })
       else
         return sn(nil, {
           t_node("echo '<pre>';"),
           t_node({ "", "print_r([" }),
-          i_node(1),
+          i_node(1, "\"🤣\""),
           t_node("]);"),
           t_node({ "", "echo '</pre>';" }),
         })
