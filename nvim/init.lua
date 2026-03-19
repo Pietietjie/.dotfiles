@@ -524,6 +524,14 @@ require('lazy').setup({
         callback = function() require('otter').activate() end,
         desc = 'Auto-activate otter for injected language LSP',
       })
+      vim.api.nvim_create_autocmd('BufNew', {
+        pattern = '*.otter.*',
+        callback = function(ev)
+          vim.bo[ev.buf].bufhidden = 'wipe'
+          vim.bo[ev.buf].buflisted = false
+        end,
+        desc = 'Prevent otter buffers from prompting to save',
+      })
     end,
     ft = { 'markdown', 'html', 'php' },
     keys = {
