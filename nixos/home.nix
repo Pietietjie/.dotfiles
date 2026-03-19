@@ -1,8 +1,8 @@
 { pkgs, inputs, config, ... }:
 let
     username = "pietietjie";
-    homeDirectory = "/home/pietietjie";
-    dotfilesPath = "${homeDirectory}/dotfiles";
+    homeDirectory = "/home/${username}";
+    dotfilesPath = "${homeDirectory}/.dotfiles";
     stateVersion = "25.11";
 in {
     home.username = username;
@@ -52,12 +52,6 @@ in {
     home.file.".local/share/noctalia" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/noctalia";
         recursive = true;
-        force = true;
-    };
-
-    home.file.".local/bin/scrp" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/zsh/scrp";
-        executable = true;
         force = true;
     };
 
