@@ -716,7 +716,6 @@ require('lazy').setup({
             l.warn('tailwind documentColor error: ' .. vim.inspect(err))
             return
           end
-          l.info('tailwind documentColor returned ' .. #result .. ' items')
           for _, item in ipairs(result) do
             local range = item.range
             local line = vim.api.nvim_buf_get_lines(buf, range.start.line, range.start.line + 1, false)[1]
@@ -728,7 +727,6 @@ require('lazy').setup({
               while s > 1 and line:sub(s - 1, s - 1):match('[%w-]') do s = s - 1 end
               while e < #line and line:sub(e + 1, e + 1):match('[%w-]') do e = e + 1 end
               local class_name = line:sub(s, e)
-              l.debug('tailwind raw range: "' .. raw_text .. '" expanded to: "' .. class_name .. '"')
               if class_name and #class_name > 0 then
                 local c = item.color
                 local hex = string.format('#%02x%02x%02x',
@@ -741,12 +739,9 @@ require('lazy').setup({
                 -- so other prefixes (text-base-100, border-base-100) resolve too
                 local color_part = key:match('^%a+%-(.+)$')
                 if color_part then colors.tailwind[color_part] = hex end
-                l.debug('tailwind loaded: ' .. key .. ' → ' .. hex)
               end
             end
           end
-          l.info('tailwind table now has ' .. vim.tbl_count(colors.tailwind) .. ' entries')
-          l.debug('tailwind keys: ' .. vim.inspect(vim.tbl_keys(colors.tailwind)))
         end, buf)
       end
 
