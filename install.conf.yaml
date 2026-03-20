@@ -37,6 +37,11 @@
         relink: true
         path: zsh/.zshrc
         create: true
+    ~/.claude/settings.json:
+        relink: true
+        path: claude/settings.json
+        create: true
+        force: true
 - link:
     /usr/local/bin/scrp:
         force: true

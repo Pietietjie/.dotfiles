@@ -1,0 +1,16 @@
+{
+  "model": "opus[1m]",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "notify-send 'Claude: Waiting for your input'"
+          }
+        ]
+      }
+    ]
+  }
+}
