@@ -706,6 +706,63 @@ require('lazy').setup({
         HiUrl      = { fg = '#7aa2f7', underline = true },
       }) do vim.api.nvim_set_hl(0, name, hl) end
 
+      local function fetch_tw_colors(buf)
+        local clients = vim.lsp.get_clients({ bufnr = buf, name = 'tailwindcss' })
+        if #clients == 0 then return end
+        clients[1]:request('textDocument/documentColor', {
+          textDocument = vim.lsp.util.make_text_document_params(buf),
+        }, function(err, result)
+          if err or not result then
+            l.warn('tailwind documentColor error: ' .. vim.inspect(err))
+            return
+          end
+          l.info('tailwind documentColor returned ' .. #result .. ' items')
+          for _, item in ipairs(result) do
+            local range = item.range
+            local line = vim.api.nvim_buf_get_lines(buf, range.start.line, range.start.line + 1, false)[1]
+            if line then
+              local raw_text = line:sub(range.start.character + 1, range['end'].character)
+              -- Expand from the LSP range to the full class token (word chars + hyphens)
+              local s = range.start.character + 1
+              local e = range['end'].character
+              while s > 1 and line:sub(s - 1, s - 1):match('[%w-]') do s = s - 1 end
+              while e < #line and line:sub(e + 1, e + 1):match('[%w-]') do e = e + 1 end
+              local class_name = line:sub(s, e)
+              l.debug('tailwind raw range: "' .. raw_text .. '" expanded to: "' .. class_name .. '"')
+              if class_name and #class_name > 0 then
+                local c = item.color
+                local hex = string.format('#%02x%02x%02x',
+                  math.floor(c.red * 255 + 0.5),
+                  math.floor(c.green * 255 + 0.5),
+                  math.floor(c.blue * 255 + 0.5))
+                local key = class_name:lower()
+                colors.tailwind[key] = hex
+                -- Also store the stripped color part (e.g. bg-base-100 → base-100)
+                -- so other prefixes (text-base-100, border-base-100) resolve too
+                local color_part = key:match('^%a+%-(.+)$')
+                if color_part then colors.tailwind[color_part] = hex end
+                l.debug('tailwind loaded: ' .. key .. ' → ' .. hex)
+              end
+            end
+          end
+          l.info('tailwind table now has ' .. vim.tbl_count(colors.tailwind) .. ' entries')
+          l.debug('tailwind keys: ' .. vim.inspect(vim.tbl_keys(colors.tailwind)))
+        end, buf)
+      end
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if not client or client.name ~= 'tailwindcss' then return end
+          local buf = args.buf
+          fetch_tw_colors(buf)
+          vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'BufEnter' }, {
+            buffer = buf,
+            callback = function() fetch_tw_colors(buf) end,
+          })
+        end,
+      })
+
       hipatterns.setup({
         highlighters = {
           fixme     = word('FIXME', 'MiniHipatternsFixme'),
@@ -722,17 +779,32 @@ require('lazy').setup({
 
           css_named_color = {
             pattern = '%f[%w]()%a+()%f[%W]',
-            group = function(_, match)
+            group = function(buf_id, match, data)
+              if data then
+                local line = vim.api.nvim_buf_get_lines(buf_id, data.line - 1, data.line, false)[1]
+                if line then
+                  local before = data.from_col > 1 and line:sub(data.from_col - 1, data.from_col - 1) or ''
+                  local after = data.to_col < #line and line:sub(data.to_col + 1, data.to_col + 1) or ''
+                  if before == '-' or after == '-' then return end
+                end
+              end
               local hex = colors.css[match:lower()]
               if hex then return hex_to_hl(hex) end
             end,
           },
 
           tailwind = {
-            pattern = '[%w-]-()%a+%-()%d+',
+            pattern = '%f[%w]()[%w-]+()%f[^%w-]',
             group = function(_, match)
-              local hex = colors.tailwind[match:lower()]
+              local key = match:lower()
+              local hex = colors.tailwind[key]
               if hex then return hex_to_hl(hex) end
+              -- Strip utility prefix (bg-, text-, border-, etc.) and check stripped color part
+              local color_part = key:match('^%a+%-(.+)$')
+              if color_part then
+                hex = colors.tailwind[color_part]
+                if hex then return hex_to_hl(hex) end
+              end
             end,
           },
 
