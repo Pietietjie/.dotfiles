@@ -59,6 +59,9 @@ layer-rule {
 // See: https://yalter.github.io/niri/Configuration:-Window-Rules
 
 window-rule {
+    draw-border-with-background false
+}
+window-rule {
     match app-id="firefox"
     open-on-workspace "1browser"
     open-maximized true
