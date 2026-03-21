@@ -13,7 +13,51 @@ in {
 
     home.packages = with pkgs; [
         inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+        vimix-cursors
+        vimix-icon-theme
     ];
+
+    gtk = {
+        enable = true;
+
+        iconTheme = {
+            name = "Papirus-Dark";
+            package = pkgs.papirus-icon-theme;
+        };
+
+        cursorTheme = {
+            name = "Vimix-cursors";
+            package = pkgs.vimix-cursors;
+            size = 24;
+        };
+    };
+
+    home.pointerCursor = {
+        gtk.enable = true;
+        x11.enable = true;
+        name = "Vimix-cursors";
+        package = pkgs.vimix-cursors;
+        size = 24;
+    };
+
+    qt = {
+        enable = true;
+    };
+
+    xdg.configFile."gtk-3.0/settings.ini".text = ''
+        [Settings]
+        gtk-icon-theme-name=Vimix
+        gtk-cursor-theme-name=Vimix-cursors
+        gtk-cursor-theme-size=24
+    '';
+
+    xdg.configFile."gtk-4.0/settings.ini".text = ''
+        [Settings]
+        gtk-icon-theme-name=Vimix
+        gtk-cursor-theme-name=Vimix-cursors
+        gtk-cursor-theme-size=24
+    '';
 
     home.sessionPath = [
         "$HOME/.local/bin"
