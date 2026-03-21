@@ -155,6 +155,7 @@ fonts = {
   # programs.thunar.enable = true;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    # cli
     sbctl
     python3
     git
@@ -164,10 +165,12 @@ fonts = {
     eza
     zoxide
     wget
-    zig
+    unzip
 
+    # edit & dep
     neovim
     fzf
+    zig
     ripgrep
     nodejs_20
     fd
@@ -175,8 +178,7 @@ fonts = {
     sqlite.out
     jq
 
-    unzip
-
+    # GUIs
     keepassxc
     fuzzel
     hyprpicker
