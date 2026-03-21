@@ -58,7 +58,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-fonts = {
+  fonts = {
     packages = (with pkgs; [
       noto-fonts
       noto-fonts-color-emoji
@@ -181,12 +181,15 @@ fonts = {
     # GUIs
     keepassxc
     fuzzel
-    hyprpicker
     alacritty
     kitty
     mpv
     imv
     btop
+
+    # TOOLS
+    hyprpicker
+    wl-clipboard
   ];
 
   system.stateVersion = "25.11";
