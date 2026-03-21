@@ -875,7 +875,23 @@ require('lazy').setup({
     name = "leap.nvim",
     event = "VeryLazy",
     config = function()
-      vim.keymap.set({ 'n', 'x', 'o' }, 'gl', '<Plug>(leap)')
+      vim.keymap.set({ "n", "x", "o" }, "gl", function()
+        local group = vim.api.nvim_create_augroup("LeapCenterOnce", { clear = false })
+
+        vim.api.nvim_create_autocmd("CursorMoved", {
+          group = group,
+          once = true,
+          callback = function()
+            vim.schedule(function()
+              if vim.api.nvim_win_is_valid(0) then
+                vim.cmd("normal! zz")
+              end
+            end)
+          end,
+        })
+
+        vim.api.nvim_feedkeys(vim.keycode("<Plug>(leap)"), "m", false)
+      end, { desc = "Leap and center screen" })
       vim.keymap.set({ 'x', 'o' }, 'R', function()
         require('leap.treesitter').select {
           opts = require('leap.user').with_traversal_keys('R', 'r')
