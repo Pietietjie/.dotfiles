@@ -63,6 +63,19 @@ in {
         "$HOME/.local/bin"
     ];
 
+    services.kanshi.enable = true;
+
+    xdg.configFile."kanshi/config".text = ''
+        profile undocked {
+            output eDP-1 enable
+        }
+
+        profile docked {
+            output eDP-1 disable
+            output HDMI-A-1 enable
+        }
+    '';
+
     home.file.".bashrc" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/bash/.bashrc";
         force = true;

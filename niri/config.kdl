@@ -20,12 +20,6 @@ input {
     warp-mouse-to-focus
 }
 
-// SEE: https://yalter.github.io/niri/Configuration:-Outputs
-// Disable lappie screen run `niri msg outputs` to see the screens
-output "eDP-1" {
-    off
-}
-
 // SEE: https://yalter.github.io/niri/Configuration:-Layout
 layout {
     gaps 16
