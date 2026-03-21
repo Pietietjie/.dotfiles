@@ -181,7 +181,6 @@
     # GUIs
     keepassxc
     fuzzel
-    alacritty
     kitty
     mpv
     imv

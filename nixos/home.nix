@@ -118,12 +118,6 @@ in {
         force = true;
     };
 
-    xdg.configFile."alacritty" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/alacritty";
-        recursive = true;
-        force = true;
-    };
-
     xdg.configFile."nvim" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/nvim";
         recursive = true;

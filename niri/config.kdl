@@ -78,11 +78,11 @@ window-rule {
     open-on-workspace "2terminal"
     open-maximized true
 }
-window-rule {
-    match app-id="Alacritty"
-    open-on-workspace "2terminal"
-    open-maximized true
-}
+// window-rule {
+//     match app-id="Alacritty"
+//     open-on-workspace "2terminal"
+//     open-maximized true
+// }
 window-rule {
     geometry-corner-radius 6
     clip-to-geometry true
@@ -103,7 +103,7 @@ window-rule {
 binds {
     // programs
     Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Super+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Shift+C hotkey-overlay-title="Color picker" { spawn "sh" "-c" "hyprpicker -a"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: noctalia" { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
