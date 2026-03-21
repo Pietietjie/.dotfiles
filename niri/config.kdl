@@ -39,13 +39,50 @@ layout {
 }
 
 hotkey-overlay { skip-at-startup; }
+spawn-sh-at-startup "bash ~/.config/reorder-workspaces.sh"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot_from_%Y-%m-%d_%H-%M-%S.png"
 
 // See: https://yalter.github.io/niri/Configuration:-Animations
 animations { off; }
 
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}
+
+// Set the overview wallpaper on the backdrop.
+layer-rule {
+  match namespace="^noctalia-overview*"
+  place-within-backdrop true
+}
 // See: https://yalter.github.io/niri/Configuration:-Window-Rules
+
+window-rule {
+    match app-id="firefox"
+    open-on-workspace "1browser"
+    open-maximized true
+}
+window-rule {
+    match app-id="google-chrome"
+    open-on-workspace "1browser"
+    open-maximized true
+}
+window-rule {
+    match app-id="chromium-browser"
+    open-on-workspace "1browser"
+    open-maximized true
+}
+window-rule {
+    match app-id="kitty"
+    open-on-workspace "2terminal"
+    open-maximized true
+}
+window-rule {
+    match app-id="Alacritty"
+    open-on-workspace "2terminal"
+    open-maximized true
+}
 window-rule {
     geometry-corner-radius 6
     clip-to-geometry true
@@ -69,19 +106,19 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Super+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Shift+C hotkey-overlay-title="Color picker" { spawn "sh" "-c" "hyprpicker -a"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: noctalia" { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
     // media
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
-    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
-    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
+    XF86AudioMute        allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
+    XF86AudioPlay        allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "noctalia-shell ipc call media pause"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "octalia-shell ipc call media previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
     // brightness
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "increase"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
     // window/work space
     Mod+Q repeat=false { close-window; }
     Mod+O repeat=false { toggle-overview; }
@@ -147,24 +184,24 @@ binds {
     Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
     // Mod+TouchpadScrollDown { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"; }
     // Mod+TouchpadScrollUp   { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
+    Mod+1 { focus-workspace "1browser"; }
+    Mod+2 { focus-workspace "2terminal"; }
+    Mod+3 { focus-workspace "3other"; }
+    Mod+4 { focus-workspace "4"; }
+    Mod+5 { focus-workspace "5"; }
+    Mod+6 { focus-workspace "6"; }
+    Mod+7 { focus-workspace "7"; }
+    Mod+8 { focus-workspace "8"; }
+    Mod+9 { focus-workspace "9"; }
+    Mod+Ctrl+1 { move-column-to-workspace "1browser"; }
+    Mod+Ctrl+2 { move-column-to-workspace "2terminal"; }
+    Mod+Ctrl+3 { move-column-to-workspace "3other"; }
+    Mod+Ctrl+4 { move-column-to-workspace "4"; }
+    Mod+Ctrl+5 { move-column-to-workspace "5"; }
+    Mod+Ctrl+6 { move-column-to-workspace "6"; }
+    Mod+Ctrl+7 { move-column-to-workspace "7"; }
+    Mod+Ctrl+8 { move-column-to-workspace "8"; }
+    Mod+Ctrl+9 { move-column-to-workspace "9"; }
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
     Mod+Tab { focus-workspace-previous; }
     Mod+BracketLeft  { consume-or-expel-window-left; }
@@ -191,6 +228,10 @@ binds {
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
     Mod+Shift+P { power-off-monitors; }
+    Mod+V { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    // Mod+C { spawn "noctalia-shell" "ipc" "call" "launcher" "calculator"; }
+    Mod+S { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+    Mod+E { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
 }
 
 include "./noctalia.kdl"
