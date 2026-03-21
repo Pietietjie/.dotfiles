@@ -124,8 +124,15 @@ in {
         force = true;
     };
 
-    xdg.configFile."niri/config.kdl" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/niri/config.kdl";
+    xdg.configFile."niri" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/niri";
+        recursive = true;
+        force = true;
+    };
+
+    xdg.configFile."yazi" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/yazi";
+        recursive = true;
         force = true;
     };
 }
