@@ -110,6 +110,7 @@ alias d="docker"
 alias g="git"
 alias q="exit"
 # Remaining Aliases
+alias dt="cd ~/.dotfiles/"
 alias kys="exit"
 alias gs="git s"
 alias ga="git a"
