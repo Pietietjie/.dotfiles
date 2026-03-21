@@ -106,8 +106,14 @@ in {
         force = true;
     };
 
-    home.file.".local/share/noctalia" = {
+    xdg.configFile."noctalia" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/noctalia";
+        recursive = true;
+        force = true;
+    };
+
+    xdg.configFile."kitty" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/kitty";
         recursive = true;
         force = true;
     };

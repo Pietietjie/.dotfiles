@@ -33,9 +33,3 @@ cursor_shape block
 shell_integration enabled
 
 include current-theme.conf
-
-
-# BEGIN_KITTY_THEME
-# Noctalia
-include themes/noctalia.conf
-# END_KITTY_THEME
