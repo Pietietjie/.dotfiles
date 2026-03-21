@@ -82,6 +82,8 @@ fonts = {
     };
   };
 
+  security.sudo.extraConfig = "Defaults env_reset,pwfeedback";
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
