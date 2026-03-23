@@ -40,7 +40,7 @@ sudo ./install
 - [ ] Build a [CLI tool](https://github.com/charmbracelet/bubbletea) for managing nix builds
 
 **Neovim**
-- [ ] Open links in the browser
+- [x] Open links in the browser
 - [ ] Fix emojis breaking spacing on Windows (caused by LSP, snippets, tokyo night theme, & `termguicolors`)
 - [ ] Add a [debugger](https://github.com/mfussenegger/nvim-dap)
 - [ ] Copy code with highlighting (like VS Code does for Word)

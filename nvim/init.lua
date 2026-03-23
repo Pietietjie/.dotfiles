@@ -1822,6 +1822,28 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
+local function url_under_cursor()
+  local col = vim.fn.col('.')
+  local line = vim.fn.getline('.')
+  for url in line:gmatch('https?://[%w_.~!*:@&=+$/?#%%-%%]+') do
+    local s, e = line:find(url, 1, true)
+    if s and col >= s and col <= e then
+      return url
+    end
+  end
+end
+
+local function open_url_or(fallback)
+  return function()
+    local url = url_under_cursor()
+    if url then
+      vim.ui.open(url)
+    else
+      fallback()
+    end
+  end
+end
+
 local lspconfigOnAttach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
@@ -1834,7 +1856,7 @@ local lspconfigOnAttach = function(_, bufnr)
   nmap('[_Refactor]n', vim.lsp.buf.rename, '[r]e[n]ame')
   nmap('[_Search]a', vim.lsp.buf.code_action, 'L[s]P code [a]ction')
 
-  nmap('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
+  nmap('gd', open_url_or(vim.lsp.buf.definition), '[g]oto [d]efinition / open URL')
   nmap('grr', vim.lsp.buf.references, '[g]oto quicklist [r]eferences')
   nmap(
     'grs',
@@ -1843,7 +1865,7 @@ local lspconfigOnAttach = function(_, bufnr)
     end,
     '[g]oto tele[s]cope references'
   )
-  nmap('gI', vim.lsp.buf.implementation, '[g]oto [I]mplementation')
+  nmap('gI', open_url_or(vim.lsp.buf.implementation), '[g]oto [I]mplementation / open URL')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap(
     '[_Search]y',
