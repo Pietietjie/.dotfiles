@@ -35,8 +35,7 @@ sudo ./install
 **General**
 - [ ] Create a tagging system for sunsetting software/OS support
 - [ ] Include OS config including Windows ([dotbot-windows](https://github.com/kurtmckee/dotbot-windows)) & WSL
-- [ ] Move `scrp` to its own [CLI tool](https://github.com/charmbracelet/bubbletea) project
-- [ ] Make the install script support uninstall
+- [ ] Move `scrp` to its own [CLI tool](https://github.com/charmbracelet/bubbletea) projectthat also manages the install & uninstall of the environment like a mini-me
 - [ ] Build a [CLI tool](https://github.com/charmbracelet/bubbletea) for managing nix builds
 
 **Neovim**
