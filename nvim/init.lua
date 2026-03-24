@@ -1325,6 +1325,13 @@ vim.keymap.set('n', '<leader>az', function()
     nowdoc               = true, -- PHP nowdoc (<<<'SQL' ... SQL;)
     encapsed_string      = true, -- PHP double-quoted
     template_literal     = true, -- JS/TS template strings
+    -- Arrays / lists / tables
+    array                = true, -- PHP, JSON, JS/TS
+    array_creation_expression = true, -- PHP
+    table_constructor    = true, -- Lua
+    list                 = true, -- Python, YAML
+    tuple                = true, -- Python
+    dictionary           = true, -- Python
   }
 
   local folds = {}
