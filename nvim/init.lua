@@ -108,6 +108,8 @@ vim.api.nvim_create_user_command('E', 'e .env', {})
 
 
 require('lazy').setup({
+
+
   checker = {
     check_pinned = true
   },
@@ -321,7 +323,7 @@ require('lazy').setup({
           {
             buffer = bufnr,
             desc =
-            '[h]unk [u]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)'
+              '[h]unk [u]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)'
           }
         )
         vim.keymap.set('n', '[_Hunk]r', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[h]unk [r]eset' })
@@ -609,8 +611,8 @@ require('lazy').setup({
           local fn = vim.fn
           local utils = require("auto-save.utils.data")
           if
-              fn.getbufvar(buf, "&modifiable") == 1 and
-              utils.not_in(fn.getbufvar(buf, "&filetype"), {}) then
+            fn.getbufvar(buf, "&modifiable") == 1 and
+            utils.not_in(fn.getbufvar(buf, "&filetype"), {}) then
             return true                -- met condition(s), can save
           end
           return false                 -- can't save
@@ -712,37 +714,37 @@ require('lazy').setup({
         clients[1]:request('textDocument/documentColor', {
           textDocument = vim.lsp.util.make_text_document_params(buf),
         }, function(err, result)
-          if err or not result then
-            l.warn('tailwind documentColor error: ' .. vim.inspect(err))
-            return
-          end
-          for _, item in ipairs(result) do
-            local range = item.range
-            local line = vim.api.nvim_buf_get_lines(buf, range.start.line, range.start.line + 1, false)[1]
-            if line then
-              local raw_text = line:sub(range.start.character + 1, range['end'].character)
-              -- Expand from the LSP range to the full class token (word chars + hyphens)
-              local s = range.start.character + 1
-              local e = range['end'].character
-              while s > 1 and line:sub(s - 1, s - 1):match('[%w-]') do s = s - 1 end
-              while e < #line and line:sub(e + 1, e + 1):match('[%w-]') do e = e + 1 end
-              local class_name = line:sub(s, e)
-              if class_name and #class_name > 0 then
-                local c = item.color
-                local hex = string.format('#%02x%02x%02x',
-                  math.floor(c.red * 255 + 0.5),
-                  math.floor(c.green * 255 + 0.5),
-                  math.floor(c.blue * 255 + 0.5))
-                local key = class_name:lower()
-                colors.tailwind[key] = hex
-                -- Also store the stripped color part (e.g. bg-base-100 → base-100)
-                -- so other prefixes (text-base-100, border-base-100) resolve too
-                local color_part = key:match('^%a+%-(.+)$')
-                if color_part then colors.tailwind[color_part] = hex end
+            if err or not result then
+              l.warn('tailwind documentColor error: ' .. vim.inspect(err))
+              return
+            end
+            for _, item in ipairs(result) do
+              local range = item.range
+              local line = vim.api.nvim_buf_get_lines(buf, range.start.line, range.start.line + 1, false)[1]
+              if line then
+                local raw_text = line:sub(range.start.character + 1, range['end'].character)
+                -- Expand from the LSP range to the full class token (word chars + hyphens)
+                local s = range.start.character + 1
+                local e = range['end'].character
+                while s > 1 and line:sub(s - 1, s - 1):match('[%w-]') do s = s - 1 end
+                while e < #line and line:sub(e + 1, e + 1):match('[%w-]') do e = e + 1 end
+                local class_name = line:sub(s, e)
+                if class_name and #class_name > 0 then
+                  local c = item.color
+                  local hex = string.format('#%02x%02x%02x',
+                    math.floor(c.red * 255 + 0.5),
+                    math.floor(c.green * 255 + 0.5),
+                    math.floor(c.blue * 255 + 0.5))
+                  local key = class_name:lower()
+                  colors.tailwind[key] = hex
+                  -- Also store the stripped color part (e.g. bg-base-100 → base-100)
+                  -- so other prefixes (text-base-100, border-base-100) resolve too
+                  local color_part = key:match('^%a+%-(.+)$')
+                  if color_part then colors.tailwind[color_part] = hex end
+                end
               end
             end
-          end
-        end, buf)
+          end, buf)
       end
 
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -760,17 +762,17 @@ require('lazy').setup({
 
       hipatterns.setup({
         highlighters = {
-          fixme     = word('FIXME', 'MiniHipatternsFixme'),
-          hack      = word('HACK', 'MiniHipatternsHack'),
-          todo      = word('TODO', 'MiniHipatternsTodo'),
-          note      = word('NOTE', 'MiniHipatternsNote'),
+          fixme           = word('FIXME', 'MiniHipatternsFixme'),
+          hack            = word('HACK', 'MiniHipatternsHack'),
+          todo            = word('TODO', 'MiniHipatternsTodo'),
+          note            = word('NOTE', 'MiniHipatternsNote'),
 
-          hex_color = hipatterns.gen_highlighter.hex_color(),
-          rgb       = color_group('rgb%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*%)',                     rgb_parser),
-          rgba      = color_group('rgba%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*,%s*[%d%.]+%s*%)',       rgb_parser),
-          hsl       = color_group('hsl%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*%)',                   hsl_parser),
-          hsla      = color_group('hsla%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*,%s*[%d%.]+%s*%)',    hsl_parser),
-          vec3      = color_group('vec3%(%s*[%d%.]+%s*,%s*[%d%.]+%s*,%s*[%d%.]+%s*%)',          vec3_parser),
+          hex_color       = hipatterns.gen_highlighter.hex_color(),
+          rgb             = color_group('rgb%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*%)', rgb_parser),
+          rgba            = color_group('rgba%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*,%s*[%d%.]+%s*%)', rgb_parser),
+          hsl             = color_group('hsl%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*%)', hsl_parser),
+          hsla            = color_group('hsla%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*,%s*[%d%.]+%s*%)', hsl_parser),
+          vec3            = color_group('vec3%(%s*[%d%.]+%s*,%s*[%d%.]+%s*,%s*[%d%.]+%s*%)', vec3_parser),
 
           css_named_color = {
             pattern = '%f[%w]()%a+()%f[%W]',
@@ -788,7 +790,7 @@ require('lazy').setup({
             end,
           },
 
-          tailwind = {
+          tailwind        = {
             pattern = '%f[%w]()[%w-]+()%f[^%w-]',
             group = function(_, match)
               local key = match:lower()
@@ -803,14 +805,14 @@ require('lazy').setup({
             end,
           },
 
-          log_error = word('ERROR', 'HiLogError'),
-          log_warn  = word('WARN',  'HiLogWarn'),
-          log_info  = word('INFO',  'HiLogInfo'),
-          log_debug = word('DEBUG', 'HiLogDebug'),
-          log_trace = word('TRACE', 'HiLogTrace'),
+          log_error       = word('ERROR', 'HiLogError'),
+          log_warn        = word('WARN', 'HiLogWarn'),
+          log_info        = word('INFO', 'HiLogInfo'),
+          log_debug       = word('DEBUG', 'HiLogDebug'),
+          log_trace       = word('TRACE', 'HiLogTrace'),
 
-          url   = { pattern = 'https?://[%w_.~!*:@&=+$/?#%%-%%]+', group = 'HiUrl' },
-          email = { pattern = '[%w._%+-]+@[%w.-]+%.%a%a+',         group = 'HiUrl' },
+          url             = { pattern = 'https?://[%w_.~!*:@&=+$/?#%%-%%]+', group = 'HiUrl' },
+          email           = { pattern = '[%w._%+-]+@[%w.-]+%.%a%a+', group = 'HiUrl' },
         },
       })
     end,
@@ -1075,6 +1077,13 @@ local make_repeatable_move_pair = function(forward_move_fn, backward_move_fn)
   return repeatable_forward_move_fn, repeatable_backward_move_fn
 end
 
+local next_fold, prev_fold = make_repeatable_move_pair(
+  function() vim.cmd.normal(string.format("%dzj", vim.v.count1)) end,
+  function() vim.cmd.normal(string.format("%dzk", vim.v.count1)) end
+)
+vim.keymap.set('n', '[z', prev_fold, { desc = 'Go to previous fold' })
+vim.keymap.set('n', ']z', next_fold, { desc = 'Go to next fold' })
+
 local next_diagnostic, prev_diagnostic = make_repeatable_move_pair(
   function() vim.diagnostic.jump({ count = vim.v.count1, float = true }) end,
   function() vim.diagnostic.jump({ count = vim.v.count1 * -1, float = true }) end
@@ -1296,72 +1305,101 @@ vim.keymap.set('v', '<leader>l', 'loho', { desc = 'Move the selection both left 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 -- Fold related mappings
 vim.keymap.set('n', '<leader>z', 'zfai', { desc = 'Fold Current Indentation', remap = true })
-vim.keymap.set('n', '<leader>az', function()
+vim.keymap.set({ 'n', 'v' }, '<leader>az', function()
   local bufnr = vim.api.nvim_get_current_buf()
+  local visualMode = is_visual()
 
   local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
   if not ok or not parser then
-    vim.notify('<leader>az: No treesitter parser available for this filetype', vim.log.levels.WARN)
+    l.warn('<leader>az: No treesitter parser available for this filetype')
     return
   end
-  vim.cmd.normal('mz')
 
   vim.wo.foldmethod = 'manual'
-  vim.cmd.normal('zE')
 
   local root = parser:parse()[1]:root()
+  local startLine = 0
+  local endLine = 0--[[ make that this defaults to the last line ]]
+
+  if visualMode then
+    endLine = vim.fn.line("'>")
+    startLine = vim.fn.line("'<")
+    -- vim.cmd.normal("'<,'>zD")
+    startLine = vim.fn.line("v") - 1
+    endLine = vim.fn.line(".") - 1
+    if startLine > endLine then
+      startLine, endLine = endLine, startLine
+    end
+  else
+    local startRow, _, endRow, _ = root:range()
+    startLine = startRow
+    endLine = endRow
+    vim.cmd.normal('mz')
+    vim.cmd.normal('zE')
+  end
+
 
   -- Node types to fold. The multiline check (end_row > start_row) filters out single-line comments that share a type with block comments.
   local fold_types = {
     -- Functions / methods
-    function_definition  = true,
-    function_declaration = true,
-    method_definition    = true,
-    method_declaration   = true,
-    local_function       = true, -- Lua
-    function_item        = true, -- Rust
+    function_definition       = true,
+    function_declaration      = true,
+    method_definition         = true,
+    method_declaration        = true,
+    local_function            = true, -- Lua
+    function_item             = true, -- Rust
     -- Block / doc comments
-    comment              = true,
-    block_comment        = true,
-    doc_comment          = true,
-    multiline_comment    = true,
+    comment                   = true,
+    block_comment             = true,
+    doc_comment               = true,
+    multiline_comment         = true,
     -- Multi-line strings
-    string               = true,
-    heredoc              = true, -- PHP heredoc (<<<SQL ... SQL;)
-    nowdoc               = true, -- PHP nowdoc (<<<'SQL' ... SQL;)
-    encapsed_string      = true, -- PHP double-quoted
-    template_literal     = true, -- JS/TS template strings
+    string                    = true,
+    heredoc                   = true, -- PHP heredoc (<<<SQL ... SQL;)
+    nowdoc                    = true, -- PHP nowdoc (<<<'SQL' ... SQL;)
+    encapsed_string           = true, -- PHP double-quoted
+    template_literal          = true, -- JS/TS template strings
     -- Arrays / lists / tables
-    array                = true, -- PHP, JSON, JS/TS
+    array                     = true, -- PHP, JSON, JS/TS
     array_creation_expression = true, -- PHP
-    table_constructor    = true, -- Lua
-    list                 = true, -- Python, YAML
-    tuple                = true, -- Python
-    dictionary           = true, -- Python
+    table_constructor         = true, -- Lua
+    list                      = true, -- Python, YAML
+    tuple                     = true, -- Python
+    dictionary                = true, -- Python
   }
 
   local folds = {}
 
-  local function walk(node)
+  local function walk(node, start_line, end_line)
     local ntype = node:type()
-    local start_row, _, end_row, _ = node:range()
+    local startRow, _, endRow, _ = node:range()
 
-    if fold_types[ntype] and end_row > start_row then
-      table.insert(folds, { start_row + 1, end_row + 1 })
-    end
+    -- Only process nodes that are within or overlap the selection
+    if startRow >= start_line and endRow <= end_line then
+      if fold_types[ntype] and endRow > startRow then
+        table.insert(folds, { startRow + 1, endRow + 1 })
+      end
 
-    for child in node:iter_children() do
-      walk(child)
+      for child in node:iter_children() do
+        walk(child, start_line, end_line)
+      end
     end
   end
 
-  walk(root)
+  walk(root, startLine, endLine)
 
   for _, fold in ipairs(folds) do
     vim.cmd(string.format('%d,%dfold', fold[1], fold[2]))
   end
 
-  vim.cmd.normal("`zzz")
+  if visualMode then
+    vim.cmd.normal("zz")
+    l.info("Folded the selection")
+  else
+    vim.cmd.normal("`z")
+    vim.cmd.normal("zz")
+    l.info("Folded the file")
+  end
 end
 , { desc = 'Fold [a]ll functions and block comments' })
 -- Open the current file in the default program (on Mac this should just be just `open`)
