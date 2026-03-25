@@ -1149,8 +1149,8 @@ vim.keymap.set('n', '[h', prev_hunk, { desc = 'Previous git hunk' })
 vim.keymap.set('n', ']h', next_hunk, { desc = 'Next git hunk' })
 
 local next_spell, prev_spell = make_repeatable_move_pair(
-  function() vim.cmd(string.format('normal! %d]s', vim.v.count1)) end,
-  function() vim.cmd(string.format('normal! %d[s', vim.v.count1)) end
+  function() vim.cmd.normal(string.format('%d]s', vim.v.count1)) end,
+  function() vim.cmd.normal(string.format('%d[s', vim.v.count1)) end
 )
 vim.keymap.set('n', ']s', next_spell, { desc = 'Next misspelling' })
 vim.keymap.set('n', '[s', prev_spell, { desc = 'Previous misspelling' })
@@ -1276,8 +1276,8 @@ vim.keymap.set(
         local count = vim.v.count
         if count == 0 then count = 1 end
         for _ = 1, count do
-          vim.cmd('normal! n')
-          vim.cmd('normal! .')
+          vim.cmd.normal('n')
+          vim.cmd.normal('.')
         end
       end
     )
@@ -1304,10 +1304,10 @@ vim.keymap.set('n', '<leader>az', function()
     vim.notify('<leader>az: No treesitter parser available for this filetype', vim.log.levels.WARN)
     return
   end
-  vim.cmd('normal! mz')
+  vim.cmd.normal('mz')
 
   vim.wo.foldmethod = 'manual'
-  vim.cmd('normal! zE') -- clear all existing folds
+  vim.cmd.normal('zE')
 
   local root = parser:parse()[1]:root()
 
@@ -1540,7 +1540,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       return
     end
     centered_bufs[args.buf] = true
-    vim.cmd('normal! zz')
+    vim.cmd.normal('zz')
   end,
 })
 
