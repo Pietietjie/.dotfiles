@@ -816,6 +816,12 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'echasnovski/mini.splitjoin',
+    event = "VeryLazy",
+    opts = {},
+  },
+
   -- useless plugin
   {
     'eandrju/cellular-automaton.nvim',

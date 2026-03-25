@@ -72,7 +72,6 @@ sudo ./install
 |---|---|
 | [supermaven](https://github.com/supermaven-inc/supermaven-nvim) / [avante](https://github.com/yetone/avante.nvim) | AI plugins |
 | [mini.test](https://nvim-mini.org/mini.nvim/readmes/mini-test.html) | Testing framework |
-| [mini.splitjoin](https://github.com/nvim-mini/mini.splitjoin) | Split/join arguments |
 | [mini.misc](https://nvim-mini.org/mini.nvim/readmes/mini-misc.html) | Miscellaneous utilities |
 | [mini.cursorword](https://nvim-mini.org/mini.nvim/readmes/mini-cursorword.html) | Highlight word under cursor |
 | [mini.indentscope](https://nvim-mini.org/mini.nvim/readmes/mini-indentscope.html) | Better `ii` indentation scope |
