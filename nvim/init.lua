@@ -890,7 +890,7 @@ require('lazy').setup({
           callback = function()
             vim.schedule(function()
               if vim.api.nvim_win_is_valid(0) then
-                vim.cmd("normal! zz")
+                vim.cmd.normal("zz")
               end
             end)
           end,
@@ -1361,7 +1361,7 @@ vim.keymap.set('n', '<leader>az', function()
     vim.cmd(string.format('%d,%dfold', fold[1], fold[2]))
   end
 
-  vim.cmd('normal! `z')
+  vim.cmd.normal("`zzz")
 end
 , { desc = 'Fold [a]ll functions and block comments' })
 -- Open the current file in the default program (on Mac this should just be just `open`)
