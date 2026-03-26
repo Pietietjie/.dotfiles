@@ -35,6 +35,8 @@
   xdg.portal.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  
+  services.noctalia-shell.enable = true;
   # Enable CUPS to print documents.
   services.printing.enable = true;
 

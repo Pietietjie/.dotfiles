@@ -67,6 +67,11 @@
                     lanzabooteModule = if hostAttrs.enableLanzaboote or false
                         then [ lanzaboote.nixosModules.lanzaboote ]
                     else [];
+                    guiModules = if hostAttrs.enableGui
+                        then [
+                            inputs.noctalia.nixosModules.default
+                        ]
+                    else [];
 
                     specialArgs = {
                         inherit inputs hostname username;
@@ -75,7 +80,7 @@
                     };
                 in nixpkgs.lib.nixosSystem {
                         inherit system specialArgs;
-                        modules = baseModules ++ lanzabooteModule ++ [{
+                        modules = baseModules ++ guiModules ++ lanzabooteModule ++ [{
                             home-manager.useGlobalPkgs = false;
                             home-manager.useUserPackages = true;
                             home-manager.extraSpecialArgs = specialArgs;
