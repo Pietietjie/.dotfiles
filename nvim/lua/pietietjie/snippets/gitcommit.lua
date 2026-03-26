@@ -4,6 +4,7 @@ local i_node = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 return {
+  s(":todo:", fmt("📎{}", { i_node(1) })),
   s(":rename:", fmt("🚚{}", { i_node(1) })),
   s(":move:", fmt("🚚{}", { i_node(1) })),
   s(":feat:", fmt("✨{}", { i_node(1) })),
