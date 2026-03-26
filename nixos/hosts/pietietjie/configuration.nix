@@ -10,7 +10,6 @@
     ];
 
   boot.initrd.systemd.enable = true;
-  services.noctalia-shell.enable = true;
 
   boot.initrd.luks.devices."luks-3d37da59-f6ff-42c9-a8bd-f2032188da51".crypttabExtraOpts = [ "tpm2-device=auto" ];
   boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" "tpm_tis_core" ];
@@ -22,25 +21,6 @@
     pkiBundle = "/var/lib/sbctl";
   };
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Africa/Johannesburg";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_ZA.UTF-8";
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -107,42 +87,6 @@
   };
 
 
-  # services.xserver.libinput.enable = true;
-  services.keyd = {
-    enable = true;
-
-    keyboards.default = {
-      ids = [ "*" ];
-
-      settings = {
-        main = {
-          leftmeta = "overload(meta, f24)";
-        };
-      };
-    };
-  };
-
-  # Set zsh as default shell for all users.
-  programs.zsh = {
-    enable = true;
-    ohMyZsh = {
-      enable = true;
-      custom = "$HOME/.oh-my-zsh/custom/";
-      theme = "pietietjie";
-      plugins = [
-        "artisan"
-        "npm"
-        "composer"
-        "git"
-        "zsh-autosuggestions"
-        "zsh-syntax-highlighting"
-        "docker"
-        "docker-compose"
-      ];
-    };
-  };
-  users.defaultUserShell = pkgs.zsh;
-
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.pietietjie = {
     isNormalUser = true;
@@ -153,31 +97,7 @@
   programs.firefox.enable = true;
   programs.yazi.enable = true;
   # programs.thunar.enable = true;
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    # cli
-    sbctl
-    python3
-    git
-    tmux
-    tldr
-    bat
-    eza
-    zoxide
-    wget
-    unzip
-
-    # edit & dep
-    neovim
-    fzf
-    zig
-    ripgrep
-    nodejs_20
-    fd
-    sqlite
-    sqlite.out
-    jq
-
     # GUIs
     keepassxc
     fuzzel
