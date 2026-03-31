@@ -135,7 +135,6 @@
     # TOOLS
     hyprpicker
     wl-clipboard
-    wlr-randr
   ];
 
   system.stateVersion = "25.11";
