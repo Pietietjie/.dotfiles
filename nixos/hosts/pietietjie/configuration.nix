@@ -25,16 +25,40 @@
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
+  services.xserver.xkb.options = "compose:ralt";
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
+  environment.etc."XCompose".text = ''
+        include "${pkgs.xorg.libX11}/share/X11/locale/en_US.UTF-8/Compose"
+        <Multi_key> <equal> <e> : "€" U20AC
+        <Multi_key> <minus> <minus> <minus> : "—" U2014
+        <Multi_key> <minus> <minus> : "–" U2013
+        <Multi_key> <o> <c> : "©" U00A9
+        <Multi_key> <o> <r> : "®" U00AE
+        <Multi_key> <e> <asciicircum> : "ê" U00EA
+        <Multi_key> <E> <asciicircum> : "Ê" U00CA
+        <Multi_key> <a> <asciicircum> : "â" U00E2
+        <Multi_key> <A> <asciicircum> : "Â" U00C2
+        <Multi_key> <o> <asciicircum> : "ô" U00F4
+        <Multi_key> <O> <asciicircum> : "Ô" U00D4
+        <Multi_key> <u> <asciicircum> : "û" U00FB
+        <Multi_key> <U> <asciicircum> : "Û" U00DB
+        <Multi_key> <i> <asciicircum> : "î" U00EE
+        <Multi_key> <I> <asciicircum> : "Î" U00CE
+        <Multi_key> <apostrophe> <e> : "é" U00E9
+        <Multi_key> <apostrophe> <E> : "É" U00C9
+        <Multi_key> <n> <asciitilde> : "ñ" U00F1
+        <Multi_key> <N> <asciitilde> : "Ñ" U00D1
+  '';
+
+  environment.sessionVariables.XCOMPOSEFILE = "/etc/XCompose";
+
+  programs.regreet.enable = true;
+  services.greetd.enable = true;
   programs.niri.enable = true;
   programs.xwayland.enable = true;
   xdg.portal.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
+  environment.variables.GSK_RENDERER = "ngl";
   
   services.noctalia-shell.enable = true;
   # Enable CUPS to print documents.
@@ -111,6 +135,7 @@
     # TOOLS
     hyprpicker
     wl-clipboard
+    wlr-randr
   ];
 
   system.stateVersion = "25.11";
