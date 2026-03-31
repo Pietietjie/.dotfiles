@@ -123,7 +123,7 @@ binds {
     XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "increase"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
     // window/work space
-    Mod+Q repeat=false { close-window; }
+    Mod+Q hotkey-overlay-title="Kill window" repeat=false { close-window; }
     Mod+O repeat=false { toggle-overview; }
     Mod+Left  { focus-column-left-or-last; }
     Mod+Down  { focus-window-down-or-column-left; }
@@ -163,8 +163,8 @@ binds {
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
-    Mod+D              { focus-workspace-down; }
-    Mod+U              { focus-workspace-up; }
+    Mod+D hotkey-overlay-title="workspc down" { focus-workspace-down; }
+    Mod+U hotkey-overlay-title="workspc up" { focus-workspace-up; }
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
     Mod+Ctrl+D         { move-column-to-workspace-down; }
@@ -228,13 +228,13 @@ binds {
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-    Mod+Shift+E { quit; }
+    Mod+Shift+E hotkey-overlay-title="quit" { quit; }
     Ctrl+Alt+Delete { quit; }
     Mod+Shift+P { power-off-monitors; }
-    Mod+V { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Mod+V hotkey-overlay-title="clipboard" { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
     // Mod+C { spawn "noctalia-shell" "ipc" "call" "launcher" "calculator"; }
-    Mod+S { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
-    Mod+E { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+    Mod+S hotkey-overlay-title="Control Center" { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+    Mod+E hotkey-overlay-title="Session Menu" { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
 }
 
 include "./noctalia.kdl"
