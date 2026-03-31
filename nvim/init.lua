@@ -768,6 +768,15 @@ require('lazy').setup({
           note            = word('NOTE', 'MiniHipatternsNote'),
 
           hex_color       = hipatterns.gen_highlighter.hex_color(),
+          hex_color_short = {
+            pattern = '()#%x%x%x()%f[^%x]',
+            group = function(_, match)
+              if #match ~= 4 then return end
+              local r, g, b = match:sub(2, 2), match:sub(3, 3), match:sub(4, 4)
+              local hex = '#' .. r .. r .. g .. g .. b .. b
+              return hex_to_hl(hex)
+            end,
+          },
           rgb             = color_group('rgb%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*%)', rgb_parser),
           rgba            = color_group('rgba%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*,%s*[%d%.]+%s*%)', rgb_parser),
           hsl             = color_group('hsl%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*%)', hsl_parser),

@@ -40,6 +40,8 @@ sudo ./install
 
 **Neovim**
 - [x] Open links in the browser
+- [ ] fix tailwind sort
+- [ ] fix blade formating & other lsp stuff
 - [ ] Fix emojis breaking spacing on Windows (caused by LSP, snippets, tokyo night theme, & `termguicolors`)
 - [ ] Add a [debugger](https://github.com/mfussenegger/nvim-dap)
 - [ ] Copy code with highlighting (like VS Code does for Word)
