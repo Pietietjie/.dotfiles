@@ -40,6 +40,7 @@ sudo ./install
 
 **Neovim**
 - [x] Open links in the browser
+- [ ] fix random new lines when pasting
 - [ ] fix tailwind sort
 - [ ] fix blade formating & other lsp stuff
 - [ ] Fix emojis breaking spacing on Windows (caused by LSP, snippets, tokyo night theme, & `termguicolors`)
