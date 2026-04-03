@@ -50,16 +50,19 @@
         <Multi_key> <N> <asciitilde> : "Ñ" U00D1
   '';
 
-  environment.sessionVariables.XCOMPOSEFILE = "/etc/XCompose";
 
   programs.regreet.enable = true;
   services.greetd.enable = true;
   programs.niri.enable = true;
   programs.xwayland.enable = true;
   xdg.portal.enable = true;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    XCOMPOSEFILE = "/etc/XCompose";
+    NIXOS_OZONE_WL = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+  };
   environment.variables.GSK_RENDERER = "ngl";
-  
+
   services.noctalia-shell.enable = true;
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -119,6 +122,9 @@
     description = "Pieter Louis van der Meijden";
     extraGroups = [ "networkmanager" "wheel" ];
   };
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ENV{ID_VENDOR_ID}=="3297", ENV{ID_MODEL_ID}=="4975", MODE="0666"
+  '';
 
   programs.firefox.enable = true;
   programs.yazi.enable = true;
@@ -133,6 +139,7 @@
     btop
 
     # TOOLS
+    keymapp
     hyprpicker
     wl-clipboard
   ];
