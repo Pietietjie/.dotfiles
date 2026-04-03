@@ -224,6 +224,7 @@ binds {
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
     Mod+W { toggle-column-tabbed-display; }
+    Mod+Shift+S { screenshot; }
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
