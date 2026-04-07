@@ -25,6 +25,11 @@
 
   security.sudo.extraConfig = "Defaults env_reset,pwfeedback";
 
+  system.activationScripts.bash = ''
+    mkdir -p /bin
+    ln -sf /run/current-system/sw/bin/bash /bin/bash
+  '';
+
   # Set zsh as default shell for all users.
   programs.zsh = {
     enable = true;
