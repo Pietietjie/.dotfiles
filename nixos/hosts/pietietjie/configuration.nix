@@ -50,6 +50,7 @@
     packages = (with pkgs; [
       noto-fonts
       noto-fonts-color-emoji
+      noto-fonts-cjk-sans      # CJK (Chinese, Japanese, Korean)
       fira-code
       fira-code-symbols
       dina-font
