@@ -50,6 +50,7 @@ sudo ./install
 
 **NixOS**
 - [ ] Nvidia
+- [ ] make that nix shell is more like the normal shell (theme etc)
 - [ ] Weasel
 - [ ] Emoji picker
 - [ ] look at fcitx's clipboard history
