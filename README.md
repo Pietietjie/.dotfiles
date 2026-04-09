@@ -58,6 +58,7 @@ sudo ./install
 - [ ] look at why I have gnome files installed
 - [ ] make that scrp works and make that the tm dotfiles session is autostarts
 - [ ] add fingerprint support
+- [ ] make that niri workspaces are automatically there
 ## 🔧 Tools to look at
 
 **CLI tools**
