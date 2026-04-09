@@ -54,6 +54,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     # cli
+    gnutar
     sbctl
     python3
     git
