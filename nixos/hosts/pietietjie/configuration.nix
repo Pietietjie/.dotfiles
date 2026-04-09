@@ -2,8 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
 
-{ config, pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }:
+let
+  im-emoji-picker = pkgs.libsForQt5.callPackage
+    ../../pkgs/im-emoji-picker.nix
+    { };
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -104,6 +108,33 @@
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ENV{ID_VENDOR_ID}=="3297", ENV{ID_MODEL_ID}=="4975", MODE="0666"
   '';
 
+  
+  environment.sessionVariables = {
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
+  };
+  systemd.user.services.fcitx5 = {
+    description = "Fcitx5 input method";
+    wantedBy = [ "default.target" ];
+    after = [ "default.target" ];
+
+    serviceConfig = {
+        ExecStart = "${pkgs.fcitx5}/bin/fcitx5";
+        Restart = "on-failure";
+    };
+  };
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.waylandFrontend = true;
+    fcitx5.addons = with pkgs; [
+      fcitx5-gtk
+      kdePackages.fcitx5-qt
+      im-emoji-picker
+    ];
+  };
+
   programs.firefox.enable = true;
   programs.yazi.enable = true;
   # programs.thunar.enable = true;
@@ -117,6 +148,7 @@
     btop
 
     # TOOLS
+    qt6Packages.fcitx5-configtool
     keymapp
     hyprpicker
     wl-clipboard

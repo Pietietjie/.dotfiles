@@ -1,0 +1,60 @@
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, ninja
+, pkg-config
+, fcitx5
+, qtbase
+, qtwayland
+}:
+
+stdenv.mkDerivation rec {
+    pname = "im-emoji-picker";
+    version = "556a369";
+
+    src = fetchFromGitHub {
+        owner = "GaZaTu";
+        repo = "im-emoji-picker";
+        rev = version;
+        hash = "sha256-6yXPbbClsyMuzKIiU3IHg+UR0UtdzMFj3NzpV/Hzz6E=";
+    };
+
+    nativeBuildInputs = [
+        cmake
+        ninja
+        pkg-config
+    ];
+
+    buildInputs = [
+        fcitx5
+        qtbase
+        qtwayland
+    ];
+
+    strictDeps = true;
+    cmakeBuildType = "Release";
+    dontWrapQtApps = true;
+
+    cmakeFlags = [
+        "-DONLY_FCITX5=ON"
+    ];
+
+    postPatch = ''
+        substituteInPlace CMakeLists.txt \
+            --replace-fail 'set(CMAKE_INSTALL_PREFIX /usr)' "" \
+            --replace-fail \
+                'LIBRARY DESTINATION ''${CMAKE_INSTALL_PREFIX}/lib64/fcitx5' \
+                'LIBRARY DESTINATION lib/fcitx5' \
+            --replace-fail \
+                'install(CODE "execute_process(COMMAND touch /usr/share/icons/hicolor)")' \
+                ""
+    '';
+
+    meta = with lib; {
+        description = "Emoji picker input method for Fcitx5";
+        homepage = "https://github.com/GaZaTu/im-emoji-picker";
+        license = licenses.mit;
+        platforms = platforms.linux;
+    };
+}
