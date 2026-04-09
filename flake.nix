@@ -24,9 +24,14 @@
             url = "github:noctalia-dev/noctalia-qs";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        nixos-wsl = {
+            url = "github:nix-community/NixOS-WSL";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = { self, nixpkgs, lanzaboote, home-manager, ... }@inputs:
+    outputs = { self, nixpkgs, lanzaboote, home-manager, nixos-wsl, ... }@inputs:
         let
             customOverlay = final: prev: {
                 im-emoji-picker = prev.libsForQt5.callPackage ./nixos/pkgs/im-emoji-picker.nix {};
@@ -45,10 +50,10 @@
                 "weasel" = {
                     system = "x86_64-linux";
                     hostSpecificNix = ./nixos/hosts/weasel/configuration.nix;
-                    hostSpecificHomeConfig = ./nixos/hosts/weasel/home.nix;
                     enableGui = false;
                     enableSystem = true;
                     enableLanzaboote = false;
+                    enableWsl = true;
                     defaultUsername = "weasel";
                 };
             };
@@ -71,6 +76,9 @@
                     lanzabooteModule = if hostAttrs.enableLanzaboote or false
                         then [ lanzaboote.nixosModules.lanzaboote ]
                     else [];
+                    wslModules = if hostAttrs.enableWsl or false
+                        then [ nixos-wsl.nixosModules.default ]
+                    else [];
                     guiModules = if hostAttrs.enableGui
                         then [
                             inputs.noctalia.nixosModules.default
@@ -79,12 +87,11 @@
 
                     specialArgs = {
                         inherit inputs hostname username;
-                        enableGui = hostAttrs.enableGui;
                         hostSpecificHomeConfig = hostAttrs.hostSpecificHomeConfig or null;
                     };
                 in nixpkgs.lib.nixosSystem {
                         inherit system specialArgs;
-                        modules = baseModules ++ guiModules ++ lanzabooteModule ++ [{
+                        modules = baseModules ++ guiModules ++ lanzabooteModule ++ wslModules ++ [{
                             nixpkgs.overlays = [ customOverlay ];
                             home-manager.useGlobalPkgs = true;
                             home-manager.useUserPackages = true;
@@ -102,7 +109,6 @@
                     pkgs = import nixpkgs { inherit system; };
                     specialArgs = {
                         inherit inputs username hostname;
-                        enableGui = hostAttrs.enableGui;
                         hostSpecificHomeConfig = hostAttrs.hostSpecificHomeConfig or null;
                     };
                 in home-manager.lib.homeManagerConfiguration {
