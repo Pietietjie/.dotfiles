@@ -134,4 +134,10 @@ in {
         recursive = true;
         force = true;
     };
+
+    xdg.configFile."fcitx5" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/fcitx5";
+        recursive = true;
+        force = true;
+    };
 }

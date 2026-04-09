@@ -52,7 +52,6 @@ sudo ./install
 - [ ] Nvidia
 - [ ] make that nix shell is more like the normal shell (theme etc)
 - [ ] Weasel
-- [ ] Emoji picker
 - [ ] look at fcitx's clipboard history
 - [ ] Customize regreet or whatever it is called
 - [ ] look at why I have gnome files installed
