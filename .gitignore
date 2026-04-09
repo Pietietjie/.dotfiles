@@ -3,3 +3,5 @@
 /noctalia/plugins/
 /**/*.backup
 /.claude/
+/fcitx5/conf/cached_layouts
+/**/*.log
