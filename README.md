@@ -49,7 +49,6 @@ sudo ./install
 - [ ] Make telescope buffers not filter
 
 **NixOS**
-- [ ] Nvidia
 - [ ] make that nix shell is more like the normal shell (theme etc)
 - [ ] Weasel
 - [ ] look at fcitx's clipboard history

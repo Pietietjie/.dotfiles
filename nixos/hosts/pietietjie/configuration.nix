@@ -28,7 +28,10 @@
 
   environment.etc."XCompose".source = ../../etc/xcompose.conf;
 
-  programs.regreet.enable = true;
+  programs.regreet = {
+    enable = true;
+    cageArgs = [ "-m" "last" ];
+  };
   services.greetd.enable = true;
   programs.niri.enable = true;
   programs.xwayland.enable = true;
