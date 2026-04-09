@@ -56,6 +56,7 @@ sudo ./install
 - [ ] Customize regreet or whatever it is called
 - [ ] look at why I have gnome files installed
 - [ ] make that scrp works and make that the tm dotfiles session is autostarts
+- [ ] add fingerprint support
 ## 🔧 Tools to look at
 
 **CLI tools**
