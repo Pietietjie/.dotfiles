@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
 
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+  boot.kernelPackages = pkgs.linuxPackages_6_12;  # LTS kernel for NVIDIA compatibility
   boot.kernelModules = [ "usbhid" "uhci_hcd" "ehci_hcd" "xhci_hcd" ];
 
   boot.initrd.systemd.enable = true;
@@ -91,6 +92,18 @@
         AutoEnable = true;
       };
     };
+  };
+
+  # NVIDIA drivers
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.graphics.enable = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
 
