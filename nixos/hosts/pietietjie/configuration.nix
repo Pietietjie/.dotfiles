@@ -12,6 +12,7 @@ in {
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+  boot.kernelModules = [ "usbhid" "uhci_hcd" "ehci_hcd" "xhci_hcd" ];
 
   boot.initrd.systemd.enable = true;
 
