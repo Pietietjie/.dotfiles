@@ -1,6 +1,5 @@
-{ pkgs, inputs, config, ... }:
+{ pkgs, inputs, config, username, ... }:
 let
-    username = "pietietjie";
     homeDirectory = "/home/${username}";
     dotfilesPath = "${homeDirectory}/.dotfiles";
     stateVersion = "25.11";

@@ -38,6 +38,7 @@ stdenv.mkDerivation rec {
 
     cmakeFlags = [
         "-DONLY_FCITX5=ON"
+        "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
     ];
 
     postPatch = ''
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
             --replace-fail 'set(CMAKE_INSTALL_PREFIX /usr)' "" \
             --replace-fail \
                 'LIBRARY DESTINATION ''${CMAKE_INSTALL_PREFIX}/lib64/fcitx5' \
-                'LIBRARY DESTINATION lib/fcitx5' \
+                'LIBRARY DESTINATION ''${CMAKE_INSTALL_PREFIX}/lib/fcitx5' \
             --replace-fail \
                 'install(CODE "execute_process(COMMAND touch /usr/share/icons/hicolor)")' \
                 ""

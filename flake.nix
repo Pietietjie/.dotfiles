@@ -28,6 +28,10 @@
 
     outputs = { self, nixpkgs, lanzaboote, home-manager, ... }@inputs:
         let
+            customOverlay = final: prev: {
+                im-emoji-picker = prev.libsForQt5.callPackage ./nixos/pkgs/im-emoji-picker.nix {};
+            };
+
             myHosts = {
                 "pietietjie" = {
                     system = "x86_64-linux";
@@ -81,7 +85,8 @@
                 in nixpkgs.lib.nixosSystem {
                         inherit system specialArgs;
                         modules = baseModules ++ guiModules ++ lanzabooteModule ++ [{
-                            home-manager.useGlobalPkgs = false;
+                            nixpkgs.overlays = [ customOverlay ];
+                            home-manager.useGlobalPkgs = true;
                             home-manager.useUserPackages = true;
                             home-manager.extraSpecialArgs = specialArgs;
                             home-manager.backupFileExtension = "backup";
@@ -113,6 +118,9 @@
                 nixpkgs.lib.filterAttrs (name: attrs: !attrs.enableSystem) myHosts;
 
         in {
+            # Custom packages overlay
+            overlays.default = customOverlay;
+
             # NixOS configurations (enableSystem = true)
             nixosConfigurations = nixpkgs.lib.mapAttrs mkNixosSystem nixosHosts;
 

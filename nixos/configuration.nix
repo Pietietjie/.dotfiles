@@ -65,6 +65,7 @@
     zoxide
     wget
     unzip
+    claude-code
 
     # edit & dep
     neovim

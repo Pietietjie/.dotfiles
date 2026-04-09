@@ -3,11 +3,7 @@
 # and in the NixOS manual (accessible by running 'nixos-help').
 
 { pkgs, lib, ... }:
-let
-  im-emoji-picker = pkgs.libsForQt5.callPackage
-    ../../pkgs/im-emoji-picker.nix
-    { };
-in {
+{
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -27,9 +23,6 @@ in {
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
   services.xserver.xkb.options = "compose:ralt";
 
   environment.etc."XCompose".source = ../../etc/xcompose.conf;
@@ -40,6 +33,9 @@ in {
   programs.xwayland.enable = true;
   xdg.portal.enable = true;
   environment.sessionVariables = {
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
     XCOMPOSEFILE = "/etc/XCompose";
     NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
@@ -73,8 +69,6 @@ in {
       subpixel = { lcdfilter = "light"; };
     };
   };
-
-  security.sudo.extraConfig = "Defaults env_reset,pwfeedback";
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -110,11 +104,6 @@ in {
   '';
 
   
-  environment.sessionVariables = {
-    GTK_IM_MODULE = "fcitx";
-    QT_IM_MODULE = "fcitx";
-    XMODIFIERS = "@im=fcitx";
-  };
   systemd.user.services.fcitx5 = {
     description = "Fcitx5 input method";
     wantedBy = [ "default.target" ];
@@ -154,8 +143,4 @@ in {
     hyprpicker
     wl-clipboard
   ];
-
-  system.stateVersion = "25.11";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 }
