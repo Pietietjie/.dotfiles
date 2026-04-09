@@ -25,6 +25,10 @@
 
   security.sudo.extraConfig = "Defaults env_reset,pwfeedback, timestamp_timeout=15";
 
+  # Security hardening
+  security.protectKernelImage = true;
+  boot.kernel.sysctl."kernel.unprivileged_bpf_disabled" = 1;
+
   system.activationScripts.bash = ''
     mkdir -p /bin
     ln -sf /run/current-system/sw/bin/bash /bin/bash
