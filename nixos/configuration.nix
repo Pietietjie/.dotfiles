@@ -23,7 +23,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_ZA.UTF-8";
 
-  security.sudo.extraConfig = "Defaults env_reset,pwfeedback";
+  security.sudo.extraConfig = "Defaults env_reset,pwfeedback, timestamp_timeout=15";
 
   system.activationScripts.bash = ''
     mkdir -p /bin
