@@ -21,8 +21,8 @@ in {
         enable = true;
 
         iconTheme = {
-            name = "Papirus-Dark";
-            package = pkgs.papirus-icon-theme;
+            name = "Vimix";
+            package = pkgs.vimix-icon-theme;
         };
 
         cursorTheme = {
