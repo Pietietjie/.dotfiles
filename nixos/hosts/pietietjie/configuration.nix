@@ -109,8 +109,12 @@
     wantedBy = [ "default.target" ];
     after = [ "default.target" ];
 
+    environment = {
+      QT_PLUGIN_PATH = "${pkgs.libsForQt5.qtwayland.bin}/lib/qt-${pkgs.libsForQt5.qtbase.version}/plugins";
+    };
+
     serviceConfig = {
-        ExecStart = "${pkgs.fcitx5}/bin/fcitx5";
+        ExecStart = "/run/current-system/sw/bin/fcitx5";
         Restart = "on-failure";
     };
   };

@@ -7,6 +7,7 @@
 , fcitx5
 , qtbase
 , qtwayland
+, wrapQtAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -24,6 +25,7 @@ stdenv.mkDerivation rec {
         cmake
         ninja
         pkg-config
+        wrapQtAppsHook
     ];
 
     buildInputs = [
@@ -32,9 +34,15 @@ stdenv.mkDerivation rec {
         qtwayland
     ];
 
+    # Make Qt plugins available at runtime for fcitx5
+    propagatedBuildInputs = [ qtwayland ];
+
     strictDeps = true;
     cmakeBuildType = "Release";
     dontWrapQtApps = true;
+
+    # Export Qt plugin path for fcitx5-with-addons wrapper
+    passthru.qtPluginPath = "${qtwayland.bin}/lib/qt-${qtbase.version}/plugins";
 
     cmakeFlags = [
         "-DONLY_FCITX5=ON"

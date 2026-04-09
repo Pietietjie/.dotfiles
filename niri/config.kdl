@@ -95,6 +95,11 @@ window-rule {
     open-floating true
 }
 window-rule {
+    match title="im-emoji-picker"
+    open-floating true
+    open-focused false
+}
+window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
 }
