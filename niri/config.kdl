@@ -40,6 +40,7 @@ layout {
 
 hotkey-overlay { skip-at-startup; }
 spawn-sh-at-startup "bash ~/.config/reorder-workspaces.sh"
+spawn-sh-at-startup "dot=$HOME/.dotfiles $HOME/.local/bin/scrp --script 1-tmux-start.sh --blueprint 0-dotfiles --dont_attach"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot_from_%Y-%m-%d_%H-%M-%S.png"
 

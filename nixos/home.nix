@@ -64,4 +64,9 @@ in {
         recursive = true;
         force = true;
     };
+
+    # User bin scripts
+    home.file.".local/bin/scrp" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/zsh/scrp";
+    };
 }
