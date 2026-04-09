@@ -48,6 +48,14 @@ sudo ./install
 - [ ] Copy code with highlighting (like VS Code does for Word)
 - [ ] Make telescope buffers not filter
 
+**NixOS**
+- [ ] Nvidia
+- [ ] Weasel
+- [ ] Emoji picker
+- [ ] look at fcitx's clipboard history
+- [ ] Customize regreet or whatever it is called
+- [ ] look at why I have gnome files installed
+- [ ] make that scrp works and make that the tm dotfiles session is autostarts
 ## 🔧 Tools to look at
 
 **CLI tools**
@@ -57,17 +65,9 @@ sudo ./install
 | [mise](https://github.com/jdx/mise) | Manages versions of dev tools & languages |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | A smarter `cd` |
 | [eza](https://github.com/eza-community/eza) | Improved `ls` |
-| [tldr](https://github.com/tldr-pages/tldr) | Shorter man pages |
 | [bat](https://github.com/sharkdp/bat) | Improved `cat` with syntax highlighting |
 | [mmv-go](https://github.com/itchyny/mmv) | Bulk renaming |
 
-**NixOS GUI**
-
-| Tool | Description |
-|---|---|
-| [cliphist](https://mynixos.com/nixpkgs/package/cliphist) | Clipboard history |
-| [dunst](https://github.com/dunst-project/dunst) + [libnotify](https://github.com/GNOME/libnotify) | Notifications |
-| [grim](https://sr.ht/~emersion/grim/) + [slurp](https://github.com/emersion/slurp) + [swappy](https://github.com/jtheoof/swappy) | Screenshots |
 
 **Neovim plugins**
 
