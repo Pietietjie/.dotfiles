@@ -31,6 +31,9 @@
   programs.regreet = {
     enable = true;
     cageArgs = [ "-m" "last" ];
+    settings = {
+      GTK.theme_name = lib.mkForce "Adwaita-dark";
+    };
   };
   services.greetd.enable = true;
   programs.niri.enable = true;

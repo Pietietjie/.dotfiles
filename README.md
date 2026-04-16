@@ -54,8 +54,7 @@ sudo ./install
 - [ ] look at fcitx's clipboard history
 - [ ] Customize regreet or whatever it is called
 - [ ] look at why I have gnome files installed
-- [ ] make that scrp works and make that the tm dotfiles session is autostarts
-- [ ] add fingerprint support
+- [ ] add fingerprint support (drivers does not support my device)
 - [ ] make that niri workspaces are automatically there
 ## 🔧 Tools to look at
 
