@@ -82,6 +82,15 @@
         "widgetSpacing": 6,
         "widgets": {
             "center": [
+                {
+                    "colorizeSystemIcon": "none",
+                    "customIconPath": "",
+                    "enableColorization": false,
+                    "icon": "rocket",
+                    "iconColor": "none",
+                    "id": "Launcher",
+                    "useDistroLogo": false
+                }
             ],
             "left": [
                 {
