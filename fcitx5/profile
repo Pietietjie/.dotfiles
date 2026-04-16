@@ -12,21 +12,6 @@ Name=keyboard-us
 # Layout
 Layout=
 
-[Groups/1]
-# Group Name
-Name="Group 2"
-# Layout
-Default Layout=za
-# Default Input Method
-DefaultIM=keyboard-za
-
-[Groups/1/Items/0]
-# Name
-Name=keyboard-za
-# Layout
-Layout=
-
 [GroupOrder]
 0="Group 1"
-1="Group 2"
 
