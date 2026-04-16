@@ -64,22 +64,18 @@ window-rule {
 }
 window-rule {
     match app-id="firefox"
-    open-on-workspace "1"
     open-maximized true
 }
 window-rule {
     match app-id="google-chrome"
-    open-on-workspace "1"
     open-maximized true
 }
 window-rule {
     match app-id="chromium-browser"
-    open-on-workspace "1"
     open-maximized true
 }
 window-rule {
     match app-id="kitty"
-    open-on-workspace "2"
     open-maximized true
 }
 // window-rule {
@@ -202,6 +198,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+    Mod+0 { focus-workspace 10; }
     Mod+Ctrl+1 { move-column-to-workspace 1; }
     Mod+Ctrl+2 { move-column-to-workspace 2; }
     Mod+Ctrl+3 { move-column-to-workspace 3; }
@@ -211,6 +208,7 @@ binds {
     Mod+Ctrl+7 { move-column-to-workspace 7; }
     Mod+Ctrl+8 { move-column-to-workspace 8; }
     Mod+Ctrl+9 { move-column-to-workspace 9; }
+    Mod+Ctrl+0 { move-column-to-workspace 10; }
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
     Mod+Tab { focus-workspace-previous; }
     Mod+BracketLeft  { consume-or-expel-window-left; }
