@@ -166,6 +166,7 @@
     mpv
     imv
     btop
+    teamspeak6-client
 
     # TOOLS
     qt6Packages.fcitx5-configtool
