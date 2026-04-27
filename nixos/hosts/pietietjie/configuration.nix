@@ -103,6 +103,7 @@
   # NVIDIA drivers
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -150,6 +151,11 @@
   };
 
   programs.firefox.enable = true;
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
+  programs.gamescope.enable = true;
   programs.yazi.enable = true;
   # programs.thunar.enable = true;
   environment.systemPackages = with pkgs; [
