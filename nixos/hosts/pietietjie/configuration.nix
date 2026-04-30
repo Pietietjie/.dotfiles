@@ -149,6 +149,11 @@
     ];
   };
 
+  networking.firewall = rec {
+    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
+
   programs.firefox.enable = true;
   programs.yazi.enable = true;
   # programs.thunar.enable = true;
@@ -161,6 +166,7 @@
     imv
     btop
     teamspeak6-client
+    valent
 
     # TOOLS
     qt6Packages.fcitx5-configtool
