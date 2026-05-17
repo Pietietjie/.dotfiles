@@ -3,6 +3,15 @@
 # and in the NixOS manual (accessible by running 'nixos-help').
 
 { config, pkgs, lib, ... }:
+let
+  luksDeviceName =
+    builtins.head
+    (builtins.attrNames
+      ((import ./hardware-configuration.nix {
+        inherit config lib pkgs;
+        modulesPath = builtins.toString <nixpkgs/nixos/modules>;
+      }).boot.initrd.luks.devices));
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -13,7 +22,9 @@
 
   boot.initrd.systemd.enable = true;
 
-  boot.initrd.luks.devices."luks-60c26de3-8fbe-4008-b3c5-bd2a75d8dd26".crypttabExtraOpts = [ "tpm2-device=auto" ];
+  boot.initrd.luks.devices.${luksDeviceName}.crypttabExtraOpts = [
+    "tpm2-device=auto"
+  ];
   boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" "tpm_tis_core" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = lib.mkForce false;
