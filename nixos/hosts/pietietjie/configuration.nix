@@ -4,13 +4,12 @@
 
 { config, pkgs, lib, ... }:
 let
-  luksDeviceName =
-    builtins.head
-    (builtins.attrNames
+  luksDeviceNames =
+    builtins.attrNames
       ((import ./hardware-configuration.nix {
         inherit config lib pkgs;
         modulesPath = builtins.toString <nixpkgs/nixos/modules>;
-      }).boot.initrd.luks.devices));
+      }).boot.initrd.luks.devices);
 in
 {
   imports =
@@ -22,9 +21,9 @@ in
 
   boot.initrd.systemd.enable = true;
 
-  boot.initrd.luks.devices.${luksDeviceName}.crypttabExtraOpts = [
-    "tpm2-device=auto"
-  ];
+  boot.initrd.luks.devices = lib.genAttrs luksDeviceNames (_: {
+    crypttabExtraOpts = [ "tpm2-device=auto" ];
+  });
   boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" "tpm_tis_core" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = lib.mkForce false;
@@ -181,7 +180,7 @@ in
 
   programs.firefox.enable = true;
   programs.yazi.enable = true;
-  # programs.thunar.enable = true;
+  programs.thunar.enable = true;
   environment.systemPackages = with pkgs; [
     # GUIs
     keepassxc
