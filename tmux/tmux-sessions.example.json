@@ -1,6 +1,6 @@
 [
     {
-        "blueprintName": "1-all-projects",
+        "blueprintName": "0-dotfiles",
         "sessions": [
             {
                 "sessionName": "dotfiles",

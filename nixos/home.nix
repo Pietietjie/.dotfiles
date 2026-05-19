@@ -69,4 +69,11 @@ in {
     home.file.".local/bin/scrp" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/zsh/scrp";
     };
+
+    # Copy tmux-sessions.example.json to ~/tmux-sessions.json if it doesn't exist or is empty
+    home.activation.copyTmuxSessions = config.lib.dag.entryAfter ["writeBoundary"] ''
+        if [ ! -s "${homeDirectory}/tmux-sessions.json" ]; then
+            $DRY_RUN_CMD cp "${dotfilesPath}/tmux/tmux-sessions.example.json" "${homeDirectory}/tmux-sessions.json"
+        fi
+    '';
 }
