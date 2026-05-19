@@ -139,3 +139,8 @@ alias fzmv="mv \$(fzf)"
 # "${update_dot}" &>/dev/null & disown;
 [ -f ~/.path ] && source ~/.path
 export PATH="$HOME/.local/bin:$PATH"
+
+# Auto-attach to existing tmux session
+if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -n "$(tmux list-sessions 2>/dev/null)" ]; then
+    tmux attach
+fi
