@@ -113,6 +113,7 @@ in
 
   # NVIDIA drivers
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.graphics.enable32Bit = true;
   hardware.graphics.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
@@ -123,6 +124,19 @@ in
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  programs.steam = {
+    enable = true;
+    protontricks.enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
+
+  programs.gamemode.enable = true;
+
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
 
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.pietietjie = {
@@ -180,9 +194,12 @@ in
     valent
 
     # TOOLS
+    xwayland-satellite
     qt6Packages.fcitx5-configtool
     keymapp
     hyprpicker
     wl-clipboard
+    mangohud
+    protonup-qt
   ];
 }
