@@ -184,10 +184,10 @@
             ],
             "right": [
                 {
-                    "deviceNativePath": "__default__",
+                    "deviceNativePath": "BAT0",
                     "displayMode": "graphic-clean",
                     "hideIfIdle": false,
-                    "hideIfNotDetected": true,
+                    "hideIfNotDetected": false,
                     "id": "Battery",
                     "showNoctaliaPerformance": false,
                     "showPowerProfiles": false

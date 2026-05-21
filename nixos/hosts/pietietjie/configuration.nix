@@ -60,6 +60,7 @@ in
   environment.variables.GSK_RENDERER = "ngl";
 
   services.noctalia-shell.enable = true;
+  services.upower.enable = true;
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
