@@ -1,5 +1,19 @@
 {
   "model": "opus[1m]",
+  "env": {
+    "CAVEMAN_DEFAULT_MODE": "ultra"
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "filesystem": {
+      "allowWrite": [
+        "~/proj",
+        "~/.dotfiles",
+        "/mnt/c/Users/piete/Pictures/Screenshots"
+      ]
+    }
+  },
   "permissions": {
     "allow": [
       "Read",
