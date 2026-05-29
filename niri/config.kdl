@@ -1,3 +1,10 @@
+// Disable the top-left hot corner that triggers overview
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 // SEE: https://yalter.github.io/niri/Configuration:-Input
 input {
     keyboard {
