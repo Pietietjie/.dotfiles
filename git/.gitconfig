@@ -53,13 +53,14 @@
     fzf-b = "!echo $(git branch -a | fzf) | sed \"s/^remotes\\/[a-zA-Z]\\+\\///\" | sed \"s/ -> .*//\""
     fzf-status-cached = "!echo $(git diff --name-only --cached | fzf -m)"
     fzf-status = "!echo $(git file-names-status | fzf -m)"
-    fzf = "!git checkout $(git fzf-b)"
-    fzf-rb = "!git rebase -i $(git fzf-b)"
-    fzf-m = "!git merge $(git branch -a | fzf)"
-    fzf-a= "!git add $(git fzf-status)"
-    fzf-srr = "!git srr $(git fzf-status-cached)"
-    fzf-rr = "!git rr $(git fzf-status)"
-    fzf-rm = "!rm $(git fzf-status)"
+    fzf = "!b=$(git fzf-b); if [ -z \"$b\" ]; then echo 'select a branch'; else git checkout \"$b\"; fi"
+    fzf-rb = "!b=$(git fzf-b); if [ -z \"$b\" ]; then echo 'select a branch'; else git rebase -i \"$b\"; fi"
+    fzf-m = "!b=$(git fzf-b); if [ -z \"$b\" ]; then echo 'select a branch'; else git merge \"$b\"; fi"
+    fzf-a = "!f=$(git fzf-status); if [ -z \"$f\" ]; then echo 'select a file'; else git add $f; fi"
+    fzf-srr = "!f=$(git fzf-status-cached); if [ -z \"$f\" ]; then echo 'select a file'; else git srr $f; fi"
+    fzf-rr = "!f=$(git fzf-status); if [ -z \"$f\" ]; then echo 'select a file'; else git rr $f; fi"
+    fzf-rm = "!f=$(git fzf-status); if [ -z \"$f\" ]; then echo 'select a file'; else rm $f; fi"
+    fzf-sch = "!b=$(git fzf-b); if [ -z \"$b\" ]; then echo 'select a branch'; else git sch \"$b\"; fi"
     fz = fzf
     fz-rb = fzf-rb
     fz-m = fzf-m
@@ -67,12 +68,14 @@
     fz-srr = fzf-srr
     fz-rr = fzf-rr
     fz-rm = fzf-rm
+    fz-sch = fzf-sch
     f-rb = fzf-rb
     f-m = fzf-m
     f-a =  fzf-a
     f-srr = fzf-srr
     f-rr = fzf-rr
     f-rm = fzf-rm
+    f-sch = fzf-sch
 [core]
     editor = nvim
 [diff]

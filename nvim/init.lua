@@ -1053,8 +1053,19 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', '[_Yank]', { remap = true })
 
 -- treesitter repeat that overrides the ;,fFtT
 local treesitter_repeat = require('nvim-treesitter-textobjects.repeatable_move')
-vim.keymap.set({ 'n', 'x', 'o' }, ';', treesitter_repeat.repeat_last_move, { desc = 'Repeat last Treesitter move' })
-vim.keymap.set({ 'n', 'x', 'o' }, ',', treesitter_repeat.repeat_last_move_opposite,
+-- center cursor (zz) after the move, but only in normal mode (zz in
+-- operator-pending/visual would break the pending operator/selection)
+local function center_after(move_fn)
+  return function(...)
+    move_fn(...)
+    if vim.api.nvim_get_mode().mode == 'n' then
+      vim.cmd('normal! zz')
+    end
+  end
+end
+vim.keymap.set({ 'n', 'x', 'o' }, ';', center_after(treesitter_repeat.repeat_last_move),
+  { desc = 'Repeat last Treesitter move' })
+vim.keymap.set({ 'n', 'x', 'o' }, ',', center_after(treesitter_repeat.repeat_last_move_opposite),
   { desc = 'Repeat last Treesitter move opposite' })
 vim.keymap.set({ 'n', 'x', 'o' }, 'f', treesitter_repeat.builtin_f_expr,
   { expr = true, desc = 'Treesitter find char forward' })
