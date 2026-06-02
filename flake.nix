@@ -50,6 +50,7 @@
                 "weasel" = {
                     system = "x86_64-linux";
                     hostSpecificNix = ./nixos/hosts/weasel/configuration.nix;
+                    hostSpecificHomeConfig = ./nixos/hosts/weasel/home.nix;
                     enableGui = false;
                     enableSystem = true;
                     enableLanzaboote = false;
@@ -88,6 +89,7 @@
                     specialArgs = {
                         inherit inputs hostname username;
                         hostSpecificHomeConfig = hostAttrs.hostSpecificHomeConfig or null;
+                        homeDir = hostAttrs.homeDir or "/home/${username}";
                     };
                 in nixpkgs.lib.nixosSystem {
                         inherit system specialArgs;

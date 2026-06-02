@@ -1,9 +1,9 @@
 # Base home configuration - shell environment
 # Host-specific GUI config is in hosts/<hostname>/home.nix
 
-{ pkgs, config, username, hostSpecificHomeConfig ? null, ... }:
+{ pkgs, config, lib, username, homeDir ? "/home/${username}", hostSpecificHomeConfig ? null, ... }:
 let
-    homeDirectory = "/home/${username}";
+    homeDirectory = homeDir;
     dotfilesPath = "${homeDirectory}/.dotfiles";
     stateVersion = "25.11";
 in {
@@ -12,7 +12,7 @@ in {
         else [];
 
     home.username = username;
-    home.homeDirectory = homeDirectory;
+    home.homeDirectory = lib.mkForce homeDirectory;
     home.stateVersion = stateVersion;
 
     programs.home-manager.enable = true;
