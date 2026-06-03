@@ -140,7 +140,12 @@ alias fzmv="mv \$(fzf)"
 [ -f ~/.path ] && source ~/.path
 export PATH="$HOME/.local/bin:$PATH"
 
-# Auto-attach to existing tmux session
-if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -n "$(tmux list-sessions 2>/dev/null)" ]; then
-    tmux attach
+# Auto-create and attach to tmux session
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+    # On weasel host: create dotfiles session if no sessions exist
+    if [[ "$(hostname)" == "weasel" ]] && [ -z "$(tmux list-sessions 2>/dev/null)" ]; then
+        dot=$HOME/.dotfiles $HOME/.local/bin/scrp --script 1-tmux-start.sh --blueprint 0-dotfiles
+    elif [ -n "$(tmux list-sessions 2>/dev/null)" ]; then
+        tmux attach
+    fi
 fi
