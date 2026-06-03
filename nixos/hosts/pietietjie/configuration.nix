@@ -34,7 +34,7 @@ in
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
-  services.xserver.xkb.options = "compose:ralt";
+  services.xserver.xkb.options = "compose:ralt,ctrl:nocaps";
 
   environment.etc."XCompose".source = ../../etc/xcompose.conf;
 
