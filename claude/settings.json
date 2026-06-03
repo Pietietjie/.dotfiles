@@ -43,6 +43,8 @@
       "Bash(diff:*)",
       "Bash(awk:*)",
       "Bash(sed:-n*)",
+      "Bash(sort:*)",
+      "Bash(cut:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",

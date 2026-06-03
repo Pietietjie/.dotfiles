@@ -42,6 +42,10 @@
         path: claude/settings.json
         create: true
         force: true
+    ~/.claude/skills:
+        relink: true
+        path: claude/skills
+        create: true
 - link:
     /usr/local/bin/scrp:
         force: true
