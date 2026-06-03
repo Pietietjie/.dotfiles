@@ -76,4 +76,12 @@ in {
             $DRY_RUN_CMD cp "${dotfilesPath}/tmux/tmux-sessions.example.json" "${homeDirectory}/tmux-sessions.json"
         fi
     '';
+
+    # Create telescope history database file if it doesn't exist
+    home.activation.createTelescopeHistory = config.lib.dag.entryAfter ["writeBoundary"] ''
+        if [ ! -f "${homeDirectory}/.local/share/nvim/databases/telescope_history.sqlite3" ]; then
+            $DRY_RUN_CMD mkdir -p "${homeDirectory}/.local/share/nvim/databases"
+            $DRY_RUN_CMD touch "${homeDirectory}/.local/share/nvim/databases/telescope_history.sqlite3"
+        fi
+    '';
 }
