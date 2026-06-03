@@ -9,6 +9,9 @@
     startMenuLaunchers = false;
     wslConf.automount.root = "/mnt";
     wslConf.interop.appendWindowsPath = false;
+    # Workaround for systemd user session failing with "Device or resource busy"
+    # when other WSL distros are running (upstream bug: microsoft/WSL#13826)
+    wslConf.boot.initTimeout = 40000;
   };
 
   networking.hostName = "weasel";
