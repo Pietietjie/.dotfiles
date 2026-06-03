@@ -5,7 +5,7 @@ local l = require('pietietjie.loggers')
 if (string.find(vim.uv.os_uname().sysname, "indows")) then
   vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
 end
-if (string.find(vim.uv.os_uname().sysname, "Linux") and string.find(vim.uv.os_uname().version, 'Nix')) then
+if (string.find(vim.uv.os_uname().sysname, "Linux") and vim.uv.fs_stat('/run/current-system/sw/lib/libsqlite3.so')) then
   vim.cmd("let g:sqlite_clib_path = '/run/current-system/sw/lib/libsqlite3.so'")
 end
 
