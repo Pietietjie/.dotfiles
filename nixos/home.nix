@@ -87,6 +87,17 @@ in {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/zsh/scrp";
     };
 
+    # Claude Code config
+    home.file.".claude/settings.json" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/claude/settings.json";
+        force = true;
+    };
+
+    home.file.".claude/skills" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/claude/skills";
+        force = true;
+    };
+
     # Copy tmux-sessions.example.json to ~/tmux-sessions.json if it doesn't exist or is empty
     home.activation.copyTmuxSessions = config.lib.dag.entryAfter ["writeBoundary"] ''
         if [ ! -s "${homeDirectory}/tmux-sessions.json" ]; then
