@@ -1178,8 +1178,8 @@ vim.keymap.set('n', '[h', prev_hunk, { desc = 'Previous git hunk' })
 vim.keymap.set('n', ']h', next_hunk, { desc = 'Next git hunk' })
 
 local next_spell, prev_spell = make_repeatable_move_pair(
-  function() vim.cmd.normal(string.format('%d]s', vim.v.count1)) end,
-  function() vim.cmd.normal(string.format('%d[s', vim.v.count1)) end
+  function() vim.cmd.normal({ string.format('%d]s', vim.v.count1), bang = true }) end,
+  function() vim.cmd.normal({ string.format('%d[s', vim.v.count1), bang = true }) end
 )
 vim.keymap.set('n', ']s', next_spell, { desc = 'Next misspelling' })
 vim.keymap.set('n', '[s', prev_spell, { desc = 'Previous misspelling' })
