@@ -56,6 +56,7 @@ sudo ./install
 - [ ] look at why I have gnome files installed
 - [ ] add fingerprint support (drivers does not support my device)
 - [ ] make that niri workspaces are automatically there
+- [ ] change the screen saver
 ## 🔧 Tools to look at
 
 **CLI tools**

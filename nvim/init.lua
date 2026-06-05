@@ -1430,6 +1430,16 @@ vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc =
 vim.keymap.set({ 'o', 'x' }, 'ih', require('gitsigns').select_hunk)
 vim.keymap.set({ 'o', 'x' }, 'ah', require('gitsigns').select_hunk)
 
+-- Gitsigns can get out of sync when commits/stages happen outside of nvim
+-- (e.g. git CLI in another tmux pane), refresh the signs when nvim regains focus
+-- or when leaving a terminal buffer
+vim.api.nvim_create_autocmd({ 'FocusGained', 'TermLeave' }, {
+  group = vim.api.nvim_create_augroup('GitsignsRefresh', { clear = true }),
+  callback = function()
+    require('gitsigns').refresh()
+  end,
+})
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
