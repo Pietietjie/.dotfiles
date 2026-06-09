@@ -15,6 +15,7 @@
     }
   },
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
       "Read",
       "Glob",
