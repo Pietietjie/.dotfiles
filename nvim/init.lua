@@ -1282,6 +1282,7 @@ end, { desc = 'Copy/[Y]ank current buffer\'s file [P]ath' })
 vim.keymap.set({ 'n', 'v' }, '<leader>c', '"_c', { desc = '[c]hange without copying' })
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = '[d]elete without copying' })
 vim.keymap.set({ 'n', 'v' }, '<leader>D', '"_d$', { desc = '[D]elete without copying until the end of the line' })
+vim.keymap.set({ 'n', 'v' }, '<leader>C', '"_c$', { desc = '[C]hange without copying until the end of the line' })
 vim.keymap.set('v', '<leader>p', '"_c<C-r>"<ESC>', { desc = '[P]astes over without copying' })
 
 -- misc
