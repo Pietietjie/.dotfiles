@@ -65,6 +65,23 @@ in {
         force = true;
     };
 
+    # Claude Code config
+    home.file.".claude/settings.json" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/claude/settings.json";
+        force = true;
+    };
+
+    home.file.".claude/CLAUDE.md" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/claude/CLAUDE.md";
+        force = true;
+    };
+
+    home.file.".claude/skills" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/claude/skills";
+        recursive = true;
+        force = true;
+    };
+
     # User bin scripts
     home.file.".local/bin/scrp" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/zsh/scrp";

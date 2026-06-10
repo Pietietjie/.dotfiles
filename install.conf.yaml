@@ -42,6 +42,11 @@
         path: claude/settings.json
         create: true
         force: true
+    ~/.claude/CLAUDE.md:
+        relink: true
+        path: claude/CLAUDE.md
+        create: true
+        force: true
     ~/.claude/skills:
         relink: true
         path: claude/skills
