@@ -31,4 +31,7 @@
     description = "Pieter Louis van der Meijden";
     extraGroups = [ "wheel" ];
   };
+  environment.systemPackages = with pkgs; [
+    docker_29
+  ];
 }
