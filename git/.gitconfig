@@ -59,7 +59,7 @@
     fzf-a = "!f=$(git fzf-status); if [ -z \"$f\" ]; then echo 'select a file'; else git add $f; fi"
     fzf-srr = "!f=$(git fzf-status-cached); if [ -z \"$f\" ]; then echo 'select a file'; else git srr $f; fi"
     fzf-rr = "!f=$(git fzf-status); if [ -z \"$f\" ]; then echo 'select a file'; else git rr $f; fi"
-    fzf-rm = "!f=$(git fzf-status); if [ -z \"$f\" ]; then echo 'select a file'; else rm $f; fi"
+    fzf-rm = "!f=$(git fzf-status); if [ -z \"$f\" ]; then echo 'select a file'; else rm -f $f; fi"
     fzf-sch = "!b=$(git fzf-b); if [ -z \"$b\" ]; then echo 'select a branch'; else git sch \"$b\"; fi"
     fz = fzf
     fz-rb = fzf-rb
