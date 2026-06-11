@@ -1,6 +1,14 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 local l = require('pietietjie.loggers')
+local function zz(move_fn)
+  return function(...)
+    move_fn(...)
+    if vim.api.nvim_get_mode().mode == 'n' then
+      vim.cmd('normal! zz')
+    end
+  end
+end
 -- if windows use the chocolatey sqlite package
 if (string.find(vim.uv.os_uname().sysname, "indows")) then
   vim.cmd("let g:sqlite_clib_path = '/ProgramData/chocolatey/lib/SQLite/tools/sqlite3.dll'")
@@ -1055,17 +1063,9 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', '[_Yank]', { remap = true })
 local treesitter_repeat = require('nvim-treesitter-textobjects.repeatable_move')
 -- center cursor (zz) after the move, but only in normal mode (zz in
 -- operator-pending/visual would break the pending operator/selection)
-local function center_after(move_fn)
-  return function(...)
-    move_fn(...)
-    if vim.api.nvim_get_mode().mode == 'n' then
-      vim.cmd('normal! zz')
-    end
-  end
-end
-vim.keymap.set({ 'n', 'x', 'o' }, ';', center_after(treesitter_repeat.repeat_last_move),
+vim.keymap.set({ 'n', 'x', 'o' }, ';', zz(treesitter_repeat.repeat_last_move),
   { desc = 'Repeat last Treesitter move' })
-vim.keymap.set({ 'n', 'x', 'o' }, ',', center_after(treesitter_repeat.repeat_last_move_opposite),
+vim.keymap.set({ 'n', 'x', 'o' }, ',', zz(treesitter_repeat.repeat_last_move_opposite),
   { desc = 'Repeat last Treesitter move opposite' })
 vim.keymap.set({ 'n', 'x', 'o' }, 'f', treesitter_repeat.builtin_f_expr,
   { expr = true, desc = 'Treesitter find char forward' })
@@ -1938,7 +1938,7 @@ local lspconfigOnAttach = function(_, bufnr)
   nmap('[_Refactor]n', vim.lsp.buf.rename, '[r]e[n]ame')
   nmap('[_Search]a', vim.lsp.buf.code_action, 'L[s]P code [a]ction')
 
-  nmap('gd', open_url_or(vim.lsp.buf.definition), '[g]oto [d]efinition / open URL')
+  nmap('gd', zz(open_url_or(vim.lsp.buf.definition)), '[g]oto [d]efinition / open URL')
   nmap('grr', vim.lsp.buf.references, '[g]oto quicklist [r]eferences')
   nmap(
     'grs',
@@ -1947,7 +1947,7 @@ local lspconfigOnAttach = function(_, bufnr)
     end,
     '[g]oto tele[s]cope references'
   )
-  nmap('gI', open_url_or(vim.lsp.buf.implementation), '[g]oto [I]mplementation / open URL')
+  nmap('gI', zz(open_url_or(vim.lsp.buf.implementation)), '[g]oto [I]mplementation / open URL')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap(
     '[_Search]y',
