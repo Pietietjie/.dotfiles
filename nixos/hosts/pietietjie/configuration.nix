@@ -207,6 +207,8 @@ in
     btop
     teamspeak6-client
     valent
+    foliate
+    obsidian
 
     # TOOLS
     xwayland-satellite
