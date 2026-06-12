@@ -50,6 +50,7 @@ sudo ./install
 
 **NixOS**
 - [ ] make that nix shell is more like the normal shell (theme etc)
+- [ ] Make that the fans spin increases when the temp increases
 - [ ] Weasel
 - [ ] look at fcitx's clipboard history
 - [ ] Customize regreet or whatever it is called
