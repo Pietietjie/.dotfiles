@@ -140,7 +140,7 @@ function Install-Software
         @{ Name = "dbeaver"; Version = $null },
         @{ Name = "postman"; Version = $null },
         @{ Name = "mingw"; Version = $null },
-        @{ Name = "neovim"; Version = "0.11.5" },
+        @{ Name = "neovim"; Version = "0.12.2" },
         @{ Name = "alacritty"; Version = "0.15.1" },
         @{ Name = "wezterm"; Version = "20240203.110809.0" },
         @{ Name = "python"; Version = "3.13.4" }
