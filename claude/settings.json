@@ -1,21 +1,8 @@
 {
-  "model": "opus[1m]",
   "env": {
     "CAVEMAN_DEFAULT_MODE": "ultra"
   },
-  "sandbox": {
-    "enabled": true,
-    "autoAllowBashIfSandboxed": true,
-    "filesystem": {
-      "allowWrite": [
-        "~/proj",
-        "~/.dotfiles",
-        "/mnt/c/Users/piete/Pictures/Screenshots"
-      ]
-    }
-  },
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Read",
       "Glob",
@@ -57,8 +44,10 @@
       "Bash(git remote:*)",
       "Bash(git stash list:*)",
       "Bash(git stash show:*)"
-    ]
+    ],
+    "defaultMode": "acceptEdits"
   },
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -72,6 +61,13 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"/home/pieter/.claude/plugins/cache/caveman/caveman/c2ed24b3e5d4/hooks/caveman-statusline.sh\""
+  },
+  "enabledPlugins": {
+    "caveman@caveman": true
+  },
   "extraKnownMarketplaces": {
     "caveman": {
       "source": {
@@ -80,11 +76,15 @@
       }
     }
   },
-  "enabledPlugins": {
-    "caveman@caveman": true
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"/home/pieter/.claude/plugins/cache/caveman/caveman/c2ed24b3e5d4/hooks/caveman-statusline.sh\""
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "filesystem": {
+      "allowWrite": [
+        "~/proj",
+        "~/.dotfiles",
+        "/mnt/c/Users/piete/Pictures/Screenshots"
+      ]
+    }
   }
 }
