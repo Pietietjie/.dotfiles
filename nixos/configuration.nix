@@ -73,7 +73,7 @@
     fzf
     zig
     ripgrep
-    nodejs_20
+    nodejs
     fd
     sqlite
     sqlite.out

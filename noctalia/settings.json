@@ -41,6 +41,7 @@
         ],
         "preferredPlayer": "",
         "spectrumFrameRate": 30,
+        "spectrumMirrored": true,
         "visualizerType": "linear",
         "volumeFeedback": false,
         "volumeFeedbackSoundFile": "",
@@ -58,7 +59,6 @@
         "density": "spacious",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
-        "floating": false,
         "fontScale": 1,
         "frameRadius": 12,
         "frameThickness": 8,
@@ -94,6 +94,7 @@
                 {
                     "colorizeDistroLogo": false,
                     "colorizeSystemIcon": "none",
+                    "colorizeSystemText": "none",
                     "customIconPath": "",
                     "enableColorization": false,
                     "icon": "noctalia",
@@ -102,6 +103,7 @@
                 },
                 {
                     "colorizeSystemIcon": "none",
+                    "colorizeSystemText": "none",
                     "customIconPath": "",
                     "enableColorization": false,
                     "icon": "rocket",
@@ -280,6 +282,7 @@
         "monitorForColors": "",
         "predefinedScheme": "Tokyo Night",
         "schedulingMode": "off",
+        "syncGsettings": true,
         "useWallpaperColors": false
     },
     "controlCenter": {
@@ -367,8 +370,10 @@
         "indicatorColor": "primary",
         "indicatorOpacity": 0.6,
         "indicatorThickness": 3,
+        "launcherIcon": "",
         "launcherIconColor": "none",
         "launcherPosition": "end",
+        "launcherUseDistroLogo": false,
         "monitors": [
         ],
         "onlySameOutput": true,
@@ -443,6 +448,7 @@
         "showHibernateOnLockScreen": false,
         "showScreenCorners": false,
         "showSessionButtonsOnLockScreen": true,
+        "smoothScrollEnabled": true,
         "telemetryEnabled": true
     },
     "hooks": {
@@ -473,6 +479,7 @@
     },
     "location": {
         "analogClockInCalendar": false,
+        "autoLocate": false,
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
@@ -483,10 +490,10 @@
         "use12hourFormat": false,
         "useFahrenheit": false,
         "weatherEnabled": true,
-        "weatherShowEffects": true
+        "weatherShowEffects": true,
+        "weatherTaliaMascotAlways": false
     },
     "network": {
-        "airplaneModeEnabled": false,
         "bluetoothAutoConnect": true,
         "bluetoothDetailsViewMode": "grid",
         "bluetoothHideUnnamedDevices": false,
@@ -494,8 +501,7 @@
         "bluetoothRssiPollingEnabled": false,
         "disableDiscoverability": false,
         "networkPanelView": "wifi",
-        "wifiDetailsViewMode": "grid",
-        "wifiEnabled": true
+        "wifiDetailsViewMode": "grid"
     },
     "nightLight": {
         "autoSchedule": true,
@@ -558,7 +564,8 @@
         "overlayLayer": true
     },
     "plugins": {
-        "autoUpdate": false
+        "autoUpdate": false,
+        "notifyUpdates": true
     },
     "sessionMenu": {
         "countdownDuration": 10000,
@@ -720,6 +727,7 @@
         "fillColor": "#000000",
         "fillMode": "crop",
         "hideWallpaperFilenames": false,
+        "linkLightAndDarkWallpapers": true,
         "monitorDirectories": [
         ],
         "overviewBlur": 0.4,
@@ -738,6 +746,7 @@
             "fade",
             "pixelate"
         ],
+        "useOriginalImages": false,
         "useSolidColor": false,
         "useWallhaven": false,
         "viewMode": "recursive",

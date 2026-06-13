@@ -2,26 +2,15 @@
     description = "NixOS Flake Configuration";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
         home-manager = {
-            url = "github:nix-community/home-manager/release-25.11";
+            url = "github:nix-community/home-manager/release-26.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
         lanzaboote = {
             url = "github:nix-community/lanzaboote/v1.0.0";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        noctalia = {
-            url = "github:noctalia-dev/noctalia-shell";
-            inputs.nixpkgs.follows = "nixpkgs";
-            inputs.noctalia-qs.follows = "noctalia-qs";
-        };
-
-        noctalia-qs = {
-            url = "github:noctalia-dev/noctalia-qs";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -81,9 +70,7 @@
                         then [ nixos-wsl.nixosModules.default ]
                     else [];
                     guiModules = if hostAttrs.enableGui
-                        then [
-                            inputs.noctalia.nixosModules.default
-                        ]
+                        then []
                     else [];
 
                     specialArgs = {

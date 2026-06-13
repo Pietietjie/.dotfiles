@@ -5,7 +5,6 @@ let
     dotfilesPath = "${homeDirectory}/.dotfiles";
 in {
     home.packages = with pkgs; [
-        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
         vimix-cursors
         vimix-icon-theme
     ];

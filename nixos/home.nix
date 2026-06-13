@@ -5,7 +5,7 @@
 let
     homeDirectory = homeDir;
     dotfilesPath = "${homeDirectory}/.dotfiles";
-    stateVersion = "25.11";
+    stateVersion = "26.05";
 in {
     imports = if hostSpecificHomeConfig != null
         then [ hostSpecificHomeConfig ]

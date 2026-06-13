@@ -59,7 +59,6 @@ in
   };
   environment.variables.GSK_RENDERER = "ngl";
 
-  services.noctalia-shell.enable = true;
   services.upower.enable = true;
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -198,6 +197,8 @@ in
   programs.yazi.enable = true;
   programs.thunar.enable = true;
   environment.systemPackages = with pkgs; [
+    noctalia-qs
+    noctalia-shell
     # GUIs
     keepassxc
     fuzzel
