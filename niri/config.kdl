@@ -45,10 +45,20 @@ layout {
     struts {}
 }
 
+workspace "browser"
+workspace "notes"
+workspace "terminal"
+workspace "gaming"
+workspace "messages"
+workspace "misc"
+
 hotkey-overlay { skip-at-startup; }
 spawn-at-startup "noctalia-shell"
 spawn-at-startup "xwayland-satellite"
-spawn-sh-at-startup "bash ~/.config/reorder-workspaces.sh"
+spawn-at-startup "valent"
+spawn-at-startup "firefox"
+spawn-at-startup "keepassxc"
+spawn-at-startup "keepassxc"
 spawn-sh-at-startup "dot=$HOME/.dotfiles $HOME/.local/bin/scrp --script 1-tmux-start.sh --blueprint 0-dotfiles --dont_attach"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot_from_%Y-%m-%d_%H-%M-%S.png"
@@ -73,25 +83,49 @@ window-rule {
 }
 window-rule {
     match app-id="firefox"
+    open-on-workspace "browser"
     open-maximized true
 }
 window-rule {
     match app-id="google-chrome"
+    open-on-workspace "browser"
     open-maximized true
 }
 window-rule {
     match app-id="chromium-browser"
+    open-on-workspace "browser"
     open-maximized true
 }
 window-rule {
+    match app-id=r#"^ca\.andyholmes\.Valent$"#
+    open-on-workspace "browser"
+}
+window-rule {
     match app-id="kitty"
+    open-on-workspace "terminal"
     open-maximized true
 }
-// window-rule {
-//     match app-id="Alacritty"
-//     open-on-workspace "2terminal"
-//     open-maximized true
-// }
+window-rule {
+    match app-id="obsidian"
+    open-on-workspace "notes"
+    open-maximized true
+}
+window-rule {
+    match app-id="mpv"
+    open-on-workspace "notes"
+}
+window-rule {
+    match app-id=r#"^com\.github\.johnfactotum\.Foliate$"#
+    open-on-workspace "notes"
+}
+window-rule {
+    match app-id="steam"
+    open-on-workspace "gaming"
+}
+window-rule {
+    match app-id="TeamSpeak"
+    open-on-workspace "gaming"
+}
 window-rule {
     geometry-corner-radius 6
     clip-to-geometry true
@@ -111,6 +145,7 @@ window-rule {
 }
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    open-on-workspace "browser"
     block-out-from "screen-capture"
 }
 window-rule {
