@@ -7,7 +7,32 @@ in {
     home.packages = with pkgs; [
         vimix-cursors
         vimix-icon-theme
+        rclone
     ];
+
+    systemd.user.services.rclone-passwords = {
+        Unit = {
+            Description = "Sync Passwords.kdbx with Google Drive";
+            After = [ "network-online.target" ];
+        };
+        Service = {
+            Type = "oneshot";
+            ExecStart = toString (pkgs.writeShellScript "rclone-passwords-sync" ''
+                ${pkgs.rclone}/bin/rclone copyto --update gdrive:Passwords.kdbx ${homeDirectory}/Passwords.kdbx
+                ${pkgs.rclone}/bin/rclone copyto --update ${homeDirectory}/Passwords.kdbx gdrive:Passwords.kdbx
+            '');
+        };
+    };
+
+    systemd.user.timers.rclone-passwords = {
+        Unit.Description = "Sync Passwords.kdbx hourly";
+        Timer = {
+            OnCalendar = "hourly";
+            OnStartupSec = "1min";
+            Persistent = true;
+        };
+        Install.WantedBy = [ "timers.target" ];
+    };
 
     gtk = {
         enable = true;
