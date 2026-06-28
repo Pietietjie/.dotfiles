@@ -56,8 +56,6 @@ hotkey-overlay { skip-at-startup; }
 spawn-at-startup "noctalia-shell"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "valent"
-spawn-at-startup "firefox"
-spawn-at-startup "keepassxc"
 spawn-at-startup "keepassxc"
 spawn-sh-at-startup "dot=$HOME/.dotfiles $HOME/.local/bin/scrp --script 1-tmux-start.sh --blueprint 0-dotfiles --dont_attach"
 
