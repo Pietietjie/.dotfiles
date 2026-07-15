@@ -1656,7 +1656,7 @@ telescope_menu_bind_n_and_v_mode(
   '[_Search]g',
   function(defaultText)
     if defaultText then
-      defaultText = defaultText:gsub("[%.%*%[%]%^%$%\\%+%?%(%)%{%}%|]", "\\%1");
+      defaultText = defaultText:gsub("[%-%.%*%[%]%^%$%\\%+%?%(%)%{%}%|]", "\\%1");
     end
     require('telescope').extensions.live_grep_args.live_grep_args({
       default_text = defaultText,
