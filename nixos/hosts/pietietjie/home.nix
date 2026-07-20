@@ -35,6 +35,37 @@ in {
         Install.WantedBy = [ "timers.target" ];
     };
 
+    systemd.user.services.notes-sync = {
+        Unit = {
+            Description = "Auto-commit, pull, and push ~/notes";
+            After = [ "network-online.target" ];
+        };
+        Service = {
+            Type = "oneshot";
+            ExecStart = toString (pkgs.writeShellScript "notes-sync" ''
+                set -eu
+                export PATH=${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH
+                cd ${homeDirectory}/notes
+                git add -A
+                if ! git diff --cached --quiet; then
+                    git commit -m "🗒"
+                fi
+                git pull --rebase --autostash
+                git push
+            '');
+        };
+    };
+
+    systemd.user.timers.notes-sync = {
+        Unit.Description = "Sync ~/notes hourly";
+        Timer = {
+            OnCalendar = "hourly";
+            OnStartupSec = "2min";
+            Persistent = true;
+        };
+        Install.WantedBy = [ "timers.target" ];
+    };
+
     gtk = {
         enable = true;
 
@@ -133,4 +164,13 @@ in {
         recursive = true;
         force = true;
     };
+
+    home.activation.cloneNotes = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+        if [ ! -d "${homeDirectory}/notes/.git" ]; then
+            run ${pkgs.git}/bin/git clone git@github.com:Pietietjie/notes.git "${homeDirectory}/notes" || true
+        fi
+        if [ -d "${homeDirectory}/notes" ]; then
+            run ln -sfn "${dotfilesPath}/vim/.vimrc" "${homeDirectory}/notes/.obsidian.vimrc"
+        fi
+    '';
 }
