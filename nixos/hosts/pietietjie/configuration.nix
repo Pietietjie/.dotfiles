@@ -147,6 +147,8 @@ in
 
   programs.gamemode.enable = true;
 
+  programs.coolercontrol.enable = true;
+
   programs.gamescope = {
     enable = true;
     capSysNice = true;
