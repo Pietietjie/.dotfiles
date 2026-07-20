@@ -42,7 +42,7 @@ in
     enable = true;
     cageArgs = [ "-m" "last" ];
     settings = {
-      GTK.theme_name = lib.mkForce "Adwaita-dark";
+      GTK.theme_name = lib.mkForce "Tokyonight-Dark";
     };
   };
   services.greetd.enable = true;
@@ -187,6 +187,7 @@ in
       fcitx5-gtk
       kdePackages.fcitx5-qt
       im-emoji-picker
+      fcitx5-tokyonight
     ];
   };
 
@@ -197,6 +198,7 @@ in
 
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
+    tokyonight-gtk-theme
     noctalia-qs
     noctalia-shell
     # GUIs

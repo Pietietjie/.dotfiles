@@ -65,6 +65,12 @@ in {
 
     qt = {
         enable = true;
+        platformTheme.name = "gtk3";
+        style.name = "gtk2";
+    };
+
+    home.sessionVariables = {
+        GTK_THEME = "Tokyonight-Dark";
     };
 
     services.kanshi.enable = true;
