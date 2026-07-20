@@ -196,8 +196,6 @@ in
   };
 
   programs.firefox.enable = true;
-  programs.yazi.enable = true;
-  programs.thunar.enable = true;
   environment.systemPackages = with pkgs; [
     noctalia-qs
     noctalia-shell
@@ -212,6 +210,7 @@ in
     valent
     foliate
     obsidian
+    nemo
 
     # TOOLS
     xwayland-satellite

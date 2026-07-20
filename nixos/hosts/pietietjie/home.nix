@@ -7,6 +7,7 @@ in {
     home.packages = with pkgs; [
         vimix-cursors
         vimix-icon-theme
+        tokyonight-gtk-theme
         rclone
     ];
 
@@ -37,6 +38,11 @@ in {
     gtk = {
         enable = true;
 
+        theme = {
+            name = "Tokyonight-Dark";
+            package = pkgs.tokyonight-gtk-theme;
+        };
+
         iconTheme = {
             name = "Vimix";
             package = pkgs.vimix-icon-theme;
@@ -65,16 +71,20 @@ in {
 
     xdg.configFile."gtk-3.0/settings.ini".text = ''
         [Settings]
+        gtk-theme-name=Tokyonight-Dark
         gtk-icon-theme-name=Vimix
         gtk-cursor-theme-name=Vimix-cursors
         gtk-cursor-theme-size=24
+        gtk-application-prefer-dark-theme=1
     '';
 
     xdg.configFile."gtk-4.0/settings.ini".text = ''
         [Settings]
+        gtk-theme-name=Tokyonight-Dark
         gtk-icon-theme-name=Vimix
         gtk-cursor-theme-name=Vimix-cursors
         gtk-cursor-theme-size=24
+        gtk-application-prefer-dark-theme=1
     '';
 
     xdg.configFile."kanshi/config".text = ''
