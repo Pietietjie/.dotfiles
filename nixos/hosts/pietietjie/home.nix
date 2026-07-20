@@ -127,4 +127,10 @@ in {
         recursive = true;
         force = true;
     };
+
+    xdg.configFile."nemo" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/nemo";
+        recursive = true;
+        force = true;
+    };
 }
