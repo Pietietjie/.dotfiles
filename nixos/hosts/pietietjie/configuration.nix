@@ -210,7 +210,7 @@ in
     btop
     teamspeak6-client
     valent
-    foliate
+    readest
     obsidian
     nemo
 
