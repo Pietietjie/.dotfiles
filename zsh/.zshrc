@@ -140,6 +140,7 @@ alias fzmv="mv \$(fzf)"
 [ -f ~/.path ] && source ~/.path
 export PATH="$HOME/.local/bin:$PATH"
 
+
 # Auto-create and attach to tmux session
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     # On weasel host: create dotfiles session if no sessions exist
@@ -148,4 +149,8 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     elif [ -n "$(tmux list-sessions 2>/dev/null)" ]; then
         tmux attach
     fi
+fi
+
+if command -v mise &> /dev/null; then
+    eval "$($(which mise) activate zsh)"
 fi
