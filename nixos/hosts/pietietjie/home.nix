@@ -37,7 +37,7 @@ in {
 
     systemd.user.services.notes-sync = {
         Unit = {
-            Description = "Auto-commit, pull, and push ~/notes";
+            Description = "Auto-commit, pull, and push ~/Notes";
             After = [ "network-online.target" ];
         };
         Service = {
@@ -45,7 +45,7 @@ in {
             ExecStart = toString (pkgs.writeShellScript "notes-sync" ''
                 set -eu
                 export PATH=${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH
-                cd ${homeDirectory}/notes
+                cd ${homeDirectory}/Notes
                 git add -A
                 if ! git diff --cached --quiet; then
                     git commit -m "🗒"
@@ -57,7 +57,7 @@ in {
     };
 
     systemd.user.timers.notes-sync = {
-        Unit.Description = "Sync ~/notes hourly";
+        Unit.Description = "Sync ~/Notes hourly";
         Timer = {
             OnCalendar = "hourly";
             OnStartupSec = "2min";
@@ -166,11 +166,11 @@ in {
     };
 
     home.activation.cloneNotes = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-        if [ ! -d "${homeDirectory}/notes/.git" ]; then
-            run ${pkgs.git}/bin/git clone git@github.com:Pietietjie/notes.git "${homeDirectory}/notes" || true
+        if [ ! -d "${homeDirectory}/Notes/.git" ]; then
+            run ${pkgs.git}/bin/git clone git@github.com:Pietietjie/Notes.git "${homeDirectory}/notes" || true
         fi
-        if [ -d "${homeDirectory}/notes" ]; then
-            run ln -sfn "${dotfilesPath}/vim/.vimrc" "${homeDirectory}/notes/.obsidian.vimrc"
+        if [ -d "${homeDirectory}/Notes" ]; then
+            run ln -sfn "${dotfilesPath}/vim/.vimrc" "${homeDirectory}/Notes/.obsidian.vimrc"
         fi
     '';
 }
