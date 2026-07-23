@@ -1104,6 +1104,29 @@ local next_fold, prev_fold = make_repeatable_move_pair(
 vim.keymap.set('n', '[z', prev_fold, { desc = 'Go to previous fold' })
 vim.keymap.set('n', ']z', next_fold, { desc = 'Go to next fold' })
 
+vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Next search result, centered' })
+vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Previous search result, centered' })
+
+vim.keymap.set('c', '<CR>', function()
+  local cmdtype = vim.fn.getcmdtype()
+  if cmdtype == '/' or cmdtype == '?' then
+    return '<CR>zzzv'
+  end
+  return '<CR>'
+end, { expr = true, desc = 'Center after search' })
+
+function _G.create_fold_centered()
+  vim.cmd("'[,']fold")
+  vim.cmd('normal! zz')
+end
+
+vim.keymap.set('n', 'zf', function()
+  vim.o.operatorfunc = 'v:lua.create_fold_centered'
+  return 'g@'
+end, { expr = true, desc = 'Create fold, centered' })
+
+vim.keymap.set('x', 'zf', 'zfzz', { desc = 'Create fold, centered' })
+
 local next_diagnostic, prev_diagnostic = make_repeatable_move_pair(
   function() vim.diagnostic.jump({ count = vim.v.count1, float = true }) end,
   function() vim.diagnostic.jump({ count = vim.v.count1 * -1, float = true }) end
