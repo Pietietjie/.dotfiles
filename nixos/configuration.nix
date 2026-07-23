@@ -55,6 +55,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     # cli
+    libnotify
     gnutar
     sbctl
     python3

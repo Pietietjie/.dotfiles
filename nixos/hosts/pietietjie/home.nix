@@ -19,8 +19,54 @@ in {
         Service = {
             Type = "oneshot";
             ExecStart = toString (pkgs.writeShellScript "rclone-passwords-sync" ''
-                ${pkgs.rclone}/bin/rclone copyto --update gdrive:Passwords.kdbx ${homeDirectory}/Passwords.kdbx
-                ${pkgs.rclone}/bin/rclone copyto --update ${homeDirectory}/Passwords.kdbx gdrive:Passwords.kdbx
+                set -euo pipefail
+                ${pkgs.coreutils}/bin/mkdir -p "${homeDirectory}/Passwords/"
+                ${pkgs.coreutils}/bin/rm -f "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx"
+                ${pkgs.rclone}/bin/rclone copyto gdrive:Passwords.kdbx "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx"
+
+                current_gdrive_hash=$(${pkgs.coreutils}/bin/sha1sum "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx" | ${pkgs.coreutils}/bin/cut -d' ' -f1)
+
+                if [ ! -f "${homeDirectory}/Passwords/Passwords.kdbx" ]; then
+                    ${pkgs.coreutils}/bin/cp "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx" "${homeDirectory}/Passwords/Passwords.kdbx"
+                    ${pkgs.coreutils}/bin/mv -f "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx" "${homeDirectory}/Passwords/Passwords.gdrive.kdbx"
+                    exit 0;
+                elif [ ! -f "${homeDirectory}/Passwords/Passwords.gdrive.kdbx" ]; then
+                    current_password_hash=$(${pkgs.coreutils}/bin/sha1sum "${homeDirectory}/Passwords/Passwords.kdbx" | ${pkgs.coreutils}/bin/cut -d' ' -f1)
+                    if [[ "$current_gdrive_hash" != "$previous_gdrive_hash" ]]; then
+                        ${pkgs.libnotify}/bin/notify-send -u critical -i dialog-warning "No local snapshot of the last GDrive sync cannot determine if both has changed since last sync"
+                        exit 1;
+                    else
+                        ${pkgs.coreutils}/bin/mv -f "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx" "${homeDirectory}/Passwords/Passwords.gdrive.kdbx"
+                        exit 0
+                    fi
+                fi
+
+                current_password_hash=$(${pkgs.coreutils}/bin/sha1sum "${homeDirectory}/Passwords/Passwords.kdbx" | ${pkgs.coreutils}/bin/cut -d' ' -f1)
+
+                if [[ "$current_gdrive_hash" == "$current_password_hash" ]]; then
+                    ${pkgs.coreutils}/bin/mv -f "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx" "${homeDirectory}/Passwords/Passwords.gdrive.kdbx"
+                    exit 0;
+                fi
+
+                previous_gdrive_hash=$(${pkgs.coreutils}/bin/sha1sum "${homeDirectory}/Passwords/Passwords.gdrive.kdbx" | ${pkgs.coreutils}/bin/cut -d' ' -f1)
+                if [[ "$current_gdrive_hash" == "$previous_gdrive_hash" ]]; then
+                    ${pkgs.coreutils}/bin/rm "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx"
+                    if [[ "$current_password_hash" != "$previous_gdrive_hash" ]]; then
+                        ${pkgs.rclone}/bin/rclone copyto "${homeDirectory}/Passwords/Passwords.kdbx" gdrive:Passwords.kdbx
+                        ${pkgs.coreutils}/bin/cp -f "${homeDirectory}/Passwords/Passwords.kdbx" "${homeDirectory}/Passwords/Passwords.gdrive.kdbx"
+                    fi
+                    exit 0;
+                else
+                    if [[ "$current_password_hash" == "$previous_gdrive_hash" ]]; then
+                        ${pkgs.coreutils}/bin/mv -f "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx" "${homeDirectory}/Passwords/Passwords.gdrive.kdbx"
+                        ${pkgs.coreutils}/bin/cp -f "${homeDirectory}/Passwords/Passwords.gdrive.kdbx" "${homeDirectory}/Passwords/Passwords.kdbx"
+                        exit 0;
+                    else
+                        ${pkgs.coreutils}/bin/rm "${homeDirectory}/Passwords/Passwords.gdrive.temp.kdbx"
+                        ${pkgs.libnotify}/bin/notify-send -u critical -i dialog-warning "Password sync Failed GDrive & Local has changes"
+                        exit 1;
+                    fi
+                fi
             '');
         };
     };
