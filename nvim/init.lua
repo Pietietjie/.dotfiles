@@ -695,6 +695,15 @@ require('lazy').setup({
         if h then return colors.hsl_to_hex(tonumber(h), tonumber(s), tonumber(lv)) end
       end
 
+      local function oklch_parser(match)
+        local l, l_pct, c, h = match:match('([%d%.]+)(%%?)%s+([%d%.]+)%s+([%d%.]+)')
+        if l then
+          local lv = tonumber(l)
+          if l_pct == '%' then lv = lv / 100 end
+          return colors.oklch_to_hex(lv, tonumber(c), tonumber(h))
+        end
+      end
+
       local function vec3_parser(match)
         local r, g, b = match:match('([%d%.]+)%s*,%s*([%d%.]+)%s*,%s*([%d%.]+)')
         if r then
@@ -789,6 +798,7 @@ require('lazy').setup({
           rgba            = color_group('rgba%(%s*%d+%s*,%s*%d+%s*,%s*%d+%s*,%s*[%d%.]+%s*%)', rgb_parser),
           hsl             = color_group('hsl%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*%)', hsl_parser),
           hsla            = color_group('hsla%(%s*%d+%s*,%s*%d+%%%s*,%s*%d+%%%s*,%s*[%d%.]+%s*%)', hsl_parser),
+          oklch           = color_group('oklch%(%s*[%d%.]+%%?%s+[%d%.]+%s+[%d%.]+%s*[^%)]*%)', oklch_parser),
           vec3            = color_group('vec3%(%s*[%d%.]+%s*,%s*[%d%.]+%s*,%s*[%d%.]+%s*%)', vec3_parser),
 
           css_named_color = {

@@ -70,4 +70,34 @@ function M.hsl_to_hex(h, s, l_pct)
     math.floor((b + m) * 255 + 0.5))
 end
 
+local function linear_to_srgb(c)
+  if c <= 0.0031308 then
+    return 12.92 * c
+  end
+  return 1.055 * c ^ (1 / 2.4) - 0.055
+end
+
+function M.oklch_to_hex(l, c, h)
+  local hr = math.rad(h)
+  local a = c * math.cos(hr)
+  local b = c * math.sin(hr)
+
+  local l_ = l + 0.3963377774 * a + 0.2158037573 * b
+  local m_ = l - 0.1055613458 * a - 0.0638541728 * b
+  local s_ = l - 0.0894841775 * a - 1.2914855480 * b
+
+  local lc = l_ * l_ * l_
+  local mc = m_ * m_ * m_
+  local sc = s_ * s_ * s_
+
+  local lr = 4.0767416621 * lc - 3.3077115913 * mc + 0.2309699292 * sc
+  local lg = -1.2684380046 * lc + 2.6097574011 * mc - 0.3413193965 * sc
+  local lb = -0.0041960863 * lc - 0.7034186147 * mc + 1.7076147010 * sc
+
+  return string.format('#%02x%02x%02x',
+    M.clamp(math.floor(linear_to_srgb(lr) * 255 + 0.5), 0, 255),
+    M.clamp(math.floor(linear_to_srgb(lg) * 255 + 0.5), 0, 255),
+    M.clamp(math.floor(linear_to_srgb(lb) * 255 + 0.5), 0, 255))
+end
+
 return M
