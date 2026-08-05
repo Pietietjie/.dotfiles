@@ -112,6 +112,41 @@ in {
         Install.WantedBy = [ "timers.target" ];
     };
 
+    systemd.user.services.hdmi-volume-default = {
+        Unit = {
+            Description = "Reset HDMI sink volume to 20% on sink appear (KVM reconnect fix)";
+            After = [ "pipewire.service" "pipewire-pulse.service" "wireplumber.service" ];
+            PartOf = [ "graphical-session.target" ];
+        };
+        Service = {
+            Type = "simple";
+            ExecStart = toString (pkgs.writeShellScript "hdmi-volume-default" ''
+                set -eu
+                export PATH=${pkgs.pulseaudio}/bin:${pkgs.coreutils}/bin:${pkgs.gawk}/bin:${pkgs.gnugrep}/bin
+
+                set_hdmi_20() {
+                    for sink in $(pactl list short sinks | grep -i hdmi | awk '{print $2}'); do
+                        pactl set-sink-volume "$sink" 20%
+                    done
+                }
+
+                set_hdmi_20 || true
+
+                pactl subscribe | while read -r event; do
+                    case "$event" in
+                        *"'new'"*"sink"*)
+                            sleep 1
+                            set_hdmi_20 || true
+                            ;;
+                    esac
+                done
+            '');
+            Restart = "on-failure";
+            RestartSec = 5;
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+    };
+
     gtk = {
         enable = true;
 
