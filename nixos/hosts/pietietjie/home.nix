@@ -124,19 +124,17 @@ in {
                 set -eu
                 export PATH=${pkgs.pulseaudio}/bin:${pkgs.coreutils}/bin:${pkgs.gawk}/bin:${pkgs.gnugrep}/bin
 
-                set_hdmi_20() {
-                    for sink in $(pactl list short sinks | grep -i hdmi | awk '{print $2}'); do
-                        pactl set-sink-volume "$sink" 20%
-                    done
-                }
-
-                set_hdmi_20 || true
-
                 pactl subscribe | while read -r event; do
                     case "$event" in
-                        *"'new'"*"sink"*)
+                        *"'new' on sink #"*)
+                            num="''${event##*#}"
                             sleep 1
-                            set_hdmi_20 || true
+                            name=$(pactl list short sinks | awk -v n="$num" '$1==n {print $2}')
+                            case "$name" in
+                                *[Hh][Dd][Mm][Ii]*)
+                                    pactl set-sink-volume "$num" 20% || true
+                                    ;;
+                            esac
                             ;;
                     esac
                 done
