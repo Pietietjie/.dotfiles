@@ -175,8 +175,8 @@ in {
 
     qt = {
         enable = true;
-        platformTheme.name = "gtk3";
-        style.name = "gtk2";
+        platformTheme.name = "adwaita";
+        style.name = "adwaita-dark";
     };
 
     home.sessionVariables = {
