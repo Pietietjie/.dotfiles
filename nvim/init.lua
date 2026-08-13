@@ -1583,7 +1583,10 @@ require('telescope').setup {
         ["<C-j>"] = telescopeActions.cycle_history_next,
         ["<C-k>"] = telescopeActions.cycle_history_prev,
         ["<C-s>"] = telescopeActions.to_fuzzy_refine,
-        ["V"] = telescopeActions.toggle_selection,
+        ["V"] = function (prompt_bufnr)
+          telescopeActions.toggle_selection(prompt_bufnr);
+          vim.cmd.normal('k');
+        end,
         ["<C-a>"] = telescopeActions.toggle_all,
         ["<C-x>"] = telescopeActions.delete_buffer,
         ['<CR>'] = select_one_or_multi,
