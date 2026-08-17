@@ -182,7 +182,93 @@ require('lazy').setup({
     "kylechui/nvim-surround",
     event = "VeryLazy",
     config = function()
+      local config = require("nvim-surround.config")
+      local heredocs = require('pietietjie.heredoc')
+
+      local function heredoc_capture(capture)
+        return config.get_selection({ query = { capture = capture, type = "textobjects" } })
+      end
+
+      local function line_end(row)
+        return math.max(1, vim.fn.col({ row, '$' }) - 1)
+      end
+
+      local function step_back(pos)
+        if pos[2] > 1 then
+          return { pos[1], pos[2] - 1 }
+        end
+        return { pos[1] - 1, line_end(pos[1] - 1) }
+      end
+
+      local function step_forward(pos)
+        if pos[2] < line_end(pos[1]) then
+          return { pos[1], pos[2] + 1 }
+        end
+        return { pos[1] + 1, 1 }
+      end
+
+      local function trailing_terminator(pos)
+        local line = vim.fn.getline(pos[1])
+        if line:sub(pos[2] + 1, pos[2] + 1) == ';' then
+          return { pos[1], pos[2] + 1 }
+        end
+        return pos
+      end
+
+      local function heredoc_delim_selections(with_terminator)
+        local outer = heredoc_capture("@heredoc.outer")
+        local inner = heredoc_capture("@heredoc.inner")
+        if not outer or not inner then
+          return nil
+        end
+        local close_end = outer.last_pos
+        if with_terminator then
+          close_end = trailing_terminator(close_end)
+        end
+        return {
+          left = { first_pos = outer.first_pos, last_pos = step_back(inner.first_pos) },
+          right = { first_pos = step_forward(inner.last_pos), last_pos = close_end },
+        }
+      end
+
+      local function heredoc_delims()
+        if not heredocs.is_supported() then
+          return nil
+        end
+        local tag = nil
+        if not heredocs.config().staticDelim then
+          tag = config.get_input("Enter the heredoc title: ")
+          if not tag then
+            return nil
+          end
+        end
+        local delims = heredocs.get_delims(tag)
+        return { { delims.open }, { delims.close } }
+      end
+
       require("nvim-surround").setup({
+        surrounds = {
+          ["h"] = {
+            add = function()
+                return heredoc_delims()
+            end,
+            find = function()
+                return heredoc_capture("@heredoc.outer")
+            end,
+            delete = function()
+                return heredoc_delim_selections(false)
+            end,
+            change = {
+                target = function()
+                    return heredoc_delim_selections(true)
+                end,
+                replacement = function()
+                    return heredoc_delims()
+                end,
+            },
+            label = "heredoc",
+          },
+        }
       })
       vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
       vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
@@ -1892,6 +1978,8 @@ local select_maps = {
   { 'io',  '@class.inner' },
   { 'a,',  '@parameter.outer' },
   { 'i,',  '@parameter.inner' },
+  { 'aH',  '@heredoc.outer' },
+  { 'iH',  '@heredoc.inner' },
 }
 for _, map in ipairs(select_maps) do
   vim.keymap.set({ 'x', 'o' }, map[1], function()
