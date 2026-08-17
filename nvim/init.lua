@@ -179,8 +179,14 @@ require('lazy').setup({
 
   -- adds, replaces, removes surrounding pairs
   {
-    'tpope/vim-surround',
+    "kylechui/nvim-surround",
     event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+      })
+      vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
+      vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
+    end
   },
 
   -- improves netrw
@@ -1322,8 +1328,6 @@ vim.keymap.set('v', '<leader>p', '"_c<C-r>"<ESC>', { desc = '[P]astes over witho
 vim.keymap.set("n", "[_Refactor]p", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[r]e[p]lace' })
 
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
-vim.keymap.set('n', 's', 'ys', { desc = 'Vim surround', remap = true })
-vim.keymap.set('v', 's', 'S', { desc = 'Vim surround', remap = true })
 
 vim.keymap.set({ 'n', 'v' }, 'q:', ':',
   { desc = 'Goes into command mode when accedently mashing q before the colon when trying to :q' })
