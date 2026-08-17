@@ -4,7 +4,7 @@
   },
   "permissions": {
     "allow": [],
-    "defaultMode": "bypassPermissions"
+    "defaultMode": "auto"
   },
   "model": "opus[1m]",
   "hooks": {
