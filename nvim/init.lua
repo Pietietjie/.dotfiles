@@ -331,7 +331,7 @@ require('lazy').setup({
           {
             buffer = bufnr,
             desc =
-              '[h]unk [u]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)'
+            '[h]unk [u]nstage (Gitsigns removed the unstage hunk and it is now a toggle still keeping this for muscle memory)'
           }
         )
         vim.keymap.set('n', '[_Hunk]r', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[h]unk [r]eset' })
@@ -619,8 +619,8 @@ require('lazy').setup({
           local fn = vim.fn
           local utils = require("auto-save.utils.data")
           if
-            fn.getbufvar(buf, "&modifiable") == 1 and
-            utils.not_in(fn.getbufvar(buf, "&filetype"), {}) then
+              fn.getbufvar(buf, "&modifiable") == 1 and
+              utils.not_in(fn.getbufvar(buf, "&filetype"), {}) then
             return true                -- met condition(s), can save
           end
           return false                 -- can't save
@@ -731,37 +731,37 @@ require('lazy').setup({
         clients[1]:request('textDocument/documentColor', {
           textDocument = vim.lsp.util.make_text_document_params(buf),
         }, function(err, result)
-            if err or not result then
-              l.warn('tailwind documentColor error: ' .. vim.inspect(err))
-              return
-            end
-            for _, item in ipairs(result) do
-              local range = item.range
-              local line = vim.api.nvim_buf_get_lines(buf, range.start.line, range.start.line + 1, false)[1]
-              if line then
-                local raw_text = line:sub(range.start.character + 1, range['end'].character)
-                -- Expand from the LSP range to the full class token (word chars + hyphens)
-                local s = range.start.character + 1
-                local e = range['end'].character
-                while s > 1 and line:sub(s - 1, s - 1):match('[%w-]') do s = s - 1 end
-                while e < #line and line:sub(e + 1, e + 1):match('[%w-]') do e = e + 1 end
-                local class_name = line:sub(s, e)
-                if class_name and #class_name > 0 then
-                  local c = item.color
-                  local hex = string.format('#%02x%02x%02x',
-                    math.floor(c.red * 255 + 0.5),
-                    math.floor(c.green * 255 + 0.5),
-                    math.floor(c.blue * 255 + 0.5))
-                  local key = class_name:lower()
-                  colors.tailwind[key] = hex
-                  -- Also store the stripped color part (e.g. bg-base-100 → base-100)
-                  -- so other prefixes (text-base-100, border-base-100) resolve too
-                  local color_part = key:match('^%a+%-(.+)$')
-                  if color_part then colors.tailwind[color_part] = hex end
-                end
+          if err or not result then
+            l.warn('tailwind documentColor error: ' .. vim.inspect(err))
+            return
+          end
+          for _, item in ipairs(result) do
+            local range = item.range
+            local line = vim.api.nvim_buf_get_lines(buf, range.start.line, range.start.line + 1, false)[1]
+            if line then
+              local raw_text = line:sub(range.start.character + 1, range['end'].character)
+              -- Expand from the LSP range to the full class token (word chars + hyphens)
+              local s = range.start.character + 1
+              local e = range['end'].character
+              while s > 1 and line:sub(s - 1, s - 1):match('[%w-]') do s = s - 1 end
+              while e < #line and line:sub(e + 1, e + 1):match('[%w-]') do e = e + 1 end
+              local class_name = line:sub(s, e)
+              if class_name and #class_name > 0 then
+                local c = item.color
+                local hex = string.format('#%02x%02x%02x',
+                  math.floor(c.red * 255 + 0.5),
+                  math.floor(c.green * 255 + 0.5),
+                  math.floor(c.blue * 255 + 0.5))
+                local key = class_name:lower()
+                colors.tailwind[key] = hex
+                -- Also store the stripped color part (e.g. bg-base-100 → base-100)
+                -- so other prefixes (text-base-100, border-base-100) resolve too
+                local color_part = key:match('^%a+%-(.+)$')
+                if color_part then colors.tailwind[color_part] = hex end
               end
             end
-          end, buf)
+          end
+        end, buf)
       end
 
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -1373,7 +1373,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>az', function()
 
   local root = parser:parse()[1]:root()
   local startLine = 0
-  local endLine = 0--[[ make that this defaults to the last line ]]
+  local endLine = 0 --[[ make that this defaults to the last line ]]
 
   if visualMode then
     endLine = vim.fn.line("'>")
@@ -1583,7 +1583,7 @@ require('telescope').setup {
         ["<C-j>"] = telescopeActions.cycle_history_next,
         ["<C-k>"] = telescopeActions.cycle_history_prev,
         ["<C-s>"] = telescopeActions.to_fuzzy_refine,
-        ["V"] = function (prompt_bufnr)
+        ["V"] = function(prompt_bufnr)
           telescopeActions.toggle_selection(prompt_bufnr);
           vim.cmd.normal('k');
         end,
