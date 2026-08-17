@@ -243,7 +243,7 @@ require('lazy').setup({
           end
         end
         local delims = heredocs.get_delims(tag)
-        return { { delims.open }, { delims.close } }
+        return { { delims.open, "" }, { "", delims.close } }
       end
 
       require("nvim-surround").setup({
@@ -1553,6 +1553,8 @@ vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', { silent = true, desc =
 -- text object keymaps/bindings
 vim.keymap.set({ 'o', 'x' }, 'ih', require('gitsigns').select_hunk)
 vim.keymap.set({ 'o', 'x' }, 'ah', require('gitsigns').select_hunk)
+
+require('pietietjie.quotes').setup()
 
 -- Gitsigns can get out of sync when commits/stages happen outside of nvim
 -- (e.g. git CLI in another tmux pane), refresh the signs when nvim regains focus
