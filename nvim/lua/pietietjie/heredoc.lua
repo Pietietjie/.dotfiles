@@ -19,7 +19,7 @@ local heredocs = {
   php = {
     staticDelim = false,
     open = '<<<%s',
-    close = '%s;'
+    close = '%s'
   },
   ruby = {
     staticDelim = false,
