@@ -1,23 +1,20 @@
 {
-    description = "NixOS Flake Configuration";
-
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-
         home-manager = {
             url = "github:nix-community/home-manager/release-26.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-
         lanzaboote = {
             url = "github:nix-community/lanzaboote/v1.0.0";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-
         nixos-wsl = {
             url = "github:nix-community/NixOS-WSL";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        flake-parts.url = "github:hercules-ci/flake-parts";
+        import-tree.url = "github:vic/import-tree";
     };
 
     outputs = { self, nixpkgs, lanzaboote, home-manager, nixos-wsl, ... }@inputs:
@@ -115,15 +112,9 @@
         in {
             # Custom packages overlay
             overlays.default = customOverlay;
-
             # NixOS configurations (enableSystem = true)
             nixosConfigurations = nixpkgs.lib.mapAttrs mkNixosSystem nixosHosts;
 
-            # Home Manager standalone configurations (enableSystem = false, for Arch Linux, etc.)
-            # Username can be specified via NIX_USERNAME environment variable
-            # Usage:
-            #   home-manager switch --flake .#X1C10  (uses default username: yutkat)
-            #   NIX_USERNAME=kat home-manager switch --flake .#X1C10 --impure  (uses kat)
             homeConfigurations = nixpkgs.lib.mapAttrs' (hostname: hostAttrs:
                 nixpkgs.lib.nameValuePair hostname
                 (mkHomeManagerConfiguration hostname hostAttrs)) homeManagerHosts;
