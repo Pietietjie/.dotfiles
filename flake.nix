@@ -17,7 +17,7 @@
         import-tree.url = "github:vic/import-tree";
     };
 
-    outputs = { self, nixpkgs, lanzaboote, home-manager, nixos-wsl, ... }@inputs:
+    outputs = { self, nixpkgs, flake-parts, lanzaboote, home-manager, nixos-wsl, ... }@inputs:
         let
             customOverlay = final: prev: {
                 im-emoji-picker = prev.libsForQt5.callPackage ./nixos/pkgs/im-emoji-picker.nix {};
@@ -109,14 +109,19 @@
             homeManagerHosts =
                 nixpkgs.lib.filterAttrs (name: attrs: !attrs.enableSystem) myHosts;
 
-        in {
-            # Custom packages overlay
-            overlays.default = customOverlay;
-            # NixOS configurations (enableSystem = true)
-            nixosConfigurations = nixpkgs.lib.mapAttrs mkNixosSystem nixosHosts;
+        in flake-parts.lib.mkFlake { inherit inputs; } {
+            systems = nixpkgs.lib.unique (map (host: host.system) (builtins.attrValues myHosts));
 
-            homeConfigurations = nixpkgs.lib.mapAttrs' (hostname: hostAttrs:
-                nixpkgs.lib.nameValuePair hostname
-                (mkHomeManagerConfiguration hostname hostAttrs)) homeManagerHosts;
+            imports = [ ];
+            flake = {
+                # Custom packages overlay
+                overlays.default = customOverlay;
+                # NixOS configurations (enableSystem = true)
+                nixosConfigurations = nixpkgs.lib.mapAttrs mkNixosSystem nixosHosts;
+
+                homeConfigurations = nixpkgs.lib.mapAttrs' (hostname: hostAttrs:
+                    nixpkgs.lib.nameValuePair hostname
+                    (mkHomeManagerConfiguration hostname hostAttrs)) homeManagerHosts;
+            };
         };
 }
