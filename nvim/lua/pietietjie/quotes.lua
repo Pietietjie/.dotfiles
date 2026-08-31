@@ -110,20 +110,38 @@ function M.range(wanted, kind)
   return { start_row, start_col }, { end_row, end_col }
 end
 
-local pending = nil
+local function quote_columns(line, quote)
+  local cols = {}
+  local col = 1
+  while col <= #line do
+    local found = line:find(quote, col, true)
+    if not found then
+      break
+    end
+    local backslashes = 0
+    local probe = found - 1
+    while probe >= 1 and line:sub(probe, probe) == '\\' do
+      backslashes = backslashes + 1
+      probe = probe - 1
+    end
+    if backslashes % 2 == 0 then
+      cols[#cols + 1] = found
+    end
+    col = found + 1
+  end
+  return cols
+end
 
-function M.apply()
-  if not pending then
-    return
+local function builtin_reachable(wanted)
+  local line = api.nvim_get_current_line()
+  local cursor_col = api.nvim_win_get_cursor(0)[2] + 1
+  local cols = quote_columns(line, wanted)
+  for index = 1, #cols - 1, 2 do
+    if cols[index + 1] >= cursor_col then
+      return true
+    end
   end
-  local start_pos, end_pos = pending[1], pending[2]
-  pending = nil
-  if api.nvim_get_mode().mode ~= 'v' then
-    vim.cmd.normal({ 'v', bang = true })
-  end
-  api.nvim_win_set_cursor(0, { start_pos[1] + 1, start_pos[2] })
-  vim.cmd.normal({ 'o', bang = true })
-  api.nvim_win_set_cursor(0, { end_pos[1] + 1, end_pos[2] })
+  return false
 end
 
 function M.setup()
@@ -139,15 +157,25 @@ function M.setup()
   }
   for _, map in ipairs(maps) do
     local lhs, wanted, kind = map[1], map[2], map[3]
-    local fallback = wanted and lhs or '<Esc>'
+    local fallback = wanted and lhs or nil
     vim.keymap.set({ 'x', 'o' }, lhs, function()
       local start_pos, end_pos = M.range(wanted, kind)
       if not start_pos then
-        return fallback
+        if fallback and builtin_reachable(wanted) then
+          if api.nvim_get_mode().mode ~= 'v' then
+            vim.cmd.normal({ 'v', bang = true })
+          end
+          vim.cmd.normal({ fallback, bang = true })
+        end
+        return
       end
-      pending = { start_pos, end_pos }
-      return '<Cmd>lua require("pietietjie.quotes").apply()<CR>'
-    end, { expr = true, desc = 'Treesitter ' .. kind .. ' quote' })
+      if api.nvim_get_mode().mode ~= 'v' then
+        vim.cmd.normal({ 'v', bang = true })
+      end
+      api.nvim_win_set_cursor(0, { start_pos[1] + 1, start_pos[2] })
+      vim.cmd.normal({ 'o', bang = true })
+      api.nvim_win_set_cursor(0, { end_pos[1] + 1, end_pos[2] })
+    end, { desc = 'Treesitter ' .. kind .. ' quote' })
   end
 end
 
