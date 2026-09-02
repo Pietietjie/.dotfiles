@@ -518,6 +518,18 @@ require('lazy').setup({
             path = 1,
           },
         },
+        lualine_x = {
+          {
+            'diagnostics',
+            sources = { 'nvim_diagnostic' },
+            sections = { 'error', 'warn', 'info', 'hint' },
+            symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+            update_in_insert = false,
+          },
+          'encoding',
+          'fileformat',
+          'filetype',
+        },
         lualine_y = { 'progress' },
         lualine_z = { 'location' },
       },
