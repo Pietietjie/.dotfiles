@@ -158,6 +158,11 @@ window-rule {
 window-rule {
     match app-id="steam" title="^Steam Big Picture Mode$"
     open-focused false
+    open-on-workspace "gaming"
+}
+window-rule {
+    match app-id="Anki"
+    open-on-workspace "notes"
 }
 
 binds {

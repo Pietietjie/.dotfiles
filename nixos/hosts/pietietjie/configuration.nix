@@ -212,6 +212,7 @@ in
     valent
     obsidian
     nemo
+    anki
 
     # TOOLS
     xwayland-satellite
