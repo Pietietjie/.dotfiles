@@ -231,6 +231,8 @@ require('lazy').setup({
         }
       end
 
+      local pending_align = nil
+
       local function heredoc_delims()
         if not heredocs.is_supported() then
           return nil
@@ -243,10 +245,28 @@ require('lazy').setup({
           end
         end
         local delims = heredocs.get_delims(tag)
+        pending_align = {
+          open = delims.open,
+          close = delims.close,
+          indent = heredocs.current_indent(),
+        }
+        vim.schedule(function()
+          local spec = pending_align
+          pending_align = nil
+          if spec then
+            heredocs.align(spec)
+          end
+        end)
         return { { delims.open, "" }, { "", delims.close } }
       end
 
       require("nvim-surround").setup({
+        indent_lines = function(start, stop)
+          if pending_align then
+            return
+          end
+          config.default_opts.indent_lines(start, stop)
+        end,
         surrounds = {
           ["h"] = {
             add = function()
