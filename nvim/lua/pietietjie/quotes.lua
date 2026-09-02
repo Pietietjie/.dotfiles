@@ -29,10 +29,20 @@ local function parse_delims(text, wanted)
   return #prefix, 1
 end
 
+local function get_parser(bufnr)
+  local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
+  if not ok then
+    return nil
+  end
+  return parser
+end
+
 local function ensure_parsed(bufnr)
-  pcall(function()
-    vim.treesitter.get_parser(bufnr):parse(true)
-  end)
+  local parser = get_parser(bufnr)
+  if not parser then
+    return false
+  end
+  return (pcall(parser.parse, parser, true))
 end
 
 local function string_node_at(bufnr, row, col, wanted)
@@ -83,7 +93,9 @@ end
 function M.range(wanted, kind)
   local bufnr = api.nvim_get_current_buf()
   local cursor = api.nvim_win_get_cursor(0)
-  ensure_parsed(bufnr)
+  if not ensure_parsed(bufnr) then
+    return nil
+  end
   local node, prefix, delim = string_node_at(bufnr, cursor[1] - 1, cursor[2], wanted)
   if not node then
     node, prefix, delim = lookahead_node(bufnr, wanted)
@@ -159,6 +171,15 @@ function M.setup()
     local lhs, wanted, kind = map[1], map[2], map[3]
     local fallback = wanted and lhs or nil
     vim.keymap.set({ 'x', 'o' }, lhs, function()
+      if not get_parser(api.nvim_get_current_buf()) then
+        if fallback then
+          if api.nvim_get_mode().mode ~= 'v' then
+            vim.cmd.normal({ 'v', bang = true })
+          end
+          vim.cmd.normal({ fallback, bang = true })
+        end
+        return
+      end
       local start_pos, end_pos = M.range(wanted, kind)
       if not start_pos then
         if fallback and builtin_reachable(wanted) then
