@@ -89,7 +89,7 @@ vim.opt.fillchars:append('eob: ')
 vim.opt.splitright = true
 
 vim.opt.spell = true
-vim.opt.spelllang = 'en_us'
+vim.opt.spelllang = 'en_us,el'
 vim.opt.spelloptions = 'camel'
 
 vim.opt.scrolloff = 8
