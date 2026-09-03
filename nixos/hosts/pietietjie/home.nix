@@ -206,11 +206,13 @@ in {
     xdg.configFile."kanshi/config".text = ''
         profile undocked {
             output eDP-1 enable
+            exec niri msg action focus-workspace 1
         }
 
         profile docked {
             output eDP-1 disable
             output HDMI-A-1 enable
+            exec niri msg action focus-workspace 1
         }
     '';
 
