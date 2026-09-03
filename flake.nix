@@ -1,127 +1,25 @@
 {
-    inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-        home-manager = {
-            url = "github:nix-community/home-manager/release-26.05";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        lanzaboote = {
-            url = "github:nix-community/lanzaboote/v1.0.0";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        nixos-wsl = {
-            url = "github:nix-community/NixOS-WSL";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        flake-parts.url = "github:hercules-ci/flake-parts";
-        import-tree.url = "github:vic/import-tree";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+  };
 
-    outputs = { self, nixpkgs, flake-parts, lanzaboote, home-manager, nixos-wsl, ... }@inputs:
-        let
-            customOverlay = final: prev: {
-                im-emoji-picker = prev.libsForQt5.callPackage ./nixos/pkgs/im-emoji-picker.nix {};
-            };
-
-            myHosts = {
-                "pietietjie" = {
-                    system = "x86_64-linux";
-                    hostSpecificNix = ./nixos/hosts/pietietjie/configuration.nix;
-                    hostSpecificHomeConfig = ./nixos/hosts/pietietjie/home.nix;
-                    enableGui = true;
-                    enableSystem = true;
-                    enableLanzaboote = true;
-                    defaultUsername = "pietietjie";
-                };
-                "weasel" = {
-                    system = "x86_64-linux";
-                    hostSpecificNix = ./nixos/hosts/weasel/configuration.nix;
-                    hostSpecificHomeConfig = ./nixos/hosts/weasel/home.nix;
-                    enableGui = false;
-                    enableSystem = true;
-                    enableLanzaboote = false;
-                    enableWsl = true;
-                    defaultUsername = "weasel";
-                };
-            };
-            getUsernameForHost = hostname: hostAttrs:
-                let
-                    envUser = builtins.getEnv "NIX_USERNAME";
-                    hostDefaultUser = hostAttrs.defaultUsername;
-                in if envUser != "" then envUser else hostDefaultUser;
-
-            # NixOS system configuration builder function
-            mkNixosSystem = hostname: hostAttrs:
-                let
-                    system = hostAttrs.system;
-                    username = getUsernameForHost hostname hostAttrs;
-                    baseModules = [
-                        ./nixos/configuration.nix
-                        hostAttrs.hostSpecificNix
-                        home-manager.nixosModules.home-manager
-                    ];
-                    lanzabooteModule = if hostAttrs.enableLanzaboote or false
-                        then [ lanzaboote.nixosModules.lanzaboote ]
-                    else [];
-                    wslModules = if hostAttrs.enableWsl or false
-                        then [ nixos-wsl.nixosModules.default ]
-                    else [];
-                    guiModules = if hostAttrs.enableGui
-                        then []
-                    else [];
-
-                    specialArgs = {
-                        inherit inputs hostname username;
-                        hostSpecificHomeConfig = hostAttrs.hostSpecificHomeConfig or null;
-                        homeDir = hostAttrs.homeDir or "/home/${username}";
-                    };
-                in nixpkgs.lib.nixosSystem {
-                        inherit system specialArgs;
-                        modules = baseModules ++ guiModules ++ lanzabooteModule ++ wslModules ++ [{
-                            nixpkgs.overlays = [ customOverlay ];
-                            home-manager.useGlobalPkgs = true;
-                            home-manager.useUserPackages = true;
-                            home-manager.extraSpecialArgs = specialArgs;
-                            home-manager.backupFileExtension = "backup";
-                            home-manager.users.${username} = import ./nixos/home.nix;
-                        }];
-                    };
-
-            # Home Manager standalone configuration builder function (for Arch Linux, etc.)
-            mkHomeManagerConfiguration = hostname: hostAttrs:
-                let
-                    system = hostAttrs.system;
-                    username = getUsernameForHost hostname hostAttrs;
-                    pkgs = import nixpkgs { inherit system; };
-                    specialArgs = {
-                        inherit inputs username hostname;
-                        hostSpecificHomeConfig = hostAttrs.hostSpecificHomeConfig or null;
-                    };
-                in home-manager.lib.homeManagerConfiguration {
-                        inherit pkgs;
-                        modules = [ ./home.nix ];
-                        extraSpecialArgs = specialArgs;
-                    };
-
-            # Classify hosts based on enableSystem flag
-            nixosHosts =
-                nixpkgs.lib.filterAttrs (name: attrs: attrs.enableSystem) myHosts;
-            homeManagerHosts =
-                nixpkgs.lib.filterAttrs (name: attrs: !attrs.enableSystem) myHosts;
-
-        in flake-parts.lib.mkFlake { inherit inputs; } {
-            systems = nixpkgs.lib.unique (map (host: host.system) (builtins.attrValues myHosts));
-
-            imports = [ ];
-            flake = {
-                # Custom packages overlay
-                overlays.default = customOverlay;
-                # NixOS configurations (enableSystem = true)
-                nixosConfigurations = nixpkgs.lib.mapAttrs mkNixosSystem nixosHosts;
-
-                homeConfigurations = nixpkgs.lib.mapAttrs' (hostname: hostAttrs:
-                    nixpkgs.lib.nameValuePair hostname
-                    (mkHomeManagerConfiguration hostname hostAttrs)) homeManagerHosts;
-            };
-        };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+      imports = [ (inputs.import-tree ./flake) ];
+    };
 }
