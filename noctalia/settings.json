@@ -204,6 +204,15 @@
             ],
             "right": [
                 {
+                    "defaultSettings": {
+                        "githubGistId": "",
+                        "githubToken": "",
+                        "notes": "[]",
+                        "syncEnabled": false
+                    },
+                    "id": "plugin:sticky-notes"
+                },
+                {
                     "deviceNativePath": "BAT0",
                     "displayMode": "graphic-clean",
                     "hideIfIdle": false,
@@ -247,6 +256,15 @@
                     "id": "Clock",
                     "tooltipFormat": "HH:mm ddd, MMM dd",
                     "useCustomFont": false
+                },
+                {
+                    "defaultSettings": {
+                        "githubGistId": "",
+                        "githubToken": "",
+                        "notes": "[]",
+                        "syncEnabled": false
+                    },
+                    "id": "plugin:sticky-notes"
                 }
             ]
         }
