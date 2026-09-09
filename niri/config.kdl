@@ -171,7 +171,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Super+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Ctrl+Space hotkey-overlay-title="Switch keyboard layout" { spawn "niri" "msg" "action" "switch-layout" "next"; }
+    Super+Ctrl+Space hotkey-overlay-title="Switch keyboard layout" { spawn-sh "niri msg action switch-layout next; if [ \"$(fcitx5-remote -q)\" = 'Group 1' ]; then fcitx5-remote -g 'Group 2'; else fcitx5-remote -g 'Group 1'; fi"; }
     Super+Shift+C hotkey-overlay-title="Color picker" { spawn "sh" "-c" "hyprpicker -a"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: noctalia" { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
     // media

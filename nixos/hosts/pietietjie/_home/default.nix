@@ -247,6 +247,8 @@ in {
         force = true;
     };
 
+    home.file.".XCompose".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/nixos/etc/xcompose.conf";
+
     xdg.configFile."nemo" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/nemo";
         recursive = true;
