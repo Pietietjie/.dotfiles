@@ -11,6 +11,13 @@ in {
         rclone
     ];
 
+    services.udiskie = {
+        enable = true;
+        automount = true;
+        notify = true;
+        tray = "auto";
+    };
+
     systemd.user.services.rclone-passwords = {
         Unit = {
             Description = "Sync Passwords.kdbx with Google Drive";

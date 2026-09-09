@@ -5,6 +5,8 @@
   };
   xdg.portal.enable = true;
   services.upower.enable = true;
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
   environment.sessionVariables = {
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
