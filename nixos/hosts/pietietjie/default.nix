@@ -19,6 +19,7 @@
       input
       regreet
       lanzaboote
+      documents
       steam
       keymapp
     ]);
