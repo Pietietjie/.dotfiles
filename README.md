@@ -46,7 +46,7 @@ sudo ./install
 - [ ] Fix emojis breaking spacing on Windows (caused by LSP, snippets, tokyo night theme, & `termguicolors`)
 - [ ] Add a [debugger](https://github.com/mfussenegger/nvim-dap)
 - [ ] Copy code with highlighting (like VS Code does for Word)
-- [ ] Make telescope buffers not filter
+- [ ] Make that telescope buffers do not filter out buffers of pages that would be filtered by the normal file filters
 
 **NixOS**
 - [ ] make that nix shell is more like the normal shell (theme etc)
