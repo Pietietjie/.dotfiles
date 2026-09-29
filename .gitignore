@@ -1,4 +1,5 @@
 /dotbot
+/claude/skills/synced/
 /nvim/lua/.luarc.json
 /noctalia/plugins/
 /**/*.backup
