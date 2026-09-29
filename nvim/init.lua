@@ -1347,6 +1347,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gjzz' : 'jzz'", { expr = true })
 -- Center cursor after vertical movements
 vim.keymap.set('v', 'j', 'jzz')
 vim.keymap.set('v', 'k', 'kzz')
+vim.keymap.set({ 'n', 'v' }, '<C-i>', '<C-i>zz')
+vim.keymap.set({ 'n', 'v' }, '<C-o>', '<C-o>zz')
 vim.keymap.set({ 'n', 'v' }, '<C-d>', '<C-d>zz')
 vim.keymap.set({ 'n', 'v' }, '<C-u>', '<C-u>zz')
 vim.keymap.set({ 'n', 'v' }, '<C-f>', '<C-f>zz')
