@@ -606,7 +606,7 @@ require('lazy').setup({
   -- Fuzzy Finder (files, LSP, etc)
   {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
       {
@@ -640,6 +640,8 @@ require('lazy').setup({
   -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -1932,57 +1934,128 @@ require('tailwind-sorter').setup({
   node_path = 'node',
 })
 
+-- tailwind-sorter is unmaintained: it still calls the removed
+-- `nvim-treesitter.parsers.get_parser` and treats an `iter_matches` capture as a
+-- single node instead of a node list.
+local tailwind_tsutil = require('tailwind-sorter.tsutil')
+tailwind_tsutil.get_query_matches = function(buf)
+  local bufnr = buf or vim.api.nvim_get_current_buf()
+  local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
+  if not ok or not parser then
+    return {}
+  end
+
+  local matches = {}
+  parser:for_each_tree(function(tree, lang_tree)
+    local query = tailwind_tsutil.get_query(lang_tree:lang(), 'tailwind')
+    if not query then
+      return
+    end
+
+    for pattern, match in query:iter_matches(tree:root(), bufnr, 0, -1) do
+      for id, nodes in pairs(match) do
+        if query.captures[id] == 'tailwind' then
+          for _, node in ipairs(nodes) do
+            local result = { node = node, buf = bufnr }
+            for _, pred in pairs(query.info.patterns[pattern] or {}) do
+              if pred[1] == 'offset!' and pred[2] == id then
+                result.offset = {
+                  start_row = tonumber(pred[3]),
+                  start_col = tonumber(pred[4]),
+                  end_row = tonumber(pred[5]),
+                  end_col = tonumber(pred[6]),
+                }
+              end
+            end
+            matches[#matches + 1] = result
+          end
+        end
+      end
+    end
+  end)
+
+  return matches
+end
+
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
-require('nvim-treesitter.configs').setup {
-  modules = {},
-  sync_install = false,
-  ignore_install = {},
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = {
-    'bash',
-    'css',
-    'diff',
-    'git_config',
-    'gitcommit',
-    'git_rebase',
-    'gitattributes',
-    'gitignore',
-    'json',
-    'jq',
-    'javascript',
-    'jsdoc',
-    'nginx',
-    'html',
-    'lua',
-    'php',
-    'phpdoc',
-    'powershell',
-    'regex',
-    'scss',
-    'sql',
-    'twig',
-    'toml',
-    'typescript',
-    'xml',
-    'yaml',
-    'vimdoc',
-    'vim',
-  },
-  -- auto-install languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = true,
-  highlight = { enable = true },
-  indent = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<M-o>',
-      node_incremental = '<M-o>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-i>',
-    },
-  },
+local nvim_treesitter = require('nvim-treesitter')
+
+nvim_treesitter.setup {
+  install_dir = vim.fs.joinpath(vim.fn.stdpath('data'), 'site'),
 }
+
+nvim_treesitter.install {
+  'bash',
+  'css',
+  'diff',
+  'git_config',
+  'gitcommit',
+  'git_rebase',
+  'gitattributes',
+  'gitignore',
+  'json',
+  'jq',
+  'javascript',
+  'jsdoc',
+  'kdl',
+  'markdown',
+  'markdown_inline',
+  'nginx',
+  'nix',
+  'html',
+  'lua',
+  'php',
+  'phpdoc',
+  'powershell',
+  'regex',
+  'scss',
+  'sql',
+  'twig',
+  'toml',
+  'typescript',
+  'xml',
+  'yaml',
+  'vimdoc',
+  'vim',
+}
+
+local ts_group = vim.api.nvim_create_augroup('pietietjie-treesitter', { clear = true })
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = ts_group,
+  callback = function(event)
+    local buf = event.buf
+    local lang = vim.treesitter.language.get_lang(event.match)
+    if not lang then
+      return
+    end
+
+    local function attach()
+      if not vim.api.nvim_buf_is_valid(buf) then
+        return
+      end
+      if not pcall(vim.treesitter.start, buf, lang) then
+        return
+      end
+      vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+
+    local ok, added = pcall(vim.treesitter.language.add, lang)
+    if ok and added then
+      attach()
+    elseif vim.list_contains(nvim_treesitter.get_available(), lang) then
+      nvim_treesitter.install(lang):await(vim.schedule_wrap(attach))
+    end
+  end,
+  desc = 'Enable treesitter highlighting and indentation',
+})
+
+local incremental_selection = require('pietietjie.incremental_selection')
+vim.keymap.set('n', '<M-o>', incremental_selection.init, { desc = 'Treesitter init selection' })
+vim.keymap.set('x', '<M-o>', incremental_selection.node_incremental, { desc = 'Treesitter increment node' })
+vim.keymap.set('x', '<C-s>', incremental_selection.scope_incremental, { desc = 'Treesitter increment scope' })
+vim.keymap.set('x', '<M-i>', incremental_selection.node_decremental, { desc = 'Treesitter decrement node' })
 
 -- [[ Configure Treesitter Textobjects ]]
 local ts_select = require("nvim-treesitter-textobjects.select")

@@ -73,6 +73,8 @@
     neovim
     fzf
     zig
+    gcc
+    tree-sitter
     ripgrep
     nodejs
     fd
