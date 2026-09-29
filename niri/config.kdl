@@ -61,6 +61,7 @@ spawn-at-startup "noctalia-shell"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "valent"
 spawn-at-startup "keepassxc"
+spawn-at-startup "obsidian"
 spawn-sh-at-startup "dot=$HOME/.dotfiles $HOME/.local/bin/scrp --script 1-tmux-start.sh --blueprint 0-dotfiles --dont_attach"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot_from_%Y-%m-%d_%H-%M-%S.png"
@@ -162,7 +163,7 @@ window-rule {
     open-on-workspace "gaming"
 }
 window-rule {
-    match app-id="Anki"
+    match app-id="anki"
     open-on-workspace "notes"
 }
 
