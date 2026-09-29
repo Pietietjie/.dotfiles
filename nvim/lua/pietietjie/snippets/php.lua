@@ -62,4 +62,9 @@ return {
     i_node(0),
     t_node("), '?')) . ')';"),
   }),
+  s("laravel_sql_log", {
+    t_node({"\\Illuminate\\Support\\Facades\\DB::enableQueryLog();", ""}),
+    i_node(0),
+    t_node({"", "dd(\\Illuminate\\Support\\Facades\\DB::getQueryLog());"}),
+  }),
 }
