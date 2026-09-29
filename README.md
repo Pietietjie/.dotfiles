@@ -50,13 +50,12 @@ sudo ./install
 
 **NixOS**
 - [ ] make that nix shell is more like the normal shell (theme etc)
-- [ ] Make that the fans spin increases when the temp increases
+- [x] Make that the fans spin increases when the temp increases
 - [ ] Weasel
 - [ ] look at fcitx's clipboard history
 - [ ] Customize regreet or whatever it is called
-- [ ] look at why I have gnome files installed
 - [ ] add fingerprint support (drivers does not support my device)
-- [ ] make that niri workspaces are automatically there
+- [x] make that niri workspaces are automatically there
 - [ ] change the screen saver
 ## 🔧 Tools to look at
 
