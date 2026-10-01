@@ -51,6 +51,7 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.o.exrc = true
+vim.o.langmap = require('pietietjie.langmap')
 
 vim.diagnostic.config({ underline = true, float = { border = 'rounded' } })
 
