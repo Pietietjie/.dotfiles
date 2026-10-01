@@ -71,7 +71,6 @@
 
     # edit & dep
     neovim
-    gnupg
     fzf
     zig
     gcc
