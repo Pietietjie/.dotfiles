@@ -4,6 +4,7 @@
     ./wsl.nix
     ./packages.nix
     ./docker.nix
+    ./windows_interop.nix
   ];
 
   networking.hostName = hostname;

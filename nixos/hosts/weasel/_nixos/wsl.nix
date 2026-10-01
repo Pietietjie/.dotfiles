@@ -9,6 +9,7 @@
     wslConf.automount.root = "/mnt";
     wslConf.interop.appendWindowsPath = false;
     wslConf.boot.initTimeout = 40000;
+    interop.register = true;
   };
 
   networking.networkmanager.enable = lib.mkForce false;
