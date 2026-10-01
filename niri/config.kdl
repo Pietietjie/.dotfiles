@@ -51,10 +51,8 @@ layout {
 
 workspace "terminal"
 workspace "browser"
-workspace "notes"
+workspace "productivity"
 workspace "gaming"
-workspace "messages"
-workspace "misc"
 
 hotkey-overlay { skip-at-startup; }
 spawn-at-startup "noctalia-shell"
@@ -100,8 +98,9 @@ window-rule {
     open-maximized true
 }
 window-rule {
-    match app-id=r#"^ca\.andyholmes\.Valent$"#
-    open-on-workspace "notes"
+    match app-id="valent"
+    open-on-workspace "productivity"
+    open-focused true
 }
 window-rule {
     match app-id="kitty"
@@ -110,23 +109,30 @@ window-rule {
 }
 window-rule {
     match app-id="obsidian"
-    open-on-workspace "notes"
+    open-on-workspace "productivity"
     open-maximized true
 }
 window-rule {
     match app-id="mpv"
-    open-on-workspace "notes"
+    open-on-workspace "productivity"
+    open-focused true
 }
 window-rule {
-    match app-id=r#"^com\.github\.johnfactotum\.Foliate$"#
-    open-on-workspace "notes"
+    match app-id="keymapp"
+    open-on-workspace "productivity"
+    open-focused true
+}
+window-rule {
+    match app-id="org.kde.okular"
+    open-on-workspace "productivity"
+    open-focused true
 }
 window-rule {
     match app-id="steam"
     open-on-workspace "gaming"
 }
 window-rule {
-    match app-id="TeamSpeak"
+    match app-id="teamspeak-client"
     open-on-workspace "gaming"
 }
 window-rule {
@@ -147,9 +153,21 @@ window-rule {
     open-floating true
 }
 window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-    open-on-workspace "notes"
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Unlock Database"
+    open-floating true
+    open-focused true
     block-out-from "screen-capture"
+}
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    exclude title="^Unlock Database"
+    open-on-workspace "productivity"
+    block-out-from "screen-capture"
+}
+window-rule {
+    match app-id="^libreoffice"
+    open-on-workspace "productivity"
+    open-focused true
 }
 window-rule {
     match app-id="steam" title="^notificationtoasts_"
@@ -164,7 +182,7 @@ window-rule {
 }
 window-rule {
     match app-id="anki"
-    open-on-workspace "notes"
+    open-on-workspace "productivity"
 }
 
 binds {
