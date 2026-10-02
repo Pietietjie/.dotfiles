@@ -92,6 +92,7 @@ sudo ./install
 | [jessarcher/dotfiles](https://github.com/jessarcher/dotfiles) | Laravel-focused nvim |
 | [Amitabha37377/Awful-DOTS](https://github.com/Amitabha37377/Awful-DOTS/tree/master) | Riced Linux example |
 | [yutkat/dotfiles](https://github.com/yutkat/dotfiles/tree/main) | Comprehensive dotfiles |
+| [nixos ryan4yin](https://github.com/ryan4yin/nix-config) | nixos dotfiles |
 | [shxfee/dotfiles](https://github.com/shxfee/dotfiles/tree/master) | Laravel dev |
 | [ThePrimeagen/.dotfiles](https://github.com/ThePrimeagen/.dotfiles) | ThePrimeagen |
 | [Arch Wiki examples](https://wiki.archlinux.org/title/Dotfiles#User_repositories) | Community repos |
