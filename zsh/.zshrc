@@ -150,7 +150,3 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
         tmux attach
     fi
 fi
-
-if command -v mise &> /dev/null; then
-    eval "$($(which mise) activate zsh)"
-fi

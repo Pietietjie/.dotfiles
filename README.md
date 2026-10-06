@@ -63,7 +63,6 @@ sudo ./install
 
 | Tool | Description |
 |---|---|
-| [mise](https://github.com/jdx/mise) | Manages versions of dev tools & languages |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | A smarter `cd` |
 | [eza](https://github.com/eza-community/eza) | Improved `ls` |
 | [bat](https://github.com/sharkdp/bat) | Improved `cat` with syntax highlighting |
