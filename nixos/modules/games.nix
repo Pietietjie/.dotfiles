@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs = {
     steam = {
       enable = true;
@@ -13,5 +13,8 @@
       capSysNice = true;
     };
   };
+  environment.systemPackages = with pkgs; [
+      prismlauncher
+  ];
 
 }

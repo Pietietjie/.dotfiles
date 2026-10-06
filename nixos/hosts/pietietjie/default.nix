@@ -20,7 +20,7 @@
       regreet
       lanzaboote
       documents
-      steam
+      games
       keymapp
     ]);
 

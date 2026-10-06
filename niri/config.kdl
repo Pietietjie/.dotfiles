@@ -132,6 +132,14 @@ window-rule {
     open-on-workspace "gaming"
 }
 window-rule {
+    match app-id="org.prismlauncher.PrismLauncher"
+    open-on-workspace "gaming"
+}
+window-rule {
+    match app-id=r#"Minecraft^"#
+    open-on-workspace "gaming"
+}
+window-rule {
     match app-id="teamspeak-client"
     open-on-workspace "gaming"
 }
