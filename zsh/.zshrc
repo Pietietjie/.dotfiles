@@ -83,32 +83,30 @@ dexe() {
   echo "Executing '$shell' in container ID: $container_id"
   docker exec -it "$container_id" "$shell"
 }
-if type "php" > /dev/null; then
-    composer() { php $composer_path "$@" }
-    sailartisan() {
-        if [ -f vendor/.dontsail ]; then
-            php artisan "$@";
-        elif [ -f sail ] || [ -f vendor/bin/sail ]; then
-            sail artisan "$@";
-        else
-            php artisan "$@";
-        fi
-    }
-    composer-link() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/([^\/]+)$/\1/p'`; composer config "repositories.$package" '{"type": "path", "url": "'$1'"}'; }
-    composer-github() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/(.*)\.git/\1/p'`; composer config "repositories.$package" vcs $1; }
-    alias artisan="php artisan"
-    alias a="artisan"
-    alias aa="sailartisan"
-    alias p="php"
-    alias cdump="composer dump-autoload -o"
-    alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
-    alias db:reset="artisan migrate:reset && artisan migrate --seed"
-    alias fresh="migrate:fresh"
-    alias migrate="artisan migrate"
-    alias refresh="artisan migrate:refresh"
-    alias rollback="artisan migrate:rollback"
-    alias seed="artisan db:seed"
-fi
+composer() { php $composer_path "$@" }
+sailartisan() {
+    if [ -f vendor/.dontsail ]; then
+        php artisan "$@";
+    elif [ -f sail ] || [ -f vendor/bin/sail ]; then
+        sail artisan "$@";
+    else
+        php artisan "$@";
+    fi
+}
+composer-link() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/([^\/]+)$/\1/p'`; composer config "repositories.$package" '{"type": "path", "url": "'$1'"}'; }
+composer-github() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/(.*)\.git/\1/p'`; composer config "repositories.$package" vcs $1; }
+alias artisan="php artisan"
+alias a="artisan"
+alias aa="sailartisan"
+alias p="php"
+alias cdump="composer dump-autoload -o"
+alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
+alias db:reset="artisan migrate:reset && artisan migrate --seed"
+alias fresh="migrate:fresh"
+alias migrate="artisan migrate"
+alias refresh="artisan migrate:refresh"
+alias rollback="artisan migrate:rollback"
+alias seed="artisan db:seed"
 # 1 Character Aliases
 alias d="docker"
 alias g="git"
