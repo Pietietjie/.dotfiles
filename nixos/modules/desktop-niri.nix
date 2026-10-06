@@ -1,4 +1,6 @@
 { pkgs, ... }: {
+  imports = [ ./_wallpaper-engine.nix ];
+
   programs = {
     niri.enable = true;
     xwayland.enable = true;
