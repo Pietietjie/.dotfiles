@@ -141,6 +141,11 @@ alias fzmv="mv \$(fzf)"
 export PATH="$HOME/.local/bin:$PATH"
 
 
+# direnv: auto-load per-project nix dev shells
+if command -v direnv &> /dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
 # Auto-create and attach to tmux session
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     # On weasel host: create dotfiles session if no sessions exist

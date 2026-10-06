@@ -13,6 +13,14 @@ in {
 
     programs.home-manager.enable = true;
 
+    # Auto-enter per-project nix dev shells (see .envrc -> `use flake`)
+    programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+        enableBashIntegration = false;
+        enableZshIntegration = false;
+    };
+
     home.sessionPath = [
         "$HOME/.local/bin"
     ];

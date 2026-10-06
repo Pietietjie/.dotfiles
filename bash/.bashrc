@@ -169,3 +169,8 @@ fi
 
 [ -f ~/.path ] && source ~/.path
 export PATH="$HOME/.local/bin:$PATH"
+
+# direnv: auto-load per-project nix dev shells
+if command -v direnv &> /dev/null; then
+    eval "$(direnv hook bash)"
+fi
