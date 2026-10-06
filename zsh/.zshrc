@@ -3,7 +3,7 @@ export dot="$HOME/.dotfiles"
 export EDITOR="nvim"
 
 composer_path=$(which composer)
-ZSH_THEME="pietietjie"
+ZSH_THEME=""
 HYPHEN_INSENSITIVE="true"
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 ENABLE_CORRECTION="true"
@@ -41,6 +41,10 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
     source $ZSH/oh-my-zsh.sh
+fi
+
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
 fi
 
 export FZF_DEFAULT_OPTS='

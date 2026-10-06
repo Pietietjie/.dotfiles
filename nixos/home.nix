@@ -57,6 +57,11 @@ in {
     };
 
     # CLI tools config
+    xdg.configFile."starship.toml" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/starship/starship.toml";
+        force = true;
+    };
+
     xdg.configFile."nvim" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/nvim";
         recursive = true;

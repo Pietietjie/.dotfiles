@@ -32,6 +32,11 @@
         relink: true
         path: zsh/pietietjie.zsh-theme
         create: true
+    ~/.config/starship.toml:
+        force: true
+        relink: true
+        path: starship/starship.toml
+        create: true
     ~/.zshrc:
         force: true
         relink: true

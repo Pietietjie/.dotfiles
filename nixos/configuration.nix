@@ -37,7 +37,7 @@
     ohMyZsh = {
       enable = true;
       custom = "$HOME/.oh-my-zsh/custom/";
-      theme = "pietietjie";
+      theme = "";
       plugins = [
         "artisan"
         "npm"
@@ -55,6 +55,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     # cli
+    starship
     libnotify
     gnutar
     sbctl
