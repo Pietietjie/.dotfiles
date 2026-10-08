@@ -2,7 +2,6 @@ export ZSH="$HOME/.oh-my-zsh"
 export dot="$HOME/.dotfiles"
 export EDITOR="nvim"
 
-composer_path=$(which composer)
 ZSH_THEME=""
 HYPHEN_INSENSITIVE="true"
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
@@ -83,7 +82,6 @@ dexe() {
   echo "Executing '$shell' in container ID: $container_id"
   docker exec -it "$container_id" "$shell"
 }
-composer() { php $composer_path "$@" }
 sailartisan() {
     if [ -f vendor/.dontsail ]; then
         php artisan "$@";
@@ -93,8 +91,6 @@ sailartisan() {
         php artisan "$@";
     fi
 }
-composer-link() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/([^\/]+)$/\1/p'`; composer config "repositories.$package" '{"type": "path", "url": "'$1'"}'; }
-composer-github() { composer config minimum-stability dev; local package=`echo $1 | sed -nr 's/.*\/(.*)\.git/\1/p'`; composer config "repositories.$package" vcs $1; }
 alias artisan="php artisan"
 alias a="artisan"
 alias aa="sailartisan"
