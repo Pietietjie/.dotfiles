@@ -48,9 +48,9 @@ function prompt {
         Write-Host "󰳉  " -ForegroundColor Green -NoNewline
     }
     if ($IsAdmin) {
-        Write-host '🪟   ' -ForegroundColor Red -NoNewline
+        Write-host '󰨡   ' -ForegroundColor Red -NoNewline
     } else { 
-        Write-host '🪟  ' -ForegroundColor Blue -NoNewline
+        Write-host '󰨡  ' -ForegroundColor Blue -NoNewline
     }
     Write-Host "$($CmdPromptUser.Name.split("\")[1])@$($CmdPromptUser.Name.split("\")[0])" -ForegroundColor Blue -NoNewline
     Write-Host ":"  -ForegroundColor Yellow -NoNewline
