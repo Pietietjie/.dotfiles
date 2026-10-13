@@ -6,7 +6,7 @@ scan_timeout = 30
 
 format = """
 $status\
-[🐧](#7aa2f7)\
+[󰌽](#7aa2f7)\
 $username\
 $hostname\
 $directory\
@@ -73,8 +73,8 @@ style = '#bb9af7'
 [nix_shell]
 disabled = false
 heuristic = false
-format = '[‹nix $state( $name)›]($style) '
-style = '#7dcfff'
+format = '[‹ nix $state( $name)›]($style) '
+style = 'bold #7dcfff'
 impure_msg = 'impure'
 pure_msg = 'pure'
 
