@@ -174,3 +174,8 @@ export PATH="$HOME/.local/bin:$PATH"
 if command -v direnv &> /dev/null; then
     eval "$(direnv hook bash)"
 fi
+
+if command -v starship &> /dev/null; then
+    export NIX_SHELL_PRESERVE_PROMPT=1
+    eval "$(starship init bash)"
+fi
