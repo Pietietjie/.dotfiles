@@ -36,5 +36,5 @@ if [[ ! -z "$CODESUFFIX" ]]; then
 fi
 
 PROMPT='
-%(?.%F{#9ece6a}󰳉 .%F{#ff8787}󰻌 )%{$reset_color%} %F{#7aa2f7}󰌽%{$reset_color%}${user_host}%F{#9ece6a}%~%{$reset_color%} ${CODESUFFIX} ${virtualenv_prompt_info} %F{#ff8787} %*%{$reset_color%}
+%(?.%F{#9ece6a}󰳉 .%F{#ff8787}󰻌 )%{$reset_color%} %F{#7aa2f7}󰌽 %{$reset_color%}${user_host}%F{#9ece6a}%~%{$reset_color%} ${CODESUFFIX} ${virtualenv_prompt_info} %F{#ff8787} %*%{$reset_color%}
 %(?.%F{#9ece6a}.%F{#ff8787})╰─%{$reset_color%} $([[ $(git_prompt_info | sed "s/\w//g") ]] && echo $(git_prompt_info) || echo "%F{#ff8787}\uE0A0  %{$reset_color%}") %F{#bb9af7}:%{$reset_color%} '
