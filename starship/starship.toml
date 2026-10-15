@@ -11,9 +11,7 @@ $username\
 $hostname\
 $directory\
 (‹$php${custom.sep_node}$nodejs${custom.sep_py}$python› )\
-$shell\
-$nix_shell\
-$direnv\
+(‹$shell$nix_shell$direnv› )\
 $cmd_duration\
 $time\
 $line_break\
@@ -72,7 +70,7 @@ style = '#bb9af7'
 
 [shell]
 disabled = false
-format = '[‹ $indicator›]($style) '
+format = '[ $indicator]($style)'
 style = '#7dcfff'
 bash_indicator = 'bash'
 zsh_indicator = 'zsh'
@@ -89,17 +87,17 @@ unknown_indicator = 'sh'
 [nix_shell]
 disabled = false
 heuristic = false
-format = '[‹ $state( $name)›]($style) '
-style = 'bold #7dcfff'
-impure_msg = 'impure'
-pure_msg = 'pure'
+format = '[/ $state]($style)'
+style = '#7dcfff'
+impure_msg = '󱐋'
+pure_msg = '󰘧'
 
 [direnv]
 disabled = false
-format = '[‹direnv $loaded›]($style) '
+format = '[/direnv $loaded]($style)'
 style = '#7dcfff'
-loaded_msg = 'on'
-unloaded_msg = 'off'
+loaded_msg = ' '
+unloaded_msg = ' '
 allowed_msg = ''
 not_allowed_msg = ''
 denied_msg = 'denied'
