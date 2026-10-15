@@ -67,6 +67,7 @@ sudo ./install
 | [eza](https://github.com/eza-community/eza) | Improved `ls` |
 | [bat](https://github.com/sharkdp/bat) | Improved `cat` with syntax highlighting |
 | [mmv-go](https://github.com/itchyny/mmv) | Bulk renaming |
+| [stylix](https://nix-community.github.io/stylix/) | System level styling for nix|
 
 
 **Neovim plugins**
