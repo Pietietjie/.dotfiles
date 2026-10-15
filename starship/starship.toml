@@ -10,9 +10,7 @@ $status\
 $username\
 $hostname\
 $directory\
-$php\
-$nodejs\
-$python\
+(‹$php${custom.sep_node}$nodejs${custom.sep_py}$python› )\
 $nix_shell\
 $direnv\
 $cmd_duration\
@@ -56,18 +54,19 @@ read_only = ' 🔒'
 read_only_style = '#ff8787'
 
 [php]
-format = '[‹ $version›]($style) '
-version_format = '${raw}'
+format = '([ v$version]($style))'
+version_format = '${major}.${minor}'
 style = '#bb9af7'
+detect_files = ['composer.json', 'composer.lock', '.php-version', 'phpunit.xml', 'phpunit.xml.dist', 'phpcs.xml', 'phpstan.neon', 'psalm.xml', 'codeception.yml', 'artisan', '.envrc']
 
 [nodejs]
-format = '[‹ $version›]($style) '
-version_format = 'v${raw}'
+format = '([ v$version]($style))'
+version_format = '${major}.${minor}'
 style = '#bb9af7'
 
 [python]
-format = '[‹py $version( $virtualenv)›]($style) '
-version_format = '${raw}'
+format = '([ v$version( $virtualenv)]($style))'
+version_format = '${major}.${minor}'
 style = '#bb9af7'
 
 [nix_shell]
@@ -133,4 +132,20 @@ description = 'branch placeholder outside a git repo'
 when = '! git rev-parse --is-inside-work-tree > /dev/null 2>&1'
 command = 'true'
 format = '[ ](#ff8787)'
+shell = ['sh']
+
+[custom.sep_node]
+description = 'slash between the php and node versions'
+when = '( command -v php >/dev/null 2>&1 && ( [ -e composer.json ] || [ -e composer.lock ] || [ -e .php-version ] || [ -e phpunit.xml ] || [ -e phpunit.xml.dist ] || [ -e phpcs.xml ] || [ -e phpstan.neon ] || [ -e psalm.xml ] || [ -e codeception.yml ] || [ -e artisan ] || [ -e .envrc ] || ls *.php >/dev/null 2>&1 ) ) && ( command -v node >/dev/null 2>&1 && ( [ -e package.json ] || [ -e .node-version ] || [ -e .nvmrc ] || [ -d node_modules ] || ls *.js >/dev/null 2>&1 || ls *.mjs >/dev/null 2>&1 || ls *.cjs >/dev/null 2>&1 || ls *.ts >/dev/null 2>&1 || ls *.mts >/dev/null 2>&1 || ls *.cts >/dev/null 2>&1 ) )'
+command = 'true'
+format = '[/]($style)'
+style = '#bb9af7'
+shell = ['sh']
+
+[custom.sep_py]
+description = 'slash before the python version'
+when = '( ( command -v php >/dev/null 2>&1 && ( [ -e composer.json ] || [ -e composer.lock ] || [ -e .php-version ] || [ -e phpunit.xml ] || [ -e phpunit.xml.dist ] || [ -e phpcs.xml ] || [ -e phpstan.neon ] || [ -e psalm.xml ] || [ -e codeception.yml ] || [ -e artisan ] || [ -e .envrc ] || ls *.php >/dev/null 2>&1 ) ) || ( command -v node >/dev/null 2>&1 && ( [ -e package.json ] || [ -e .node-version ] || [ -e .nvmrc ] || [ -d node_modules ] || ls *.js >/dev/null 2>&1 || ls *.mjs >/dev/null 2>&1 || ls *.cjs >/dev/null 2>&1 || ls *.ts >/dev/null 2>&1 || ls *.mts >/dev/null 2>&1 || ls *.cts >/dev/null 2>&1 ) ) ) && ( ( command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1 ) && ( [ -e .python-version ] || [ -e Pipfile ] || [ -e __init__.py ] || [ -e pyproject.toml ] || [ -e requirements.txt ] || [ -e setup.py ] || [ -e tox.ini ] || ls *.py >/dev/null 2>&1 || ls *.ipynb >/dev/null 2>&1 ) )'
+command = 'true'
+format = '[/]($style)'
+style = '#bb9af7'
 shell = ['sh']
