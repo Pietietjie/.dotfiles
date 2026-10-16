@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Two deployment paths
 
-This repo serves both NixOS hosts (the primary target) and non-Nix hosts (Arch/Windows). They use different symlink mechanisms for the same config directories — check which host you are on before assuming.
+This repo serves NixOS hosts (the primary target) and Windows. They use different symlink mechanisms for the same config directories — check which host you are on before assuming.
 
 ### NixOS (primary)
 
@@ -15,27 +15,19 @@ sudo nixos-rebuild switch --flake ~/.dotfiles#<hostname>
 
 Home-manager runs as a NixOS module, so a rebuild also applies the home config. `NIX_USERNAME` overrides the host's `defaultUsername` at evaluation time.
 
-### Non-Nix hosts
+### Windows
 
-Apply dotfile symlinks:
-```bash
-./install_dotbot
+Install packages (Chocolatey), shortcuts and symlinks from scratch:
+```powershell
+.\install.ps1
 ```
 
-Apply symlinks needing root (`/usr/local/bin/scrp`, `/etc/pkglist.txt`):
-```bash
-sudo ./install_dotbot
+Apply only the symlinks:
+```powershell
+.\install_dotbot.ps1
 ```
 
-Install packages and set up from scratch (pacman on Arch; also installs nvm + oh-my-zsh, runs dotbot):
-```bash
-./install
-```
-
-Fresh bootstrap on a new machine (clones repo + runs install):
-```bash
-bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)
-```
+Fresh bootstrap on a new machine (clones repo + runs `install.ps1`): `bootstrap.ps1`. Teardown: `uninstall.ps1`.
 
 Manage dotfiles from any directory using the git alias:
 ```bash
@@ -68,11 +60,11 @@ Home-manager activation scripts in `home.nix`:
 - `createTelescopeHistory` — creates the telescope history sqlite file.
 - `nvimLazyRestore` — runs `nvim --headless +Lazy! restore` so plugins are pre-installed at the commits pinned in `nvim/lazy-lock.json`; re-runs only when the lockfile hash changes.
 
-### Dotbot symlink management (non-Nix only)
+### Dotbot symlink management (Windows only)
 
-[Dotbot](https://github.com/anishathalye/dotbot) (git submodule at `dotbot/`) manages symlinks from `~/.dotfiles/` into the home directory. `install.conf.yaml` defines the Linux symlink targets. `windows.conf.yml` handles Windows. The `install_dotbot` script syncs the submodule and runs dotbot.
+[Dotbot](https://github.com/anishathalye/dotbot) (git submodule at `dotbot/`) manages symlinks from the repo into the home directory. `windows.conf.yml` defines the targets; the `install_dotbot.ps1` script syncs the submodule and runs dotbot against it.
 
-Dotbot and `home.nix` link an overlapping but not identical set of files — if you add a config directory, wire it into both.
+`windows.conf.yml` and `home.nix` link an overlapping but not identical set of files — if you add a config directory, wire it into both.
 
 ### Neovim config (`nvim/`)
 
@@ -105,11 +97,11 @@ Prefix key is `Ctrl+Space`. Vi mode enabled. Session blueprints are defined in `
 
 Zsh uses oh-my-zsh for plugins only — `ZSH_THEME` is empty and the **prompt comes from starship** (`starship/starship.toml`). `zsh/pietietjie.zsh-theme` is still symlinked into `~/.oh-my-zsh/{themes,custom/themes}/` but is not the active prompt.
 
-Plugins: artisan, npm, composer, git, zsh-autosuggestions, zsh-syntax-highlighting, docker, docker-compose. On NixOS the third-party ones (artisan, zsh-autosuggestions, zsh-syntax-highlighting) are provided declaratively by `nixos/home.nix` into `~/.oh-my-zsh/custom/plugins/`; the `git clone` fallbacks at the top of `zsh/.zshrc` only fire on non-Nix hosts. The plugin list is duplicated in `nixos/configuration.nix` (`programs.zsh.ohMyZsh.plugins`) — keep both in sync.
+Plugins: artisan, npm, composer, git, zsh-autosuggestions, zsh-syntax-highlighting, docker, docker-compose. The third-party ones (artisan, zsh-autosuggestions, zsh-syntax-highlighting) are provided declaratively by `nixos/home.nix` into `~/.oh-my-zsh/custom/plugins/`. The plugin list is duplicated in `nixos/configuration.nix` (`programs.zsh.ohMyZsh.plugins`) — keep both in sync.
 
-`shell/.path` is copied (not linked) to `~/.path` on first install so it can be edited per machine.
+`shell/.path` is a template for a per-machine `~/.path` (sourced by `.zshrc`/`.bashrc` when present). Nothing copies it automatically — copy it by hand on a new machine.
 
-The `zsh/scrp` script lands at `~/.local/bin/scrp` on NixOS and at `/usr/local/bin/scrp` (requires root) via dotbot.
+The `zsh/scrp` script lands at `~/.local/bin/scrp` on NixOS.
 
 ### Git config (`git/.gitconfig`)
 
@@ -125,11 +117,11 @@ Heavy use of aliases. Key ones:
 
 - `niri/`, `noctalia/`, `fcitx5/`, `nemo/`, `kitty/` — linked only on the `pietietjie` host via `nixos/hosts/pietietjie/_home/`
 - `yazi/` — linked by the shared `nixos/home.nix`
-- `alacritty/` — linked by dotbot
-- `wezterm/`, `vim/`, `Aliases/`, `shortcuts/` — present in the repo but not linked by `home.nix`; check `install.conf.yaml` / `windows.conf.yml` before assuming a target
+- `alacritty/` — linked by `windows.conf.yml`
+- `wezterm/`, `vim/`, `Aliases/`, `shortcuts/` — present in the repo but not linked by `home.nix`; check `windows.conf.yml` before assuming a target
 - `claude/` — Claude Code config (`CLAUDE.md`, `settings.json`, `skills/`) linked into `~/.claude/`
 - `scripts/` — numbered helper scripts (tmux start, remove swapfiles, kill apache, fix corrupt history, tmux sessions)
-- `pacman/`, `winget/`, `powershell/`, `powertoys/` — per-OS package lists and Windows config
+- `winget/`, `powershell/`, `powertoys/` — Windows package lists and config
 
 ### Commit convention
 

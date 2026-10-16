@@ -6,21 +6,16 @@
 
 ## 🚀 Install
 
-**Linux (bootstrap)**
+**NixOS**
 ```bash
-bash <(curl -sS https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap)
+git clone https://github.com/Pietietjie/.dotfiles ~/.dotfiles
+sudo nixos-rebuild switch --flake ~/.dotfiles#<hostname>
 ```
 
 **Windows (bootstrap)**
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap" -OutFile "$env:TEMP\bootstrap.ps1"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/main/bootstrap.ps1" -OutFile "$env:TEMP\bootstrap.ps1"
 & "$env:TEMP\bootstrap.ps1"
-```
-
-**Manual**
-```bash
-git submodule init && git submodule update
-sudo ./install
 ```
 
 ## ⚠️ Troubleshooting
@@ -32,7 +27,6 @@ sudo ./install
 ## 📋 TODO
 
 **General**
-- [ ] Include OS config including Windows ([dotbot-windows](https://github.com/kurtmckee/dotbot-windows)) & WSL
 - [ ] Move `scrp` to its own [CLI tool](https://github.com/charmbracelet/bubbletea) projectthat also manages the install & uninstall of the environment like a mini-me
 - [ ] Build a [CLI tool](https://github.com/charmbracelet/bubbletea) for managing nix builds
 
@@ -93,4 +87,4 @@ sudo ./install
 | [nixos ryan4yin](https://github.com/ryan4yin/nix-config) | nixos dotfiles |
 | [shxfee/dotfiles](https://github.com/shxfee/dotfiles/tree/master) | Laravel dev |
 | [ThePrimeagen/.dotfiles](https://github.com/ThePrimeagen/.dotfiles) | ThePrimeagen |
-| [Arch Wiki examples](https://wiki.archlinux.org/title/Dotfiles#User_repositories) | Community repos |
+
