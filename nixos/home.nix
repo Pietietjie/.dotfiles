@@ -16,6 +16,17 @@ let
         fi
     '';
 
+    nvimBuildPath = lib.makeBinPath (with pkgs; [
+        coreutils
+        git
+        gnumake
+        gcc
+        nodejs
+        unzip
+        curl
+        tree-sitter
+    ]);
+
     zshArtisanSrc = pkgs.fetchFromGitHub {
         owner = "jessarcher";
         repo = "zsh-artisan";
@@ -141,6 +152,23 @@ in {
         if [ ! -f "${homeDirectory}/.local/share/nvim/databases/telescope_history.sqlite3" ]; then
             $DRY_RUN_CMD mkdir -p "${homeDirectory}/.local/share/nvim/databases"
             $DRY_RUN_CMD touch "${homeDirectory}/.local/share/nvim/databases/telescope_history.sqlite3"
+        fi
+    '';
+
+    home.activation.nvimLazyRestore = config.lib.dag.entryAfter ["createTelescopeHistory"] ''
+        lazyLock="${dotfilesPath}/nvim/lazy-lock.json"
+        lazyDir="${homeDirectory}/.local/share/nvim/lazy"
+        lazyStamp="${homeDirectory}/.local/state/home-manager/nvim-lazy-lock.sha256"
+
+        if [ -f "$lazyLock" ]; then
+            lockHash="$(sha256sum "$lazyLock" | cut -d" " -f1)"
+
+            if [ ! -d "$lazyDir/lazy.nvim" ] || [ "$lockHash" != "$(cat "$lazyStamp" 2>/dev/null)" ]; then
+                $DRY_RUN_CMD mkdir -p "$lazyDir" "$(dirname "$lazyStamp")"
+                $DRY_RUN_CMD env PATH="${nvimBuildPath}:$PATH" \
+                    ${pkgs.neovim}/bin/nvim --headless "+Lazy! restore" +qa
+                $DRY_RUN_CMD sh -c "printf %s \"$lockHash\" > \"$lazyStamp\""
+            fi
         fi
     '';
 }

@@ -35,6 +35,8 @@ git dotfiles <git-command>   # e.g. git dotfiles status
 [Dotbot](https://github.com/anishathalye/dotbot) (git submodule at `dotbot/`) manages symlinks from `~/.dotfiles/` into the home directory. `install.conf.yaml` defines the Linux symlink targets. `windows.conf.yml` handles Windows. `install-ubuntu.conf.yaml` is for apt package installation (used with dotbot-aptget plugin). The `install_dotbot` script syncs the submodule and runs dotbot.
 
 ### Neovim Config (`nvim/`)
+On NixOS hosts, home-manager pre-installs all plugins at the commits pinned in `nvim/lazy-lock.json` during activation (`home.activation.nvimLazyRestore` in `nixos/home.nix`), so a fresh host boots into a working nvim without a first-launch download; it re-runs only when the lockfile hash changes.
+
 All configuration lives in a **single `nvim/init.lua`** file — no split plugin files. [lazy.nvim](https://github.com/folke/lazy.nvim) is the plugin manager. LSP servers are managed via Mason (`mason.nvim` + `mason-lspconfig`). Configured LSPs: `lua_ls`, `intelephense` (PHP), `html`, `tailwindcss`, `emmet_language_server`, `twiggy_language_server`.
 
 All user-created Lua modules live under `nvim/lua/pietietjie/`. New files should be placed there and required via `require('pietietjie.<module>')`. Current modules:
