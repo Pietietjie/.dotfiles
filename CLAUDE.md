@@ -53,7 +53,7 @@ Navigation bindings (`]b`/`[b`, `]q`/`[q`, `]h`/`[h`, etc.) use `make_repeatable
 Prefix key is `Ctrl+Space`. Vi mode enabled. Session blueprints are defined in `~/tmux-sessions.json` (copied from `tmux/tmux-sessions.example.json` on first install). The `scripts/1-tmux-start.sh` script reads this JSON and creates sessions/windows/panes via fzf selection.
 
 ### Zsh (`zsh/`)
-Uses oh-my-zsh with a custom theme (`zsh/pietietjie.zsh-theme`). Plugins: artisan, npm, composer, git, zsh-autosuggestions, zsh-syntax-highlighting, docker, docker-compose. The `zsh/scrp` script is symlinked to `/usr/local/bin/scrp` (requires root).
+Uses oh-my-zsh with a custom theme (`zsh/pietietjie.zsh-theme`). Plugins: artisan, npm, composer, git, zsh-autosuggestions, zsh-syntax-highlighting, docker, docker-compose. The `zsh/scrp` script is symlinked to `/usr/local/bin/scrp` (requires root). On NixOS hosts the third-party plugins (artisan, zsh-autosuggestions, zsh-syntax-highlighting) are provided declaratively by `nixos/home.nix` into `~/.oh-my-zsh/custom/plugins/`; the `git clone` fallbacks in `zsh/.zshrc` only fire on non-Nix hosts.
 
 ### Git Config (`git/.gitconfig`)
 Heavy use of aliases. Key ones:

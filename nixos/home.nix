@@ -1,11 +1,27 @@
 # Base home configuration - shell environment
 # Host-specific GUI config is in hosts/<hostname>/home.nix
 
-{ config, lib, username, homeDir ? "/home/${username}", ... }:
+{ config, lib, pkgs, username, homeDir ? "/home/${username}", ... }:
 let
     homeDirectory = homeDir;
     dotfilesPath = "${homeDirectory}/.dotfiles";
     stateVersion = "26.05";
+
+    mkOmzPlugin = name: src: pkgs.runCommand "omz-plugin-${name}" { } ''
+        mkdir -p $out
+        cp -r ${src}/. $out/
+        chmod -R u+w $out
+        if [ ! -e "$out/${name}.plugin.zsh" ] && [ -e "$out/${name}.zsh" ]; then
+            ln -s "${name}.zsh" "$out/${name}.plugin.zsh"
+        fi
+    '';
+
+    zshArtisanSrc = pkgs.fetchFromGitHub {
+        owner = "jessarcher";
+        repo = "zsh-artisan";
+        rev = "4063d53fd310f715c7a8fb7d4e133812ef0b3128";
+        hash = "sha256-O0Tn9zQWR0i7UWJ9VtOvxjqpqz9Sj7aKogdHZSOATC0=";
+    };
 in {
     home.username = username;
     home.homeDirectory = lib.mkForce homeDirectory;
@@ -53,6 +69,23 @@ in {
 
     home.file.".oh-my-zsh/custom/themes/pietietjie.zsh-theme" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/zsh/pietietjie.zsh-theme";
+        force = true;
+    };
+
+    home.file.".oh-my-zsh/custom/plugins/artisan" = {
+        source = mkOmzPlugin "artisan" zshArtisanSrc;
+        force = true;
+    };
+
+    home.file.".oh-my-zsh/custom/plugins/zsh-autosuggestions" = {
+        source = mkOmzPlugin "zsh-autosuggestions"
+            "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
+        force = true;
+    };
+
+    home.file.".oh-my-zsh/custom/plugins/zsh-syntax-highlighting" = {
+        source = mkOmzPlugin "zsh-syntax-highlighting"
+            "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting";
         force = true;
     };
 
