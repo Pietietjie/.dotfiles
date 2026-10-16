@@ -8,9 +8,7 @@ os_type="$(uname -s)"
 case "${os_type}" in
     Linux*)
         os_type="Linux"
-        if [   -f "/etc/debian_version" ]; then
-            sudo apt update && sudo apt install -y git
-        elif grep -q '^ID=arch' /etc/os-release; then
+        if grep -q '^ID=arch' /etc/os-release; then
             sudo pacman -Sy --noconfirm git
         fi
         ;;

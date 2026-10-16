@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Two deployment paths
 
-This repo serves both NixOS hosts (the primary target) and non-Nix hosts (Arch/Ubuntu/Windows). They use different symlink mechanisms for the same config directories — check which host you are on before assuming.
+This repo serves both NixOS hosts (the primary target) and non-Nix hosts (Arch/Windows). They use different symlink mechanisms for the same config directories — check which host you are on before assuming.
 
 ### NixOS (primary)
 
@@ -27,7 +27,7 @@ Apply symlinks needing root (`/usr/local/bin/scrp`, `/etc/pkglist.txt`):
 sudo ./install_dotbot
 ```
 
-Install packages and set up from scratch (apt on Debian/Ubuntu, pacman on Arch; also builds nvim, installs nvm + oh-my-zsh, runs dotbot):
+Install packages and set up from scratch (pacman on Arch; also installs nvm + oh-my-zsh, runs dotbot):
 ```bash
 ./install
 ```
@@ -70,7 +70,7 @@ Home-manager activation scripts in `home.nix`:
 
 ### Dotbot symlink management (non-Nix only)
 
-[Dotbot](https://github.com/anishathalye/dotbot) (git submodule at `dotbot/`) manages symlinks from `~/.dotfiles/` into the home directory. `install.conf.yaml` defines the Linux symlink targets. `windows.conf.yml` handles Windows. `install-ubuntu.conf.yaml` is for apt package installation (used with the dotbot-aptget plugin). The `install_dotbot` script syncs the submodule and runs dotbot.
+[Dotbot](https://github.com/anishathalye/dotbot) (git submodule at `dotbot/`) manages symlinks from `~/.dotfiles/` into the home directory. `install.conf.yaml` defines the Linux symlink targets. `windows.conf.yml` handles Windows. The `install_dotbot` script syncs the submodule and runs dotbot.
 
 Dotbot and `home.nix` link an overlapping but not identical set of files — if you add a config directory, wire it into both.
 

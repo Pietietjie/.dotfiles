@@ -28,12 +28,10 @@ sudo ./install
 | Problem | Fix |
 |---|---|
 | nvim says "no parser for 'markdown' language" | `:TSInstall markdown markdown_inline` |
-| WSL 2 docker containers not accessible in Chromium | `sudo service apache2 stop` or `sudo systemctl stop apache2` |
 
 ## 📋 TODO
 
 **General**
-- [ ] Create a tagging system for sunsetting software/OS support
 - [ ] Include OS config including Windows ([dotbot-windows](https://github.com/kurtmckee/dotbot-windows)) & WSL
 - [ ] Move `scrp` to its own [CLI tool](https://github.com/charmbracelet/bubbletea) projectthat also manages the install & uninstall of the environment like a mini-me
 - [ ] Build a [CLI tool](https://github.com/charmbracelet/bubbletea) for managing nix builds
