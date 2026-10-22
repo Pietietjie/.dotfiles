@@ -4,6 +4,10 @@ let
     homeDirectory = "/home/${username}";
     dotfilesPath = "${homeDirectory}/.dotfiles";
 in {
+    imports = [
+        ./valent.nix
+    ];
+
     home.packages = with pkgs; [
         vimix-cursors
         vimix-icon-theme
