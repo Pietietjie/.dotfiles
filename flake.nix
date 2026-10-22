@@ -13,6 +13,10 @@
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    secrets = {
+      url = "git+ssh://git@github.com/Pietietjie/.dotfiles-secrets.git";
+      flake = false;
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
   };

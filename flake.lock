@@ -229,7 +229,8 @@
         "import-tree": "import-tree",
         "lanzaboote": "lanzaboote",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "secrets": "secrets"
       }
     },
     "rust-overlay": {
@@ -251,6 +252,22 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792570613,
+        "narHash": "sha256-czJOmPG36GAAXQtlnL6baVEeRPKFBO5upDphAQWxSzM=",
+        "ref": "refs/heads/master",
+        "rev": "bfdb0c9e96ed9ad0a27ac912c441fd521c1e0eb2",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/Pietietjie/.dotfiles-secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/Pietietjie/.dotfiles-secrets.git"
       }
     }
   },

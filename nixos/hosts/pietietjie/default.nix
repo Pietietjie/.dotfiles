@@ -18,6 +18,7 @@
       desktop-niri
       input
       regreet
+      rssguard
       lanzaboote
       documents
       games

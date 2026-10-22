@@ -120,8 +120,36 @@ Heavy use of aliases. Key ones:
 - `alacritty/` — linked by `windows.conf.yml`
 - `wezterm/`, `vim/`, `Aliases/`, `shortcuts/` — present in the repo but not linked by `home.nix`; check `windows.conf.yml` before assuming a target
 - `claude/` — Claude Code config (`CLAUDE.md`, `settings.json`, `skills/`) linked into `~/.claude/`
-- `scripts/` — numbered helper scripts (tmux start, remove swapfiles, kill apache, fix corrupt history, tmux sessions)
+- `scripts/` — numbered helper scripts (tmux start, remove swapfiles, kill apache, fix corrupt history, tmux sessions, rssguard OPML export)
 - `winget/`, `powershell/`, `powertoys/` — Windows package lists and config
+
+### Private data (`secrets` flake input)
+
+The YouTube subscription list is personal, so it lives outside this public repo in
+the **private** `Pietietjie/dotfiles-secrets` repo, consumed as a non-flake input:
+
+```nix
+secrets = {
+  url = "git+ssh://git@github.com/Pietietjie/dotfiles-secrets.git";
+  flake = false;
+};
+```
+
+`nixos/modules/rssguard.nix` does `import "${inputs.secrets}/subscriptions.nix"` and
+renders it to OPML, exposing `rssguard-opml` to write the file out for import.
+
+After editing the list in the private repo, commit and push it, then here:
+
+```bash
+nix flake update secrets
+```
+
+Fetching needs SSH access to the private repo. Run `nix flake update secrets` as your
+user (not under `sudo`) so your key is used — the content lands in `/nix/store` and the
+later `sudo nixos-rebuild` reuses the locked revision without re-fetching.
+
+Note this keeps the list off GitHub, not off the machine: `/nix/store` is world-readable,
+so the subscriptions are plaintext locally.
 
 ### Commit convention
 

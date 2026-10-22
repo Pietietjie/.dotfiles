@@ -58,6 +58,7 @@ hotkey-overlay { skip-at-startup; }
 spawn-at-startup "noctalia-shell"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "valent"
+spawn-at-startup "rssguard"
 spawn-at-startup "keepassxc"
 spawn-at-startup "obsidian"
 spawn-sh-at-startup "dot=$HOME/.dotfiles $HOME/.local/bin/scrp --script 1-tmux-start.sh --blueprint 0-dotfiles --dont_attach"
@@ -165,6 +166,11 @@ window-rule {
     open-floating true
     open-focused true
     block-out-from "screen-capture"
+}
+window-rule {
+    match app-id="io.github.martinrotter.rssguard"
+    open-focused true
+    open-on-workspace "productivity"
 }
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#

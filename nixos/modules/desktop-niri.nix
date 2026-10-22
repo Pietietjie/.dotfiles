@@ -24,7 +24,6 @@
     noctalia-qs
     noctalia-shell
     # GUIs
-    rssguard
     keepassxc
     fuzzel
     kitty
