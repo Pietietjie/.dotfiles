@@ -214,7 +214,7 @@ binds {
     XF86AudioMicMute     allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
     XF86AudioPlay        allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
     XF86AudioStop        allow-when-locked=true { spawn-sh "noctalia-shell ipc call media pause"; }
-    XF86AudioPrev        allow-when-locked=true { spawn-sh "octalia-shell ipc call media previous"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
     // brightness
     XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "brightness" "increase"; }
