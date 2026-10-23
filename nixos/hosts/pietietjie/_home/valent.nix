@@ -31,21 +31,9 @@ let
             name = "Monitors Off";
             command = "niri msg action power-off-monitors";
         };
-        "f81cbd0f-1e50-46dc-92b8-505eac3036ca" = {
-            name = "Play/Pause";
-            command = "noctalia-shell ipc call media playPause";
-        };
-        "3ca45331-c292-460b-a8d2-5760aafac23c" = {
-            name = "Mute Output";
-            command = "noctalia-shell ipc call volume muteOutput";
-        };
         "70384760-c497-493b-8e48-591e26c31ab7" = {
             name = "Screenshot";
             command = "niri msg action screenshot-screen";
-        };
-        "22828f62-cbda-48d0-94a8-516f63463646" = {
-            name = "Sync Notes";
-            command = "systemctl --user start notes-sync";
         };
         "6edbeb09-bbd4-4d00-9a5b-943159c6c69b" = {
             name = "Sync Passwords";
