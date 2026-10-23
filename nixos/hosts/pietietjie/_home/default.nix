@@ -245,11 +245,14 @@ in {
         force = true;
     };
 
-    xdg.configFile."fcitx5" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/fcitx5";
-        recursive = true;
-        force = true;
-    };
+    home.activation.copyFcitx5Config = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+        fcitx5Dir="${config.xdg.configHome}/fcitx5"
+        if [ -L "$fcitx5Dir" ]; then
+            $DRY_RUN_CMD rm -f "$fcitx5Dir"
+        fi
+        $DRY_RUN_CMD mkdir -p "$fcitx5Dir"
+        $DRY_RUN_CMD ${pkgs.rsync}/bin/rsync -a --no-perms --chmod=u+rwX "${dotfilesPath}/fcitx5/" "$fcitx5Dir/"
+    '';
 
     home.file.".XCompose".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/nixos/etc/xcompose.conf";
 
