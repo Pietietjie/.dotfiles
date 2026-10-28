@@ -2131,7 +2131,25 @@ local servers = {
       phpBin = false
     }
   },
-  intelephense = {},
+  intelephense = {
+    intelephense = {
+      files = {
+        exclude = {
+          "**/.git/**",
+          "**/.svn/**",
+          "**/.hg/**",
+          "**/CVS/**",
+          "**/.DS_Store/**",
+          "**/node_modules/**",
+          "**/bower_components/**",
+          "**/vendor/**/{Tests,tests}/**",
+          "**/.history/**",
+          "**/vendor/**/vendor/**",
+          "**/.direnv/**",
+        },
+      },
+    },
+  },
   html = {},
   ["tailwindcss"] = {},
   ["emmet_language_server"] = {},
