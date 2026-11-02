@@ -754,7 +754,7 @@
         "panelPosition": "follow_bar",
         "randomIntervalSec": 660,
         "setWallpaperOnAllMonitors": true,
-        "showHiddenFiles": false,
+        "showHiddenFiles": true,
         "skipStartupTransition": false,
         "solidColor": "#1a1a2e",
         "sortOrder": "date_desc",
