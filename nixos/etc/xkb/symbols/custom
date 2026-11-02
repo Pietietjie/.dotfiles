@@ -1,0 +1,4 @@
+partial modifier_keys
+xkb_symbols "compose_f20" {
+    key <FK20> { [ Multi_key ] };
+};

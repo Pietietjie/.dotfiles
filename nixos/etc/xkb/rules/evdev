@@ -1,0 +1,4 @@
+! include %S/evdev
+
+! option = symbols
+  compose:f20 = +custom(compose_f20)

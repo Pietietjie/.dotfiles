@@ -23,7 +23,9 @@
     };
   };
   environment.etc."XCompose".source = ../etc/xcompose.conf;
-  services.xserver.xkb.options = "compose:ralt,ctrl:nocaps";
+  environment.etc."xkb/rules/evdev".source = ../etc/xkb/rules/evdev;
+  environment.etc."xkb/symbols/custom".source = ../etc/xkb/symbols/custom;
+  services.xserver.xkb.options = "compose:f20,ctrl:nocaps";
   systemd.user.services.fcitx5 = {
     description = "Fcitx5 input method";
     wantedBy = [ "default.target" ];

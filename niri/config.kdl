@@ -11,7 +11,7 @@ input {
         xkb {
             layout "us,gr"
             variant ",polytonic"
-            options "compose:ralt,ctrl:nocaps"
+            options "compose:f20,ctrl:nocaps"
         }
         numlock
     }
