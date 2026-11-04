@@ -41,7 +41,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 - [ ] Make that telescope buffers do not filter out buffers of pages that would be filtered by the normal file filters
 
 **NixOS**
-- [ ] make that nix shell is more like the normal shell (theme etc)
+- [x] make that nix shell is more like the normal shell (theme etc)
 - [x] Make that the fans spin increases when the temp increases
 - [x] Weasel
 - [ ] look at fcitx's clipboard history
