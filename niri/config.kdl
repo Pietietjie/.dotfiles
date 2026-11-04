@@ -55,7 +55,7 @@ workspace "productivity"
 workspace "gaming"
 
 hotkey-overlay { skip-at-startup; }
-spawn-at-startup "noctalia-shell"
+spawn-sh-at-startup "QS_ICON_THEME=Vimix noctalia-shell"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "valent"
 spawn-at-startup "rssguard"
