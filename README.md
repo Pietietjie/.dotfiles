@@ -48,6 +48,15 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 - [ ] add fingerprint support (drivers does not support my device)
 - [x] make that niri workspaces are automatically there
 - [ ] change the screen saver
+
+**Windows**
+- [ ] Customizing
+- [ ] Improve install & uninstall
+- [ ] make that the debloat is part of the install
+- [ ] Make that more of my apps are managed via the installed & config is handled by dotfiles
+- [ ] Look at some kind of tiling window manager
+- [ ] Look at having apps launch automatically
+
 ## 🔧 Tools to look at
 
 **CLI tools**
