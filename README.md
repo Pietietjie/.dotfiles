@@ -43,7 +43,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 **NixOS**
 - [ ] make that nix shell is more like the normal shell (theme etc)
 - [x] Make that the fans spin increases when the temp increases
-- [ ] Weasel
+- [x] Weasel
 - [ ] look at fcitx's clipboard history
 - [ ] Customize regreet or whatever it is called
 - [ ] add fingerprint support (drivers does not support my device)
