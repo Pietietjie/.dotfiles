@@ -27,14 +27,14 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 ## 📋 TODO
 
 **General**
-- [ ] Move `scrp` to its own [CLI tool](https://github.com/charmbracelet/bubbletea) projectthat also manages the install & uninstall of the environment like a mini-me
+- [ ] Move `scrp` to its own [CLI tool](https://github.com/charmbracelet/bubbletea) project that also manages the install & uninstall of the environment like a mini-me
 
 **Neovim**
 - [x] Open links in the browser
 - [ ] fix random new lines when pasting
 - [ ] fix tailwind sort
-- [ ] fix blade formating & other lsp stuff
-- [ ] Fix emojis breaking spacing on Windows (caused by LSP, snippets, tokyo night theme, & `termguicolors`)
+- [ ] fix blade formatting & other LSP stuff
+- [ ] Fix emojis breaking spacing on Windows (caused by LSP, snippets, Tokyo night theme, & `termguicolors`)
 - [ ] Add a [debugger](https://github.com/mfussenegger/nvim-dap)
 - [ ] Copy code with highlighting (like VS Code does for Word)
 - [ ] Make that telescope buffers do not filter out buffers of pages that would be filtered by the normal file filters
@@ -48,6 +48,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 - [ ] add fingerprint support (drivers does not support my device)
 - [x] make that niri workspaces are automatically there
 - [ ] change the screen saver
+- [ ] make that the fuzzy finder for launching apps is either a shortcut on the bar or a 
 
 **Windows**
 - [ ] Customizing
