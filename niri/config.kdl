@@ -326,6 +326,7 @@ binds {
     Ctrl+Alt+Delete { quit; }
     Mod+Shift+P { power-off-monitors; }
     Mod+V hotkey-overlay-title="clipboard" { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Mod+N hotkey-overlay-title="clipboard" { spawn "noctalia-shell" "ipc" "call" "plugin:notes-scratchpad" "togglePanel"; }
     // Mod+C { spawn "noctalia-shell" "ipc" "call" "launcher" "calculator"; }
     Mod+S hotkey-overlay-title="Control Center" { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
     Mod+E hotkey-overlay-title="Session Menu" { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }

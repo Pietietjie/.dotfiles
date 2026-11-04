@@ -102,14 +102,7 @@
                     "useDistroLogo": false
                 },
                 {
-                    "colorizeSystemIcon": "none",
-                    "colorizeSystemText": "none",
-                    "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "rocket",
-                    "iconColor": "none",
-                    "id": "Launcher",
-                    "useDistroLogo": false
+                    "id": "plugin:notes-scratchpad"
                 }
             ],
             "left": [
@@ -204,15 +197,6 @@
             ],
             "right": [
                 {
-                    "defaultSettings": {
-                        "githubGistId": "",
-                        "githubToken": "",
-                        "notes": "[]",
-                        "syncEnabled": false
-                    },
-                    "id": "plugin:sticky-notes"
-                },
-                {
                     "deviceNativePath": "BAT0",
                     "displayMode": "graphic-clean",
                     "hideIfIdle": false,
@@ -256,15 +240,6 @@
                     "id": "Clock",
                     "tooltipFormat": "HH:mm ddd, MMM dd",
                     "useCustomFont": false
-                },
-                {
-                    "defaultSettings": {
-                        "githubGistId": "",
-                        "githubToken": "",
-                        "notes": "[]",
-                        "syncEnabled": false
-                    },
-                    "id": "plugin:sticky-notes"
                 }
             ]
         }
