@@ -28,7 +28,6 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 
 **General**
 - [ ] Move `scrp` to its own [CLI tool](https://github.com/charmbracelet/bubbletea) projectthat also manages the install & uninstall of the environment like a mini-me
-- [ ] Build a [CLI tool](https://github.com/charmbracelet/bubbletea) for managing nix builds
 
 **Neovim**
 - [x] Open links in the browser
