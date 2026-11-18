@@ -4,6 +4,10 @@
 
 { config, pkgs, lib, ... }:
 {
+  imports = [
+    ./modules/tealdeer.nix
+  ];
+
   networking.hostName = lib.mkDefault "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -62,7 +66,6 @@
     python3
     git
     tmux
-    tldr
     bat
     eza
     zoxide
