@@ -6,6 +6,7 @@
 {
   imports = [
     ./modules/tealdeer.nix
+    ./modules/home-permissions.nix
   ];
 
   networking.hostName = lib.mkDefault "nixos"; # Define your hostname.
