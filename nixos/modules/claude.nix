@@ -13,23 +13,25 @@ in {
   users.users.claude = {
     isNormalUser = true;
     description = "Sandboxed Claude Code user";
-    extraGroups = [ "devshare" ];
     hashedPassword = "!";# no password login; reach it via sudo/machinectl
     homeMode = "700";
   };
 
   users.users.${username} = {
-    extraGroups = [ "devshare" ];
     homeMode = "710";
   };
 
-  # Shared project directory, setgid so new files keep the group
   systemd.tmpfiles.rules = [
     "z ${homeDir} 0710 ${username} devshare -"
+    "A+ ${homeDir} - - - - user:claude:--x"
+
     "d ${projectDir} 2770 ${username} devshare -"
+    "A+ ${projectDir} - - - - user:claude:rwX,user:${username}:rwX,default:user:claude:rwX,default:user:${username}:rwX,default:group::---"
+
+    "z ${dotfilesPath} 2770 ${username} devshare -"
+    "A+ ${dotfilesPath} - - - - user:claude:rwX,user:${username}:rwX,default:user:claude:rwX,default:user:${username}:rwX,default:group::---"
   ];
 
-  # Enforce Claude Code's sandbox as policy the claude user can't override
   environment.etc."claude-code/managed-settings.json".text = builtins.toJSON {
     sandbox = {
       enabled = true;
@@ -55,12 +57,11 @@ in {
       userName = "Pieter";
       userEmail = "21083972+Pietietjie@users.noreply.github.com";
       settings = {
-        safe.directory = [ "${projectDir}/*" ];
+        safe.directory = [ "${projectDir}/*" "${dotfilesPath}" ];
         init.defaultBranch = "main";
       };
     };
 
-    # Claude Code config
     home.file.".claude/settings.json" = {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/claude/settings.json";
         force = true;
