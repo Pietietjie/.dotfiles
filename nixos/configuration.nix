@@ -6,6 +6,7 @@
 {
   imports = [
     ./modules/tealdeer.nix
+    ./modules/claude.nix
     ./modules/home-permissions.nix
   ];
 
@@ -63,33 +64,30 @@
     starship
     libnotify
     gnutar
-    sbctl
+    sbctl # pietietjie?
     python3
-    git
-    tmux
+    git # home
+    tmux # homee
     bat
     eza
     zoxide
     wget
-    unzip
-    claude-code
+    unzip # home
 
     # edit & dep
     neovim
     fzf
-    zig
-    gcc
+    zig # look at maybe just having this for building whatever nvim needs it for
+    gcc # look at maybe just having this for building whatever nvim needs it for
     tree-sitter
     ripgrep
     nodejs
     fd
     sqlite
     sqlite.out
-    jq
-
+    jq # home
   ];
 
-  system.stateVersion = "25.11";
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Automatic garbage collection

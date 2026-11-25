@@ -120,6 +120,9 @@ alias cl='clear'
 alias change="sudo update-alternatives --config"
 alias fzcp="cp \$(fzf)"
 alias fzmv="mv \$(fzf)"
+if command -v claude &> /dev/null; then
+    alias claude="sudo -iu claude claude"
+fi
 
 # update_dot="g dotfiles pl"
 # "${update_dot}" &>/dev/null & disown;

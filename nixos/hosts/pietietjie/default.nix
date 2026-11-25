@@ -1,5 +1,6 @@
 { config, ... }:
 {
+  # system.stateVersion = "25.11";
   nixosHosts.pietietjie = {
     system = "x86_64-linux";
     defaultUsername = "pietietjie";
