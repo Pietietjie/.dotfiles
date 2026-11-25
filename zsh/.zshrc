@@ -120,8 +120,10 @@ alias cl='clear'
 alias change="sudo update-alternatives --config"
 alias fzcp="cp \$(fzf)"
 alias fzmv="mv \$(fzf)"
-if command -v claude &> /dev/null; then
-    alias claude="sudo -iu claude claude"
+if command -v claude &> /dev/null && [ "$USER" != "claude" ]; then
+    function claude() {
+        sudo -iu claude zsh -c "cd \"${(q)PWD}\" && claude ${(q)@}"
+    }
 fi
 
 # update_dot="g dotfiles pl"
