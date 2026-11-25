@@ -22,7 +22,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash \"/home/pieter/.claude/plugins/cache/caveman/caveman/c2ed24b3e5d4/hooks/caveman-statusline.sh\""
+    "command": "f=$(ls -d \"$HOME\"/.claude/plugins/cache/caveman/caveman/*/src/hooks/caveman-statusline.sh 2>/dev/null | sort -V | tail -1); [ -n \"$f\" ] && exec bash \"$f\""
   },
   "enabledPlugins": {
     "caveman@caveman": true
