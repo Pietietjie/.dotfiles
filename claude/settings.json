@@ -40,9 +40,10 @@
     "autoAllowBashIfSandboxed": true,
     "filesystem": {
       "allowWrite": [
+        "/home/weasel/proj/",
+        "/home/weasel/.dotfiles",
         "~/proj",
-        "~/.dotfiles",
-        "/mnt/c/Users/piete/Pictures/Screenshots"
+        "~/.dotfiles"
       ]
     }
   },
