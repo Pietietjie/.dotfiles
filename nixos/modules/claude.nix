@@ -70,11 +70,5 @@ in {
         source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/claude/CLAUDE.md";
         force = true;
     };
-
-    # home.file.".claude/skills" = {
-    #     source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/claude/skills";
-    #     recursive = true;
-    #     force = true;
-    # };
   };
 }
