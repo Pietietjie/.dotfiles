@@ -23,6 +23,7 @@
       documents
       games
       keymapp
+      claude
     ]);
 
     homeManagerModules = [

@@ -43,7 +43,6 @@ in {
     home.stateVersion = stateVersion;
 
     home.packages = with pkgs; [
-      claude-code
       bubblewrap   # sandbox filesystem isolation
       socat        # sandbox network proxy
       git

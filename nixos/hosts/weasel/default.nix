@@ -10,6 +10,7 @@
     ]
     ++ (with config.flake.modules.nixos; [
       mysql-client
+      claude
     ]);
 
     homeManagerModules = [

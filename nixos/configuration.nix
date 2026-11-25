@@ -6,7 +6,6 @@
 {
   imports = [
     ./modules/tealdeer.nix
-    ./modules/claude.nix
     ./modules/home-permissions.nix
   ];
 
