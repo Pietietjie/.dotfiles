@@ -14,7 +14,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "notify-send 'Claude: Waiting for your input'"
+            "command": "command -v notify-send >/dev/null 2>&1 && [ -n \"$DBUS_SESSION_BUS_ADDRESS\" ] && notify-send 'Claude: Waiting for your input' 2>/dev/null; exit 0"
           }
         ]
       }
