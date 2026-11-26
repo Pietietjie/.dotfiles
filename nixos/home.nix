@@ -5,7 +5,7 @@
 let
     homeDirectory = homeDir;
     dotfilesPath = "${homeDirectory}/.dotfiles";
-    stateVersion = "26.05";
+    # stateVersion = "26.05";
 
     mkOmzPlugin = name: src: pkgs.runCommand "omz-plugin-${name}" { } ''
         mkdir -p $out
@@ -36,7 +36,7 @@ let
 in {
     home.username = username;
     home.homeDirectory = lib.mkForce homeDirectory;
-    home.stateVersion = stateVersion;
+    # home.stateVersion = stateVersion;
 
     programs.home-manager.enable = true;
 

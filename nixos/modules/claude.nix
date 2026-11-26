@@ -2,7 +2,7 @@
 let
   projectDir = "${homeDir}/proj";
   dotfilesPath = "${homeDir}/.dotfiles";
-  stateVersion = "26.05";
+  # stateVersion = "26.05";
 in {
   environment.systemPackages = with pkgs; [
     claude-code
@@ -23,7 +23,7 @@ in {
 
   systemd.tmpfiles.rules = [
     "z ${homeDir} 0710 ${username} devshare -"
-    "A+ ${homeDir} - - - - user:claude:--x"
+    "a+ ${homeDir} - - - - user:claude:--x"
 
     "d ${projectDir} 2770 ${username} devshare -"
     "A+ ${projectDir} - - - - user:claude:rwX,user:${username}:rwX,default:user:claude:rwX,default:user:${username}:rwX,default:group::---"
@@ -40,7 +40,7 @@ in {
   };
 
   home-manager.users.claude = { pkgs, config, ... }: {
-    home.stateVersion = stateVersion;
+    # home.stateVersion = stateVersion;
 
     home.packages = with pkgs; [
       bubblewrap   # sandbox filesystem isolation
@@ -51,11 +51,16 @@ in {
 
     home.sessionVariables.CLAUDE_PROJECT_DIR = projectDir;
 
+    # .zshrc exports dot="$HOME/.dotfiles"; point it at the real repo
+    home.file.".dotfiles".source = config.lib.file.mkOutOfStoreSymlink dotfilesPath;
+
     programs.git = {
       enable = true;
-      userName = "Pieter";
-      userEmail = "21083972+Pietietjie@users.noreply.github.com";
       settings = {
+        user = {
+          name = "Pieter";
+          email = "21083972+Pietietjie@users.noreply.github.com";
+        };
         safe.directory = [ "${projectDir}/*" "${dotfilesPath}" ];
         init.defaultBranch = "main";
       };
