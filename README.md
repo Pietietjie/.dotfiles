@@ -49,6 +49,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pietietjie/.dotfiles/m
 - [x] make that niri workspaces are automatically there
 - [ ] change the screen saver
 - [ ] make that the fuzzy finder for launching apps is either a shortcut on the bar or a 
+- [ ] make that some tools are only installed for the main user 
 
 **Windows**
 - [ ] Customizing
