@@ -1,8 +1,7 @@
-{ pkgs, username, homeDir ? "/home/${username}", ... }:
+{ pkgs, username, stateVersion, homeDir ? "/home/${username}", ... }:
 let
   projectDir = "${homeDir}/proj";
   dotfilesPath = "${homeDir}/.dotfiles";
-  # stateVersion = "26.05";
 in {
   environment.systemPackages = with pkgs; [
     claude-code
@@ -40,7 +39,7 @@ in {
   };
 
   home-manager.users.claude = { pkgs, config, ... }: {
-    # home.stateVersion = stateVersion;
+    home.stateVersion = stateVersion;
 
     home.packages = with pkgs; [
       bubblewrap   # sandbox filesystem isolation

@@ -1,11 +1,10 @@
 # Base home configuration - shell environment
 # Host-specific GUI config is in hosts/<hostname>/home.nix
 
-{ config, lib, pkgs, username, homeDir ? "/home/${username}", ... }:
+{ config, lib, pkgs, username, stateVersion, homeDir ? "/home/${username}", ... }:
 let
     homeDirectory = homeDir;
     dotfilesPath = "${homeDirectory}/.dotfiles";
-    # stateVersion = "26.05";
 
     mkOmzPlugin = name: src: pkgs.runCommand "omz-plugin-${name}" { } ''
         mkdir -p $out
@@ -18,13 +17,15 @@ let
 
     nvimBuildPath = lib.makeBinPath (with pkgs; [
         coreutils
-        git
-        gnumake
-        gcc
         nodejs
-        unzip
         curl
         tree-sitter
+        tmux
+        bat
+        eza
+        zoxide
+        unzip
+        jq
     ]);
 
     zshArtisanSrc = pkgs.fetchFromGitHub {
@@ -36,7 +37,7 @@ let
 in {
     home.username = username;
     home.homeDirectory = lib.mkForce homeDirectory;
-    # home.stateVersion = stateVersion;
+    home.stateVersion = stateVersion;
 
     programs.home-manager.enable = true;
 

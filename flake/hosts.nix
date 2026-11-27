@@ -10,6 +10,9 @@ let
         type = lib.types.str;
         default = name;
       };
+      stateVersion = lib.mkOption {
+        type = lib.types.str;
+      };
       modules = lib.mkOption {
         type = lib.types.listOf lib.types.unspecified;
         default = [ ];
@@ -27,6 +30,7 @@ let
       username = if envUser != "" then envUser else hostCfg.defaultUsername;
       specialArgs = {
         inherit inputs username hostname;
+        inherit (hostCfg) stateVersion;
         homeDir = "/home/${username}";
       };
       overlayModule = config.flake.modules.nixos._overlay or { };
@@ -36,6 +40,7 @@ let
       inherit specialArgs;
       modules = [
         overlayModule
+        { system.stateVersion = hostCfg.stateVersion; }
         ../nixos/configuration.nix
         inputs.home-manager.nixosModules.home-manager
         {

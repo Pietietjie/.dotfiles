@@ -62,16 +62,9 @@
     # cli
     starship
     libnotify
-    gnutar
     sbctl # pietietjie?
     python3
     git # home
-    tmux # homee
-    bat
-    eza
-    zoxide
-    wget
-    unzip # home
 
     # edit & dep
     neovim
@@ -84,7 +77,6 @@
     fd
     sqlite
     sqlite.out
-    jq # home
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
